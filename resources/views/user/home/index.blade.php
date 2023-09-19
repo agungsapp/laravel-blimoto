@@ -2130,65 +2130,7 @@
 										<div>
 												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
 														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/vespa-1652082723.png" alt=""
-																class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/royal-enfield-1651738163.png" alt=""
-																class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/triumph.png" alt="" class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/bajaj.png" alt="" class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/sym-1652082655.png" alt=""
-																class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/mv-agusta.png" alt="" class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/kymco.png" alt="" class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/piaggio-1652082560.png" alt=""
-																class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/diablo.png" alt="" class="img-mitra" />
-												</div>
-										</div>
-										<div>
-												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
-														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/sm-sport-1652082624.png" alt=""
+														<img src="https://imgcdn.oto.com/brandlogo/motor/kawasaki-1652082467.png" alt=""
 																class="img-mitra" />
 												</div>
 										</div>

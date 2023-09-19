@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\LoginAdminController;
+use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Auth\LoginController;
@@ -37,6 +39,11 @@ Route::resource('/brosur', BrosurController::class);
 
 // admin area
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('dashboard', DashboardController::class);
-    Route::resource('motor', MotorController::class);
+    Route::get('login', [LoginAdminController::class, 'index']);
+    Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
+    Route::post('logout', [LogoutAdminController::class, 'logout'])->name('logout');
+    Route::middleware(['auth.admin:admin'])->group(function () {
+        Route::resource('dashboard', DashboardController::class);
+        Route::resource('motor', MotorController::class);
+    });
 });
