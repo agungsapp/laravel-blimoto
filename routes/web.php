@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\MotorTerbaruController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+// User Area
 Route::resource('/user', HomeController::class);
+Route::resource('/motor_terbaru', MotorTerbaruController::class);
