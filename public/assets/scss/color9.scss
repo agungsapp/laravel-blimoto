@@ -1,0 +1,13 @@
+@import 'theme/variables';
+$theme-color1:#35a7b1;
+$theme-color2:#f98925;
+// $light-green1:rgba($theme-color2, 0.45);
+@import 'theme/custom-animat';
+@import 'theme/style';
+@import 'theme/menu';
+@import 'theme/theme-rtl';
+@import 'theme/responsive';
+@import 'theme/theme-dark';
+body{
+	font-family: $font-7;
+}
