@@ -1,0 +1,17 @@
+@import 'theme/variables';
+$theme-color1:#3635aa;
+$theme-color2:#46d8d5;
+// $theme-color1:#37d19e;
+// $theme-color2:#20aca9;
+$light-green1:rgba($theme-color2, 0.45);
+@import 'theme/custom-animat';
+@import 'theme/style';
+@import 'theme/menu';
+@import 'theme/theme-rtl';
+@import 'theme/responsive';
+@import 'theme/theme-dark';
+body{	
+	&.dark{
+		background-color: $light-layout  !important;
+	}
+}

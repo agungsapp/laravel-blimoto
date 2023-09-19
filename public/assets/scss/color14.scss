@@ -1,0 +1,11 @@
+@import 'theme/variables';
+$theme-color1:#1e9a05;
+// $theme-color2:#ecbd0e;
+$theme-color2:#f3725c;
+// $light-green1:rgba($theme-color2, 0.45);
+@import 'theme/custom-animat';
+@import 'theme/style';
+@import 'theme/menu';
+@import 'theme/theme-rtl';
+@import 'theme/responsive';
+@import 'theme/theme-dark';
