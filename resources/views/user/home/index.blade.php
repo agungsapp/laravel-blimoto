@@ -1,288 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-		<title>BliMoto</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<meta name="description"
-				content="Blimoto adalah startup pembelian motor baru dengan harga terbaik, proses cepat dan mudah serta terpercaya untuk wilayah jabodetabek " />
-		<meta name="keywords" content="Blimoto" />
-		<meta name="author" content="Blimoto" />
-		<link rel="icon" href="assets/images/favicon/favicon.webp" type="image/x-icon" />
-		<link rel="shortcut icon" href="assets/images/favicon/favicon.webp" type="image/x-icon" />
-		<!--Google font-->
-		<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet" />
-		<link
-				href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-				rel="stylesheet" />
-		<link
-				href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
-				rel="stylesheet" />
-		<link
-				href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-				rel="stylesheet" />
-		<!--icon css-->
-		<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/themify.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-		<!--Slick slider css-->
-		<link rel="stylesheet" type="text/css" href="assets/css/slick.css" />
-		<link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css" />
-		<!--Animate css-->
-		<link rel="stylesheet" type="text/css" href="assets/css/animate.css" />
-		<!-- Bootstrap css -->
-		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
-		<!-- Theme css -->
-		<link rel="stylesheet" type="text/css" href="assets/css/color10.css" media="screen" id="color" />
-
-		<!-- select 2 css & js -->
-		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet"
-				href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css" />
-
-		<!-- css custom agung -->
-		<link rel="stylesheet" type="text/css" href="custom.css" />
-
-		<link rel="stylesheet" href="assets/owl/owl.carousel.min.css" />
-		<link rel="stylesheet" href="assets/owl/owl.theme.default.min.css" />
-</head>
-
-<body class="bg-light">
-		<!-- loader start -->
-		<!-- <div class="loader-wrapper">
-						<div>
-								<img src="assets/images/custom/loader.gif" alt="loader" />
-						</div>
-				</div> -->
-		<!-- loader end -->
-
-		<!--header start-->
-		<header id="stickyheader" class="header-style2">
-				<div class="header7">
-						<div class="custom-container">
-								<div class="row">
-										<div class="col-12">
-												<div class="header-contain">
-														<div class="logo-block">
-																<div class="mobilecat-toggle mobile-search icon-md-block d-sm-none">
-																		<i class="fa fa-search"></i>
-																</div>
-
-																<div class="brand-logo logo-sm-center">
-																		<a href="index.html">
-																				<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
-																		</a>
-																</div>
-														</div>
-														<div class="header-search ajax-search the-basics">
-																<div class="input-group">
-																		<div class="input-group-text bg-basic">
-																				<select class="">
-																						<option class="bg-basic">Kategori</option>
-																						<option class="bg-basic">Matic</option>
-																						<option class="bg-basic">Bebek/Cub</option>
-																						<option class="bg-basic">Sport</option>
-																						<option class="bg-basic">Big Bike</option>
-																				</select>
-																		</div>
-																		<input type="search" class="form-control typeahead" placeholder="Cari motor impian anda !" />
-																		<div class="input-group-text">
-																				<i class="fa fa-search"></i>
-																		</div>
-																</div>
-														</div>
-														<div class="categroy-contain">
-																<ul id="main-menu-header"
-																		class="sm pixelstrap sm-horizontal align-items-center justify-content-center d-flex">
-																		<li>
-																				<a class="dark-menu-item"><i class="fa fa-map-marker"></i> Lokasi</a>
-																				<ul>
-																						<li><a href="index.html">Jakarta Selatan</a></li>
-																						<li><a href="layout-2.html">Depok</a></li>
-																						<li><a href="layout-2.html">Bogor</a></li>
-																						<li><a href="layout-2.html">Tanggerang</a></li>
-																						<li><a href="layout-2.html">Bekasi</a></li>
-																				</ul>
-																		</li>
-																		<li>
-																				<a href="layout-2.html"><button type="button" class="btn bg-basic text-white"
-																								style="padding-left: 2.5rem; padding-right: 2.5rem">
-																								Masuk
-																						</button></a>
-																		</li>
-																		<li>
-																				<a href="layout-2.html"><button type="button" class="btn btn-outline-dark"
-																								style="padding-left: 2.5rem; padding-right: 2.5rem">
-																								Daftar
-																						</button></a>
-																		</li>
-																</ul>
-																<div class="toggle-nav">
-																		<i class="fa fa-bars sidebar-bar"></i>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-						<div class="searchbar-input">
-								<div class="input-group">
-										<div class="input-group-append">
-												<span class="input-group-text">
-														<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-																x="0px" y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
-																style="enable-background: new 0 0 28.931 28.932" xml:space="preserve">
-																<g>
-																		<path
-																				d="M28.344,25.518l-6.114-6.115c1.486-2.067,2.303-4.537,2.303-7.137c0-3.275-1.275-6.355-3.594-8.672C18.625,1.278,15.543,0,12.266,0C8.99,0,5.909,1.275,3.593,3.594C1.277,5.909,0.001,8.99,0.001,12.266c0,3.276,1.275,6.356,3.592,8.674c2.316,2.316,5.396,3.594,8.673,3.594c2.599,0,5.067-0.813,7.136-2.303l6.114,6.115c0.392,0.391,0.902,0.586,1.414,0.586c0.513,0,1.024-0.195,1.414-0.586C29.125,27.564,29.125,26.299,28.344,25.518z M6.422,18.111c-1.562-1.562-2.421-3.639-2.421-5.846S4.86,7.983,6.422,6.421c1.561-1.562,3.636-2.422,5.844-2.422s4.284,0.86,5.845,2.422c1.562,1.562,2.422,3.638,2.422,5.845s-0.859,4.283-2.422,5.846c-1.562,1.562-3.636,2.42-5.845,2.42S7.981,19.672,6.422,18.111z" />
-																</g>
-														</svg>
-												</span>
-										</div>
-										<input type="text" class="form-control" placeholder="Cari Motor" />
-										<div class="input-group-append">
-												<span class="input-group-text close-searchbar">
-														<svg viewBox="0 0 329.26933 329" xmlns="http://www.w3.org/2000/svg">
-																<path
-																		d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0" />
-														</svg>
-												</span>
-										</div>
-								</div>
-						</div>
-				</div>
-
-				<div id="navbar-wrapper" class="category-header7 bg-white">
-						<div class="custom-container navbar2-child">
-								<div class="row">
-										<div class="col-12">
-												<div class="category-contain">
-														<div class="category-left">
-																<div class="header-category3">
-																		<div class="category-heandle open">
-																				<div class="heandle-right">
-																						<div class="point"></div>
-																				</div>
-																		</div>
-																</div>
-																<div class="logo-block">
-																		<div class="mobilecat-toggle mobile-search icon-md-block">
-																				<i class="fa fa-search"></i>
-																		</div>
-																		<div class="brand-logo logo-sm-center">
-																				<a href="index.html ">
-																						<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
-																				</a>
-																		</div>
-																</div>
-														</div>
-														<div class="category-right mx-auto">
-																<div class="menu-block">
-																		<nav id="main-nav">
-																				<div class="toggle-nav">
-																						<i class="fa fa-bars sidebar-bar"></i>
-																				</div>
-																				<ul id="main-menu" class="sm pixelstrap sm-horizontal">
-																						<li>
-																								<div class="mobile-back text-right">
-																										Back<i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
-																								</div>
-																						</li>
-																						<li>
-																								<a class="dark-menu-item text-dark" href="javascript:void(0)">Motor</a>
-																								<ul>
-																										<li>
-																												<a href="motor-terbaru.html">Motor Terbaru</a>
-																										</li>
-																										<li>
-																												<a href="bandingkan-motor.html">Bandingkan Motor</a>
-																										</li>
-																										<li>
-																												<a href="motor-termurah.html">Tukar Motor</a>
-																										</li>
-																										<li>
-																												<a href="brosur.html">Brosur Motor</a>
-																										</li>
-																										<li>
-																												<a href="dealer.html">Dealer</a>
-																										</li>
-																								</ul>
-																						</li>
-																						<li>
-																								<a class="dark-menu-item text-dark" href="javascript:void(0)">Kredit</a>
-																								<ul>
-																										<li>
-																												<a href="simulasi-kredit.html">Simulasi</a>
-																										</li>
-																										<li>
-																												<a href="brosur_kredit.html">Brosur</a>
-																										</li>
-																										<li><a href="about-page.html">Syarat Kredit</a></li>
-																										<li>
-																												<a href="info-leasing.html">Info Leasing</a>
-																										</li>
-																								</ul>
-																						</li>
-
-																						<li>
-																								<a class="dark-menu-item text-dark" href="promo.html">Promosi</a>
-																						</li>
-
-																						<li>
-																								<a class="dark-menu-item text-dark" href="cek-bi.html">Cek Slik
-																								</a>
-																						</li>
-
-																						<li>
-																								<a class="dark-menu-item text-dark" href="blog.html">Berita</a>
-																						</li>
-																						<li>
-																								<a class="dark-menu-item text-dark" href="blog.html">Event</a>
-																						</li>
-																				</ul>
-																		</nav>
-																</div>
-														</div>
-														<div class="icon-block">
-																<div class="toggle-nav">
-																		<i class="fa fa-bars sidebar-bar"></i>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-						<div class="searchbar-input ajax-search the-basics">
-								<div class="input-group bg-basic">
-										<span class="input-group-text">
-												<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-														x="0px" y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
-														style="enable-background: new 0 0 28.931 28.932" xml:space="preserve">
-														<g>
-																<path
-																		d="M28.344,25.518l-6.114-6.115c1.486-2.067,2.303-4.537,2.303-7.137c0-3.275-1.275-6.355-3.594-8.672C18.625,1.278,15.543,0,12.266,0C8.99,0,5.909,1.275,3.593,3.594C1.277,5.909,0.001,8.99,0.001,12.266c0,3.276,1.275,6.356,3.592,8.674c2.316,2.316,5.396,3.594,8.673,3.594c2.599,0,5.067-0.813,7.136-2.303l6.114,6.115c0.392,0.391,0.902,0.586,1.414,0.586c0.513,0,1.024-0.195,1.414-0.586C29.125,27.564,29.125,26.299,28.344,25.518z M6.422,18.111c-1.562-1.562-2.421-3.639-2.421-5.846S4.86,7.983,6.422,6.421c1.561-1.562,3.636-2.422,5.844-2.422s4.284,0.86,5.845,2.422c1.562,1.562,2.422,3.638,2.422,5.845s-0.859,4.283-2.422,5.846c-1.562,1.562-3.636,2.42-5.845,2.42S7.981,19.672,6.422,18.111z" />
-														</g>
-												</svg>
-										</span>
-										<input type="search" class="form-control typeahead" placeholder="Search a Product" />
-										<span class="input-group-text close-searchbar">
-												<svg viewBox="0 0 329.26933 329" xmlns="http://www.w3.org/2000/svg">
-														<path
-																d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0" />
-												</svg>
-										</span>
-								</div>
-						</div>
-				</div>
-		</header>
-		<!--header end-->
-
+@extends('layouts_user.main')
+@section('content')
 		<!-- new hook slider start -->
 		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
@@ -327,8 +44,8 @@
 														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Kota</label>
-																		<select id="SelectKota" class="js-example-basic-single form-select form-select-sm"
-																				style="width: 100%" name="merk">
+																		<select id="SelectKota" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																				name="merk">
 																				<option value="0" selected>-- Pilih Kota --</option>
 																				<option value="JA">Jakarta</option>
 																				<option value="BO">Bogor</option>
@@ -343,8 +60,7 @@
 														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">merk</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%"
-																				name="merk">
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="merk">
 																				<option value="0" selected>-- Merk --</option>
 																				<option value="HO">Honda</option>
 																				<option value="KA">Kawasaki</option>
@@ -358,8 +74,7 @@
 														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Tipe</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%"
-																				name="tipe">
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tipe">
 																				<option value="0" selected>-- Pilih Tipe --</option>
 																				<option value="MA">Matic</option>
 																				<option value="BE">Bebek/Cub</option>
@@ -388,8 +103,7 @@
 														<div class="col-12 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Tenor</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%"
-																				name="tenor">
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tenor">
 																				<option value="0" selected>-- Pilih Tenor --</option>
 																				<option value="12">12 Bulan</option>
 																				<option value="18">18 Bulan</option>
@@ -401,16 +115,16 @@
 														</div>
 
 														<!-- <div class="col-md-6">
-																		<label for="dp" class="form-label">DP</label>
-																				<input type="range" min="100000" max="20000000" class="form-range" id="dp">
-																				<output class="bubble"></output>
-																</div> -->
+																								<label for="dp" class="form-label">DP</label>
+																										<input type="range" min="100000" max="20000000" class="form-range" id="dp">
+																										<output class="bubble"></output>
+																						</div> -->
 
 														<!-- <div class="col-md-6 range-wrap">
-																				<label for="dp" class="form-label">DP</label>
-																				<input type="range" min="100000" max="1000000" class="form-range range" oninput="bubble.value=value"/>
-																				<output id="bubble" class="bubble">50</output>
-																</div> -->
+																										<label for="dp" class="form-label">DP</label>
+																										<input type="range" min="100000" max="1000000" class="form-range range" oninput="bubble.value=value"/>
+																										<output id="bubble" class="bubble">50</output>
+																						</div> -->
 
 														<div class="col-md-6 range-wrap">
 																<label for="dp" class="form-label">DP</label>
@@ -420,8 +134,8 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																		<h3 class="range-title">DP / Angsuran</h3>
-																</div> -->
+																								<h3 class="range-title">DP / Angsuran</h3>
+																						</div> -->
 														<div class="d-flex align-items-center mt-5">
 																<div class="col-8 d-flex">
 																		<button class="btn bg-basic btn-submit text-white" type="submit">
@@ -456,7 +170,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-												<li class=""><a href="tab-6">books</a></li> -->
+																		<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -1917,38 +1631,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																								<div>
-																											<h3>best discount </h3>
-																											<h4>cordless tools</h4>
-																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																														<div>
+																																	<h3>best discount </h3>
+																																	<h4>cordless tools</h4>
+																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																														</div>
+																											</div> -->
+
+								<!-- <div class="col-md-4">
+																								<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																											<div class="collection-banner-contain">
+																														<div>
+																																	<h3>best discount </h3>
+																																	<h4>cordless tools</h4>
+																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																														</div>
+																											</div>
 																								</div>
 																					</div> -->
 
 								<!-- <div class="col-md-4">
-																		<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																					<div class="collection-banner-contain">
-																								<div>
-																											<h3>best discount </h3>
-																											<h4>cordless tools</h4>
-																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																								<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																											<div class="collection-banner-contain">
+																														<div>
+																																	<h3>up to 50% off</h3>
+																																	<h4>replaair parts</h4>
+																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																														</div>
+																											</div>
 																								</div>
-																					</div>
-																		</div>
-															</div> -->
-
-								<!-- <div class="col-md-4">
-																		<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																					<div class="collection-banner-contain">
-																								<div>
-																											<h3>up to 50% off</h3>
-																											<h4>replaair parts</h4>
-																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																								</div>
-																					</div>
-																		</div>
-															</div> -->
+																					</div> -->
 						</div>
 				</div>
 		</section>
@@ -2490,8 +2204,7 @@
 						<div class="row service-block">
 								<div class="col-lg-3 col-md-6 col-sm-12">
 										<div class="media">
-												<svg height="679pt" viewBox="0 -117 679.99892 679" width="679pt"
-														xmlns="http://www.w3.org/2000/svg">
+												<svg height="679pt" viewBox="0 -117 679.99892 679" width="679pt" xmlns="http://www.w3.org/2000/svg">
 														<path
 																d="m12.347656 378.382812h37.390625c4.371094 37.714844 36.316407 66.164063 74.277344 66.164063 37.96875 0 69.90625-28.449219 74.28125-66.164063h241.789063c4.382812 37.714844 36.316406 66.164063 74.277343 66.164063 37.96875 0 69.902344-28.449219 74.285157-66.164063h78.890624c6.882813 0 12.460938-5.578124 12.460938-12.460937v-352.957031c0-6.882813-5.578125-12.464844-12.460938-12.464844h-432.476562c-6.875 0-12.457031 5.582031-12.457031 12.464844v69.914062h-105.570313c-4.074218.011719-7.890625 2.007813-10.21875 5.363282l-68.171875 97.582031-26.667969 37.390625-9.722656 13.835937c-1.457031 2.082031-2.2421872 4.558594-2.24999975 7.101563v121.398437c-.09765625 3.34375 1.15624975 6.589844 3.47656275 9.003907 2.320312 2.417968 5.519531 3.796874 8.867187 3.828124zm111.417969 37.386719c-27.527344 0-49.851563-22.320312-49.851563-49.847656 0-27.535156 22.324219-49.855469 49.851563-49.855469 27.535156 0 49.855469 22.320313 49.855469 49.855469 0 27.632813-22.21875 50.132813-49.855469 50.472656zm390.347656 0c-27.53125 0-49.855469-22.320312-49.855469-49.847656 0-27.535156 22.324219-49.855469 49.855469-49.855469 27.539063 0 49.855469 22.320313 49.855469 49.855469.003906 27.632813-22.21875 50.132813-49.855469 50.472656zm140.710938-390.34375v223.34375h-338.375c-6.882813 0-12.464844 5.578125-12.464844 12.460938 0 6.882812 5.582031 12.464843 12.464844 12.464843h338.375v79.761719h-66.421875c-4.382813-37.710937-36.320313-66.15625-74.289063-66.15625-37.960937 0-69.898437 28.445313-74.277343 66.15625h-192.308594v-271.324219h89.980468c6.882813 0 12.464844-5.582031 12.464844-12.464843 0-6.882813-5.582031-12.464844-12.464844-12.464844h-89.980468v-31.777344zm-531.304688 82.382813h99.703125v245.648437h-24.925781c-4.375-37.710937-36.3125-66.15625-74.28125-66.15625-37.960937 0-69.90625 28.445313-74.277344 66.15625h-24.929687v-105.316406l3.738281-5.359375h152.054687c6.882813 0 12.460938-5.574219 12.460938-12.457031v-92.226563c0-6.882812-5.578125-12.464844-12.460938-12.464844h-69.796874zm-30.160156 43h74.777344v67.296875h-122.265625zm0 0" />
 												</svg>
@@ -2503,8 +2216,8 @@
 								<div class="col-lg-3 col-md-6 col-sm-12">
 										<div class="media">
 												<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-														viewBox="0 0 417.12 417.12" style="enable-background:new 0 0 417.12 417.12;" xml:space="preserve">
+														xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 417.12 417.12"
+														style="enable-background:new 0 0 417.12 417.12;" xml:space="preserve">
 														<g>
 																<g>
 																		<path
@@ -2626,124 +2339,6 @@
 		</section>
 		<!-- Parallax banner end -->
 
-		<!-- footer start -->
-		<footer>
-				<div class="footer1">
-						<div class="container">
-								<div class="row">
-										<div class="col-12">
-												<div class="footer-main">
-														<div class="footer-box">
-																<div class="footer-title mobile-title">
-																		<h5>about</h5>
-																</div>
-																<div class="footer-contant">
-																		<div class="footer-logo">
-																				<a href="index.html">
-																						<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
-																				</a>
-																		</div>
-																		<p>
-																				blimoto adalah startup pembelian motor baru dengan harga
-																				terbaik, proses cepat dan mudah serta terpercaya untuk
-																				wilayah jabodetabek
-																		</p>
-																</div>
-														</div>
-														<div class="footer-box">
-																<div class="footer-title">
-																		<h5>Menu</h5>
-																</div>
-																<div class="footer-contant">
-																		<ul>
-																				<li><a href="#testimonial">Testimonial</a></li>
-																				<li><a href="dealer.html">Dealer</a></li>
-																				<li>
-																						<a href="javascript:void(0)">Tentang Kami</a>
-																				</li>
-																				<li>
-																						<a href="javascript:void(0)">Berita</a>
-																				</li>
-																		</ul>
-																</div>
-														</div>
-														<div class="footer-box">
-																<div class="footer-title">
-																		<h5>Kontak kami</h5>
-																</div>
-																<div class="footer-contant">
-																		<ul class="contact-list">
-																				<li>
-																						<i class="fa fa-map-marker"></i>BliMoto<br />
-																						Jakarta -<span>3654123</span>
-																				</li>
-																				<li>
-																						<i class="fa fa-phone"></i>call us:
-																						<span>123-456-7898</span>
-																				</li>
-																				<li>
-																						<i class="fa fa-envelope-o"></i>email us:
-																						support@blimoto.com
-																				</li>
-																				<li><i class="fa fa-fax"></i>fax <span>123456</span></li>
-																		</ul>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-				</div>
-				<div class="subfooter dark-footer">
-						<div class="container">
-								<div class="row">
-										<div class="col-xl-6 col-md-8 col-sm-12">
-												<div class="footer-left">
-														<p>2023 Copy Right by BliMoto Company</p>
-												</div>
-										</div>
-										<div class="col-xl-6 col-md-4 col-sm-12">
-												<div class="footer-right">
-														<ul class="sosiyal">
-																<li>
-																		<a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
-																</li>
-																<li>
-																		<a href="javascript:void(0)">
-																				<i class="bx bxl-tiktok"></i>
-																		</a>
-																</li>
-																<li>
-																		<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
-																</li>
-																<li>
-																		<a href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
-																</li>
-																<li>
-																		<a href="javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
-																</li>
-														</ul>
-												</div>
-										</div>
-								</div>
-						</div>
-				</div>
-		</footer>
-		<!-- footer end -->
-
-		<!-- video modal start -->
-		<div class="modal modal-v-sec fade" id="v-section1" role="dialog">
-				<div class="modal-dialog modal-dialog-centered">
-						<!-- Modal content-->
-						<div class="modal-content">
-								<!-- <i class="close ti-close" data-bs-dismiss="modal"></i>            -->
-								<iframe src="https://www.youtube.com/embed/XUNKidriodQ?si=S99O0CtYIJo7vYu-"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowfullscreen></iframe>
-						</div>
-				</div>
-		</div>
-		<!-- video modal start -->
 
 		<!-- modal area kenapa harus blimoto start -->
 		<div class="modal modal-v-sec fade" id="v-founder" role="dialog">
@@ -2783,51 +2378,10 @@
 				</div>
 		</div>
 		<!-- modal area kenapa harus blimoto end -->
+@endsection
 
-		<!-- add to  setting bar  end-->
-		<!-- latest jquery-->
-		<script src="assets/js/jquery-3.3.1.min.js"></script>
-		<!-- slick js-->
-		<script src="assets/js/slick.js"></script>
 
-		<!-- tool tip js -->
-
-		<script src="assets/js/tippy-popper.min.js"></script>
-		<script src="assets/js/tippy-bundle.iife.min.js"></script>
-
-		<!-- popper js-->
-		<script src="assets/js/popper.min.js"></script>
-
-		<!-- menu js-->
-		<script src="assets/js/menu.js"></script>
-
-		<!-- ajax search js -->
-		<script src="assets/js/typeahead.bundle.min.js"></script>
-		<script src="assets/js/typeahead.jquery.min.js"></script>
-		<script src="assets/js/ajax-custom.js"></script>
-
-		<!-- father icon -->
-		<script src="assets/js/feather.min.js"></script>
-		<script src="assets/js/feather-icon.js"></script>
-
-		<!-- Bootstrap js-->
-		<script src="assets/js/bootstrap.js"></script>
-		<!-- Bootstrap js-->
-		<script src="assets/js/bootstrap-notify.min.js"></script>
-		<!-- Theme js-->
-		<script src="assets/js/slider-animat-three.js"></script>
-		<script src="assets/js/script.js"></script>
-		<script src="assets/js/modal.js"></script>
-
-		<!-- select 2 js  -->
-		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-		<script src="assets/js/custom/custom.js"></script>
-
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
-		<script src="assets/owl/owl.carousel.min.js"></script>
-
+@push('script')
 		<script>
 				// gpt
 				function updateBubble(input) {
@@ -2853,6 +2407,4 @@
 						}).format(value);
 				}
 		</script>
-</body>
-
-</html>
+@endpush
