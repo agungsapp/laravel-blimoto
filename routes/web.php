@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return redirect()->to('/home');
 });
 
 
 // User Area
-Route::resource('/user', HomeController::class);
+Route::resource('/home', HomeController::class);
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
