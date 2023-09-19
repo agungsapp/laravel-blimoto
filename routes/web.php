@@ -1,17 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\LoginAdminController;
-use App\Http\Controllers\Admin\Auth\LogoutAdminController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\MotorController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\User\BandingkanController;
-use App\Http\Controllers\User\BrosurController;
-use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\MotorTerbaruController;
-use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,19 +11,32 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+use App\Http\Controllers\Admin\Auth\LoginAdminController;
+use App\Http\Controllers\Admin\Auth\LogoutAdminController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MotorController;
+use App\Http\Controllers\User\BandingkanController;
+use App\Http\Controllers\User\BrosurController;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\MotorTerbaruController;
+use App\Http\Controllers\User\UserLoginController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->to('/home');
 });
 
 
+// user Login
+Route::get('/login', [UserLoginController::class, 'index'])->name('login');
+Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
+Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
+
 // User Area
 Route::resource('/home', HomeController::class);
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
-
-
 
 // admin area
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -47,3 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('motor', MotorController::class);
     });
 });
+
+
+
+// agung -> form login & register user.
+
+// next -> seeder motor, dinamiskan motor.
