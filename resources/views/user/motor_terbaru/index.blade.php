@@ -1,4 +1,4 @@
-@extends('layouts_user.main')
+@extends('user.layouts.main')
 @section('content')
 		<!-- breadcrumb start -->
 		<div class="breadcrumb-main bg-dark">

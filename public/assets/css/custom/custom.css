@@ -10,56 +10,56 @@
 
 /* color area */
 .bg-basic {
-  background-color: #dd0202 !important;
+    background-color: #dd0202 !important;
 }
 .text-basic {
-  color: #dd0202 !important;
+    color: #dd0202 !important;
 }
 
 .text-black {
-  color: #444444;
+    color: #444444;
 }
 
 .text-doff {
-  color: #292929 !important;
+    color: #292929 !important;
 }
 
 .bg-doff {
-  background-color: #292929 !important;
+    background-color: #292929 !important;
 }
 
 .scroll-white {
-  background-color: #fff;
+    background-color: #fff;
 }
 /* color area end */
 
 .viewmore {
-  opacity: 0 !important;
+    opacity: 0 !important;
 }
 
 .best-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 7px 25px;
-  background-color: #dd0202;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 7px 25px;
+    background-color: #dd0202;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 50px;
 }
 .best-label div {
-  font-size: 10px;
-  color: white;
+    font-size: 10px;
+    color: white;
 }
 
 .btn-basic {
-  background-color: #dd0202 !important;
-  color: #fff !important;
+    background-color: #dd0202 !important;
+    color: #fff !important;
 }
 
 /* select2 */
 .select2-results__options {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 /* range area start */
@@ -98,36 +98,36 @@
 
 /* range area start */
 .range-wrap {
-  position: relative;
-  /* margin: 0 auto 3rem; */
+    position: relative;
+    /* margin: 0 auto 3rem; */
 }
 
 .range {
-  width: 100%;
+    width: 100%;
 }
 
 .bubble {
-  background: red;
-  color: white;
-  padding: 4px 12px;
-  position: absolute;
-  border-radius: 4px;
-  left: 50%;
-  transform: translateX(-50%);
+    background: red;
+    color: white;
+    padding: 4px 12px;
+    position: absolute;
+    border-radius: 4px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .bubble::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: red;
-  top: 30px;
-  left: 50%;
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: red;
+    top: 30px;
+    left: 50%;
 }
 
 .range-wrap output {
-  margin-top: -30px;
+    margin-top: -30px;
 }
 /* range area end */
 
@@ -135,42 +135,42 @@
 
 /* card versus styling start */
 .versus {
-  position: absolute;
-  left: 50%;
-  top: 20%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
 }
 
 .versus div {
-  background-color: white !important;
-  padding: 8px 10px;
+    background-color: white !important;
+    padding: 8px 10px;
 }
 
 .versus div p {
-  color: black;
-  font-size: 20px;
-  font-weight: bold;
-  border-box: 1px solid rgba(0, 0, 0, 0.5);
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    border-box: 1px solid rgba(0, 0, 0, 0.5);
 }
 /* card versus styling end */
 
 /* review card / rating */
 
 .owl-carousel .item {
-  min-height: 210px;
+    min-height: 210px;
 }
 
 .owl-carousel .item .card-title {
-  font-weight: 700;
-  margin-bottom: 0.5em;
-  font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    font-size: 16px;
 }
 .owl-carousel .item .card-text {
-  padding-top: 0.5em;
-  font-size: 14px;
-  line-height: 1.4;
-  margin-bottom: 0;
-  letter-spacing: 0.05em;
+    padding-top: 0.5em;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 0;
+    letter-spacing: 0.05em;
 }
 
 /* review card / rating end */
@@ -178,49 +178,49 @@
 /* area compare start */
 
 .desc-versus {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .desc-versus h3 {
-  color: white;
+    color: white;
 }
 
 /* area compare end */
 
 /* jumbotron/ hook start  */
 section.tools-slide .slide-1 div .slide-main img {
-  width: 300px !important;
+    width: 300px !important;
 }
 
 section.tools-slide
-  .slide-1
-  div
-  .slide-main
-  .custom-container
-  .row
-  div
-  .slide-contain
-  div
-  h2 {
-  color: #3b3b3b;
-  text-shadow: 3px white !important;
+    .slide-1
+    div
+    .slide-main
+    .custom-container
+    .row
+    div
+    .slide-contain
+    div
+    h2 {
+    color: #3b3b3b;
+    text-shadow: 3px white !important;
 }
 #sampel {
-  color: #3b3b3b;
-  font-size: 80px;
-  -webkit-text-stroke: 3px white;
-  text-stroke: 200px black;
-  /* text-shadow: 3px 3px 3px white !important;
+    color: #3b3b3b;
+    font-size: 80px;
+    -webkit-text-stroke: 3px white;
+    text-stroke: 200px black;
+    /* text-shadow: 3px 3px 3px white !important;
       text-shadow: 3px white !important; */
 }
 
 a.btn.btn-rounded.bg-basic.btn-hook {
-  position: absolute;
-  left: 18%;
-  top: 65%;
-  font-size: 30px;
+    position: absolute;
+    left: 18%;
+    top: 65%;
+    font-size: 30px;
 }
 /* a.btn.btn-rounded.bg-basic.btn-hook {
   position: absolute;
@@ -233,239 +233,252 @@ a.btn.btn-rounded.bg-basic.btn-hook {
 
 /* simluasi start */
 section .simulasi-container .simulasi-wrapper .card {
-  margin-top: -4rem;
+    margin-top: -4rem;
 }
 /* simluasi end */
 
 .select-categori {
-  background-color: #dd0202 !important;
+    background-color: #dd0202 !important;
 }
 
 .slide-download-populer div .card.border-0 {
-  width: 14rem !important;
+    width: 14rem !important;
 }
 
 .carousel-caption {
-  position: absolute;
-  bottom: 15%;
-  left: -25%;
-}
-
-.why {
-  font-size: 24px;
+    position: absolute;
+    bottom: 15%;
+    left: -25%;
 }
 
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  section .simulasi-container .simulasi-wrapper .card {
-    margin-top: 3rem;
-  }
-  .owl-carousel .item {
-    min-height: 130px;
-    /* padding: 1px; */
-  }
-  .owl-carousel .item .card-text {
-    padding-top: 0.5em;
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 0;
-    letter-spacing: 0.05em;
-  }
-  .owl-carousel .item div p:first-of-type {
-    font-size: 12px;
-  }
-  .owl-carousel .item div:last-child p:last-of-type {
-    font-size: 10px;
-  }
+    section .simulasi-container .simulasi-wrapper .card {
+        margin-top: 3rem;
+    }
+    .owl-carousel .item {
+        min-height: 130px;
+        /* padding: 1px; */
+    }
+    .owl-carousel .item .card-text {
+        padding-top: 0.5em;
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 0;
+        letter-spacing: 0.05em;
+    }
+    .owl-carousel .item div p:first-of-type {
+        font-size: 12px;
+    }
+    .owl-carousel .item div:last-child p:last-of-type {
+        font-size: 10px;
+    }
 
-  .btn-submit,
-  .btn-ajukan,
-  .text-view {
-    font-size: 12px;
-  }
-  .slide-download-populer div .card.border-0 {
-    width: 19rem !important;
-  }
+    .btn-submit,
+    .btn-ajukan,
+    .text-view {
+        font-size: 12px;
+    }
+    .slide-download-populer div .card.border-0 {
+        width: 19rem !important;
+    }
 
-  .carousel-caption {
-    position: absolute;
-    bottom: 2%;
-    left: -25%;
-  }
+    .carousel-caption {
+        position: absolute;
+        bottom: 2%;
+        left: -25%;
+    }
 
-  .carousel-caption a {
-    font-size: 6px;
-    /* padding: 20px; */
-  }
-
-  .why {
-    font-size: 1px !important;
-  }
+    .carousel-caption a {
+        font-size: 6px;
+        /* padding: 20px; */
+    }
+    #why {
+        font-size: 19px;
+        margin-top: -4rem;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  section .simulasi-container .simulasi-wrapper .card {
-    margin-top: 3rem;
-  }
+    section .simulasi-container .simulasi-wrapper .card {
+        margin-top: 3rem;
+    }
 
-  .owl-carousel .item {
-    min-height: 180px;
-  }
-  .owl-carousel .item .card-text {
-    padding-top: 0.5em;
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 0;
-    letter-spacing: 0.05em;
-  }
-  .owl-carousel .item div p:first-of-type {
-    font-size: 12px;
-  }
-  .owl-carousel .item div:last-child p:last-of-type {
-    font-size: 10px;
-  }
-  .slide-download-populer div .card.border-0 {
-    width: 14rem !important;
-  }
-  .carousel-caption a {
-    font-size: 10px;
-    /* padding: 20px; */
-  }
+    .owl-carousel .item {
+        min-height: 180px;
+    }
+    .owl-carousel .item .card-text {
+        padding-top: 0.5em;
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 0;
+        letter-spacing: 0.05em;
+    }
+    .owl-carousel .item div p:first-of-type {
+        font-size: 12px;
+    }
+    .owl-carousel .item div:last-child p:last-of-type {
+        font-size: 10px;
+    }
+    .slide-download-populer div .card.border-0 {
+        width: 14rem !important;
+    }
+    .carousel-caption a {
+        font-size: 10px;
+        /* padding: 20px; */
+    }
+    #why {
+        font-size: 23px;
+        margin-top: -6rem;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  section .simulasi-container .simulasi-wrapper .card {
-    margin-top: -3rem;
-  }
+    section .simulasi-container .simulasi-wrapper .card {
+        margin-top: -3rem;
+    }
 
-  .versus div {
-    background-color: white !important;
-    padding: 3px 5px;
-  }
+    .versus div {
+        background-color: white !important;
+        padding: 3px 5px;
+    }
 
-  .versus div p {
-    font-size: 16px;
-  }
+    .versus div p {
+        font-size: 16px;
+    }
 
-  .desc-versus h3 {
-    font-size: 12px;
-  }
+    .desc-versus h3 {
+        font-size: 12px;
+    }
 
-  .desc-versus a {
-    font-size: 10px;
-    padding: 5px 10px !important;
-  }
-  .slide-download-populer div .card.border-0 {
-    width: 14rem !important;
-  }
-  .carousel-caption a {
-    font-size: 12px;
-  }
+    .desc-versus a {
+        font-size: 10px;
+        padding: 5px 10px !important;
+    }
+    .slide-download-populer div .card.border-0 {
+        width: 14rem !important;
+    }
+    .carousel-caption a {
+        font-size: 12px;
+    }
+    #why {
+        font-size: 23px;
+        margin-top: 1rem;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .versus div {
-    background-color: white !important;
-    padding: 8px 10px;
-  }
+    .versus div {
+        background-color: white !important;
+        padding: 8px 10px;
+    }
 
-  .versus div p {
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    border-box: 1px solid rgba(0, 0, 0, 0.5);
-  }
+    .versus div p {
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        border-box: 1px solid rgba(0, 0, 0, 0.5);
+    }
 
-  .desc-versus {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+    .desc-versus {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-  .desc-versus h3 {
-    color: white;
-  }
+    .desc-versus h3 {
+        color: white;
+    }
 
-  .desc-versus a {
-    padding: 5px 10px !important;
-    font-size: 12px;
-  }
-  .owl-carousel .item {
-    min-height: 180px;
-  }
-  .owl-carousel .item .card-text {
-    padding-top: 0.5em;
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 0;
-    letter-spacing: 0.05em;
-  }
-  .owl-carousel .item div p:first-of-type {
-    font-size: 12px;
-  }
+    .desc-versus a {
+        padding: 5px 10px !important;
+        font-size: 12px;
+    }
+    .owl-carousel .item {
+        min-height: 180px;
+    }
+    .owl-carousel .item .card-text {
+        padding-top: 0.5em;
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 0;
+        letter-spacing: 0.05em;
+    }
+    .owl-carousel .item div p:first-of-type {
+        font-size: 12px;
+    }
 
-  .slide-download-populer div .card.border-0 {
-    width: 13rem !important;
-  }
-  /* .owl-carousel .item div:last-child p:last-of-type {
+    .slide-download-populer div .card.border-0 {
+        width: 13rem !important;
+    }
+    /* .owl-carousel .item div:last-child p:last-of-type {
     font-size: 10px;
   } */
+
+    #why {
+        font-size: 33px;
+        margin-top: 4rem;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  .versus div {
-    background-color: white !important;
-    padding: 8px 10px;
-  }
+    .versus div {
+        background-color: white !important;
+        padding: 8px 10px;
+    }
 
-  .versus div p {
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    border-box: 1px solid rgba(0, 0, 0, 0.5);
-  }
+    .versus div p {
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        border-box: 1px solid rgba(0, 0, 0, 0.5);
+    }
 
-  .desc-versus {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+    .desc-versus {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-  .desc-versus h3 {
-    color: white;
-    font-size: 23px;
-  }
+    .desc-versus h3 {
+        color: white;
+        font-size: 23px;
+    }
 
-  .desc-versus a {
-    padding: 5px 10px;
-    font-size: 14px;
-  }
+    .desc-versus a {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
 
-  .slide-download-populer div .card.border-0 {
-    width: 13rem !important;
-  }
+    .slide-download-populer div .card.border-0 {
+        width: 13rem !important;
+    }
 
-  .carousel-caption {
-    position: absolute;
-    bottom: 20%;
-    left: -25%;
-  }
+    .carousel-caption {
+        position: absolute;
+        bottom: 20%;
+        left: -25%;
+    }
 
-  .carousel-caption a {
-    font-size: 1px;
-  }
+    .carousel-caption a {
+        font-size: 1px;
+    }
+    #why {
+        font-size: 38px;
+        margin-top: 4rem;
+    }
 }
 /* ======================== RESPONSIVE AREA END ===================== */
 
 .header-search .input-group .input-group-text {
-  padding-left: 25px;
-  padding-right: 25px;
-  background-color: #dd0202;
-  color: #ffffff;
-  border: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #dd0202;
+    color: #ffffff;
+    border: none;
 }
