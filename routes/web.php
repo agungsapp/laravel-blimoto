@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/user', HomeController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
