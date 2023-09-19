@@ -21,5 +21,5 @@ Route::get('/', function () {
 
 
 // User Area
-Route::resource('/user', HomeController::class);
+Route::resource('/home', HomeController::class);
 Route::resource('/motor_terbaru', MotorTerbaruController::class);

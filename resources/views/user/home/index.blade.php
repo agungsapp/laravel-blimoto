@@ -863,7 +863,7 @@
 												</div>
 												<div class="collection-banner-contain">
 														<div>
-																<h1 class="text-doff">Kenapa Harus BliMoto ?</h1>
+																<h1 id="why" class="text-doff">Kenapa Harus BliMoto ?</h1>
 														</div>
 												</div>
 										</div>
