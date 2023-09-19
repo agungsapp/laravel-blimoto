@@ -11,6 +11,9 @@ class LoginAdminController extends Controller
 {
     public function index()
     {
+        if (Auth::guard('admin')->check()) {
+            return redirect()->to('admin/dashboard');
+        }        
         return view('admin.auth.admin-login');
     }
 
