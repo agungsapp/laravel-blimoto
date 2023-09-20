@@ -13,7 +13,7 @@ class LoginAdminController extends Controller
     {
         if (Auth::guard('admin')->check()) {
             return redirect()->to('admin/dashboard');
-        }        
+        }
         return view('admin.auth.admin-login');
     }
 
@@ -33,8 +33,6 @@ class LoginAdminController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->intended('admin/dashboard');
         }
-
-        // dd(Auth::guard('admin')->attempt($credentials));
         return redirect()->back()->withErrors([
             'error' => 'The provided credentials do not match our records.',
         ]);

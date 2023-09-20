@@ -43,6 +43,12 @@
 										<span>Data Motor</span>
 								</a>
 						</li>
+						<li>
+								<a href="{{ route('admin.type-merk') }}">
+										<i class="fa fa-motorcycle"></i>
+										<span>Data Type & Merk Motor</span>
+								</a>
+						</li>
 						<li class="treeview">
 								<a href="#">
 										<i class="fa fa-link"></i>

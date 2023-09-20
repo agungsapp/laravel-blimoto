@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Merk extends Model
 {
+    public $timestamps = false;
+    protected $table = 'merk';
     protected $fillable = [
-        'name'
+        'nama'
     ];
 }
