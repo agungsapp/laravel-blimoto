@@ -19,7 +19,7 @@
 														</div>
 
 														<div class="brand-logo logo-sm-center">
-																<a href="index.html">
+																<a href="{{ route('home.index') }}">
 																		<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
 																</a>
 														</div>
@@ -120,7 +120,7 @@
 																		<i class="fa fa-search"></i>
 																</div>
 																<div class="brand-logo logo-sm-center">
-																		<a href="index.html ">
+																		<a href="{{ route('home.index') }}">
 																				<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
 																		</a>
 																</div>
@@ -154,7 +154,7 @@
 																										<a href="{{ route('brosur.index') }}">Brosur Motor</a>
 																								</li>
 																								<li>
-																										<a href="dealer.html">Dealer</a>
+																										<a href="{{ route('dealer.index') }}">Dealer</a>
 																								</li>
 																						</ul>
 																				</li>
@@ -162,14 +162,14 @@
 																						<a class="dark-menu-item text-dark" href="javascript:void(0)">Kredit</a>
 																						<ul>
 																								<li>
-																										<a href="simulasi-kredit.html">Simulasi</a>
+																										<a href="{{ route('simulasi_kredit.index') }}">Simulasi</a>
 																								</li>
 																								<li>
-																										<a href="brosur_kredit.html">Brosur</a>
+																										<a href="{{ route('brosur_kredit.index') }}">Brosur</a>
 																								</li>
-																								<li><a href="about-page.html">Syarat Kredit</a></li>
+																								<li><a href="{{ route('syarat_kredit.index') }}">Syarat Kredit</a></li>
 																								<li>
-																										<a href="info-leasing.html">Info Leasing</a>
+																										<a href="{{ route('info_leasing.index') }}">Info Leasing</a>
 																								</li>
 																						</ul>
 																				</li>

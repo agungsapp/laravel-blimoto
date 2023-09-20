@@ -17,8 +17,13 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
+use App\Http\Controllers\User\BrosurKreditController;
+use App\Http\Controllers\User\DealerController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InfoLeasingController;
 use App\Http\Controllers\User\MotorTerbaruController;
+use App\Http\Controllers\User\SimulasiKreditController;
+use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserLoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +39,17 @@ Route::get('/register', [UserRegisterController::class, 'index'])->name('registe
 
 // User Area
 Route::resource('/home', HomeController::class);
+// motor menu
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
+Route::resource('/dealer', DealerController::class);
+// kredit menu
+Route::resource('/simulasi_kredit', SimulasiKreditController::class);
+Route::resource('/brosur_kredit', BrosurKreditController::class);
+Route::resource('/syarat_kredit', SyaratKreditController::class);
+Route::resource('/info_leasing', InfoLeasingController::class);
+
 
 // admin area
 Route::prefix('admin')->name('admin.')->group(function () {
