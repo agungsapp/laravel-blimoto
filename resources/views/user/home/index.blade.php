@@ -99,11 +99,24 @@
 												</div>
 												<!-- baris 2 -->
 												<div class="row">
+														<!-- model motor -->
+														<div class="col-6 col-md-3">
+																<div class="form-group">
+																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Model</label>
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tenor">
+																				<option value="0" selected>-- Pilih Tenor --</option>
+																				<option value="1">Beat</option>
+																				<option value="2">Beat Street</option>
+																				<option value="3">Genio</option>
+																		</select>
+																</div>
+														</div>
 														<!-- tenor -->
-														<div class="col-12 col-md-3">
+														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Tenor</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tenor">
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																				name="tenor">
 																				<option value="0" selected>-- Pilih Tenor --</option>
 																				<option value="12">12 Bulan</option>
 																				<option value="18">18 Bulan</option>
@@ -113,19 +126,7 @@
 																		</select>
 																</div>
 														</div>
-
-														<!-- <div class="col-md-6">
-																																<label for="dp" class="form-label">DP</label>
-																																		<input type="range" min="100000" max="20000000" class="form-range" id="dp">
-																																		<output class="bubble"></output>
-																														</div> -->
-
-														<!-- <div class="col-md-6 range-wrap">
-																																		<label for="dp" class="form-label">DP</label>
-																																		<input type="range" min="100000" max="1000000" class="form-range range" oninput="bubble.value=value"/>
-																																		<output id="bubble" class="bubble">50</output>
-																														</div> -->
-
+														{{-- range input --}}
 														<div class="col-md-6 range-wrap">
 																<label for="dp" class="form-label">DP</label>
 																<input type="range" min="100000" max="20000000" class="form-range range" step="50000"
@@ -134,8 +135,11 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																																<h3 class="range-title">DP / Angsuran</h3>
-																														</div> -->
+																																								<h3 class="range-title">DP / Angsuran</h3>
+																																						</div> -->
+
+												</div>
+												<div class="row">
 														<div class="d-flex align-items-center mt-5">
 																<div class="col-8 d-flex">
 																		<button class="btn bg-basic btn-submit text-white" type="submit">
@@ -170,7 +174,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																										<li class=""><a href="tab-6">books</a></li> -->
+																																		<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -1631,38 +1635,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																						<div>
-																																									<h3>best discount </h3>
-																																									<h4>cordless tools</h4>
-																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																						</div>
-																																			</div> -->
+																																														<div>
+																																																	<h3>best discount </h3>
+																																																	<h4>cordless tools</h4>
+																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																														</div>
+																																											</div> -->
 
 								<!-- <div class="col-md-4">
-																																<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																			<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																			<div class="collection-banner-contain">
-																																						<div>
-																																									<h3>best discount </h3>
-																																									<h4>cordless tools</h4>
-																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																						</div>
-																																			</div>
-																																</div>
-																													</div> -->
+																																								<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																											<div class="collection-banner-contain">
+																																														<div>
+																																																	<h3>best discount </h3>
+																																																	<h4>cordless tools</h4>
+																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																														</div>
+																																											</div>
+																																								</div>
+																																					</div> -->
 
 								<!-- <div class="col-md-4">
-																																<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																			<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																			<div class="collection-banner-contain">
-																																						<div>
-																																									<h3>up to 50% off</h3>
-																																									<h4>replaair parts</h4>
-																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																						</div>
-																																			</div>
-																																</div>
-																													</div> -->
+																																								<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																											<div class="collection-banner-contain">
+																																														<div>
+																																																	<h3>up to 50% off</h3>
+																																																	<h4>replaair parts</h4>
+																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																														</div>
+																																											</div>
+																																								</div>
+																																					</div> -->
 						</div>
 				</div>
 		</section>

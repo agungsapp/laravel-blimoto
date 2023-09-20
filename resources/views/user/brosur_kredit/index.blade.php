@@ -7,14 +7,14 @@
 								<div class="col">
 										<div class="breadcrumb-contain">
 												<div>
-														<h2 class="text-white">Motor</h2>
+														<h2 class="text-white">Kredit</h2>
 														<ul>
 																<li>
-																		<a class="text-white" href="javascript:void(0)">motor</a>
+																		<a class="text-white" href="javascript:void(0)">Kredit</a>
 																</li>
 																<li><i class="fa fa-angle-double-right text-white"></i></li>
 																<li>
-																		<a class="text-white" href="javascript:void(0)">Brosur Motor</a>
+																		<a class="text-white" href="javascript:void(0)">Brosur Kredit</a>
 																</li>
 														</ul>
 												</div>
@@ -30,7 +30,7 @@
 				<div class="container">
 						<div class="row mb-3">
 								<div class="col-12">
-										<h4 class="text-black">Download Brosur Motor</h4>
+										<h4 class="text-black">Download Brosur Kredit</h4>
 								</div>
 						</div>
 						<div class="row">
@@ -57,7 +57,7 @@
 								</div>
 								<div class="col-7 col-md-3">
 										<div class="form-group">
-												<label for="SelectKota" class="mb-0" style="font-size: 12px">Pilih  Merek</label>
+												<label for="SelectKota" class="mb-0" style="font-size: 12px">Kota</label>
 												<select id="SelectKota" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
 														name="merk">
 														<option value="AL">Alabama</option>
@@ -74,7 +74,7 @@
 										<div class="d-flex justify-content-between mt-2">
 												<p style="font-size: 8px">
 														<i class="fa fa-check text-success" aria-hidden="true"></i>
-														<span class="text-black">Spesifikasi Mendetail</span>
+														<span class="text-black">Harga Mendetail</span>
 												</p>
 												<p style="font-size: 8px">
 														<i class="fa fa-check text-success" aria-hidden="true"></i>
