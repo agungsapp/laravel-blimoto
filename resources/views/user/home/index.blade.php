@@ -45,7 +45,7 @@
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Kota</label>
 																		<select id="SelectKota" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
-																				name="merk">
+																				name="kota">
 																				<option value="0" selected>-- Pilih Kota --</option>
 																				<option value="JA">Jakarta</option>
 																				<option value="BO">Bogor</option>
@@ -60,12 +60,13 @@
 														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">merk</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="merk">
+																		<select id="merk" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																				name="merk">
 																				<option value="0" selected>-- Merk --</option>
-																				<option value="HO">Honda</option>
-																				<option value="KA">Kawasaki</option>
-																				<option value="YA">Yamaha</option>
-																				<option value="SU">Suzuki</option>
+																				<option value="1">Honda</option>
+																				<option value="2">Kawasaki</option>
+																				<option value="3">Yamaha</option>
+																				<option value="4">Suzuki</option>
 																		</select>
 																</div>
 														</div>
@@ -76,10 +77,10 @@
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Tipe</label>
 																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tipe">
 																				<option value="0" selected>-- Pilih Tipe --</option>
-																				<option value="MA">Matic</option>
-																				<option value="BE">Bebek/Cub</option>
-																				<option value="SP">Sport</option>
-																				<option value="BI">Big Bike</option>
+																				<option value="1">Matic</option>
+																				<option value="2">Bebek/Cub</option>
+																				<option value="3">Sport</option>
+																				<option value="4">Big Bike</option>
 																		</select>
 																</div>
 														</div>
@@ -103,11 +104,11 @@
 														<div class="col-6 col-md-3">
 																<div class="form-group">
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Model</label>
-																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="tenor">
-																				<option value="0" selected>-- Pilih Tenor --</option>
-																				<option value="1">Beat</option>
-																				<option value="2">Beat Street</option>
-																				<option value="3">Genio</option>
+																		<select class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="model">
+																				<option value="0" selected>-- Pilih Model --</option>
+																				{{-- <option value="1">Beat</option>
+									<option value="2">Beat Street</option>
+									<option value="3">Genio</option> --}}
 																		</select>
 																</div>
 														</div>
@@ -135,8 +136,8 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																																								<h3 class="range-title">DP / Angsuran</h3>
-																																						</div> -->
+																																																																																				<h3 class="range-title">DP / Angsuran</h3>
+																																																																																		</div> -->
 
 												</div>
 												<div class="row">
@@ -174,7 +175,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																		<li class=""><a href="tab-6">books</a></li> -->
+																																																																														<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -191,155 +192,35 @@
 														<div id="tab-1" class="tab-content active default">
 																<div class="product-slide-5 product-m no-arrow">
 																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
+																		@foreach ($best1 as $item1)
+																				<div>
+																						<div class="product-box">
+																								<div class="product-imgbox">
+																										<div class="product-front">
+																												<a href="product-page(left-sidebar).html">
+																														<img src="assets/images/custom/diskon-terbaik/1.webp" class="img-fluid" alt="product" />
+																												</a>
+																										</div>
+																										<button type="button" class="btn btn-outline btn-cart">
+																												Lihat Promo
+																										</button>
+																										<div class="best-label">
+																												<div>Best Diskon</div>
+																										</div>
+																								</div>
+																								<div class="product-detail product-detail2">
 																										<a href="product-page(left-sidebar).html">
-																												<img src="assets/images/custom/diskon-terbaik/1.webp" class="img-fluid" alt="product" />
+																												<h3>{{ $item1->nama }}</h3>
 																										</a>
+																										<h3>Harga Mulai</h3>
+																										<h5>
+																												{{ 'Rp. ' . number_format($item1->harga, 0, '.', '.') }}
+																												{{-- <span>Rp. 18,050,000</span> --}}
+																										</h5>
 																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Diskon</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>BeAT ss</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 23,050,000
-																										<span>Rp. 18,050,000</span>
-																								</h5>
 																						</div>
 																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img src="assets/images/custom/diskon-terbaik/2.webp" class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Diskon</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>BeAT</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 23,050,000
-																										<span>Rp. 18,050,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img src="assets/images/custom/diskon-terbaik/3.webp" class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Diskon</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>BeAT</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 23,050,000
-																										<span>Rp. 18,050,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img src="assets/images/custom/diskon-terbaik/4.webp" class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Diskon</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>BeAT</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 23,050,000
-																										<span>Rp. 18,050,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img src="assets/images/custom/diskon-terbaik/5.webp" class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Diskon</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>BeAT</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 23,050,000
-																										<span>Rp. 18,050,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
+																		@endforeach
 																		<!-- custom card produk box for loop end -->
 																</div>
 														</div>
@@ -347,163 +228,37 @@
 														<div id="tab-2" class="tab-content">
 																<div class="product-slide-5 product-m no-arrow">
 																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
+																		@foreach ($best2 as $item2)
+																				<div>
+																						<div class="product-box">
+																								<div class="product-imgbox">
+																										<div class="product-front">
+																												<a href="product-page(left-sidebar).html">
+																														<img
+																																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
+																																class="img-fluid" alt="product" />
+																												</a>
+																										</div>
+																										<button type="button" class="btn btn-outline btn-cart">
+																												Lihat Promo
+																										</button>
+																										<div class="best-label">
+																												<div>Best DP</div>
+																										</div>
+																								</div>
+																								<div class="product-detail product-detail2">
 																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
-																														class="img-fluid" alt="product" />
+																												<h3>{{ $item2->nama }}</h3>
 																										</a>
+																										<h3>Harga Mulai</h3>
+																										<h5>
+																												{{ 'Rp. ' . number_format($item2->harga, 0, '.', '.') }}
+																												{{-- <span>Rp. 18,050,000</span> --}}
+																										</h5>
 																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best DP</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>CRF150L</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 35,930,000
-																										<span>Rp. 39,000,000</span>
-																								</h5>
 																						</div>
 																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best DP</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>CRF150L</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 35,930,000
-																										<span>Rp. 39,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best DP</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>CRF150L</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 35,930,000
-																										<span>Rp. 39,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best DP</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>CRF150L</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 35,930,000
-																										<span>Rp. 39,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best DP</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>CRF150L</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 35,930,000
-																										<span>Rp. 39,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
+																		@endforeach
 																		<!-- custom card produk box for loop end -->
 																</div>
 														</div>
@@ -512,163 +267,37 @@
 														<div id="tab-3" class="tab-content">
 																<div class="product-slide-5 product-m no-arrow">
 																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
+																		@foreach ($best3 as $item3)
+																				<div>
+																						<div class="product-box">
+																								<div class="product-imgbox">
+																										<div class="product-front">
+																												<a href="product-page(left-sidebar).html">
+																														<img
+																																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
+																																class="img-fluid" alt="product" />
+																												</a>
+																										</div>
+																										<button type="button" class="btn btn-outline btn-cart">
+																												Lihat Promo
+																										</button>
+																										<div class="best-label">
+																												<div>Best Termurah</div>
+																										</div>
+																								</div>
+																								<div class="product-detail product-detail2">
 																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
+																												<h3>{{ $item3->nama }}</h3>
 																										</a>
+																										<h3>Harga Mulai</h3>
+																										<h5>
+																												{{ 'Rp. ' . number_format($item3->harga, 0, '.', '.') }}
+																												{{-- <span>Rp. 18,050,000</span> --}}
+																										</h5>
 																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
 																						</div>
 																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
+																		@endforeach
 																		<!-- custom card produk box for loop end -->
 																</div>
 														</div>
@@ -677,164 +306,37 @@
 														<div id="tab-4" class="tab-content">
 																<div class="product-slide-5 product-m no-arrow">
 																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
+																		@foreach ($best4 as $item4)
+																				<div>
+																						<div class="product-box">
+																								<div class="product-imgbox">
+																										<div class="product-front">
+																												<a href="product-page(left-sidebar).html">
+																														<img
+																																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
+																																class="img-fluid" alt="product" />
+																												</a>
+																										</div>
+																										<button type="button" class="btn btn-outline btn-cart">
+																												Lihat Promo
+																										</button>
+																										<div class="best-label">
+																												<div>Best Termurah</div>
+																										</div>
+																								</div>
+																								<div class="product-detail product-detail2">
 																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
+																												<h3>{{ $item4->nama }}</h3>
 																										</a>
+																										<h3>Harga Mulai</h3>
+																										<h5>
+																												{{ 'Rp. ' . number_format($item4->harga, 0, '.', '.') }}
+																												{{-- <span>Rp. 18,050,000</span> --}}
+																										</h5>
 																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
 																						</div>
 																				</div>
-																		</div>
-
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
-																		<!-- custom card produk box for loop end -->
-
-																		<!-- custom card produk box for loop -->
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox">
-																								<div class="product-front">
-																										<a href="product-page(left-sidebar).html">
-																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																														class="img-fluid" alt="product" />
-																										</a>
-																								</div>
-																								<button type="button" class="btn btn-outline btn-cart">
-																										Lihat Promo
-																								</button>
-																								<div class="best-label">
-																										<div>Best Termurah</div>
-																								</div>
-																						</div>
-																						<div class="product-detail product-detail2">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Revo</h3>
-																								</a>
-																								<h3>Harga Mulai</h3>
-																								<h5>
-																										Rp. 16,020,000
-																										<span>Rp. 19,000,000</span>
-																								</h5>
-																						</div>
-																				</div>
-																		</div>
+																		@endforeach
 																		<!-- custom card produk box for loop end -->
 																</div>
 														</div>
@@ -1635,38 +1137,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																														<div>
-																																																	<h3>best discount </h3>
-																																																	<h4>cordless tools</h4>
-																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																														</div>
-																																											</div> -->
+																																																																																										<div>
+																																																																																													<h3>best discount </h3>
+																																																																																													<h4>cordless tools</h4>
+																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																										</div>
+																																																																																							</div> -->
 
 								<!-- <div class="col-md-4">
-																																								<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																											<div class="collection-banner-contain">
-																																														<div>
-																																																	<h3>best discount </h3>
-																																																	<h4>cordless tools</h4>
-																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																														</div>
-																																											</div>
-																																								</div>
-																																					</div> -->
+																																																																																				<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																							<div class="collection-banner-contain">
+																																																																																										<div>
+																																																																																													<h3>best discount </h3>
+																																																																																													<h4>cordless tools</h4>
+																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																										</div>
+																																																																																							</div>
+																																																																																				</div>
+																																																																																	</div> -->
 
 								<!-- <div class="col-md-4">
-																																								<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																											<div class="collection-banner-contain">
-																																														<div>
-																																																	<h3>up to 50% off</h3>
-																																																	<h4>replaair parts</h4>
-																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																														</div>
-																																											</div>
-																																								</div>
-																																					</div> -->
+																																																																																				<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																							<div class="collection-banner-contain">
+																																																																																										<div>
+																																																																																													<h3>up to 50% off</h3>
+																																																																																													<h4>replaair parts</h4>
+																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																										</div>
+																																																																																							</div>
+																																																																																				</div>
+																																																																																	</div> -->
 						</div>
 				</div>
 		</section>
@@ -1875,8 +1377,7 @@
 										<div class="owl-carousel owl-theme">
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1899,8 +1400,7 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1923,8 +1423,7 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1947,8 +1446,7 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1971,8 +1469,7 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1995,8 +1492,7 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -2323,6 +1819,10 @@
 						</div>
 				</div>
 		</div>
+
+
+
+
 		<!-- modal area kenapa harus blimoto end -->
 @endsection
 
@@ -2333,7 +1833,40 @@
 
 				$(document).ready(function() {
 						console.log('jQuery aman bang !')
+
+
+						$('select[name="tipe"]').change(function() {
+								console.log("area select logic running...");
+								var merkId = $('#merk').val();
+								var tipeId = $(this).val();
+								var modelSelect = $('select[name="model"]');
+								// console.log(merkId + tipeId);
+								modelSelect.empty();
+								modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
+								// console.log("sebelum if");
+								if (merkId !== '0' && tipeId !== '0') {
+										// console.log("get jalan!");
+										$.get('/get-model-options', {
+												merk_id: merkId,
+												tipe_id: tipeId
+										}, function(data) {
+												// console.log(data);
+												console.log("done bang!")
+												$.each(data, function(key, value) {
+														// console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
+														modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
+												});
+
+										});
+								}
+						});
+
+
 				})
+
+
+
+				// range function
 
 				function updateBubble(input) {
 						const val = input.value;
