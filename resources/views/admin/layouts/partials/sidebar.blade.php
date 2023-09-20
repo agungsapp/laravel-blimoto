@@ -44,7 +44,7 @@
 								</a>
 						</li>
 						<li>
-								<a href="{{ route('admin.type-motor') }}">
+								<a href="{{ route('admin.type-motor.index') }}">
 										<i class="fa fa-motorcycle"></i>
 										<span>Data Type Motor</span>
 								</a>

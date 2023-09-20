@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Merk;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +31,7 @@ class TypeMotorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createTypeMotor(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
@@ -50,14 +49,9 @@ class TypeMotorController extends Controller
             flash()->addSuccess("Type motor $type->nama berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
-            throw $th;
             flash()->addError("Gagal membuat data pastikan sudah benar!");
             return redirect()->back();
         }
-    }
-
-    public function editTypeMotor($id) {
-
     }
 
     /**
@@ -91,28 +85,6 @@ class TypeMotorController extends Controller
     // }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -121,7 +93,25 @@ class TypeMotorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_edit' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back();
+        }
+
+        // Find the Type model by id
+        $type = Type::findOrFail($id);
+
+        // Update the Type model
+        $type->nama = $request->nama_edit;
+        $type->save();
+
+        // Redirect back with a success message
+        flash()->addSuccess("Berhasil merubah type motor: $type->name !");
+        return redirect()->back();
     }
 
     /**
@@ -132,6 +122,14 @@ class TypeMotorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $type = Type::findOrFail($id);
+            $type->delete();
+            flash()->addSuccess("Berhasil menghapus type motor!");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            flash()->addError("$type->name tidak bisa dihapus karena data digunakan oleh data lain!");
+            return redirect()->back();
+        }
     }
 }

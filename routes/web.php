@@ -68,8 +68,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);
 
-        Route::get('type-motor', [TypeMotorController::class, 'index'])->name('type-motor');
-        Route::post('type-motor', [TypeMotorController::class, 'createTypeMotor'])->name('type-motor.post');
+        Route::resource('type-motor', TypeMotorController::class);
     });
 });
 

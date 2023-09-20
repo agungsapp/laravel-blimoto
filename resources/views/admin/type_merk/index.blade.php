@@ -7,8 +7,8 @@
         <div class="box-header with-border">
           <h3 class="box-title">Input Data Type Motor</h3>
         </div>
-        <form action="{{ route('admin.type-motor.post') }}" method="post">
-          {{ csrf_field() }}
+        <form action="{{ route('admin.type-motor.store') }}" method="post">
+          @csrf
           <div class="box-body">
             <div class="form-group">
               <label for="exampleInputTypeMotor">Nama Type Motor</label>
@@ -62,48 +62,48 @@
                       <td>{{$type->nama}}</td>
                       <td>
                         <div class="btn-group">
-                          <!-- Button trigger modal -->
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$type->id}}">
-                            Edit
-                          </button>
-
-                          <button type="button" class="btn btn-danger">Delete</button>
-
-                          <!-- Modal update -->
-                          <div class="modal fade" id="modalEdit{{$type->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Edit data: {{$type->nama}}</h4>
-                                </div>
-                                <form action="{{ route('admin.type-motor.post') }}" method="post">
-                                  <div class="modal-body">
-                                    <div class="box box-primary">
-                                      <div class="box-header with-border">
-                                        <h3 class="box-title">Input Data Type Motor</h3>
-                                      </div>
-                                      {{ csrf_field() }}
-                                      <input type="hidden" value="{{$type->id}}">
-                                      <div class="box-body">
-                                        <div class="form-group">
-                                          <label for="exampleInputTypeMotor">Nama Type Motor</label>
-                                          <input name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
-                                        </div>
-                                      </div>
-                                      <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                          <form action="{{ route('admin.type-motor.destroy', $type->id) }}" method="post">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$type->id}}">
+                              Edit
+                            </button>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                          </form>
+                        </div>
+                        <!-- Modal update -->
+                        <div class="modal fade" id="modalEdit{{$type->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Edit data: {{$type->nama}}</h4>
+                              </div>
+                              <form action="{{ route('admin.type-motor.update', $type->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                  <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                      <h3 class="box-title">Input Data Type Motor</h3>
+                                    </div>
+                                    {{ csrf_field() }}
+                                    <input type="hidden" value="{{$type->id}}">
+                                    <div class="box-body">
+                                      <div class="form-group">
+                                        <label for="exampleInputTypeMotor">Nama Type Motor</label>
+                                        <input name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                  </div>
-                                </form>
-                              </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
                             </div>
                           </div>
-
                         </div>
                       </td>
                     </tr>
@@ -113,6 +113,7 @@
                 </table>
               </div>
             </div>
+            <!-- pagination -->
             <div class="row">
               {{ $types->links('admin.layouts.partials.pagination') }}
             </div>
