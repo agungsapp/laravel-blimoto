@@ -121,6 +121,8 @@
 
 		<script src="assets/owl/owl.carousel.min.js"></script>
 
+
+
 		@stack('script')
 
 </body>
