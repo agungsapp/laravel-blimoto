@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MerkMotorController;
 use App\Http\Controllers\Admin\MerkTypeMotorController;
 use App\Http\Controllers\Admin\MotorController;
+use App\Http\Controllers\Admin\TypeMotorController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
@@ -62,9 +63,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);
 
-        Route::get('type-merk', [MerkTypeMotorController::class, 'index'])->name('type-merk');
-        Route::post('type', [MerkTypeMotorController::class, 'createTypeMotor'])->name('type-merk.type');
-        Route::post('merk', [MerkTypeMotorController::class, 'createMerkMotor'])->name('type-merk.merk');
+        Route::get('type-motor', [TypeMotorController::class, 'index'])->name('type-motor');
+        Route::post('type-motor', [TypeMotorController::class, 'createTypeMotor'])->name('type-motor.post');
     });
 });
 
