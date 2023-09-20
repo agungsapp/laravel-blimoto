@@ -108,14 +108,4 @@ class HomeController extends Controller
 
         return response()->json($modelOptions);
     }
-
-    public function api_anjing()
-    {
-        $modelOptions = Motor::where('id_merk', 1)
-            ->where('id_type', 1)
-            ->get();
-
-        // Return the data as JSON response
-        return response()->json($modelOptions);
-    }
 }
