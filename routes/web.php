@@ -14,6 +14,8 @@
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MerkMotorController;
+use App\Http\Controllers\Admin\MerkTypeMotorController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
@@ -59,6 +61,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth.admin:admin'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);
+
+        Route::get('type-merk', [MerkTypeMotorController::class, 'index'])->name('type-merk');
+        Route::post('type', [MerkTypeMotorController::class, 'createTypeMotor'])->name('type-merk.type');
+        Route::post('merk', [MerkTypeMotorController::class, 'createMerkMotor'])->name('type-merk.merk');
     });
 });
 
