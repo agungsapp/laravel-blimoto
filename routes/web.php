@@ -55,7 +55,7 @@ Route::resource('/info_leasing', InfoLeasingController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
-Route::get('/api_anjing', [HomeController::class, 'api_anjing']);
+
 
 
 // admin area
