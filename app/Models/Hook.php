@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Hook extends Model
 {
     use HasFactory;
+
+    protected $table = 'hook';
 }

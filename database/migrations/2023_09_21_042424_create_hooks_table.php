@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hooks', function (Blueprint $table) {
+        Schema::create('hook', function (Blueprint $table) {
             $table->id();
+            $table->string('nama')->nullable()->default('nama hook');
+            $table->string('gambar')->default('path_gambar');
+            $table->string('link')->default('url_href');
+            $table->string('warna')->default('#DD0202');
+            $table->string('warna_teks')->default('#DD0202');
+            $table->string('caption')->default('caption_hook');
             $table->timestamps();
         });
     }
