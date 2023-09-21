@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hook;
 use App\Models\Merk;
 use App\Models\Motor;
 use Illuminate\Http\Request;
@@ -22,9 +23,10 @@ class HomeController extends Controller
             'best2' => Motor::where('id_best_motor', 2)->get(),
             'best3' => Motor::where('id_best_motor', 3)->get(),
             'best4' => Motor::where('id_best_motor', 4)->get(),
+            'hooks' => Hook::all()
         ];
 
-        // dd($data['best1']);
+        // dd($data['hook']);
         return view('user.home.index', $data);
     }
 
