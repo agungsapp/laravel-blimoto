@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('berat');
             $table->string('power');
             $table->integer('harga');
-            $table->string('deskripsi');
-            $table->string('fitur_utama');
+            $table->text('deskripsi');
+            $table->text('fitur_utama');
             $table->unsignedBigInteger('id_merk');
             $table->unsignedBigInteger('id_type');
-            $table->unsignedBigInteger('id_best_motor')->nullable();
+            $table->unsignedBigInteger('id_best_motor')->nullable()->default(1);
             $table->foreign('id_best_motor')
                 ->references('id')
                 ->on('best_motor');

@@ -48,7 +48,13 @@
 							<li>
 								<a href="{{ route('admin.motor.index') }}">
 									<i class="fa fa-motorcycle"></i>
-									<span>Tambah Motor</span>
+									<span>Motor</span>
+								</a>
+							</li>
+							<li>
+								<a href="{{ route('admin.detail-motor.index') }}">
+									<i class="fa fa-motorcycle"></i>
+									<span>Detail Motor</span>
 								</a>
 							</li>
 						</ul>

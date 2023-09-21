@@ -30,6 +30,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+	<!-- select2 -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -114,6 +117,8 @@ desired effect
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="/dist/js/adminlte.min.js"></script>
+	<!-- select2 js -->
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 	<!-- Optionally, you can add Slimscroll and FastClick plugins.
 					Both of these plugins are recommended to enhance the

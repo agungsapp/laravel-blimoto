@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\KotaController;
 use App\Http\Controllers\Admin\MerkMotorController;
 use App\Http\Controllers\Admin\MotorController;
@@ -74,6 +75,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('best-motor', BestMotorController::class);
         Route::resource('kota', KotaController::class);
         Route::resource('hook', HookController::class);
+        Route::resource('detail-motor', DetailMotorController::class);
     });
 });
 

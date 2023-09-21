@@ -5,35 +5,25 @@
 		<div class="col-md-6 col-lg-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Input Data Motor</h3>
+					<h3 class="box-title">Input Data Detail Motor</h3>
 				</div>
 				<form action="{{ route('admin.motor.store') }}" method="post">
 					@csrf
 					<div class="box-body">
 						<div class="form-group">
-							<label for="nama-motor">Nama Motor</label>
-							<input name="nama" type="text" class="form-control" id="nama-motor" placeholder="Masukan nama motor">
+							<label for="warna-motor">Warna</label>
+							<input name="warna_motor" type="text" class="form-control" id="warna-motor" placeholder="Masukan warna motor">
 						</div>
 						<div class="form-group">
-							<label for="berat-motor">Berat Motor</label>
-							<input name="berat" type="text" class="form-control" id="berat-motor" placeholder="Masukan berat motor">
+							<label for="exampleInputFile">Pilih Gambar</label>
+							<input type="file" id="exampleInputFile" name="gambar_motor">
+							<p class="help-block">Silahkan pilih gambar motor</p>
 						</div>
-						<div class="form-group">
-							<label for="power-motor">Power Motor</label>
-							<input name="power" type="text" class="form-control" id="power-motor" placeholder="Masukan power motor">
-						</div>
-						<div class="form-group">
-							<label for="harga-motor">Harga Motor</label>
-							<input name="harga" type="number" class="form-control" id="harga-motor" placeholder="Masukan harga motor">
-						</div>
-						<div class="form-group">
-							<label>Deskripsi Motor</label>
-							<textarea name="deskripsi-motor" class="form-control" rows="3" placeholder="Deskripsi Motor"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Fitur Motor</label>
-							<textarea name="fitur-motor" class="form-control" rows="3" placeholder="Fitur Motor"></textarea>
-						</div>
+						<select class="js-example-basic-single form-control" name="state">
+							<option value="AL">Alabama</option>
+							...
+							<option value="WY">Wyoming</option>
+						</select>
 						<div class="form-group">
 							<label>Merk Motor</label>
 							@if ($merk_motor == null)
@@ -98,7 +88,7 @@
 								</div>
 							</div>
 						</form>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-sm-12">
 								<table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 									<thead>
@@ -138,7 +128,7 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
+						</div> -->
 						<!-- pagination -->
 						<div class="row">
 							{{ $motors->links('admin.layouts.partials.pagination') }}
@@ -150,3 +140,12 @@
 	</div>
 </section>
 @endsection
+@push('script')
+<script>
+	// In your Javascript (external .js resource or <script> tag)
+	$(document).ready(function() {
+		console.log('Maklo');
+		$('.js-example-basic-single').select2();
+	});
+</script>
+@endpush

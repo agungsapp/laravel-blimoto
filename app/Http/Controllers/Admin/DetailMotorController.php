@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class MotorController extends Controller
+class DetailMotorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class MotorController extends Controller
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
-        return view('admin.motor.index', [
+        return view('admin.detail-motor.index', [
             'motors' => $motors,
             'merk_motor' => $merk_motor,
             'tipe_motor' => $tipe_motor,

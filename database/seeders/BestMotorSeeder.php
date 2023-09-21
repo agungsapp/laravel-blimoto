@@ -13,6 +13,9 @@ class BestMotorSeeder extends Seeder
     // Define the number of records you want to create
     $data = [
       [
+        'nama' => 'No Best'
+      ],
+      [
         'nama' => 'Diskon Terbaik'
       ],
       [
