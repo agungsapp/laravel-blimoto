@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('fitur_utama');
             $table->unsignedBigInteger('id_merk');
             $table->unsignedBigInteger('id_type');
-            $table->unsignedBigInteger('id_best_motor');
+            $table->unsignedBigInteger('id_best_motor')->nullable();
             $table->foreign('id_best_motor')
                 ->references('id')
                 ->on('best_motor');

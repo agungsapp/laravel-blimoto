@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\Merk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class TypeMotorController extends Controller
+class MerkMotorController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -18,17 +18,18 @@ class TypeMotorController extends Controller
   public function index(Request $request)
   {
     $search = $request->get('search');
-    $data = DB::table('type')
+    $data = DB::table('merk')
       ->where('nama', 'LIKE', "%{$search}%")
       ->paginate(10);
-    return view('admin.type.index', [
-      'types' => $data
+    return view('admin.merk.index', [
+      'merks' => $data
     ]);
   }
 
   /**
-   * Show the form for creating a new resource.
+   * Store a newly created resource in storage.
    *
+   * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
@@ -43,10 +44,10 @@ class TypeMotorController extends Controller
     }
 
     try {
-      $type = Type::create([
+      $merk = Merk::create([
         'nama' => $request->input('nama')
       ]);
-      flash()->addSuccess("Type motor $type->nama berhasil dibuat");
+      flash()->addSuccess("Merk motor $merk->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
       flash()->addError("Gagal membuat data pastikan sudah benar!");
@@ -73,14 +74,14 @@ class TypeMotorController extends Controller
     }
 
     // Find the Type model by id
-    $type = Type::findOrFail($id);
+    $merk = Merk::findOrFail($id);
 
-    // Update the Type model
-    $type->nama = $request->nama_edit;
-    $type->save();
+    // Update the merk model
+    $merk->nama = $request->nama_edit;
+    $merk->save();
 
     // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah type motor!");
+    flash()->addSuccess("Berhasil merubah merk motor!");
     return redirect()->back();
   }
 
@@ -93,12 +94,12 @@ class TypeMotorController extends Controller
   public function destroy($id)
   {
     try {
-      $type = Type::findOrFail($id);
-      $type->delete();
-      flash()->addSuccess("Berhasil menghapus type motor!");
+      $merk = Merk::findOrFail($id);
+      $merk->delete();
+      flash()->addSuccess("Berhasil menghapus merk motor!");
       return redirect()->back();
     } catch (\Throwable $th) {
-      flash()->addError("$type->name tidak bisa dihapus karena data digunakan oleh data lain!");
+      flash()->addError("$merk->name tidak bisa dihapus karena data digunakan oleh data lain!");
       return redirect()->back();
     }
   }

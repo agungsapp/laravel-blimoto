@@ -13,11 +13,13 @@
 
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
+use App\Http\Controllers\Admin\BestMotorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KotaController;
 use App\Http\Controllers\Admin\MerkMotorController;
-use App\Http\Controllers\Admin\MerkTypeMotorController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TypeMotorController;
+use App\Http\Controllers\HookController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
@@ -67,8 +69,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth.admin:admin'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);
-
         Route::resource('type-motor', TypeMotorController::class);
+        Route::resource('merk-motor', MerkMotorController::class);
+        Route::resource('best-motor', BestMotorController::class);
+        Route::resource('kota', KotaController::class);
+        Route::resource('hook', HookController::class);
     });
 });
 

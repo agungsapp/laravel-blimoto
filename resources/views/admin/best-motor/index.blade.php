@@ -5,14 +5,14 @@
     <div class="col-md-6 col-lg-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Input Data Type Motor</h3>
+          <h3 class="box-title">Input Data Kategori Best Motor</h3>
         </div>
-        <form action="{{ route('admin.type-motor.store') }}" method="post">
+        <form action="{{ route('admin.best-motor.store') }}" method="post">
           @csrf
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputTypeMotor">Nama Type Motor</label>
-              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
+              <label for="exampleInputTypeMotor">Nama Kategori Best Motor</label>
+              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan kategori best motor (Diskon Terbaik, DP Terumurah, Harga Terbawah, dll)">
             </div>
           </div>
           <div class="box-footer">
@@ -30,7 +30,7 @@
     <div class="col-md-6 col-lg-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Data Type Motor</h3>
+          <h3 class="box-title">Data Kategori Best Motor</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -38,7 +38,7 @@
             <form action="{{ url()->current() }}" method="GET">
               <div class="row">
                 <div class="col-sm-12">
-                  <label>Search: <input type="text" name="search" value="{{request()->get('search')}}" class="form-control input-sm" placeholder="Masukan nama type motor" aria-controls="example1"></label>
+                  <label>Search: <input type="text" name="search" value="{{request()->get('search')}}" class="form-control input-sm" placeholder="Masukan nama kategori best motor" aria-controls="example1"></label>
                 </div>
               </div>
             </form>
@@ -48,23 +48,23 @@
                   <thead>
                     <tr role="row">
                       <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 286.469px;">ID</th>
-                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 348.875px;">Nama type motor</th>
+                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 348.875px;">Nama kategori best motor</th>
                       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 310.453px;">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @if (!$types)
+                    @if (!$best_motors)
                     <p>Tidak ada data!</p>
                     @else
-                    @foreach ($types as $index => $type)
+                    @foreach ($best_motors as $index => $best_motor)
                     <tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
-                      <td>{{$type->id}}</td>
-                      <td>{{$type->nama}}</td>
+                      <td>{{$best_motor->id}}</td>
+                      <td>{{$best_motor->nama}}</td>
                       <td>
                         <div class="btn-group">
-                          <form action="{{ route('admin.type-motor.destroy', $type->id) }}" method="post">
+                          <form action="{{ route('admin.best-motor.destroy', $best_motor->id) }}" method="post">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$type->id}}">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$best_motor->id}}">
                               Edit
                             </button>
                             @csrf
@@ -73,26 +73,26 @@
                           </form>
                         </div>
                         <!-- Modal update -->
-                        <div class="modal fade" id="modalEdit{{$type->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade" id="modalEdit{{$best_motor->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">Edit data: {{$type->nama}}</h4>
+                                <h4 class="modal-title" id="myModalLabel">Edit data: {{$best_motor->nama}}</h4>
                               </div>
-                              <form action="{{ route('admin.type-motor.update', $type->id) }}" method="post">
+                              <form action="{{ route('admin.best-motor.update', $best_motor->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-body">
                                   <div class="box box-primary">
                                     <div class="box-header with-border">
-                                      <h3 class="box-title">Input Data Type Motor</h3>
+                                      <h3 class="box-title">Update Data Kategori Best Motor</h3>
                                     </div>
                                     {{ csrf_field() }}
-                                    <input type="hidden" value="{{$type->id}}">
+                                    <input type="hidden" value="{{$best_motor->id}}">
                                     <div class="box-body">
                                       <div class="form-group">
-                                        <label for="exampleInputTypeMotor">Nama Type Motor</label>
-                                        <input name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
+                                        <label for="exampleInputTypeMotor">Nama Kategori Best Motor</label>
+                                        <input name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan kategori best motor (Diskon Terbaik, DP Terumurah, Harga Terbawah, dll)">
                                       </div>
                                     </div>
                                   </div>
@@ -115,7 +115,7 @@
             </div>
             <!-- pagination -->
             <div class="row">
-              {{ $types->links('admin.layouts.partials.pagination') }}
+              {{ $best_motors->links('admin.layouts.partials.pagination') }}
             </div>
           </div>
         </div>

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\Kota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class TypeMotorController extends Controller
+class KotaController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -18,17 +18,28 @@ class TypeMotorController extends Controller
   public function index(Request $request)
   {
     $search = $request->get('search');
-    $data = DB::table('type')
+    $data = DB::table('kota')
       ->where('nama', 'LIKE', "%{$search}%")
       ->paginate(10);
-    return view('admin.type.index', [
-      'types' => $data
+    return view('admin.kota.index', [
+      'kotas' => $data
     ]);
   }
 
   /**
    * Show the form for creating a new resource.
    *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
@@ -43,15 +54,37 @@ class TypeMotorController extends Controller
     }
 
     try {
-      $type = Type::create([
+      $kota = Kota::create([
         'nama' => $request->input('nama')
       ]);
-      flash()->addSuccess("Type motor $type->nama berhasil dibuat");
+      flash()->addSuccess("kota $kota->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
       flash()->addError("Gagal membuat data pastikan sudah benar!");
       return redirect()->back();
     }
+  }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id)
+  {
+    //
   }
 
   /**
@@ -73,14 +106,14 @@ class TypeMotorController extends Controller
     }
 
     // Find the Type model by id
-    $type = Type::findOrFail($id);
+    $type = Kota::findOrFail($id);
 
     // Update the Type model
     $type->nama = $request->nama_edit;
     $type->save();
 
     // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah type motor!");
+    flash()->addSuccess("Berhasil merubah kota!");
     return redirect()->back();
   }
 
@@ -93,9 +126,9 @@ class TypeMotorController extends Controller
   public function destroy($id)
   {
     try {
-      $type = Type::findOrFail($id);
+      $type = Kota::findOrFail($id);
       $type->delete();
-      flash()->addSuccess("Berhasil menghapus type motor!");
+      flash()->addSuccess("Berhasil menghapus kota!");
       return redirect()->back();
     } catch (\Throwable $th) {
       flash()->addError("$type->name tidak bisa dihapus karena data digunakan oleh data lain!");
