@@ -1,92 +1,104 @@
-<aside class="main-sidebar">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<a href="index3.html" class="brand-link">
+				<img src="/assets/images/logo/Logo-blimoto.webp" alt="Blimoto Logo" class="brand-image" style="opacity: .8">
+				<span class="brand-text font-weight-light">Admin</span>
+		</a>
 
-		<!-- sidebar: style can be found in sidebar.less -->
-		<section class="sidebar">
-
+		<!-- Sidebar -->
+		<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel">
-						<div class="pull-left image">
-								<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+				<div class="user-panel d-flex mb-3 mt-3 pb-3">
+						<div class="image">
+								<img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 						</div>
-						<div class="pull-left info">
-								<p>Administrator</p>
-								<!-- Status -->
-								<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+						<div class="info">
+								<a href="#" class="d-block">Administrator</a>
 						</div>
 				</div>
 
-				<!-- /.search form -->
+				<!-- SidebarSearch Form -->
+
 
 				<!-- Sidebar Menu -->
-				<ul class="sidebar-menu" data-widget="tree">
-						<li class="header">HEADER</li>
-						<!-- Optionally, you can add icons to the links -->
-						<li class="active">
-								<a href="{{ route('admin.dashboard.index') }}">
-										<i class="fa fa-tachometer"></i>
-										<span>Dashboard</span>
-								</a>
-						</li>
-						<li class="treeview">
-								<a href="#">
-										<i class="fa fa-link"></i>
-										<span>Motor</span>
-										<span class="pull-right-container">
-												<i class="fa fa-angle-left pull-right"></i>
-										</span>
-								</a>
-								<ul class="treeview-menu">
-										<li class="treeview">
-												<a href="#">
-														<i class="fa fa-link"></i>
-														<span>Data Motor</span>
-														<span class="pull-right-container">
-																<i class="fa fa-angle-left pull-right"></i>
-														</span>
-												</a>
-												<ul class="treeview-menu">
-														<li>
-																<a href="{{ route('admin.motor.index') }}">
-																		<i class="fa fa-motorcycle"></i>
-																		<span>Tambah Motor</span>
-																</a>
-														</li>
-												</ul>
-										</li>
-										<li>
-												<a href="{{ route('admin.best-motor.index') }}">
-														<i class="fa fa-motorcycle"></i>
-														<span>Best Motor</span>
-												</a>
-										</li>
-										<li>
-												<a href="{{ route('admin.type-motor.index') }}">
-														<i class="fa fa-motorcycle"></i>
-														<span>Data Type Motor</span>
-												</a>
-										</li>
-										<li>
-												<a href="{{ route('admin.merk-motor.index') }}">
-														<i class="fa fa-motorcycle"></i>
-														<span>Data Merk Motor</span>
-												</a>
-										</li>
-								</ul>
-						</li>
-						<li>
-								<a href="{{ route('admin.kota.index') }}">
-										<i class="fa fa-map-marker"></i>
-										<span>Data Kota</span>
-								</a>
-						</li>
-						<li>
-								<a href="{{ route('admin.hook.index') }}">
-										<i class="fa fa-television"></i>
-										<span>Data Hook</span>
-								</a>
-						</li>
-				</ul>
+				<nav class="mt-2">
+						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+								<!-- Add icons to the links using the .nav-icon class
+															with font-awesome or any other icon font library -->
+
+								<li class="nav-item">
+										<a href="{{ route('admin.dashboard.index') }}" class="nav-link active">
+												<i class="nav-icon fas fa-tachometer-alt"></i>
+												<p>
+														Dashboard
+														{{-- <span class="right badge badge-danger">New</span> --}}
+												</p>
+										</a>
+								</li>
+
+								<li class="nav-item menu-open">
+										<a href="" class="nav-link">
+												<i class="nav-icon fas fa-motorcycle"></i>
+												<p>
+														Master Motor
+														<i class="right fas fa-angle-left"></i>
+												</p>
+										</a>
+										<ul class="nav nav-treeview">
+												<li class="nav-item">
+														<a href="{{ route('admin.motor.index') }}" class="nav-link">
+																<i class="far fa-circle nav-icon"></i>
+																<p>Tambah Motor</p>
+														</a>
+												</li>
+												<li class="nav-item">
+														<a href="{{ route('admin.best-motor.index') }}" class="nav-link">
+																<i class="far fa-circle nav-icon"></i>
+																<p>Best Motor</p>
+														</a>
+												</li>
+												<li class="nav-item">
+														<a href="{{ route('admin.type-motor.index') }}" class="nav-link">
+																<i class="far fa-circle nav-icon"></i>
+																<p>Data Type Motor</p>
+														</a>
+												</li>
+												<li class="nav-item">
+														<a href="{{ route('admin.merk-motor.index') }}" class="nav-link">
+																<i class="far fa-circle nav-icon"></i>
+																<p>Data Merk Motor</p>
+														</a>
+												</li>
+										</ul>
+								</li>
+								<li class="nav-item">
+										<a href="{{ route('admin.kota.index') }}" class="nav-link">
+												<i class="nav-icon fas fa-city"></i>
+												<p>
+														Data Kota
+												</p>
+										</a>
+								</li>
+								<li class="nav-item">
+										<a href="{{ route('admin.hook.index') }}" class="nav-link">
+												<i class="nav-icon fas fa-images"></i>
+												<p>
+														Data Hook
+												</p>
+										</a>
+								</li>
+								<li class="nav-item">
+										<a href="#" class="nav-link">
+												<i class="nav-icon fas fa-th"></i>
+												<p>
+														Sample
+														<span class="right badge badge-danger">New</span>
+												</p>
+										</a>
+								</li>
+						</ul>
+				</nav>
 				<!-- /.sidebar-menu -->
-		</section>
+		</div>
 		<!-- /.sidebar -->
 </aside>

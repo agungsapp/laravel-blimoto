@@ -37,6 +37,10 @@ Route::get('/', function () {
     return redirect()->to('/home');
 });
 
+Route::get('/testing', function () {
+    return view('admin.layouts.main');
+});
+
 
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
