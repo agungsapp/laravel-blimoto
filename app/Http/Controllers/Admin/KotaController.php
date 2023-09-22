@@ -17,10 +17,7 @@ class KotaController extends Controller
    */
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $data = DB::table('kota')
-      ->where('nama', 'LIKE', "%{$search}%")
-      ->paginate(10);
+    $data = Kota::all();
     return view('admin.kota.index', [
       'kotas' => $data
     ]);

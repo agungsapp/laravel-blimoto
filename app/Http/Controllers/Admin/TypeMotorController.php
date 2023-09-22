@@ -17,10 +17,7 @@ class TypeMotorController extends Controller
    */
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $data = DB::table('type')
-      ->where('nama', 'LIKE', "%{$search}%")
-      ->paginate(10);
+    $data = Type::all();
     return view('admin.type.index', [
       'types' => $data
     ]);

@@ -1,14 +1,14 @@
 @extends('admin.layouts.main')
 @section('content')
-		<section>
+		<section class="container">
 				<div class="row">
 						<div class="col-xs-12">
-								<div class="box">
-										<div class="box-header">
-												<h3 class="box-title">Data Hook Banner</h3>
+								<div class="card">
+										<div class="card-header">
+												<h3 class="card-title">Data Hook Banner</h3>
 										</div>
-										<!-- /.box-header -->
-										<div class="box-body table-responsive no-padding">
+										<!-- /.card-header -->
+										<div class="card-body table-responsive no-padding">
 												<table class="table-hover table">
 														<tr>
 																<th style="width: 15px">No.</th>
@@ -65,7 +65,7 @@
 																												@csrf
 																												@method('PUT')
 																												<div class="modal-body">
-																														<div class="box-body">
+																														<div class="card-body">
 																																<div class="form-group">
 																																		<label for="nama">Nama</label>
 																																		<input type="text" class="form-control" id="nama" name="nama"
@@ -100,7 +100,7 @@
 																																				srcset="">
 																																</div>
 																														</div>
-																														<!-- /.box-body -->
+																														<!-- /.card-body -->
 																												</div>
 																												<div class="modal-footer">
 																														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -117,9 +117,9 @@
 
 												</table>
 										</div>
-										<!-- /.box-body -->
+										<!-- /.card-body -->
 								</div>
-								<!-- /.box -->
+								<!-- /.card -->
 						</div>
 				</div>
 		</section>
