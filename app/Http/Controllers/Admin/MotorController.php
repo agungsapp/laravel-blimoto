@@ -26,7 +26,7 @@ class MotorController extends Controller
             ->join('type', 'motor.id_type', '=', 'type.id')
             ->where('motor.nama', 'LIKE', "%{$search}%")
             ->select('motor.id', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga')
-            ->paginate(10);
+            ->get();
 
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();

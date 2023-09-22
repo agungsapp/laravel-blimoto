@@ -1,47 +1,34 @@
-<nav class="navbar navbar-static-top" role="navigation">
-	<!-- Sidebar toggle button-->
-	<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-		<span class="sr-only">Toggle navigation</span>
-	</a>
-	<!-- Navbar Right Menu -->
-	<div class="navbar-custom-menu">
-		<ul class="nav navbar-nav">
-
-			<!-- User Account Menu -->
-			<li class="dropdown user user-menu">
-				<!-- Menu Toggle Button -->
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<!-- The user image in the navbar-->
-					<img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-					<!-- hidden-xs hides the username on small devices so only the image appears. -->
-					<span class="hidden-xs">Administrator</span>
-				</a>
-				<ul class="dropdown-menu">
-					<!-- The user image in the menu -->
-					<li class="user-header">
-						<img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-						<p>
-							Admin | BliMoto.com
-							{{-- <small>Member since Nov. 2012</small> --}}
-						</p>
-					</li>
-					<!-- Menu Footer-->
-					<li class="user-footer">
-						{{-- <div class="pull-left">
-														<a href="#" class="btn btn-default btn-flat">Profile</a>
-												</div> --}}
-						<form action="{{route('admin.logout')}}" method="post">
-							@method('POST') @csrf
-							<div class="pull-right">
-								<button type="submit">
-									<a class="btn btn-danger btn-flat">Sign out</a>
-								</button>
-							</div>
-						</form>
-					</li>
-				</ul>
-			</li>
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+				<li class="nav-item">
+						<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+				</li>
+				{{-- <li class="nav-item d-none d-sm-inline-block">
+      <a href="index3.html" class="nav-link">Homem</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="#" class="nav-link">Contact</a>
+    </li> --}}
 		</ul>
-	</div>
+
+		<!-- Right navbar links -->
+		<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+
+				<!-- Messages Dropdown Menu -->
+
+				<!-- Notifications Dropdown Menu -->
+
+				<li class="nav-item">
+						<a class="nav-link" data-widget="fullscreen" href="#" role="button">
+								<i class="fas fa-expand-arrows-alt"></i>
+						</a>
+				</li>
+				{{-- <li class="nav-item">
+      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+        <i class="fas fa-th-large"></i>
+      </a>
+    </li> --}}
+		</ul>
 </nav>
