@@ -78,11 +78,11 @@
 								<td> {{$brosur->is_popular ? 'Populer' : 'Tidak Populer' }}</td>
 								<td>
 									<div class="btn-group">
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$brosur->id}}">
+											Edit
+										</button>
+										<a class="btn btn-success" data-toggle="modal" data-target="#modal-preview" data-toggle="tooltip" data-placement="top" title="View PDF file">Lihat</a>
 										<form action="{{ route('admin.brosur-motor.destroy', $brosur->id) }}" method="post">
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$brosur->id}}">
-												Edit
-											</button>
 											@csrf
 											@method('DELETE')
 											<button type="submit" class="btn btn-danger">Delete</button>
@@ -129,6 +129,27 @@
 														<button type="submit" class="btn btn-primary">Save changes</button>
 													</div>
 												</form>
+											</div>
+										</div>
+									</div>
+									<!-- modal view pdf -->
+									<div class="modal fade" id="modal-preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Preview PDF</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<embed src="{{ '/assets/pdfs/' . $brosur->nama_file }}" type="application/pdf" width="100%" height="500" download>
+													Your browser does not support PDFs. Please download the PDF to view it.
+													</embed>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												</div>
 											</div>
 										</div>
 									</div>

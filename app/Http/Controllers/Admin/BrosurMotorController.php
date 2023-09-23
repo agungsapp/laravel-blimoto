@@ -89,7 +89,16 @@ class BrosurMotorController extends Controller
 	 */
 	public function show($id)
 	{
-		//
+		// // Get the brochure
+		// $brochure = BrosurMotor::find($id);
+
+		// // Get the PDF file
+		// $file = Storage::get('public/assets/pdfs/' . $brochure->nama_file);
+
+		// // Return the PDF file as a response
+		// return response($file, 200, [
+		// 	'Content-Type' => 'application/pdf',
+		// ]);
 	}
 
 	/**
@@ -168,5 +177,14 @@ class BrosurMotorController extends Controller
 
 		flash()->addSuccess("Berhasil hapus data brosur!");
 		return redirect()->back();
+	}
+
+	public function view(BrosurMotor $brochure)
+	{
+		$file = Storage::get('public/assets/pdfs/' . $brochure->nama_file);
+
+		return response($file, 200, [
+			'Content-Type' => 'application/pdf',
+		]);
 	}
 }
