@@ -32,13 +32,14 @@ use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserRegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DetailMotorController;
 
 Route::get('/', function () {
     return redirect()->to('/home');
 });
 
-Route::get('/testing', function () {
-    return view('admin.layouts.main');
+Route::get('/admin/login', function () {
+    return redirect()->to(route('admin.'));
 });
 
 
@@ -66,10 +67,10 @@ Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->na
 
 
 // admin area
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('app')->name('admin.')->group(function () {
     Route::get('login', [LoginAdminController::class, 'index']);
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
-    Route::post('logout', [LogoutAdminController::class, 'logout'])->name('logout');
+    Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
     Route::middleware(['auth.admin:admin'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);

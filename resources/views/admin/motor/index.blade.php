@@ -129,7 +129,7 @@
 																		<td>{{ 'Rp. ' . number_format($motor->harga, 0, ',', '.') }}</td>
 																		<td>
 																				<div class="d-flex justify-content-between">
-																						<a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-primary">Detail</a>
+																						<a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-warning">Edit</a>
 																						<form action="{{ route('admin.motor.destroy', $motor->id) }}" method="post">
 																								@csrf
 																								@method('DELETE')
@@ -169,15 +169,6 @@
 								"autoWidth": false,
 								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
 						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
-						// $('#example2').DataTable({
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"paging": true,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"lengthChange": false,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"searching": false,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"ordering": true,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"info": true,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"autoWidth": false,
-						// 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																"responsive": true,
-						// });
 				});
 		</script>
 @endpush
