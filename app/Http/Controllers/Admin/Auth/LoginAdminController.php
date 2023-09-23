@@ -31,7 +31,7 @@ class LoginAdminController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('app/dashboard');
         }
         return redirect()->back()->withErrors([
             'error' => 'The provided credentials do not match our records.',
