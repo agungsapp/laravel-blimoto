@@ -116,7 +116,6 @@ class BrosurMotorController extends Controller
 		$validator = Validator::make(
 			$request->all(),
 			[
-				'file-pdf' => 'required|file|mimes:pdf',
 				'is-popular' => 'required',
 			]
 		);
@@ -129,28 +128,25 @@ class BrosurMotorController extends Controller
 		// Get the old brochure
 		$oldBrochure = BrosurMotor::find($id);
 
-		// Delete the old file
-		File::delete(public_path('assets/pdfs/' . $oldBrochure->nama_file));
+		// Update the brochure
+		$oldBrochure->is_popular = $request->input('is-popular');
 
-		// Store the new file
-		try {
+		// If the brochure's PDF file was updated, delete the old file and store the new file
+		if ($request->hasFile('file-pdf')) {
+			File::delete(public_path('assets/pdfs/' . $oldBrochure->nama_file));
+
 			$file = $request->file('file-pdf');
 			$filename = $file->getClientOriginalName();
 			$file->move(public_path('assets/pdfs'), $filename);
 
-			// Update the database
-			$oldBrochure->update([
-				'nama_file' => $filename,
-				'is_popular' => $request->input('is-popular'),
-			]);
-
-			flash()->addSuccess("Berhasil merubah data brosur!");
-			return redirect()->back();
-		} catch (\Throwable $th) {
-			throw $th;
-			flash()->addError("Gagal menambahkan data brosur!");
-			return redirect()->back();
+			$oldBrochure->nama_file = $filename;
 		}
+
+		// Save the brochure
+		$oldBrochure->save();
+
+		flash()->addSuccess("Berhasil merubah data brosur!");
+		return redirect()->back();
 	}
 
 	/**

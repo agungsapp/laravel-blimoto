@@ -22,6 +22,7 @@
 						<p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
 						@else
 						<select name="motor" class="form-control select2" style="width: 100%;">
+							<option value="">-- Pilih Nama Motor --</option>
 							@foreach ($motors as $motor)
 							<option value="{{ $motor->id }}">{{ $motor->nama }}</option>
 							@endforeach
@@ -31,6 +32,7 @@
 					<div class="form-group">
 						<label>Is Populer</label>
 						<select name="is-popular" class="form-control">
+							<option value="">-- Pilih Kategori --</option>
 							<option value="0">Tidak Populer</option>
 							<option value="1">Populer</option>
 						</select>

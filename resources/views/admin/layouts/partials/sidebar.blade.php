@@ -85,7 +85,7 @@
 														<a href="{{ route('admin.brosur-motor.index') }}"
 																class="nav-link {{ \Route::is('admin.merk-motor.*') ? 'active' : '' }}">
 																<i class="far fa-circle nav-icon"></i>
-																<p>Data Brosur Motor Motor</p>
+																<p>Data Brosur Motor</p>
 														</a>
 												</li>
 										</ul>
