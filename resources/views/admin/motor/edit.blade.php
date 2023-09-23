@@ -6,7 +6,7 @@
 				<div class="col-12 col-md-12">
 						<div class="card card-warning">
 								<div class="card-header">
-										<h3 class="card-title">Input Data Motor Baru</h3>
+										<h3 class="card-title">Edit Data {{ $motor[0]->nama }}</h3>
 								</div>
 								<!-- /.card-header -->
 								<!-- form start -->

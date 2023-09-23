@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
+use App\Models\DetailMotor;
 use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\Type;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -58,38 +60,43 @@ class DetailMotorController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'berat' => 'required',
-            'power' => 'required',
-            'harga' => 'required',
-            'deskripsi-motor' => 'required',
-            'fitur-motor' => 'required',
             'merk-motor' => 'required',
             'tipe-motor' => 'required',
-        ]);
-
-        $kategori_best_motor = $request->input('kategori-best-motor') || 1;
+            'warna-motor' => 'required',
+            'model' => 'required',
+            'gambar-motor' => 'required|mimes:jpeg,png,jpg,webp',
+        ], ['gambar-motor.required' => 'gambar tidak boleh kosong !']);
 
         if ($validator->fails()) {
+            dd($validator->errors());
             flash()->addError("Inputkan semua data dengan benar!");
-            return redirect()->back();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         try {
-            $motor = Motor::create([
-                'nama' => $request->input('nama'),
-                'berat' => $request->input('berat'),
-                'power' => $request->input('power'),
-                'harga' => $request->input('harga'),
-                'deskripsi' => $request->input('deskripsi-motor'),
-                'fitur_utama' => $request->input('fitur-motor'),
-                'id_merk' => $request->input('merk-motor'),
-                'id_type' => $request->input('tipe-motor'),
-                'id_best_motor' => $kategori_best_motor,
+            // Periksa apakah gambar diunggah
+            if ($request->hasFile('gambar-motor')) {
+                // Mengambil file gambar yang diunggah
+                $gambar = $request->file('gambar-motor');
+
+                // Generate nama unik untuk gambar dengan menggunakan tanggal
+                $waktu = Carbon::now();
+                $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
+
+                // Pindahkan gambar ke direktori yang sesuai (misalnya, public/assets/images/custom/hook/)
+                $gambar->move(public_path('assets/images/detail-motor/'), $gambarName);
+            }
+
+            $motor = DetailMotor::create([
+                'warna' => $request->input('warna-motor'),
+                'gambar' => $gambarName,
+                'id_motor' => $request->input('model'),
             ]);
+
             flash()->addSuccess("Motor $motor->nama berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
+            throw $th;
             flash()->addError("Gagal membuat data pastikan sudah benar!");
             return redirect()->back();
         }
