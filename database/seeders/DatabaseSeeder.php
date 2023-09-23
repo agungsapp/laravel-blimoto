@@ -18,13 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('type')->insert([
-            'nama' => 'Matic',
-        ]);
 
-        DB::table('merk')->insert([
-            'nama' => 'Honda',
-        ]);
+        $this->call(MerkMotorSeeder::class);
+        $this->call(TypeMotorSeeder::class);
         $this->call(BestMotorSeeder::class);
         $this->call(MotorSeeder::class);
         $this->call(MotorDetailSeeder::class);

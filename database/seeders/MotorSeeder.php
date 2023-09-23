@@ -21,9 +21,9 @@ class MotorSeeder extends Seeder
         'harga' => rand(10000000, 20000000),
         'deskripsi' => 'Description for Motor ' . $i,
         'fitur_utama' => 'Feature 1, Feature 2, Feature 3',
-        'id_merk' => 1, // Replace with the actual merk IDs
-        'id_type' => 1, // Replace with the actual type IDs
-        'id_best_motor' => rand(1, 4), // Replace with the actual type IDs
+        'id_merk' => rand(1, 3),
+        'id_type' => rand(1, 4),
+        'id_best_motor' => rand(1, 4),
         'created_at' => now(),
         'updated_at' => now(),
       ]);
