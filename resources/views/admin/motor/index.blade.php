@@ -15,37 +15,39 @@
 												<div class="row">
 														<div class="form-group col-md-6">
 																<label for="nama-motor">Nama Motor</label>
-																<input name="nama" type="text" class="form-control" id="nama-motor"
-																		placeholder="Masukan nama motor">
+																<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
+																		id="nama-motor" placeholder="Masukan nama motor">
 														</div>
 														<div class="form-group col-md-6">
 																<label for="berat-motor">Berat Motor</label>
-																<input name="berat" type="text" class="form-control" id="berat-motor"
-																		placeholder="Masukan berat motor">
+																<input name="berat" type="text" class="form-control @error('berat') is-invalid @enderror"
+																		id="berat-motor" placeholder="Masukan berat motor">
 														</div>
 												</div>
 												<div class="row">
 														<div class="form-group col-md-6">
 																<label for="power-motor">Power Motor</label>
-																<input name="power" type="text" class="form-control" id="power-motor"
-																		placeholder="Masukan power motor">
+																<input name="power" type="text" class="form-control @error('power') is-invalid @enderror"
+																		id="power-motor" placeholder="Masukan power motor">
 														</div>
 														<div class="form-group col-md-6">
 																<label for="harga-motor">Harga Motor</label>
-																<input name="harga" type="number" class="form-control" id="harga-motor"
-																		placeholder="Masukan harga motor">
+																<input name="harga" type="number" class="form-control @error('harga') is-invalid @enderror"
+																		id="harga-motor" placeholder="Masukan harga motor">
 														</div>
 												</div>
 												<div class="row">
 														<div class="form-group col-md-12">
 																<label>Deskripsi Motor</label>
-																<textarea name="deskripsi-motor" class="form-control" rows="3" placeholder="Deskripsi Motor"></textarea>
+																<textarea name="deskripsi-motor" class="form-control @error('deskripsi-motor') is-invalid @enderror" rows="3"
+																  placeholder="Deskripsi Motor"></textarea>
 														</div>
 												</div>
 												<div class="row">
 														<div class="form-group col-md-12">
 																<label>Fitur Motor</label>
-																<textarea name="fitur-motor" class="form-control" rows="3" placeholder="Fitur Motor"></textarea>
+																<textarea name="fitur-motor" class="form-control @error('fitur-motor') is-invalid @enderror" rows="3"
+																  placeholder="Fitur Motor"></textarea>
 														</div>
 												</div>
 												<div class="row">
@@ -54,7 +56,8 @@
 																@if ($merk_motor == null)
 																		<p>Tidak ada data merk motor silahkan buat terlebih dahulu !</p>
 																@else
-																		<select name="merk-motor" class="form-control">
+																		<select name="merk-motor" class="form-control @error('merk-motor') is-invalid @enderror">
+																				<option value="">-- pilih merk motor --</option>
 																				@foreach ($merk_motor as $merk)
 																						<option value="{{ $merk->id }}">{{ $merk->nama }}</option>
 																				@endforeach
@@ -62,11 +65,12 @@
 																@endif
 														</div>
 														<div class="form-group col-md-6">
-																<label>Tipe Motors</label>
+																<label>Tipe Motor</label>
 																@if ($tipe_motor == null)
 																		<p>Tidak ada data tipe motor silahkan buat terlebih dahulu !</p>
 																@else
-																		<select name="tipe-motor" class="form-control">
+																		<select name="tipe-motor" class="form-control @error('tipe-motor') is-invalid @enderror">
+																				<option value="">-- pilih tipe motor --</option>
 																				@foreach ($tipe_motor as $merk)
 																						<option value="{{ $merk->id }}">{{ $merk->nama }}</option>
 																				@endforeach
@@ -133,7 +137,7 @@
 																						<form action="{{ route('admin.motor.destroy', $motor->id) }}" method="post">
 																								@csrf
 																								@method('DELETE')
-																								<button type="submit" class="btn btn-danger">Delete</button>
+																								<button type="submit" class="btn btn-danger show_confirm">Delete</button>
 																						</form>
 																				</div>
 																		</td>
@@ -170,5 +174,25 @@
 								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
 						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
 				});
+
+				$(document).ready(function() {
+						$('.show_confirm').click(function(event) {
+								var form = $(this).closest("form");
+								var name = $(this).data("name");
+								event.preventDefault();
+								swal({
+												title: `Delete Data Motor ?`,
+												text: "data yang di hapus tidak dapat dipulihkan!",
+												icon: "warning",
+												buttons: true,
+												dangerMode: true,
+										})
+										.then((willDelete) => {
+												if (willDelete) {
+														form.submit();
+												}
+										});
+						});
+				})
 		</script>
 @endpush

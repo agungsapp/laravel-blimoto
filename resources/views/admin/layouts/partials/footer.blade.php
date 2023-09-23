@@ -4,5 +4,6 @@
 				Anything you want
 				</div>
 				<!-- Default to the left -->
-				<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+				<strong>Copyright BliMoto &copy; 2023 <a href="https://www.blimoto.com">blimoto.com</a>.</strong> All rights
+				reserved.
 				</footer>
