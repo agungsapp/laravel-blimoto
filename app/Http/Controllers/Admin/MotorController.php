@@ -10,6 +10,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MotorController extends Controller
 {
@@ -24,7 +25,7 @@ class MotorController extends Controller
         $motors = DB::table('motor')
             ->join('merk', 'motor.id_merk', '=', 'merk.id')
             ->join('type', 'motor.id_type', '=', 'type.id')
-            ->where('motor.nama', 'LIKE', "%{$search}%")
+            ->where('motor.nama', 'LIKE', "%{$search}%")->orderBy('id', 'desc')
             ->select('motor.id', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga')
             ->get();
 
@@ -72,7 +73,7 @@ class MotorController extends Controller
 
         if ($validator->fails()) {
             flash()->addError("Inputkan semua data dengan benar!");
-            return redirect()->back();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         try {
@@ -179,6 +180,8 @@ class MotorController extends Controller
      */
     public function destroy($id)
     {
+
+
         try {
             $motor = Motor::findOrFail($id);
             $motor->delete();

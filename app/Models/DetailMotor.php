@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailMotor extends Model
 {
+    protected $table = 'detail_motor';
     protected $fillable = [
         'warna',
         'gambar',
