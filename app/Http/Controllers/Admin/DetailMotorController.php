@@ -22,14 +22,7 @@ class DetailMotorController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('search');
-        $motors = DB::table('motor')
-            ->join('merk', 'motor.id_merk', '=', 'merk.id')
-            ->join('type', 'motor.id_type', '=', 'type.id')
-            ->where('motor.nama', 'LIKE', "%{$search}%")
-            ->select('motor.id', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga')
-            ->paginate(10);
-
+        $motors = DetailMotor::orderBy('id', 'desc')->get();
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
@@ -146,36 +139,60 @@ class DetailMotorController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'berat' => 'required',
-            'power' => 'required',
-            'harga' => 'required',
-            'deskripsi_motor' => 'required',
-            'fitur_motor' => 'required',
-            'merk_motor' => 'required',
-            'tipe_motor' => 'required',
-        ]);
+            'merk-motor' => 'required',
+            'tipe-motor' => 'required',
+            'warna-motor' => 'required',
+            'model' => 'required',
+            'gambar-motor' => 'nullable|mimes:jpeg,png,jpg,webp',
+        ], ['gambar-motor.mimes' => 'Format gambar tidak valid!']);
 
         if ($validator->fails()) {
             flash()->addError("Inputkan semua data dengan benar!");
-            return redirect()->back();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $kategori_best_motor = $request->input('kategori-best-motor') || 1;
-        $motor = Motor::findOrFail($id);
-        $motor->nama = $request->nama;
-        $motor->berat = $request->berat;
-        $motor->power = $request->power;
-        $motor->harga = $request->harga;
-        $motor->deskripsi = $request->deskripsi_motor;
-        $motor->fitur_utama = $request->fitur_motor;
-        $motor->id_merk = $request->merk_motor;
-        $motor->id_type = $request->tipe_motor;
-        $motor->id_best_motor = $kategori_best_motor;
+        try {
+            $motor = DetailMotor::findOrFail($id);
 
-        $motor->save();
-        flash()->addSuccess("Berhasil merubah motor!");
-        return redirect()->to(route('admin.motor.index'));
+            // Periksa apakah ada file gambar yang diunggah
+            if ($request->hasFile('gambar-motor')) {
+                // Mengambil file gambar yang diunggah
+                $gambar = $request->file('gambar-motor');
+
+                // Generate nama unik untuk gambar dengan menggunakan tanggal
+                $waktu = Carbon::now();
+                $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
+
+                // Pindahkan gambar ke direktori yang sesuai (misalnya, public/assets/images/detail-motor/)
+                $gambar->move(public_path('assets/images/detail-motor/'), $gambarName);
+
+                // Hapus gambar lama jika ada
+                if ($motor->gambar) {
+                    // Pastikan Anda menghapus gambar yang lama dari direktori
+                    $gambarLama = public_path('assets/images/detail-motor/' . $motor->gambar);
+                    if (file_exists($gambarLama)) {
+                        unlink($gambarLama);
+                    }
+                }
+
+                // Update kolom gambar dengan nama gambar yang baru
+                $motor->update([
+                    'gambar' => $gambarName,
+                ]);
+            }
+
+            // Update data lainnya
+            $motor->update([
+                'warna' => $request->input('warna-motor'),
+                'id_motor' => $request->input('model'),
+            ]);
+
+            flash()->addSuccess("Motor $motor->nama berhasil diperbarui");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            flash()->addError("Gagal memperbarui data pastikan sudah benar!");
+            return redirect()->back();
+        }
     }
 
     /**

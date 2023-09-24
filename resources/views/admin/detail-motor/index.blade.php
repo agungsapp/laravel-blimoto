@@ -1,8 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
 
-
-
 		<div class="row">
 				<div class="col-12">
 						<div class="card card-primary">
@@ -84,6 +82,60 @@
 
 				</div>
 		</div>
+
+		<div class="row">
+				<div class="col-12">
+						<div class="card card-primary">
+								<div class="card-header">
+										<div class="card-title">
+												Data Detail Motor
+										</div>
+								</div>
+								<div class="card-body">
+										<table id="dataDetail" class="table-bordered table-striped table">
+												<thead>
+														<tr>
+																<th>ID</th>
+																<th>Nama Motor</th>
+																<th>Warna Motor</th>
+																<th>Gambar</th>
+																<th width="120px">Action</th>
+														</tr>
+												</thead>
+												<tbody>
+														@foreach ($motors as $motor)
+																<tr>
+																		<td>{{ $loop->iteration }}</td>
+																		<td>{{ $motor->motor->nama }}</td>
+																		<td>{{ $motor->warna }}</td>
+																		<td>{{ $motor->gambar }}</td>
+																		<td>
+																				<div class="d-flex justify-content-between">
+																						<a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-warning">Edit</a>
+																						<form action="{{ route('admin.motor.destroy', $motor->id) }}" method="post">
+																								@csrf
+																								@method('DELETE')
+																								<button type="submit" class="btn btn-danger show_confirm">Delete</button>
+																						</form>
+																				</div>
+																		</td>
+																</tr>
+														@endforeach
+												</tbody>
+												<tfoot>
+														<tr>
+																<th>ID</th>
+																<th>Nama Motor</th>
+																<th>Warna Motor</th>
+																<th>Gambar</th>
+																<th width="120px">Action</th>
+														</tr>
+												</tfoot>
+										</table>
+								</div>
+								<!-- /.card-body -->
+						</div>
+				</div>
 		</div>
 
 @endsection
@@ -92,6 +144,16 @@
 @push('script')
 		<script>
 				$(document).ready(function() {
+
+						$("#dataDetail").DataTable({
+								"responsive": true,
+								"lengthChange": false,
+								"autoWidth": false,
+								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
+						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
+
+
+
 						//Initialize Select2 Elements
 						$('.select2').select2()
 
