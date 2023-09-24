@@ -81,7 +81,7 @@
 										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$brosur->id}}">
 											Edit
 										</button>
-										<a class="btn btn-success" data-toggle="modal" data-target="#modal-preview" data-toggle="tooltip" data-placement="top" title="View PDF file">Lihat</a>
+										<button class="btn btn-success" data-toggle="modal" data-target="#modal-pdf" data-placement="top" title="View PDF file">Lihat</button>
 										<form action="{{ route('admin.brosur-motor.destroy', $brosur->id) }}" method="post">
 											@csrf
 											@method('DELETE')
@@ -132,20 +132,16 @@
 											</div>
 										</div>
 									</div>
+									<!-- end modal update -->
 									<!-- modal view pdf -->
-									<div class="modal fade" id="modal-preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+									<div class="modal fade" id="modal-pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Preview PDF</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
+													<h4 class="modal-title" id="myModalLabel">View PDF: {{$brosur->motor->nama}}</h4>
 												</div>
 												<div class="modal-body">
-													<embed src="{{ '/assets/pdfs/' . $brosur->nama_file }}" type="application/pdf" width="100%" height="500" download>
-													Your browser does not support PDFs. Please download the PDF to view it.
-													</embed>
+													<embed src="{{ '/assets/pdfs/' . $brosur->nama_file }}" width="100%" height="500" alt="pdf" />
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -153,6 +149,7 @@
 											</div>
 										</div>
 									</div>
+									<!-- end modal view pdf -->
 								</td>
 							</tr>
 							@endforeach
