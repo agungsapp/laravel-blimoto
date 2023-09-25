@@ -25,6 +25,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('dist') }}/css/adminlte.min.css">
 
+		<!-- summernote -->
+		<link rel="stylesheet" href="{{ asset('plugins') }}/summernote/summernote-bs4.min.css">
+
+		{{-- fancy box --}}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -109,7 +115,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- AdminLTE App -->
 		<script src="{{ asset('dist') }}/js/adminlte.min.js"></script>
 
+		<!-- Summernote -->
+		<script src="{{ asset('plugins') }}/summernote/summernote-bs4.min.js"></script>
+		{{-- fancy box --}}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
+		{{-- sweet alert --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
 		@stack('script')
