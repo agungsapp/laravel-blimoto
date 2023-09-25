@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('review_motor', function (Blueprint $table) {
             $table->id();
             $table->string('caption');
-            $table->int('bintang');
+            $table->integer('bintang');
             $table->unsignedBigInteger('id_motor');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_motor')
@@ -24,7 +24,7 @@ return new class extends Migration
                 ->on('motor');
             $table->foreign('id_user')
                 ->references('id')
-                ->on('user');
+                ->on('users');
             $table->timestamps();
         });
     }
