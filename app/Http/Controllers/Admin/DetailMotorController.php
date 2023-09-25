@@ -61,7 +61,6 @@ class DetailMotorController extends Controller
         ], ['gambar-motor.required' => 'gambar tidak boleh kosong !']);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             flash()->addError("Inputkan semua data dengan benar!");
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -114,19 +113,17 @@ class DetailMotorController extends Controller
      */
     public function edit($id)
     {
-        $motor = Motor::where('id', $id)->get();
-        $merk_motor = Merk::all();
-        $tipe_motor = Type::all();
-        $kategori_best_motor = BestMotor::all();
+        // $motor = Motor::where('id', $id)->get();
+        // $merk_motor = Merk::all();
+        // $tipe_motor = Type::all();
+        // $kategori_best_motor = BestMotor::all();
 
-        // dd($motor);
-
-        return view('admin.motor.edit', [
-            'motor' => $motor,
-            'merk_motor' => $merk_motor,
-            'tipe_motor' => $tipe_motor,
-            'kategori_best_motor' => $kategori_best_motor,
-        ]);
+        // return view('admin.motor.edit', [
+        //     'motor' => $motor,
+        //     'merk_motor' => $merk_motor,
+        //     'tipe_motor' => $tipe_motor,
+        //     'kategori_best_motor' => $kategori_best_motor,
+        // ]);
     }
 
     /**
@@ -139,10 +136,7 @@ class DetailMotorController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'merk-motor' => 'required',
-            'tipe-motor' => 'required',
             'warna-motor' => 'required',
-            'model' => 'required',
             'gambar-motor' => 'nullable|mimes:jpeg,png,jpg,webp',
         ], ['gambar-motor.mimes' => 'Format gambar tidak valid!']);
 
@@ -184,7 +178,6 @@ class DetailMotorController extends Controller
             // Update data lainnya
             $motor->update([
                 'warna' => $request->input('warna-motor'),
-                'id_motor' => $request->input('model'),
             ]);
 
             flash()->addSuccess("Motor $motor->nama berhasil diperbarui");
@@ -203,8 +196,12 @@ class DetailMotorController extends Controller
      */
     public function destroy($id)
     {
+        $motor = DetailMotor::findOrFail($id);
         try {
-            $motor = Motor::findOrFail($id);
+            $gambarLama = public_path('assets/images/detail-motor/' . $motor->gambar);
+            if (file_exists($gambarLama)) {
+                unlink($gambarLama);
+            }
             $motor->delete();
             flash()->addSuccess("Berhasil menghapus motor!");
             return redirect()->back();

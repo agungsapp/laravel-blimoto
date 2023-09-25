@@ -78,10 +78,10 @@
 								<td> {{$brosur->is_popular ? 'Populer' : 'Tidak Populer' }}</td>
 								<td>
 									<div class="btn-group">
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$brosur->id}}">
+										<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEdit{{$brosur->id}}">
 											Edit
 										</button>
-										<button class="btn btn-success" data-toggle="modal" data-target="#modal-pdf" data-placement="top" title="View PDF file">Lihat</button>
+										<button class="btn btn-success" data-toggle="modal" data-target="#modalView{{$brosur->id}}" data-placement="top" title="View PDF file">Lihat</button>
 										<form action="{{ route('admin.brosur-motor.destroy', $brosur->id) }}" method="post">
 											@csrf
 											@method('DELETE')
@@ -134,11 +134,11 @@
 									</div>
 									<!-- end modal update -->
 									<!-- modal view pdf -->
-									<div class="modal fade" id="modal-pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal fade" id="modalView{{$brosur->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel">View PDF: {{$brosur->motor->nama}}</h4>
+													<h4 class="modal-title" id="myModalLabel">PDF{{$brosur->motor->nama}}</h4>
 												</div>
 												<div class="modal-body">
 													<embed src="{{ '/assets/pdfs/' . $brosur->nama_file }}" width="100%" height="500" alt="pdf" />

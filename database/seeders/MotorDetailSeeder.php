@@ -16,7 +16,7 @@ class MotorDetailSeeder extends Seeder
     for ($i = 1; $i <= $numberOfRecords; $i++) {
       DB::table('detail_motor')->insert([
         'warna' => 'Color ' . $i,
-        'gambar' => 'image' . $i . '.jpg',
+        'gambar' => rand(1, 5) . '.webp',
         'id_motor' => $i, // Replace with the actual motor IDs
         'created_at' => now(),
         'updated_at' => now(),
