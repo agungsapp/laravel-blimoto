@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\Motor;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +16,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $data = [
+            'motor' => Motor::all()->count(),
+            'blog' => Blog::all()->count()
+        ];
+
+        // dd($data['motor']);
+
+        return view('admin.dashboard.index', $data);
     }
 
     /**
