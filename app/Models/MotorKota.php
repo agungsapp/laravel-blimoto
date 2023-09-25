@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MotorKota extends Model
 {
+    public $timestamps = false;
+    protected $table = 'motor_kota';
     protected $fillable = [
         'id_kota',
         'id_motor'

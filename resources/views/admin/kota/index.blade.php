@@ -46,7 +46,7 @@
             <tbody>
               @foreach ($kotas as $index => $kota)
               <tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
-                <td>{{$kota->id}}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{$kota->nama}}</td>
                 <td>
                   <div class="btn-group">

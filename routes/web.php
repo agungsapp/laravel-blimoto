@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// admin
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\KotaController;
 use App\Http\Controllers\Admin\MerkMotorController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TypeMotorController;
+use App\Http\Controllers\Admin\DetailMotorController;
+use App\Http\Controllers\Admin\MotorKotaController;
+// user
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
@@ -32,8 +35,8 @@ use App\Http\Controllers\User\SimulasiKreditController;
 use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserRegisterController;
+// lain lain
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DetailMotorController;
 
 Route::get('/', function () {
     return redirect()->to('/home');
@@ -82,6 +85,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('hook', HookController::class);
         Route::resource('detail-motor', DetailMotorController::class);
         Route::resource('brosur-motor', BrosurMotorController::class);
+        Route::resource('kota-motor', MotorKotaController::class);
     });
 });
 

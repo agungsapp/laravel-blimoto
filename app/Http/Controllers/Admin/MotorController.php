@@ -21,11 +21,9 @@ class MotorController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('search');
         $motors = DB::table('motor')
             ->join('merk', 'motor.id_merk', '=', 'merk.id')
             ->join('type', 'motor.id_type', '=', 'type.id')
-            ->where('motor.nama', 'LIKE', "%{$search}%")->orderBy('id', 'desc')
             ->select('motor.id', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga')
             ->get();
 
