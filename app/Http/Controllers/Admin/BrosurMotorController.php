@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\BrosurMotor;
 use App\Models\Motor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;

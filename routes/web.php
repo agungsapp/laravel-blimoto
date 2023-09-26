@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\MotorKotaController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
+use App\Http\Controllers\User\CicilanMotorController;
 use App\Http\Controllers\User\DealerController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InfoLeasingController;
@@ -68,6 +69,7 @@ Route::resource('/info_leasing', InfoLeasingController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
+Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');;
 
 
 
