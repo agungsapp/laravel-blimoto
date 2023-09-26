@@ -47,10 +47,12 @@ class BlogController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'cuplikan' => 'required',
             'deskripsi' => 'required',
             'thumbnail' => 'required',
         ], [
             'judul.required' => 'judul postingan tidak boleh kosong !',
+            'cuplikan.required' => 'cuplikan postingan tidak boleh kosong !',
             'deskripsi.required' => 'deskripsi postingan tidak boleh kosong !',
             'thumbnail.required' => 'thumbnail postingan tidak boleh kosong !',
         ]);
@@ -81,14 +83,14 @@ class BlogController extends Controller
                 $gambar->move(public_path('assets/images/thumbnail-blog/'), $gambarName);
             }
 
-
             $blog = Blog::create([
-                'judul' => $request->input('judul'),
+                'judul' => $request->judul,
                 'deskripsi' => $deskripsi,
+                'cuplikan' => $request->cuplikan,
                 'thumbnail' => $gambarName,
             ]);
 
-            flash()->addSuccess("Postingan $blog->nama berhasil dibuat");
+            flash()->addSuccess("Postingan $blog->judul berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
             throw $th;
@@ -147,9 +149,11 @@ class BlogController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'cuplikan' => 'required',
             'deskripsi' => 'required',
         ], [
             'judul.required' => 'Judul postingan tidak boleh kosong!',
+            'cuplikan.required' => 'cuplikan postingan tidak boleh kosong !',
             'deskripsi.required' => 'Deskripsi postingan tidak boleh kosong!',
         ]);
 
@@ -196,6 +200,7 @@ class BlogController extends Controller
         }
 
         $blog->judul = $request->input('judul');
+        $blog->cuplikan = $request->input('cuplikan');
         $blog->deskripsi = $deskripsi;
         $blog->save();
 

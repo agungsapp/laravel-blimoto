@@ -35,6 +35,7 @@ use App\Http\Controllers\User\InfoLeasingController;
 use App\Http\Controllers\User\MotorTerbaruController;
 use App\Http\Controllers\User\SimulasiKreditController;
 use App\Http\Controllers\User\SyaratKreditController;
+use App\Http\Controllers\User\UserBlogController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserRegisterController;
 // lain lain
@@ -66,10 +67,12 @@ Route::resource('/simulasi_kredit', SimulasiKreditController::class);
 Route::resource('/brosur_kredit', BrosurKreditController::class);
 Route::resource('/syarat_kredit', SyaratKreditController::class);
 Route::resource('/info_leasing', InfoLeasingController::class);
+Route::resource('/blog', UserBlogController::class);
+
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
-Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');;
+Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 
 
 

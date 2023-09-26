@@ -1,7 +1,7 @@
 <!-- loader start -->
 <div class="loader-wrapper">
 		<div>
-				<img src="assets/images/custom/loader.gif" alt="loader" />
+				<img src="/assets/images/custom/loader.gif" alt="loader" />
 		</div>
 </div>
 <!-- loader end -->
@@ -20,7 +20,7 @@
 
 														<div class="brand-logo logo-sm-center">
 																<a href="{{ route('home.index') }}">
-																		<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
+																		<img src="/assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
 																</a>
 														</div>
 												</div>
@@ -121,7 +121,7 @@
 																</div>
 																<div class="brand-logo logo-sm-center">
 																		<a href="{{ route('home.index') }}">
-																				<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
+																				<img src="/assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
 																		</a>
 																</div>
 														</div>
