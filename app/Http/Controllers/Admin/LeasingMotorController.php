@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LeasingMotor;
-use App\Models\Merk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class LeasingMotorController extends Controller
@@ -32,6 +30,33 @@ class LeasingMotorController extends Controller
    */
   public function store(Request $request)
   {
+    $validator = Validator::make($request->all(), [
+      'nama' => 'required',
+      'diskon' => 'required',
+    ]);
+
+    $diskon = $request->input('diskon');
+    if (strpos($diskon, '%') !== false) {
+      $diskon = (float)rtrim($diskon, '%') / 100;
+    }
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back();
+    }
+
+    try {
+      $leasing = LeasingMotor::create([
+        'nama' => $request->input('nama'),
+        'diskon' => $diskon
+      ]);
+      flash()->addSuccess("Leasing $leasing->nama berhasil dibuat");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      throw $th;
+      flash()->addError("Gagal membuat data pastikan sudah benar!");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -43,6 +68,31 @@ class LeasingMotorController extends Controller
    */
   public function update(Request $request, $id)
   {
+    $validator = Validator::make($request->all(), [
+      'nama' => 'required',
+      'diskon' => 'required',
+    ]);
+
+    $diskon = $request->input('diskon');
+    if (strpos($diskon, '%') !== false) {
+      $diskon = (float)rtrim($diskon, '%') / 100;
+    }
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back();
+    }
+
+    // Find the Type model by id
+    $leasing = LeasingMotor::findOrFail($id);
+    // Update the leasing$leasing model
+    $leasing->nama = $request->nama;
+    $leasing->diskon = $diskon;
+    $leasing->save();
+
+    // Redirect back with a success message
+    flash()->addSuccess("Berhasil merubah leasing!");
+    return redirect()->back();
   }
 
   /**
@@ -53,5 +103,14 @@ class LeasingMotorController extends Controller
    */
   public function destroy($id)
   {
+    try {
+      $leasing = LeasingMotor::findOrFail($id);
+      $leasing->delete();
+      flash()->addSuccess("Berhasil menghapus leasing!");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      flash()->addError("$leasing->name tidak bisa dihapus karena data digunakan oleh data lain!");
+      return redirect()->back();
+    }
   }
 }

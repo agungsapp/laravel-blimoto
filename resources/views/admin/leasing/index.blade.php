@@ -7,18 +7,16 @@
         <div class="card-header">
           <h3 class="card-title">Input Data Leasing Motor</h3>
         </div>
-        <form action="{{ route('admin.type-motor.store') }}" method="post">
+        <form action="{{ route('admin.leasing-motor.store') }}" method="post">
           @csrf
           <div class="card-body">
             <div class="form-group">
-              <label for="exampleInputTypeMotor">Nama Leasing</label>
-              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan leasing (FIF Group, Adira, dll)">
+              <label for="nama-leasing">Nama Leasing</label>
+              <input name="nama" type="text" class="form-control" id="nama-leasing" placeholder="Masukan leasing (FIF Group, Adira, dll)">
             </div>
-          </div>
-          <div class="card-body">
             <div class="form-group">
-              <label for="exampleInputTypeMotor">Diskon Leasing</label>
-              <input name="diskon" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
+              <label for="diskon-motor">Diskon Leasing</label>
+              <input name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
             </div>
           </div>
           <div class="card-footer">
@@ -26,7 +24,6 @@
           </div>
         </form>
       </div>
-
     </div>
   </div>
 </section>
@@ -55,10 +52,10 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$l->nama}}</td>
-                <td>{{$l->diskon}}</td>
+                <td>{{($l->diskon * 100).'%' }}</td>
                 <td>
                   <div class="btn-group">
-                    <form action="{{ route('admin.type-motor.destroy', $l->id) }}" method="post">
+                    <form action="{{ route('admin.leasing-motor.destroy', $l->id) }}" method="post">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$l->id}}">
                         Edit
@@ -75,20 +72,23 @@
                         <div class="modal-header">
                           <h4 class="modal-title" id="myModalLabel">Edit data: {{$l->nama}}</h4>
                         </div>
-                        <form action="{{ route('admin.type-motor.update', $l->id) }}" method="post">
+                        <form action="{{ route('admin.leasing-motor.update', $l->id) }}" method="post">
                           @csrf
                           @method('PUT')
                           <div class="modal-body">
                             <div class="card card-primary">
                               <div class="card-header with-border">
-                                <h3 class="card-title">Update Data Type Motor</h3>
+                                <h3 class="card-title">Update Data Leasing</h3>
                               </div>
-                              {{ csrf_field() }}
                               <input type="hidden" value="{{$l->id}}">
                               <div class="card-body">
                                 <div class="form-group">
-                                  <label for="exampleInputTypeMotor">Nama Type Motor</label>
-                                  <input value="{{$l->nama}}" name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan leasing (FIF Group, Adira, dll)">
+                                  <label for="nama-leasing">Nama Leasing</label>
+                                  <input value="{{$l->nama}}" name="nama" type="text" class="form-control" id="nama-leasing" placeholder="Masukan leasing (FIF Group, Adira, dll)">
+                                </div>
+                                <div class="form-group">
+                                  <label for="diskon-motor">Diskon Leasing</label>
+                                  <input value="{{$l->diskon}}" name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
                                 </div>
                               </div>
                             </div>
