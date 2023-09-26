@@ -14,11 +14,13 @@ class MotorSeeder extends Seeder
 
     // Loop to insert multiple rows of data
     for ($i = 1; $i <= $numberOfRecords; $i++) {
+    $harga = rand(10000000, 20000000);
       DB::table('motor')->insert([
         'nama' => 'Motor ' . $i,
         'berat' => rand(200, 500) . ' kg',
         'power' => rand(100, 300) . ' cc',
-        'harga' => rand(10000000, 20000000),
+        'harga' => $harga,
+        'min_dp' => $harga * 0.1,
         'deskripsi' => 'Description for Motor ' . $i,
         'fitur_utama' => 'Feature 1, Feature 2, Feature 3',
         'id_merk' => rand(1, 3),

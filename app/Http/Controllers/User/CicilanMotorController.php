@@ -84,10 +84,10 @@ class CicilanMotorController extends Controller
   public function getCicilan(Request $request, $id)
   {
     try {
-      $cicilanMotor = CicilanMotor::findOrFail($id);
+      $cicilanMotor = Motor::findOrFail($id);
       return response()->json([
         'status' => 'success',
-        'data' => $cicilanMotor
+        'min_dp' => $cicilanMotor->min_dp
       ], 200);
     } catch (ModelNotFoundException $e) {
       return response()->json([
@@ -148,8 +148,7 @@ class CicilanMotorController extends Controller
       'total_pembayaran' => $dp + ($cicilan * $tenor),
       'cicilan' => $cicilan,
       'leasing' => $leasingMotors,
-      // 'rekomendasi_motor' => $similarMotors,
-      'filtered_motors' => $filteredMotors
+      'rekomendasi_motor' => $filteredMotors
     ], 200);
   }
 }
