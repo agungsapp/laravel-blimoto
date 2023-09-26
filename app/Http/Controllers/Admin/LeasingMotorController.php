@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LeasingMotor;
 use App\Models\Merk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,10 @@ class LeasingMotorController extends Controller
    */
   public function index(Request $request)
   {
-    return view('admin.leasing.index');
+    $dataLeasing = LeasingMotor::all();
+    return view('admin.leasing.index', [
+      'leasings' => $dataLeasing
+    ]);
   }
 
   /**

@@ -11,8 +11,14 @@
           @csrf
           <div class="card-body">
             <div class="form-group">
-              <label for="exampleInputTypeMotor">Nama Type Motor</label>
-              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
+              <label for="exampleInputTypeMotor">Nama Leasing</label>
+              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan leasing (FIF Group, Adira, dll)">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="exampleInputTypeMotor">Diskon Leasing</label>
+              <input name="diskon" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
             </div>
           </div>
           <div class="card-footer">
@@ -30,7 +36,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Data Type Motor</h3>
+          <h3 class="card-title">Data Leasing</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -39,20 +45,22 @@
               <tr role="row">
               <tr>
                 <th>NO</th>
-                <th>Nama Type Motor</th>
+                <th>Nama Leasing</th>
+                <th>Diskon Leasing</th>
                 <th width="170px">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($types as $index => $type)
+              @foreach ($leasings as $index => $l)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{$type->nama}}</td>
+                <td>{{$l->nama}}</td>
+                <td>{{$l->diskon}}</td>
                 <td>
                   <div class="btn-group">
-                    <form action="{{ route('admin.type-motor.destroy', $type->id) }}" method="post">
+                    <form action="{{ route('admin.type-motor.destroy', $l->id) }}" method="post">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$type->id}}">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$l->id}}">
                         Edit
                       </button>
                       @csrf
@@ -61,13 +69,13 @@
                     </form>
                   </div>
                   <!-- Modal update -->
-                  <div class="modal fade" id="modalEdit{{$type->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal fade" id="modalEdit{{$l->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title" id="myModalLabel">Edit data: {{$type->nama}}</h4>
+                          <h4 class="modal-title" id="myModalLabel">Edit data: {{$l->nama}}</h4>
                         </div>
-                        <form action="{{ route('admin.type-motor.update', $type->id) }}" method="post">
+                        <form action="{{ route('admin.type-motor.update', $l->id) }}" method="post">
                           @csrf
                           @method('PUT')
                           <div class="modal-body">
@@ -76,11 +84,11 @@
                                 <h3 class="card-title">Update Data Type Motor</h3>
                               </div>
                               {{ csrf_field() }}
-                              <input type="hidden" value="{{$type->id}}">
+                              <input type="hidden" value="{{$l->id}}">
                               <div class="card-body">
                                 <div class="form-group">
                                   <label for="exampleInputTypeMotor">Nama Type Motor</label>
-                                  <input value="{{$type->nama}}" name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
+                                  <input value="{{$l->nama}}" name="nama_edit" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan leasing (FIF Group, Adira, dll)">
                                 </div>
                               </div>
                             </div>

@@ -178,8 +178,6 @@ class MotorController extends Controller
      */
     public function destroy($id)
     {
-
-
         try {
             $motor = Motor::findOrFail($id);
             $motor->delete();
@@ -188,6 +186,21 @@ class MotorController extends Controller
         } catch (\Throwable $th) {
             flash()->addError("$motor->name tidak bisa dihapus karena data digunakan oleh data lain!");
             return redirect()->back();
+        }
+    }
+
+    public function getHarga($id)
+    {
+        try {
+            $motor = Motor::findOrFail($id);
+            return response()->json([
+                'message' => 'success',
+                'data' => $motor
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'fail motor not found',
+            ], 404);
         }
     }
 }

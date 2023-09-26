@@ -75,6 +75,7 @@ Route::resource('/blog', UserBlogController::class);
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
 // Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 Route::get('/cicilan-motor/hitung-cicilan', [CicilanMotorController::class, 'hitungCicilan']);
+Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 
 
 
