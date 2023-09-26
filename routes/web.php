@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\MerkMotorController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TypeMotorController;
 use App\Http\Controllers\Admin\DetailMotorController;
+use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MotorKotaController;
 // user
 use App\Http\Controllers\User\BandingkanController;
@@ -72,7 +73,8 @@ Route::resource('/blog', UserBlogController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
-Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
+// Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
+Route::get('/cicilan-motor/hitung-cicilan', [CicilanMotorController::class, 'hitungCicilan']);
 
 
 
@@ -87,6 +89,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('type-motor', TypeMotorController::class);
         Route::resource('merk-motor', MerkMotorController::class);
         Route::resource('best-motor', BestMotorController::class);
+        Route::resource('leasing-motor', LeasingMotorController::class);
         Route::resource('kota', KotaController::class);
         Route::resource('hook', HookController::class);
         Route::resource('detail-motor', DetailMotorController::class);
