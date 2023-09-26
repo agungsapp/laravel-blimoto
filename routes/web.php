@@ -69,7 +69,7 @@ Route::resource('/info_leasing', InfoLeasingController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
-Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
+// Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 Route::get('/cicilan-motor/hitung-cicilan', [CicilanMotorController::class, 'hitungCicilan']);
 
 
