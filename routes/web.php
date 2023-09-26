@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\MerkMotorController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TypeMotorController;
 use App\Http\Controllers\Admin\DetailMotorController;
+use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MotorKotaController;
 // user
 use App\Http\Controllers\User\BandingkanController;
@@ -85,6 +86,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('type-motor', TypeMotorController::class);
         Route::resource('merk-motor', MerkMotorController::class);
         Route::resource('best-motor', BestMotorController::class);
+        Route::resource('leasing-motor', LeasingMotorController::class);
         Route::resource('kota', KotaController::class);
         Route::resource('hook', HookController::class);
         Route::resource('detail-motor', DetailMotorController::class);
