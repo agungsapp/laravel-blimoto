@@ -20,6 +20,12 @@
 																name="judul" placeholder="masukan judul postingan ...">
 												</div>
 
+												{{-- cuplikan --}}
+												<div class="form-group">
+														<label for="cuplikan">Cuplikan Postingan</label>
+														<textarea class="form-control @error('cuplikan') is-invalid @enderror" id="cuplikan" name="cuplikan" maxlength="250"></textarea>
+												</div>
+
 												{{-- deksripsi use summernote --}}
 												<div class="form-group">
 														<label for="deskripsi">Deskripsi Postingan</label>
@@ -29,6 +35,13 @@
 												{{-- thumbnail --}}
 												<div class="form-group">
 														<label for="thumbnail">Gambar Thumbnail Postingan</label>
+														<div class="alert alert-info alert-dismissible fade show" role="alert">
+																Sangat di rekomendasikan menggunakan gambar dengan <strong>ukuran 852 px x 568 px</strong>
+																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																</button>
+														</div>
+														<p class="text-info"></p>
 														<div class="input-group">
 																<div class="custom-file">
 																		<input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail"

@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																												<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																								<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -316,8 +316,8 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																																																																																																																		<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																</div> -->
+																																																																																																																																																														<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																												</div> -->
 
 												</div>
 												<div class="row">
@@ -1134,38 +1134,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																								<div>
-																																																																																																																											<h3>best discount </h3>
-																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																								</div>
-																																																																																																																					</div> -->
+																																																																																																																																																																				<div>
+																																																																																																																																																																							<h3>best discount </h3>
+																																																																																																																																																																							<h4>cordless tools</h4>
+																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																				</div>
+																																																																																																																																																																	</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																		<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																								<div>
-																																																																																																																											<h3>best discount </h3>
-																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																								</div>
-																																																																																																																					</div>
-																																																																																																																		</div>
-																																																																																																															</div> -->
+																																																																																																																																																														<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																	<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																	<div class="collection-banner-contain">
+																																																																																																																																																																				<div>
+																																																																																																																																																																							<h3>best discount </h3>
+																																																																																																																																																																							<h4>cordless tools</h4>
+																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																				</div>
+																																																																																																																																																																	</div>
+																																																																																																																																																														</div>
+																																																																																																																																																											</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																		<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																								<div>
-																																																																																																																											<h3>up to 50% off</h3>
-																																																																																																																											<h4>replaair parts</h4>
-																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																								</div>
-																																																																																																																					</div>
-																																																																																																																		</div>
-																																																																																																															</div> -->
+																																																																																																																																																														<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																	<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																	<div class="collection-banner-contain">
+																																																																																																																																																																				<div>
+																																																																																																																																																																							<h3>up to 50% off</h3>
+																																																																																																																																																																							<h4>replaair parts</h4>
+																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																				</div>
+																																																																																																																																																																	</div>
+																																																																																																																																																														</div>
+																																																																																																																																																											</div> -->
 						</div>
 				</div>
 		</section>
@@ -1213,129 +1213,27 @@
 						<div class="row">
 								<div class="col pr-0">
 										<div class="blog-slide-4 no-arrow">
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img src="assets/images/custom/berita1.png" alt="blog" class="img-fluid w-100" />
-																		</a>
+												@foreach ($blogs as $blog)
+														<div>
+																<div class="blog-contain">
+																		<div class="blog-img">
+																				<a href="{{ route('blog.show', $blog->id) }}">
+																						<img src="/assets/images/thumbnail-blog/{{ $blog->thumbnail }}" alt="blog thumbnail"
+																								class="img-fluid w-100" />
+																				</a>
+																		</div>
+																		<div style="padding: 0px; padding-top: 10px" class="blog-details-2 text-start">
+																				<a href="{{ route('blog.show', $blog->id) }}">
+																						<h4>{{ $blog->judul }}</h4>
+																				</a>
+																				<p>
+																						{{ $blog->cuplikan }}...
+																				</p>
+																		</div>
+																		<div class="blog-label1">27 <br />nov</div>
 																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>Ini Judul Berita</h4>
-																		</a>
-																		<p>
-																				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																				Curabitur eleifend a massa rhoncus gravida.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
 														</div>
-												</div>
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img src="assets/images/custom/berita2.png" class="img-fluid w-100" alt="blog"
-																						class="img-fluid w-100" />
-																		</a>
-																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>Ini Judul Berita</h4>
-																		</a>
-																		<p>
-																				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																				Curabitur eleifend a massa rhoncus gravida.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
-														</div>
-												</div>
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img src="assets/images/custom/berita3.png" class="img-fluid w-100" class="img-fluid w-100" />
-																		</a>
-																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>Ini Judul Berita</h4>
-																		</a>
-																		<p>
-																				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																				Curabitur eleifend a massa rhoncus gravida.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
-														</div>
-												</div>
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img
-																						src="https://asset.kompas.com/crops/VNShGIZ1UidiaF3bKd9ynRTBm0k=/224x173:1305x894/1200x800/data/photo/2023/09/13/6501722b9ca43.jpeg"
-																						alt="blog" class="img-fluid w-100" />
-																		</a>
-																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>
-																						Hyundai IONIQ 5 2023 Versi Bluelink, Makin Pintar?
-																				</h4>
-																		</a>
-																		<p>
-																				IONIQ 5 dengan Hyundai Bluelink juga dilengkapi fitur
-																				navigasi yang lebih lengkap.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
-														</div>
-												</div>
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img
-																						src="https://imgcdnblog.carbay.com/wp-content/uploads/2023/09/12114412/United-e-motor-2-500x333.jpg"
-																						alt="blog" class="img-fluid w-100" />
-																		</a>
-																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>Ini Judul Berita</h4>
-																		</a>
-																		<p>
-																				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																				Curabitur eleifend a massa rhoncus gravida.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
-														</div>
-												</div>
-												<div>
-														<div class="blog-contain">
-																<div class="blog-img">
-																		<a href="blog-details.html">
-																				<img
-																						src="https://imgcdnblog.carbay.com/wp-content/uploads/2023/09/12114412/United-e-motor-2-500x333.jpg"
-																						alt="blog" class="img-fluid w-100" />
-																		</a>
-																</div>
-																<div class="blog-details-2 text-start">
-																		<a href="blog-details.html">
-																				<h4>Ini Judul Berita</h4>
-																		</a>
-																		<p>
-																				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																				Curabitur eleifend a massa rhoncus gravida.
-																		</p>
-																</div>
-																<div class="blog-label1">27 <br />nov</div>
-														</div>
-												</div>
+												@endforeach
 										</div>
 								</div>
 						</div>
@@ -1851,6 +1749,7 @@
 												console.log("done bang!")
 												$.each(data, function(key, value) {
 														// console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
+														console.log(`harga otr nya ${value.harga}`)
 														modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
 												});
 

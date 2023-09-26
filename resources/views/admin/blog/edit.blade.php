@@ -3,9 +3,9 @@
 		<div class="row">
 				<div class="col-12">
 						<!-- general form elements -->
-						<div class="card card-primary">
+						<div class="card card-warning">
 								<div class="card-header">
-										<h3 class="card-title">Data Postingan Blog</h3>
+										<h3 class="card-title"> Edit Data Postingan Blog</h3>
 								</div>
 								<!-- /.card-header -->
 								<!-- form start -->
@@ -18,6 +18,12 @@
 														<label for="judul">Judul Postingan</label>
 														<input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
 																name="judul" placeholder="masukan judul postingan ..." value="{{ $blog->judul }}">
+												</div>
+
+												{{-- cuplikan --}}
+												<div class="form-group">
+														<label for="cuplikan">Cuplikan Postingan</label>
+														<textarea class="form-control @error('cuplikan') is-invalid @enderror" id="cuplikan" name="cuplikan" maxlength="250">{{ $blog->cuplikan }}</textarea>
 												</div>
 
 												{{-- deksripsi use summernote --}}
@@ -56,7 +62,7 @@
 										<!-- /.card-body -->
 
 										<div class="card-footer">
-												<button type="submit" class="btn btn-primary">Simpan Postingan</button>
+												<button type="submit" class="btn btn-success">Simpan Postingan</button>
 										</div>
 
 

@@ -4,12 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\Hook;
-use App\Models\Merk;
-use App\Models\Motor;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class UserBlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $data = [
-            'best1' => Motor::where('id_best_motor', 1)->get(),
-            'best2' => Motor::where('id_best_motor', 2)->get(),
-            'best3' => Motor::where('id_best_motor', 3)->get(),
-            'best4' => Motor::where('id_best_motor', 4)->get(),
-            'blogs' => Blog::orderBy('id', 'DESC')->get(),
-            'hooks' => Hook::all()
-        ];
-
-        // dd($data['hook']);
-        return view('user.home.index', $data);
+        //
     }
 
     /**
@@ -61,7 +47,11 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [
+            'blog' => Blog::where('id', $id)->first(),
+        ];
+
+        return view('user.detail_blog.index', $data);
     }
 
     /**
@@ -96,20 +86,5 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-
-    // ajax area 
-    public function getModelOptions(Request $request)
-    {
-        $merkId = $request->merk_id;
-        $tipeId = $request->tipe_id;
-
-        $modelOptions = Motor::where('id_merk', $merkId)
-            ->where('id_type', $tipeId)
-            ->get();
-
-
-        return response()->json($modelOptions);
     }
 }
