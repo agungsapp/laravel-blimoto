@@ -4,37 +4,73 @@
 				<div class="col-12">
 						<div class="callout callout-info">
 								<h5><i class="fas fa-info"></i> Note:</h5>
-								Lakukan update data dengan import file CSV dengan format yang telah di tentukan.
+								Lakukan import/update data dengan import file CSV dengan format yang telah di tentukan.
 						</div>
 				</div>
 
 				<div class="col-12 mb-3">
 						<!-- Button trigger modal import -->
-						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
+						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalImport">
 								<i class="fas fa-file-import"></i><span class="ml-2">Import data cicilan</span>
+						</button>
+						<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalUpdate">
+								<i class="fas fa-sync-alt"></i><span class="ml-2">Update data cicilan</span>
 						</button>
 
 						<!-- Modal import -->
-						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+						<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="modalImportLabel"
 								aria-hidden="true">
 								<div class="modal-dialog" role="document">
 										<div class="modal-content">
 												<div class="modal-header bg-primary">
-														<h5 class="modal-title" id="exampleModalLabel">Import Data PriceList Cicilan</h5>
+														<h5 class="modal-title" id="modalImportLabel">Import Data PriceList Cicilan</h5>
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 														</button>
 												</div>
 												<div class="modal-body">
-														<form action="/">
+														<form action="{{ route('admin.cicilan.csv.import') }}" method="POST" enctype="multipart/form-data">
+																@csrf
+																@method('POST')
 																<div class="input-group mb-3">
 																		<div class="custom-file">
-																				<input type="file" class="custom-file-input" id="inputGroupFile02">
+																				<input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
 																				<label class="custom-file-label" for="inputGroupFile02"
 																						aria-describedby="inputGroupFileAddon02">Choose file</label>
 																		</div>
 																		<div class="input-group-append">
 																				<button type="submit" class="input-group-text btn-primary" id="inputGroupFileAddon02">Import</button>
+																		</div>
+																</div>
+														</form>
+												</div>
+										</div>
+								</div>
+						</div>
+						<!-- Modal update -->
+						<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdateLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+										<div class="modal-content">
+												<div class="modal-header bg-warning">
+														<h5 class="modal-title" id="modalUpdateLabel">Update Data PriceList Cicilan</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+														</button>
+												</div>
+												<div class="modal-body">
+														<form action="{{ route('admin.cicilan.csv.update') }}" method="POST" enctype="multipart/form-data">
+																@csrf
+																@method('POST')
+																<div class="input-group mb-3">
+																		<div class="custom-file">
+																				<input type="file" class="custom-file-input" name="file" id="inputGroupFile02">
+																				<label class="custom-file-label" for="inputGroupFile02"
+																						aria-describedby="inputGroupFileAddon02">Choose file</label>
+																		</div>
+																		<div class="input-group-append">
+																				<button type="submit" class="input-group-text btn-primary" id="inputGroupFileAddon02">Update
+																						Data</button>
 																		</div>
 																</div>
 														</form>
@@ -58,31 +94,28 @@
 										<table id="example1" class="table-bordered table-striped table">
 												<thead>
 														<tr>
-																<th>Rendering engine</th>
-																<th>Browser</th>
-																<th>Platform(s)</th>
-																<th>Engine version</th>
-																<th>CSS grade</th>
+																<th>No. </th>
+																<th>DP</th>
+																<th>Tenor</th>
+																<th>Cicilan</th>
 														</tr>
 												</thead>
 												<tbody>
-														<tr>
-																<td>Trident</td>
-																<td>Internet
-																		Explorer 4.0
-																</td>
-																<td>Win 95+</td>
-																<td> 4</td>
-																<td>X</td>
-														</tr>
+														@foreach ($cicilan as $c)
+																<tr>
+																		<td>{{ $loop->iteration }}</td>
+																		<td>{{ 'Rp. ' . number_format($c->dp, 0, ',', '.') }}</td>
+																		<td>{{ $c->tenor }}</td>
+																		<td>{{ 'Rp. ' . number_format($c->cicilan, 0, ',', '.') }}</td>
+																</tr>
+														@endforeach
 												</tbody>
 												<tfoot>
 														<tr>
-																<th>Rendering engine</th>
-																<th>Browser</th>
-																<th>Platform(s)</th>
-																<th>Engine version</th>
-																<th>CSS grade</th>
+																<th>No. </th>
+																<th>DP</th>
+																<th>Tenor</th>
+																<th>Cicilan</th>
 														</tr>
 												</tfoot>
 										</table>

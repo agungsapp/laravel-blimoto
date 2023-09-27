@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																														<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																																																																														<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -224,12 +224,12 @@
 																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Kota</label>
 																		<select id="SelectKota" class="js-example-basic-single form-select form-select-sm"
 																				style="width: 100%" name="kota">
-																				<option value="0" selected>-- Pilih Kota --</option>
-																				<option value="JA">Jakarta</option>
-																				<option value="BO">Bogor</option>
-																				<option value="DE">Depok</option>
-																				<option value="TA">Tanggerang</option>
-																				<option value="BE">Bekasi</option>
+																				<option value="" selected>-- Pilih Kota --</option>
+																				<option value="1">Jakarta</option>
+																				<option value="2">Bogor</option>
+																				<option value="3">Depok</option>
+																				<option value="4">Tanggerang</option>
+																				<option value="5">Bekasi</option>
 																		</select>
 																</div>
 														</div>
@@ -316,8 +316,8 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																																																																																																																																																																																																				<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																		</div> -->
+																																																																																																																																																																																																																				<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																																																																																		</div> -->
 
 												</div>
 												<div class="row">
@@ -1134,38 +1134,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																													<h3>best discount </h3>
-																																																																																																																																																																																																													<h4>cordless tools</h4>
-																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																							</div> -->
+																																																																																																																																																																																																																										<div>
+																																																																																																																																																																																																																													<h3>best discount </h3>
+																																																																																																																																																																																																																													<h4>cordless tools</h4>
+																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																										</div>
+																																																																																																																																																																																																																							</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																				<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																							<div class="collection-banner-contain">
-																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																													<h3>best discount </h3>
-																																																																																																																																																																																																													<h4>cordless tools</h4>
-																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																							</div>
-																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																	</div> -->
+																																																																																																																																																																																																																				<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																							<div class="collection-banner-contain">
+																																																																																																																																																																																																																										<div>
+																																																																																																																																																																																																																													<h3>best discount </h3>
+																																																																																																																																																																																																																													<h4>cordless tools</h4>
+																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																										</div>
+																																																																																																																																																																																																																							</div>
+																																																																																																																																																																																																																				</div>
+																																																																																																																																																																																																																	</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																				<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																							<div class="collection-banner-contain">
-																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																													<h3>up to 50% off</h3>
-																																																																																																																																																																																																													<h4>replaair parts</h4>
-																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																							</div>
-																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																	</div> -->
+																																																																																																																																																																																																																				<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																							<div class="collection-banner-contain">
+																																																																																																																																																																																																																										<div>
+																																																																																																																																																																																																																													<h3>up to 50% off</h3>
+																																																																																																																																																																																																																													<h4>replaair parts</h4>
+																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																										</div>
+																																																																																																																																																																																																																							</div>
+																																																																																																																																																																																																																				</div>
+																																																																																																																																																																																																																	</div> -->
 						</div>
 				</div>
 		</section>
@@ -1730,6 +1730,7 @@
 						console.log('jQuery aman bang !')
 
 						var harga_motor;
+						var id_motor;
 
 
 						$('select[name="tipe"]').change(function() {
@@ -1768,6 +1769,7 @@
 										.then(data => {
 												console.log(`harga otrnya : ${data.data.harga}`)
 												harga_motor = data.data.harga;
+												id_motor = data.data.id;
 												// Set the min and max values of the range input
 												var harga = data.data.harga;
 												var minRange = Math.floor(harga * 0.1 / 50000) *
@@ -1785,29 +1787,36 @@
 						$('#form-simulasi').on('submit', function(e) {
 								e.preventDefault();
 								console.log("submit di triger =====================================")
+								console.log(`model on change id motor adalah : ${id_motor}`)
+
 
 								// Mengambil nilai dari setiap input
-								var otr_motor = harga_motor; // Gunakan harga motor
+								var id_lokasi = $('#SelectKota').val();
+								var idmotor = id_motor; // Gantilah 'nilai_yang_anda_inginkan' dengan nilai yang sesuai
 								var tenor = $('select[name="tenor"]').val();
 								var dp = $('.range').val();
+								console.log("id motornya adalah : " + id_motor)
 
 								// Memeriksa apakah ada input yang kosong
-								if (!otr_motor || !tenor || !dp) {
+								if (!id_lokasi || !tenor || !dp) {
 										alert('Semua input harus diisi!');
 										return;
 								}
 
 								console.log("ajax di mulai")
-								console.log(`data di tangkap pada ajax, otr : ${otr_motor}, tenor : ${tenor}, dp : ${dp}`)
+								console.log(
+										`data di tangkap pada ajax, id_lokasi : ${id_lokasi}, id_motor : ${id_motor}, dp : ${dp}, tenor : ${tenor},`
+								)
 
 								// Mengirim data ke endpoint
 								$.ajax({
-										url: '/cicilan-motor',
+										url: '/cari-cicilan',
 										type: 'GET',
 										data: {
-												otr_motor: otr_motor,
+												id_lokasi: id_lokasi,
+												id_motor: idmotor,
+												dp: dp,
 												tenor: tenor,
-												dp: dp
 										},
 										success: function(response) {
 												console.log(response);
