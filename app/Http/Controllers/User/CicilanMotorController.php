@@ -83,72 +83,79 @@ class CicilanMotorController extends Controller
 
   public function getCicilan(Request $request, $id)
   {
-    try {
-      $cicilanMotor = Motor::findOrFail($id);
-      return response()->json([
-        'status' => 'success',
-        'min_dp' => $cicilanMotor->min_dp
-      ], 200);
-    } catch (ModelNotFoundException $e) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'No data found'
-      ], 404);
-    }
+    // try {
+    //   $cicilanMotor = Motor::findOrFail($id);
+    //   return response()->json([
+    //     'status' => 'success',
+    //     'min_dp' => $cicilanMotor->min_dp
+    //   ], 200);
+    // } catch (ModelNotFoundException $e) {
+    //   return response()->json([
+    //     'status' => 'error',
+    //     'message' => 'No data found'
+    //   ], 404);
+    // }
   }
 
   public function hitungCicilan(Request $request)
   {
-    $validator = Validator::make($request->all(), [
-      'otr_motor' => 'required',
-      'tenor' => 'required',
-      'dp' => 'required',
-    ]);
+    // $validator = Validator::make($request->all(), [
+    //   'otr_motor' => 'required',
+    //   'tenor' => 'required',
+    //   'dp' => 'required',
+    // ]);
 
-    if ($validator->fails()) {
-      return response()->json([
-        'status' => 'error',
-        'message' => $validator->errors()->first()
-      ], 400);
-    }
+    // if ($validator->fails()) {
+    //   return response()->json([
+    //     'status' => 'error',
+    //     'message' => $validator->errors()->first()
+    //   ], 400);
+    // }
 
-    $leasingMotors = LeasingMotor::all();
+    // $leasingMotors = LeasingMotor::all();
 
-    $otr = $request->otr_motor;
-    $dp = $request->dp;
-    $tenor = $request->tenor;
+    // $otr = $request->otr_motor;
+    // $dp = ceil($request->dp);
+    // $tenor = $request->tenor;
 
-    $sisaUtang = $otr - $dp;
-    $bunga = ($sisaUtang * 0.04) * $tenor;
-    $totalUtang = $sisaUtang + $bunga;
-    $cicilan = $totalUtang / $tenor;
-    $cicilan = ceil($cicilan);
+    // $sisaUtang = $otr - $dp;
+    // $totalBunga = ($sisaUtang * ((27 / 100) / 12)) * $tenor;
+    // $totalUtang = $sisaUtang + $totalBunga;
+    // $cicilanPerBulan = $totalUtang / $tenor;
 
-    $similarMotors = Motor::join('detail_motor', 'motor.id', '=', 'detail_motor.id_motor')
-      ->where('motor.harga', '>=', $otr - $dp)
-      ->where('motor.harga', '<=', $otr + $dp)
-      ->get();
+    // itungan yang lama
+    // $sisaUtang = $otr - $dp;
+    // $bunga = ($sisaUtang * 0.04) * $tenor;
+    // $totalUtang = $sisaUtang + $bunga;
+    // $cicilan = $totalUtang / $tenor;
+    // $cicilan = ceil($cicilan);
 
-    $filteredMotors = $similarMotors->filter(function ($motor) use ($otr, $dp, $cicilan, $tenor) {
-      $sisaUtang = $motor->harga - $dp;
-      $bunga = ($sisaUtang * 0.04) * $tenor;
-      $totalUtang = $sisaUtang + $bunga;
-      $cicilanMirip = $totalUtang / $tenor;
-      $motor->cicilan = ceil($cicilanMirip);
+    // $similarMotors = Motor::join('detail_motor', 'motor.id', '=', 'detail_motor.id_motor')
+    //   ->where('motor.harga', '>=', $otr - $dp)
+    //   ->where('motor.harga', '<=', $otr + $dp)
+    //   ->get();
 
-      return $cicilanMirip <= $cicilan;
-    });
+    // $filteredMotors = $similarMotors->filter(function ($motor) use ($otr, $dp, $cicilanPerBulan, $tenor) {
+    //   $sisaUtang = $motor->harga - $dp;
+    //   $bunga = ($sisaUtang * 0.06) * $tenor;
+    //   $totalUtang = $sisaUtang + $bunga;
+    //   $cicilanMirip = $totalUtang / $tenor;
+    //   $motor->cicilan = ceil($cicilanMirip);
 
-    foreach ($leasingMotors as $leasingMotor) {
-      $leasingMotor->diskon = $dp - ($dp * $leasingMotor->diskon);
-    }
+    //   return $cicilanMirip <= $cicilanPerBulan;
+    // });
 
-    return response()->json([
-      'status' => 'success',
-      'total_pembayaran' => $dp + ($cicilan * $tenor),
-      'cicilan' => $cicilan,
-      'leasing' => $leasingMotors,
-      'rekomendasi_motor' => $filteredMotors
-    ], 200);
+    // foreach ($leasingMotors as $leasingMotor) {
+    //   $leasingMotor->diskon = $dp - ($dp * $leasingMotor->diskon);
+    // }
+
+    // return response()->json([
+    //   'status' => 'success',
+    //   'total_pembayaran' => $dp + ($cicilanPerBulan * $tenor),
+    //   'cicilan' => ceil($cicilanPerBulan),
+    //   'leasing' => $leasingMotors,
+    //   'rekomendasi_motor' => $similarMotors,
+    //   'similar_motors' => $similarMotors,
+    // ], 200);
   }
 }
