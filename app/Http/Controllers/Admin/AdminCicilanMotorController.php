@@ -18,6 +18,7 @@ class AdminCicilanMotorController extends Controller
    */
   public function index()
   {
+    return view('admin.cicilan.index');
   }
 
   /**
