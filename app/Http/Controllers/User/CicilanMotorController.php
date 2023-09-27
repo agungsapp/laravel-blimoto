@@ -176,6 +176,7 @@ class CicilanMotorController extends Controller
       ], 403);
     }
 
+
     $id_lokasi = $request->input('id_lokasi');
     $id_motor = $request->input('id_motor');
     $dp = $request->input('dp');
@@ -234,8 +235,14 @@ class CicilanMotorController extends Controller
       ->take(5)
       ->get();
 
+    $leasingMotors = LeasingMotor::all();
+    foreach ($leasingMotors as $leasingMotor) {
+      $leasingMotor->diskon = ceil($dp - ($dp * $leasingMotor->diskon));
+    }
+
     return response()->json([
       'motor' => $results,
+      'diskon_leasing' => $leasingMotors,
       'rekemondasi' => $recommendations,
     ], 200);
   }
