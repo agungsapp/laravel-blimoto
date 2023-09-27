@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																														<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																																																																																																										<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -307,6 +307,19 @@
 																		</select>
 																</div>
 														</div>
+
+														{{-- gantinya range --}}
+														<div class="col-6 col-md-3">
+																<div class="form-group">
+																		<label for="dp" class="mb-0" style="font-size: 12px">Dp</label>
+																		<select id="dp" name="dp" class="js-example-basic-single form-select form-select-sm"
+																				style="width: 100%" name="tenor">
+																				<option value="0" selected>-- Pilih DP --</option>
+
+																		</select>
+																</div>
+														</div>
+
 														{{-- range input --}}
 														<div class="col-md-6 range-wrap">
 																<label for="dp" class="form-label">DP</label>
@@ -316,8 +329,8 @@
 														</div>
 
 														<!-- <div class="double-slider-box">
-																																																																																																																																																																																																																				<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																																		</div> -->
+																																																																																																																																																																																																																																																<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																																																																																																														</div> -->
 
 												</div>
 												<div class="row">
@@ -344,6 +357,28 @@
 				</div>
 		</section>
 		<!-- simulasi kredit end -->
+
+
+		{{-- modal hasil --}}
+		<div class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title">Modal title</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<p>Modal body text goes here.</p>
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save changes</button>
+								</div>
+						</div>
+				</div>
+		</div>
 
 
 
@@ -392,7 +427,7 @@
 												<div class="col-12">
 														<div class="collection-banner-main p-left banner-13 banner-style7 text-center">
 																<div class="collection-img">
-																		<img src="assets/images/testimonial/2.jpg" class="img-fluid bg-img" alt="banner" />
+																		<img src="assets/images/custom/leasing_new.webp" class="img-fluid bg-img" alt="banner" />
 																</div>
 																<div class="collection-banner-contain">
 																		<div>
@@ -1134,38 +1169,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																																													<h3>best discount </h3>
-																																																																																																																																																																																																																													<h4>cordless tools</h4>
-																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																																							</div> -->
+																																																																																																																																																																																																																																																						<div>
+																																																																																																																																																																																																																																																									<h3>best discount </h3>
+																																																																																																																																																																																																																																																									<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																						</div>
+																																																																																																																																																																																																																																																			</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																				<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																							<div class="collection-banner-contain">
-																																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																																													<h3>best discount </h3>
-																																																																																																																																																																																																																													<h4>cordless tools</h4>
-																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																																							</div>
-																																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																																	</div> -->
+																																																																																																																																																																																																																																																<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																																																																																																			<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																			<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																						<div>
+																																																																																																																																																																																																																																																									<h3>best discount </h3>
+																																																																																																																																																																																																																																																									<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																						</div>
+																																																																																																																																																																																																																																																			</div>
+																																																																																																																																																																																																																																																</div>
+																																																																																																																																																																																																																																													</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																				<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																							<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																							<div class="collection-banner-contain">
-																																																																																																																																																																																																																										<div>
-																																																																																																																																																																																																																													<h3>up to 50% off</h3>
-																																																																																																																																																																																																																													<h4>replaair parts</h4>
-																																																																																																																																																																																																																													<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																										</div>
-																																																																																																																																																																																																																							</div>
-																																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																																	</div> -->
+																																																																																																																																																																																																																																																<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																																																																																																			<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																			<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																						<div>
+																																																																																																																																																																																																																																																									<h3>up to 50% off</h3>
+																																																																																																																																																																																																																																																									<h4>replaair parts</h4>
+																																																																																																																																																																																																																																																									<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																						</div>
+																																																																																																																																																																																																																																																			</div>
+																																																																																																																																																																																																																																																</div>
+																																																																																																																																																																																																																																													</div> -->
 						</div>
 				</div>
 		</section>
@@ -1726,11 +1761,18 @@
 		<script>
 				// gpt
 
+
 				$(document).ready(function() {
+
+					 $('#myModal').modal('show');
+
 						console.log('jQuery aman bang !')
 
 						var harga_motor;
 						var id_motor;
+						var tenor;
+
+
 
 
 						$('select[name="tipe"]').change(function() {
@@ -1760,6 +1802,13 @@
 								}
 						});
 
+						// onchange model motor di pilih 
+						function formatRupiah(angka) {
+								var reverse = angka.toString().split('').reverse().join(''),
+										ribuan = reverse.match(/\d{1,3}/g);
+								ribuan = ribuan.join('.').split('').reverse().join('');
+								return "Rp. " + ribuan;
+						}
 
 						$('#model').on('change', function() {
 								var id = $(this).val();
@@ -1770,19 +1819,29 @@
 												console.log(`harga otrnya : ${data.data.harga}`)
 												harga_motor = data.data.harga;
 												id_motor = data.data.id;
-												// Set the min and max values of the range input
-												var harga = data.data.harga;
-												var minRange = Math.floor(harga * 0.1 / 50000) *
-														50000; // 10% of the price, rounded down to the nearest 50000
-												var maxRange = harga; // the price itself
-												console.log(`harga original : ${maxRange}`)
-												$('.range').attr('min', minRange);
-												$('.range').attr('max', maxRange);
-												$('.range').val(minRange); // Set the initial value of the range to the min value
-												$('#bubble').text('Rp ' + minRange.toLocaleString('id-ID')); // Update the bubble text
+												tenor = $('select[name="tenor"]').val();
+												// Fetch the DP options
+												fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
+														.then(response => response.json())
+														.then(data => {
+																// Clear the select options
+																$('#dp').empty();
+																console.log("di bawah ini adalah data milik get dp response")
+																console.log(data)
+
+																// Add the new options
+																data.dp.forEach(option => {
+																		var formattedOption = formatRupiah(option);
+																		$('#dp').append(new Option(formattedOption, option));
+																		$('#dp option:last-child').data('harga', option);
+																});
+														})
+														.catch(error => console.error('Error:', error));
 										})
 										.catch(error => console.error('Error:', error));
 						});
+
+
 
 						$('#form-simulasi').on('submit', function(e) {
 								e.preventDefault();
@@ -1794,7 +1853,7 @@
 								var id_lokasi = $('#SelectKota').val();
 								var idmotor = id_motor; // Gantilah 'nilai_yang_anda_inginkan' dengan nilai yang sesuai
 								var tenor = $('select[name="tenor"]').val();
-								var dp = $('.range').val();
+								var dp = $('#dp').val();
 								console.log("id motornya adalah : " + id_motor)
 
 								// Memeriksa apakah ada input yang kosong
