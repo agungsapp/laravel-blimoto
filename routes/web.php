@@ -75,6 +75,7 @@ Route::resource('/blog', UserBlogController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
+Route::get('/get-dp', [HomeController::class, 'getDpMotor']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\CicilanMotor;
 use App\Models\Hook;
 use App\Models\Merk;
 use App\Models\Motor;
@@ -111,5 +112,14 @@ class HomeController extends Controller
 
 
         return response()->json($modelOptions);
+    }
+
+    public function getDpMotor(Request $request)
+    {
+        $id_motor = $request->input('id_motor');
+
+        $dp = CicilanMotor::where('id_motor', $id_motor)->value('dp');
+
+        return response()->json(['dp' => $dp]);
     }
 }
