@@ -77,11 +77,9 @@ Route::resource('/blog', UserBlogController::class);
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
-// Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
-// Route::get('/cicilan-motor/hitung-cicilan', [CicilanMotorController::class, 'hitungCicilan']);
+// Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
 // Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
-
-
+// Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 
 
 
@@ -103,7 +101,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('brosur-motor', BrosurMotorController::class);
         Route::resource('kota-motor', MotorKotaController::class);
         Route::resource('blog', BlogController::class);
-        Route::resource('cicilan-motor', AdminCicilanMotorController::class);
+        Route::resource('cicilan', AdminCicilanMotorController::class);
         Route::get('cicilan-motor/csv', [AdminCicilanMotorController::class, 'importCsv']);
         Route::put('cicilan-motor/csv', [AdminCicilanMotorController::class, 'updateCsv']);
     });
