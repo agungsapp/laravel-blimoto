@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\BestMotor;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        $this->call(LokasiSeeder::class);
         $this->call(MerkMotorSeeder::class);
         $this->call(TypeMotorSeeder::class);
         $this->call(BestMotorSeeder::class);
