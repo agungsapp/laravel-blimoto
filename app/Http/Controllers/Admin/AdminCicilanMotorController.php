@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrosurMotor;
-use App\Models\Motor;
+use App\Models\CicilanMotor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AdminCicilanMotorController extends Controller
@@ -86,5 +85,68 @@ class AdminCicilanMotorController extends Controller
 
   public function view(BrosurMotor $brochure)
   {
+  }
+
+  public function importCsv(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'file' => 'required|file',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
+      fgetcsv($handle);
+
+      while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+        DB::table('cicilan_motor')->insert([
+          'dp' => $data[0],
+          'tenor' => $data[1],
+          'cicilan' => $data[2],
+          'id_leasing' => $data[3],
+          'id_lokasi' => $data[4],
+          'id_motor' => $data[5],
+        ]);
+      }
+      fclose($handle);
+    }
+    flash()->addSuccess("Data csv berhasil diimport");
+    return redirect()->back();
+  }
+
+  public function updateCsv(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'file' => 'required|file',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+    DB::table('cicilan_motor')->delete();
+
+    if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
+      fgetcsv($handle);
+
+      while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+        DB::table('cicilan_motor')->insert([
+          'dp' => $data[0],
+          'tenor' => $data[1],
+          'cicilan' => $data[2],
+          'id_leasing' => $data[3],
+          'id_lokasi' => $data[4],
+          'id_motor' => $data[5],
+        ]);
+      }
+
+      fclose($handle);
+    }
+
+    flash()->addSuccess("Data csv berhasil diimport");
+    return redirect()->back();
   }
 }
