@@ -187,12 +187,7 @@ class CicilanMotorController extends Controller
       'cicilan_motor.tenor',
       'cicilan_motor.cicilan',
       'leasing_motor.nama as leasing_nama',
-      'motor.nama as motor_nama',
-      'motor.berat as motor_berat',
-      'motor.power as motor_power',
       'motor.harga as motor_harga',
-      'motor.deskripsi as motor_deskripsi',
-      'motor.fitur_utama as motor_fitur_utama'
     )
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
@@ -200,8 +195,9 @@ class CicilanMotorController extends Controller
       ->where('cicilan_motor.id_lokasi', $id_lokasi)
       ->where('cicilan_motor.id_motor', $id_motor)
       ->where('cicilan_motor.tenor', $tenor);
+      // ->where('cicilan_motor.dp', $dp);
 
-    $results = $query->first();
+    $results = $query->get();
 
     if (!$results) {
       return response()->json([
@@ -210,7 +206,7 @@ class CicilanMotorController extends Controller
     }
 
     $dpRange = $dp * 0.2;
-    $cicilanRange = $results->cicilan * 0.2;
+    $cicilanRange = $results[0]->cicilan * 0.2;
 
     $recommendations = DB::table('cicilan_motor')
       ->select(
@@ -230,7 +226,7 @@ class CicilanMotorController extends Controller
       ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
       ->whereBetween('cicilan_motor.dp', [$dp - $dpRange, $dp + $dpRange])
       ->where('cicilan_motor.tenor', $tenor)
-      ->whereBetween('cicilan_motor.cicilan', [$results->cicilan - $cicilanRange, $results->cicilan + $cicilanRange])
+      ->whereBetween('cicilan_motor.cicilan', [$results[0]->cicilan - $cicilanRange, $results[0]->cicilan + $cicilanRange])
       ->orderBy('cicilan_motor.cicilan', 'asc')
       ->take(5)
       ->get();
