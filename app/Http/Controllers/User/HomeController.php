@@ -117,9 +117,12 @@ class HomeController extends Controller
     public function getDpMotor(Request $request)
     {
         $id_motor = $request->input('id_motor');
+        $tenor = $request->input('tenor');
 
-        $dp = CicilanMotor::where('id_motor', $id_motor)->value('dp');
+        $dps = CicilanMotor::where('id_motor', $id_motor)
+            ->where('tenor', $tenor)
+            ->pluck('dp');
 
-        return response()->json(['dp' => $dp]);
+        return response()->json(['dp' => $dps]);
     }
 }
