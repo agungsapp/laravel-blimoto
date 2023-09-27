@@ -194,7 +194,7 @@ class CicilanMotorController extends Controller
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
       ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
-      ->with(['leasing_motor', 'motor', 'kota'])
+      ->with(['leasingMotor', 'motor', 'kota'])
       ->where('cicilan_motor.id_lokasi', $id_lokasi)
       ->where('cicilan_motor.id_motor', $id_motor)
       ->where('cicilan_motor.tenor', $tenor);
