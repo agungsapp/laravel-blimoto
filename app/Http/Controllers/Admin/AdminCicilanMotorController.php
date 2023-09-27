@@ -18,7 +18,11 @@ class AdminCicilanMotorController extends Controller
    */
   public function index()
   {
-    return view('admin.cicilan.index');
+    $data = [
+      'cicilan' => CicilanMotor::orderBy('id', 'DESC')->get()
+    ];
+
+    return view('admin.cicilan.index', $data);
   }
 
   /**
@@ -127,7 +131,10 @@ class AdminCicilanMotorController extends Controller
       flash()->addError("Inputkan semua data dengan benar!");
       return redirect()->back()->withErrors($validator)->withInput();
     }
-    DB::table('cicilan_motor')->delete();
+    if (DB::table('cicilan_motor')->delete()) {
+      echo "<script>console.log('data lama berhasil di hapus')</script>";
+    };
+
 
     if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
       fgetcsv($handle);
@@ -146,7 +153,7 @@ class AdminCicilanMotorController extends Controller
       fclose($handle);
     }
 
-    flash()->addSuccess("Data csv berhasil diimport");
+    flash()->addSuccess("Data csv berhasil diupdate");
     return redirect()->back();
   }
 }

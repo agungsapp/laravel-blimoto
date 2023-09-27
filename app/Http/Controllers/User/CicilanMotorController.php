@@ -170,7 +170,8 @@ class CicilanMotorController extends Controller
 
     if ($validator->fails()) {
       return response()->json([
-        'message' => 'inputkan semua data dengan benar'
+        'message' => 'inputkan semua data dengan benar',
+        'errors' => $validator->errors(),
       ], 403);
     }
 
