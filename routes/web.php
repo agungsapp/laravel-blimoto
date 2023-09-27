@@ -11,6 +11,8 @@
 |
 */
 // admin
+
+use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -74,7 +76,7 @@ Route::resource('/blog', UserBlogController::class);
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
 // Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
-Route::get('/cicilan-motor/hitung-cicilan', [CicilanMotorController::class, 'hitungCicilan']);
+Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 
 
@@ -97,6 +99,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('brosur-motor', BrosurMotorController::class);
         Route::resource('kota-motor', MotorKotaController::class);
         Route::resource('blog', BlogController::class);
+        Route::resource('cicilan', AdminCicilanMotorController::class);
     });
 });
 
