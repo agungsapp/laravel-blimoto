@@ -158,4 +158,67 @@ class CicilanMotorController extends Controller
     //   'similar_motors' => $similarMotors,
     // ], 200);
   }
+
+  public function searchAndRecommend(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'id_lokasi' => 'required',
+      'id_motor' => 'required',
+      'dp' => 'required',
+      'tenor' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json([
+        'message' => 'inputkan semua data dengan benar'
+      ], 403);
+    }
+
+    $id_lokasi = $request->input('id_lokasi');
+    $id_motor = $request->input('id_motor');
+    $dp = $request->input('dp');
+    $tenor = $request->input('tenor');
+
+    $query = CicilanMotor::select(
+      'cicilan_motor.dp',
+      'cicilan_motor.tenor',
+      'cicilan_motor.cicilan',
+      'leasing_motor.nama as leasing_nama',
+      'motor.nama as motor_nama',
+      'motor.berat as motor_berat',
+      'motor.power as motor_power',
+      'motor.harga as motor_harga',
+      'motor.deskripsi as motor_deskripsi',
+      'motor.fitur_utama as motor_fitur_utama'
+    )
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+      ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
+      ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
+      ->with(['leasing_motor', 'motor', 'kota'])
+      ->where('cicilan_motor.id_lokasi', $id_lokasi)
+      ->where('cicilan_motor.id_motor', $id_motor)
+      ->where('cicilan_motor.tenor', $tenor);
+
+    $results = $query->first();
+
+    if (!$results) {
+      return response()->json([
+        'message' => 'tidak ada data'
+      ], 404);
+    }
+
+    $dpRange = $dp * 0.2;
+    $cicilanRange = $results->cicilan * 0.2;
+
+    $recommendations = $query->whereBetween('cicilan_motor.dp', [$dp - $dpRange, $dp + $dpRange])
+      ->whereBetween('cicilan_motor.cicilan', [$results->cicilan - $cicilanRange, $results->cicilan + $cicilanRange])
+      ->orderBy('cicilan_motor.cicilan', 'asc')
+      ->take(5)
+      ->get();
+
+    return response()->json([
+      'motor' => $results,
+      'referral' => $recommendations
+    ], 200);
+  }
 }
