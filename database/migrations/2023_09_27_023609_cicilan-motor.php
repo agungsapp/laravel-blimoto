@@ -22,8 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_lokasi');
             $table->unsignedBigInteger('id_motor');
 
-            $table->foreign('id_leasing')->references('id')->on('leasing');
-            $table->foreign('id_lokasi')->references('id')->on('lokasi');
+            $table->foreign('id_leasing')->references('id')->on('leasing_motor');
+            $table->foreign('id_lokasi')->references('id')->on('kota');
             $table->foreign('id_motor')->references('id')->on('motor');
         });
     }
