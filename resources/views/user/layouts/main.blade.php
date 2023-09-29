@@ -51,6 +51,54 @@
 
 		<link rel="stylesheet" href="/assets/owl/owl.carousel.min.css" />
 		<link rel="stylesheet" href="/assets/owl/owl.theme.default.min.css" />
+
+		<style>
+				/* CSS untuk latar belakang hitam */
+				.black-overlay {
+						position: fixed;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						background-color: rgba(0, 0, 0, 0.7);
+						z-index: 9999;
+						display: none;
+						/* Mengatur awalnya disembunyikan */
+				}
+
+				/* CSS untuk kotak pop-up */
+				.custom-popup {
+						width: 100%;
+						position: absolute;
+						top: 1rem;
+						right: 1rem;
+						bottom: 1rem;
+						left: 1rem;
+						overflow-y: auto;
+						background-color: #fff;
+						padding: 1rem;
+						display: flex;
+						flex-direction: column;
+						/* Menyusun elemen secara vertikal */
+				}
+
+				.close-popup-btn {
+						align-self: flex-end;
+						background: none;
+						border: none;
+						font-size: 20px;
+						cursor: pointer;
+						padding: 0;
+						margin: 0;
+						position: absolute;
+						top: 0.5rem;
+						right: 0.5rem;
+				}
+
+				body.popup-open {
+						overflow: hidden;
+				}
+		</style>
 </head>
 
 <body class="bg-light">
