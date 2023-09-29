@@ -44,7 +44,44 @@ class HookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'link' => 'required|max:255',
+            'caption' => 'required|string|max:255',
+            'warna' => 'required|string|max:7',
+            'warna_teks' => 'required|string|max:7',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        // dd($request->all());
+
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back();
+        }
+
+        try {
+            $gambar = $request->file('gambar');
+            $waktu = Carbon::now();
+            $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
+            $gambar->move(public_path('assets/images/custom/hook/'), $gambarName);
+
+            Hook::create([
+                'nama' => $request->input('nama'),
+                'gambar' => $gambarName,
+                'link' => $request->input('link'),
+                'warna' => $request->input('warna'),
+                'warna_teks' => $request->input('warna_teks'),
+                'caption' => $request->input('caption'),
+            ]);
+
+            flash()->addSuccess("Data hook berhasil ditambah");
+            return redirect()->route('admin.hook.index');
+        } catch (\Throwable $th) {
+            throw $th;
+            flash()->addError("Data hook gagal di tambah");
+            return redirect()->route('admin.hook.index');
+        }
     }
 
     /**
@@ -79,52 +116,44 @@ class HookController extends Controller
     public function update(Request $request, $id)
     {
         // Validasi data input
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
-            'link' => 'required|url|max:255',
+            'link' => 'required|max:255',
             'caption' => 'required|string|max:255',
             'warna' => 'required|string|max:7', // Sesuaikan dengan panjang HEX
             'warna_teks' => 'required|string|max:7', // Sesuaikan dengan panjang HEX
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Sesuaikan dengan jenis dan ukuran gambar
-        ], [
-            'nama.required' => 'Kolom Nama harus diisi.',
-            'link.required' => 'Kolom Link harus diisi dengan URL yang valid.',
-            'caption.required' => 'Kolom Teks Tombol harus diisi.',
-            'warna.required' => 'Kolom Warna Background harus diisi dengan format HEX.',
-            'warna_teks.required' => 'Kolom Warna Teks harus diisi dengan format HEX.',
-            'gambar.image' => 'File yang diunggah harus berupa gambar.',
-            'gambar.mimes' => 'Format gambar yang diizinkan: jpeg, png, jpg, gif.',
-            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
         ]);
 
-
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back();
+        }
 
         try {
-            // Periksa apakah gambar diunggah
+            $hook = Hook::find($id);
+
             if ($request->hasFile('gambar')) {
-                // Mengambil file gambar yang diunggah
+
+                $gambarLama = public_path('assets/images/custom/hook/' . $hook->gambar);
+                if (file_exists($gambarLama)) {
+                    unlink($gambarLama);
+                }
                 $gambar = $request->file('gambar');
 
-                // Generate nama unik untuk gambar dengan menggunakan tanggal
                 $waktu = Carbon::now();
                 $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
 
-                // Pindahkan gambar ke direktori yang sesuai (misalnya, public/assets/images/custom/hook/)
                 $gambar->move(public_path('assets/images/custom/hook/'), $gambarName);
-
-                // Perbarui nama gambar di kolom 'gambar' pada model Anda
-                $hook = Hook::find($id);
                 $hook->gambar = $gambarName;
-                $hook->save();
             }
 
-            // Perbarui data lainnya
-            $hook = Hook::find($id);
             $hook->nama = $request->input('nama');
             $hook->link = $request->input('link');
             $hook->caption = $request->input('caption');
             $hook->warna = $request->input('warna');
             $hook->warna_teks = $request->input('warna_teks');
+
             $hook->save();
 
             flash()->addSuccess("Data hook berhasil diupdate");
@@ -134,11 +163,6 @@ class HookController extends Controller
             flash()->addError("Data hook gagal di update");
             return redirect()->route('admin.hook.index');
         }
-
-
-
-        // Redirect atau tampilkan pesan sukses sesuai kebutuhan
-
     }
 
     /**
@@ -149,6 +173,18 @@ class HookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hook = Hook::findOrFail($id);
+        try {
+            $gambarLama = public_path('assets/images/custom/hook/' . $hook->gambar);
+            if (file_exists($gambarLama)) {
+                unlink($gambarLama);
+            }
+            $hook->delete();
+            flash()->addSuccess("Berhasil menghapus hook!");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            flash()->addError("$hook->name tidak bisa dihapus karena data digunakan oleh data lain!");
+            return redirect()->back();
+        }
     }
 }
