@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Blimoto Login</title>
-
+    <link rel="shortcut icon" href="/assets/images/favicon/favicon.webp" type="image/x-icon" />
 		<!-- Google Font: Source Sans Pro -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 		<!-- Font Awesome -->
@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="{{ asset('plugins') }}/icheck-bootstrap/icheck-bootstrap.min.css">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('dist') }}/css/adminlte.min.css">
+
 </head>
 
 <body class="hold-transition login-page">
@@ -39,7 +40,7 @@
 										@method('POST')
 										<div class="input-group mb-3">
 												<input type="text" class="form-control" name="username" placeholder="Username"
-														value="{{ old('username') }}">
+														value="{{ old('username') }}" autofocus>
 												<div class="input-group-append">
 														<div class="input-group-text">
 																<span class="fas fa-user"></span>
@@ -62,8 +63,12 @@
 										@enderror
 										<div class="social-auth-links mb-3 mt-2 text-center">
 												<button type="submit" class="btn btn-block btn-primary">
-														Login
+                         Login
 												</button>
+                        
+                        <a href="{{ asset('home') }}" class="btn btn-block btn-danger">
+                           Home
+                        </a>
 										</div>
 								</form>
 

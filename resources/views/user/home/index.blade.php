@@ -1390,7 +1390,7 @@
 												<div>
 														<a class="video-btn" tabindex="0" data-bs-toggle="modal" data-bs-target="#v-section1"><i
 																		class="fa fa-play"></i></a>
-														<h3>BELI MOTOR LANGSUNG ATAU ONLINE</h3>
+														<h3>CARA BELI MOTOR DI BLIMOTO VS OFFLINE</h3>
 														<h2></h2>
 												</div>
 										</div>
