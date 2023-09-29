@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('leasing_motor', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('gambar');
             $table->float('diskon');
         });
     }

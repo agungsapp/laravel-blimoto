@@ -18,14 +18,17 @@ class LeasingSeeder extends Seeder
             [
                 'nama' => 'FIF Group',
                 'diskon' => 0.20,
+                'gambar' => 'fif.jpg',
             ],
             [
                 'nama' => 'Adira',
                 'diskon' => 0.40,
+                'gambar' => 'adira.png',
             ],
             [
                 'nama' => 'OTO',
                 'diskon' => 0.50,
+                'gambar' => 'oto.jpg',
             ],
         ];
         DB::table('leasing_motor')->insert($data);

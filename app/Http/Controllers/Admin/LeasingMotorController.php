@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LeasingMotor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,6 +34,7 @@ class LeasingMotorController extends Controller
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'diskon' => 'required',
+      'gambar' => 'required|mimes:jpeg,png,jpg,webp',
     ]);
 
     $diskon = $request->input('diskon');
@@ -46,9 +48,17 @@ class LeasingMotorController extends Controller
     }
 
     try {
+      $gambar = $request->file('gambar');
+
+      $waktu = Carbon::now();
+      $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
+
+      $gambar->move(public_path('assets/images/custom/leasing/'), $gambarName);
+
       $leasing = LeasingMotor::create([
         'nama' => $request->input('nama'),
-        'diskon' => $diskon
+        'diskon' => $diskon,
+        'gambar' => $gambarName
       ]);
       flash()->addSuccess("Leasing $leasing->nama berhasil dibuat");
       return redirect()->back();
@@ -70,7 +80,7 @@ class LeasingMotorController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
-      'diskon' => 'required',
+      'gambar' => 'nullable|mimes:jpeg,png,jpg,webp'
     ]);
 
     $diskon = $request->input('diskon');
@@ -83,16 +93,38 @@ class LeasingMotorController extends Controller
       return redirect()->back();
     }
 
-    // Find the Type model by id
-    $leasing = LeasingMotor::findOrFail($id);
-    // Update the leasing$leasing model
-    $leasing->nama = $request->nama;
-    $leasing->diskon = $diskon;
-    $leasing->save();
+    try {
+      $leasing = LeasingMotor::findOrFail($id);
+      if ($request->hasFile('gambar')) {
 
-    // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah leasing!");
-    return redirect()->back();
+        $gambar = $request->file('gambar');
+        $waktu = Carbon::now();
+        $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
+
+        $gambar->move(public_path('assets/images/custom/leasing/'), $gambarName);
+
+        if ($leasing->gambar) {
+          $gambarLama = public_path('assets/images/custom/leasing/' . $leasing->gambar);
+          if (file_exists($gambarLama)) {
+            unlink($gambarLama);
+          }
+        }
+
+        $leasing->update([
+          'gambar' => $gambarName,
+        ]);
+      }
+      $leasing->nama = $request->nama;
+      $leasing->diskon = $diskon;
+      $leasing->save();
+
+      // Redirect back with a success message
+      flash()->addSuccess("Berhasil merubah leasing!");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      flash()->addError("Gagal memperbarui data pastikan sudah benar!");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -105,6 +137,10 @@ class LeasingMotorController extends Controller
   {
     try {
       $leasing = LeasingMotor::findOrFail($id);
+      $gambarLama = public_path('assets/images/custom/leasing/' . $leasing->gambar);
+      if (file_exists($gambarLama)) {
+        unlink($gambarLama);
+      }
       $leasing->delete();
       flash()->addSuccess("Berhasil menghapus leasing!");
       return redirect()->back();

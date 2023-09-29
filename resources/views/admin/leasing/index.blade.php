@@ -7,7 +7,7 @@
         <div class="card-header">
           <h3 class="card-title">Input Data Leasing Motor</h3>
         </div>
-        <form action="{{ route('admin.leasing-motor.store') }}" method="post">
+        <form action="{{ route('admin.leasing-motor.store') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="card-body">
             <div class="form-group">
@@ -17,6 +17,10 @@
             <div class="form-group">
               <label for="diskon-motor">Diskon Leasing</label>
               <input name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
+            </div>
+            <div class="form-group">
+              <label for="gambar">File Gambar</label>
+              <input type="file" id="gambar" name="gambar">
             </div>
           </div>
           <div class="card-footer">
@@ -44,6 +48,7 @@
                 <th>NO</th>
                 <th>Nama Leasing</th>
                 <th>Diskon Leasing</th>
+                <th>Gambar Leasing</th>
                 <th width="170px">Action</th>
               </tr>
             </thead>
@@ -53,6 +58,9 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$l->nama}}</td>
                 <td>{{($l->diskon * 100).'%' }}</td>
+                <td>
+                  <img width="150px" src="/assets/images/custom/leasing/{{ $l->gambar }}" alt="{{ $l->gambar }}" srcset="">
+                </td>
                 <td>
                   <div class="btn-group">
                     <form action="{{ route('admin.leasing-motor.destroy', $l->id) }}" method="post">
@@ -72,7 +80,7 @@
                         <div class="modal-header">
                           <h4 class="modal-title" id="myModalLabel">Edit data: {{$l->nama}}</h4>
                         </div>
-                        <form action="{{ route('admin.leasing-motor.update', $l->id) }}" method="post">
+                        <form action="{{ route('admin.leasing-motor.update', $l->id) }}" method="post" enctype="multipart/form-data">
                           @csrf
                           @method('PUT')
                           <div class="modal-body">
@@ -88,7 +96,11 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="diskon-motor">Diskon Leasing</label>
-                                  <input value="{{$l->diskon}}" name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
+                                  <input value="{{($l->diskon * 100).'%'}}" name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
+                                </div>
+                                <div class="form-group">
+                                  <label for="gambar">File Gambar</label>
+                                  <input type="file" id="gambar" name="gambar">
                                 </div>
                               </div>
                             </div>
