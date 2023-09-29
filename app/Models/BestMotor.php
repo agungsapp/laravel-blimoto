@@ -12,4 +12,7 @@ class BestMotor extends Model
   protected $fillable = [
     'nama',
   ];
+
+  // app/Models/BestMotor.php
+
 }
