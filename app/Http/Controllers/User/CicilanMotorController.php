@@ -201,7 +201,7 @@ class CicilanMotorController extends Controller
         'message' => 'tidak ada data'
       ], 404);
     }
-    
+
     $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor', 'id_lokasi')
       ->with([
         'leasingMotor' => function ($query) {
@@ -228,12 +228,14 @@ class CicilanMotorController extends Controller
         'detail_motor' => $motor->detailMotor,
       ),
       'cicilan_motor' => array(
-        'nama_leasing' => $cicilan_motor[0]->leasingMotor->nama,
-        'dp' => $cicilan_motor[0]->dp,
-        'diskon' => $cicilan_motor[0]->leasingMotor->diskon,
-        'gambar' => $cicilan_motor[0]->leasingMotor->gambar,
-        'angsuran' => $cicilan_motor[0]->cicilan,
-        'potongan_tenor' => $cicilan_motor[0]->potongan_tenor,
+        array(
+          'nama_leasing' => $cicilan_motor[0]->leasingMotor->nama,
+          'dp' => $cicilan_motor[0]->dp,
+          'diskon' => $cicilan_motor[0]->leasingMotor->diskon,
+          'gambar' => $cicilan_motor[0]->leasingMotor->gambar,
+          'angsuran' => $cicilan_motor[0]->cicilan,
+          'potongan_tenor' => $cicilan_motor[0]->potongan_tenor,
+        )
       )
     );
 
@@ -282,12 +284,14 @@ class CicilanMotorController extends Controller
           'detail_motor' => $recommendation->motor->detailMotor,
         ),
         'cicilan_motor' => array(
-          'nama_leasing' => $recommendation->leasingMotor->nama,
-          'dp' => $recommendation->dp,
-          'diskon' => $recommendation->leasingMotor->diskon,
-          'gambar' => $recommendation->leasingMotor->gambar,
-          'angsuran' => $recommendation->cicilan,
-          'potongan_tenor' => $recommendation->potongan_tenor,
+          array(
+            'nama_leasing' => $recommendation->leasingMotor->nama,
+            'dp' => $recommendation->dp,
+            'diskon' => $recommendation->leasingMotor->diskon,
+            'gambar' => $recommendation->leasingMotor->gambar,
+            'angsuran' => $recommendation->cicilan,
+            'potongan_tenor' => $recommendation->potongan_tenor,
+          )
         )
       );
       $rekomendasiMotor[] = $item;
