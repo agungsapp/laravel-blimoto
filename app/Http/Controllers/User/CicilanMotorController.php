@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isEmpty;
+
 class CicilanMotorController extends Controller
 {
   /**
@@ -176,70 +178,158 @@ class CicilanMotorController extends Controller
       ], 403);
     }
 
-
     $id_lokasi = $request->input('id_lokasi');
     $id_motor = $request->input('id_motor');
     $dp = $request->input('dp');
     $tenor = $request->input('tenor');
 
-    $query = CicilanMotor::select(
-      'cicilan_motor.dp',
-      'cicilan_motor.tenor',
-      'cicilan_motor.cicilan',
-      'leasing_motor.nama as leasing_nama',
-      'motor.harga as motor_harga',
-    )
-      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-      ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
-      ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
-      ->where('cicilan_motor.id_lokasi', $id_lokasi)
-      ->where('cicilan_motor.id_motor', $id_motor)
-      ->where('cicilan_motor.tenor', $tenor);
-      // ->where('cicilan_motor.dp', $dp);
+    $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
+      ->with([
+        'detailMotor' => function ($query) {
+          $query->select('id_motor', 'warna', 'gambar');
+        },
+        'merk' => function ($query) {
+          $query->select('id', 'nama');
+        },
+        'type' => function ($query) {
+          $query->select('id', 'nama');
+        },
+      ])->find($id_motor);
 
-    $results = $query->get();
-
-    if (!$results) {
+    if (!$motor) {
       return response()->json([
         'message' => 'tidak ada data'
       ], 404);
     }
 
-    $dpRange = $dp * 0.2;
-    $cicilanRange = $results[0]->cicilan * 0.2;
+    $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
+      ->with([
+        'leasingMotor' => function ($query) {
+          $query->select('id', 'nama', 'gambar', 'diskon');
+        },
+      ])
+      ->where('cicilan_motor.id_lokasi', $id_lokasi)
+      ->where('cicilan_motor.id_motor', $id_motor)
+      ->where('cicilan_motor.tenor', $tenor)
+      ->where('cicilan_motor.dp', $dp)
+      ->get();
 
-    $recommendations = DB::table('cicilan_motor')
-      ->select(
-        'cicilan_motor.dp',
-        'cicilan_motor.tenor',
-        'cicilan_motor.cicilan',
-        'leasing_motor.nama as leasing_nama',
-        'motor.nama as motor_nama',
-        'motor.berat as motor_berat',
-        'motor.power as motor_power',
-        'motor.harga as motor_harga',
-        'motor.deskripsi as motor_deskripsi',
-        'motor.fitur_utama as motor_fitur_utama'
+      if (isEmpty($cicilan_motor)) {
+        return response()->json([
+          'message' => 'tidak ada data cicilan motor'
+        ], 404);
+      }
+
+    $data = array(
+      'motor' => array(
+        'nama' => $motor->nama,
+        'foto' => $motor->detailMotor->gambar,
+        'merk' => $motor->merk->nama,
+        'type' => $motor->type->nama,
+      ),
+      'cicilan_motor' => array(
+        'nama_leasing' => $cicilan_motor[0]->leasingMotor->nama,
+        'dp' => $cicilan_motor[0]->dp,
+        'diskon' => $cicilan_motor[0]->leasingMotor->diskon,
+        'gambar' => $cicilan_motor[0]->leasingMotor->gambar,
+        'angsuran' => $cicilan_motor[0]->cicilan,
+        'potongan_tenor' => $cicilan_motor[0]->potongan_tenor,
       )
-      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-      ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
-      ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
+    );
+
+
+
+
+    $dpRange = $dp * 0.2;
+    $cicilanRange = $cicilan_motor[0]->cicilan * 0.2;
+
+
+
+    $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
+      ->with([
+        'motor' => function ($query) {
+          $query->select('id', 'id_merk', 'id_type', 'nama', 'harga');
+          $query->with([
+            'detailMotor' => function ($query) {
+              $query->select('id', 'id_motor', 'warna', 'gambar');
+            },
+            'merk' => function ($query) {
+              $query->select('id', 'nama');
+            },
+            'type' => function ($query) {
+              $query->select('id', 'nama');
+            }
+          ]);
+        },
+        'leasingMotor' => function ($query) {
+          $query->select('id', 'nama', 'gambar', 'diskon');
+        },
+      ])
       ->whereBetween('cicilan_motor.dp', [$dp - $dpRange, $dp + $dpRange])
       ->where('cicilan_motor.tenor', $tenor)
-      ->whereBetween('cicilan_motor.cicilan', [$results[0]->cicilan - $cicilanRange, $results[0]->cicilan + $cicilanRange])
+      ->whereBetween('cicilan_motor.cicilan', [$cicilan_motor[0]->cicilan - $cicilanRange, $cicilan_motor[0]->cicilan + $cicilanRange])
       ->orderBy('cicilan_motor.cicilan', 'asc')
       ->take(5)
       ->get();
 
-    $leasingMotors = LeasingMotor::all();
-    foreach ($leasingMotors as $leasingMotor) {
-      $leasingMotor->diskon = ceil($dp - ($dp * $leasingMotor->diskon));
+    $rekomendasiMotor = array();
+    foreach ($recommendationCicilan as $key => $recommendation) {
+      $item = array(
+        'motor' => array(
+          'nama' => $recommendation->motor->nama,
+          'merk' => $recommendation->motor->merk->nama,
+          'type' => $recommendation->motor->type->nama,
+          'detail_motor' => $recommendation->motor->detailMotor,
+        ),
+        'cicilan_motor' => array(
+          'nama_leasing' => $recommendation->leasingMotor->nama,
+          'dp' => $recommendation->dp,
+          'diskon' => $recommendation->leasingMotor->diskon,
+          'gambar' => $recommendation->leasingMotor->gambar,
+          'angsuran' => $recommendation->cicilan,
+          'potongan_tenor' => $recommendation->potongan_tenor,
+        )
+      );
+      $rekomendasiMotor[] = $item;
     }
 
+
+    // $recommendations = DB::table('cicilan_motor')
+    //   ->select(
+    //     'cicilan_motor.dp',
+    //     'cicilan_motor.tenor',
+    //     'cicilan_motor.cicilan',
+    //     'leasing_motor.nama as leasing_nama',
+    //     'motor.nama as motor_nama',
+    //     'motor.berat as motor_berat',
+    //     'motor.power as motor_power',
+    //     'motor.harga as motor_harga',
+    //     'motor.deskripsi as motor_deskripsi',
+    //     'motor.fitur_utama as motor_fitur_utama'
+    //   )
+    //   ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+    //   ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
+    //   ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
+    //   ->whereBetween('cicilan_motor.dp', [$dp - $dpRange, $dp + $dpRange])
+    //   ->where('cicilan_motor.tenor', $tenor)
+    //   ->whereBetween('cicilan_motor.cicilan', [$results[0]->cicilan - $cicilanRange, $results[0]->cicilan + $cicilanRange])
+    //   ->orderBy('cicilan_motor.cicilan', 'asc')
+    //   ->take(5)
+    //   ->get();
+
+    // $leasingMotors = LeasingMotor::all();
+    // foreach ($leasingMotors as $leasingMotor) {
+    //   $leasingMotor->diskon = ceil($dp - ($dp * $leasingMotor->diskon));
+    // }
+
     return response()->json([
-      'motor' => $results,
-      'diskon_leasing' => $leasingMotors,
-      'rekemondasi' => $recommendations,
+      // 'motor' => $motor,
+      'data' => $data,
+      'rekomendasi' => $rekomendasiMotor,
+      // 'rekomendasi' => $recommendationCicilan
+      // 'cicilan_motor' => $cicilan_motor
+      // 'diskon_leasing' => $leasingMotors,
+      // 'rekemondasi' => $recommendations,
     ], 200);
   }
 }

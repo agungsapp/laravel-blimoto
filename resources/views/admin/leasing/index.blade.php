@@ -39,7 +39,6 @@
         <div class="card-header">
           <h3 class="card-title">Data Leasing</h3>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <table id="data-type" class="table-bordered table-striped table">
             <thead>

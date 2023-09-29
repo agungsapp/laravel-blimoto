@@ -40,9 +40,9 @@ class CicilanMotor extends Model
 
   public function leasingMotor()
   {
-    return $this->belongsTo(LeasingMotor::class, 'id_leasing');
+    return $this->belongsTo(LeasingMotor::class, 'id_leasing', 'id');
   }
-
+  
   public function motor()
   {
     return $this->belongsTo(Motor::class, 'id_motor');
