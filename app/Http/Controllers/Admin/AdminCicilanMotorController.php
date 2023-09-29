@@ -19,7 +19,7 @@ class AdminCicilanMotorController extends Controller
   public function index()
   {
     $data = [
-      'cicilan' => CicilanMotor::orderBy('id', 'DESC')->get()
+      'cicilan' => CicilanMotor::getCicilanTable()
     ];
 
     return view('admin.cicilan.index', $data);
@@ -109,10 +109,11 @@ class AdminCicilanMotorController extends Controller
         DB::table('cicilan_motor')->insert([
           'dp' => $data[0],
           'tenor' => $data[1],
-          'cicilan' => $data[2],
-          'id_leasing' => $data[3],
-          'id_lokasi' => $data[4],
-          'id_motor' => $data[5],
+          'potongan_tenor' => $data[2],
+          'cicilan' => $data[3],
+          'id_leasing' => $data[4],
+          'id_lokasi' => $data[5],
+          'id_motor' => $data[6],
         ]);
       }
       fclose($handle);
@@ -143,10 +144,11 @@ class AdminCicilanMotorController extends Controller
         DB::table('cicilan_motor')->insert([
           'dp' => $data[0],
           'tenor' => $data[1],
-          'cicilan' => $data[2],
-          'id_leasing' => $data[3],
-          'id_lokasi' => $data[4],
-          'id_motor' => $data[5],
+          'potongan_tenor' => $data[2],
+          'cicilan' => $data[3],
+          'id_leasing' => $data[4],
+          'id_lokasi' => $data[5],
+          'id_motor' => $data[6],
         ]);
       }
 
