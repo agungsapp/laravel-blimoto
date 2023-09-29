@@ -185,14 +185,14 @@ class CicilanMotorController extends Controller
 
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
-        'detailMotor' => function ($query) {
-          $query->select('id_motor', 'warna', 'gambar');
-        },
         'merk' => function ($query) {
           $query->select('id', 'nama');
         },
         'type' => function ($query) {
           $query->select('id', 'nama');
+        },
+        'detailMotor' => function ($query) {
+          $query->select('id_motor', 'warna', 'gambar');
         },
       ])->find($id_motor);
 
@@ -201,31 +201,31 @@ class CicilanMotorController extends Controller
         'message' => 'tidak ada data'
       ], 404);
     }
-
-    $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
+    
+    $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor', 'id_lokasi')
       ->with([
         'leasingMotor' => function ($query) {
           $query->select('id', 'nama', 'gambar', 'diskon');
         },
       ])
-      ->where('cicilan_motor.id_lokasi', $id_lokasi)
-      ->where('cicilan_motor.id_motor', $id_motor)
-      ->where('cicilan_motor.tenor', $tenor)
-      ->where('cicilan_motor.dp', $dp)
+      ->where('id_lokasi', $id_lokasi)
+      ->where('id_motor', $id_motor)
+      ->where('tenor', $tenor)
+      ->where('dp', $dp)
       ->get();
 
-      if (isEmpty($cicilan_motor)) {
-        return response()->json([
-          'message' => 'tidak ada data cicilan motor'
-        ], 404);
-      }
+    if (!$cicilan_motor) {
+      return response()->json([
+        'message' => 'tidak ada data cicilan motor'
+      ], 404);
+    }
 
     $data = array(
       'motor' => array(
         'nama' => $motor->nama,
-        'foto' => $motor->detailMotor->gambar,
         'merk' => $motor->merk->nama,
         'type' => $motor->type->nama,
+        'detail_motor' => $motor->detailMotor,
       ),
       'cicilan_motor' => array(
         'nama_leasing' => $cicilan_motor[0]->leasingMotor->nama,
