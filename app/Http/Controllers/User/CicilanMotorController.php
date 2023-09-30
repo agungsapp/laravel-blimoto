@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\CicilanMotor;
+use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -183,6 +184,7 @@ class CicilanMotorController extends Controller
     $dp = $request->input('dp');
     $tenor = $request->input('tenor');
 
+    $lokasi = Kota::find($id_lokasi);
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
         'merk' => function ($query) {
@@ -223,6 +225,7 @@ class CicilanMotorController extends Controller
     $data = array(
       'motor' => array(
         'nama' => $motor->nama,
+        'otr' => $motor->harga,
         'merk' => $motor->merk->nama,
         'type' => $motor->type->nama,
         'detail_motor' => $motor->detailMotor,
@@ -231,13 +234,18 @@ class CicilanMotorController extends Controller
     );
 
     foreach ($cicilan_motor as $cicilan) {
+      $diskon = round($cicilan->dp * $cicilan->leasingMotor->diskon);
       $data['cicilan_motor'][] = array(
         'nama_leasing' => $cicilan->leasingMotor->nama,
         'dp' => $cicilan->dp,
-        'diskon' => $cicilan->leasingMotor->diskon,
+        'diskon' => $diskon,
+        'dp_bayar' => $cicilan->dp - $diskon,
         'gambar' => $cicilan->leasingMotor->gambar,
         'angsuran' => $cicilan->cicilan,
+        'tenor' => $cicilan->tenor,
         'potongan_tenor' => $cicilan->potongan_tenor,
+        'total_tenor' => $cicilan->tenor - $cicilan->potongan_tenor,
+        'total_bayar' => ($cicilan->tenor - $cicilan->potongan_tenor) * $cicilan->cicilan + $cicilan->dp,
       );
     }
 
@@ -275,9 +283,11 @@ class CicilanMotorController extends Controller
 
     $rekomendasiMotor = array();
     foreach ($recommendationCicilan as $key => $recommendation) {
+      $diskon = round($recommendation->dp * $recommendation->leasingMotor->diskon);
       $item = array(
         'motor' => array(
           'nama' => $recommendation->motor->nama,
+          'otr' => $recommendation->motor->harga,
           'merk' => $recommendation->motor->merk->nama,
           'type' => $recommendation->motor->type->nama,
           'detail_motor' => $recommendation->motor->detailMotor,
@@ -286,10 +296,14 @@ class CicilanMotorController extends Controller
           array(
             'nama_leasing' => $recommendation->leasingMotor->nama,
             'dp' => $recommendation->dp,
-            'diskon' => $recommendation->leasingMotor->diskon,
+            'diskon' => $diskon,
+            'dp_bayar' => $recommendation->dp - $diskon,
             'gambar' => $recommendation->leasingMotor->gambar,
             'angsuran' => $recommendation->cicilan,
+            'tenor' => $recommendation->tenor,
             'potongan_tenor' => $recommendation->potongan_tenor,
+            'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
+            'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $recommendation->dp,
           )
         )
       );
@@ -327,6 +341,7 @@ class CicilanMotorController extends Controller
 
     return response()->json([
       // 'motor' => $motor,
+      'lokasi' => $lokasi->nama,
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
       // 'rekomendasi' => $recommendationCicilan
