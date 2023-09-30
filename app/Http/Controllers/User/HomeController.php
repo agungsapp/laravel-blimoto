@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\CicilanMotor;
+use App\Models\DetailMotor;
 use App\Models\Hook;
 use App\Models\Merk;
 use App\Models\Motor;
@@ -21,10 +22,10 @@ class HomeController extends Controller
     {
 
         $data = [
-            'best1' => Motor::where('id_best_motor', 1)->get(),
-            'best2' => Motor::where('id_best_motor', 2)->get(),
-            'best3' => Motor::where('id_best_motor', 3)->get(),
-            'best4' => Motor::where('id_best_motor', 4)->get(),
+            'best1' => $this->getMotorData(2),
+            'best2' => $this->getMotorData(3),
+            'best3' => $this->getMotorData(4),
+            'best4' => $this->getMotorData(5),
             'blogs' => Blog::orderBy('id', 'DESC')->get(),
             'hooks' => Hook::all()
         ];
@@ -124,5 +125,18 @@ class HomeController extends Controller
             ->pluck('dp');
 
         return response()->json(['dp' => $dps]);
+    }
+
+
+    // get gambar pada detail :
+    private function getMotorData($bestMotorId)
+    {
+        $motors = Motor::where('id_best_motor', $bestMotorId)->get();
+
+        foreach ($motors as $motor) {
+            $motor->image = DetailMotor::where('id_motor', $motor->id)->pluck('gambar')->first();
+        }
+
+        return $motors;
     }
 }
