@@ -214,7 +214,7 @@ class CicilanMotorController extends Controller
       ->where('dp', $dp)
       ->get();
 
-    if (!$cicilan_motor) {
+    if ($cicilan_motor->isEmpty()) {
       return response()->json([
         'message' => 'tidak ada data cicilan motor'
       ], 404);
@@ -227,20 +227,19 @@ class CicilanMotorController extends Controller
         'type' => $motor->type->nama,
         'detail_motor' => $motor->detailMotor,
       ),
-      'cicilan_motor' => array(
-        array(
-          'nama_leasing' => $cicilan_motor[0]->leasingMotor->nama,
-          'dp' => $cicilan_motor[0]->dp,
-          'diskon' => $cicilan_motor[0]->leasingMotor->diskon,
-          'gambar' => $cicilan_motor[0]->leasingMotor->gambar,
-          'angsuran' => $cicilan_motor[0]->cicilan,
-          'potongan_tenor' => $cicilan_motor[0]->potongan_tenor,
-        )
-      )
+      'cicilan_motor' => array(),
     );
 
-
-
+    foreach ($cicilan_motor as $cicilan) {
+      $data['cicilan_motor'][] = array(
+        'nama_leasing' => $cicilan->leasingMotor->nama,
+        'dp' => $cicilan->dp,
+        'diskon' => $cicilan->leasingMotor->diskon,
+        'gambar' => $cicilan->leasingMotor->gambar,
+        'angsuran' => $cicilan->cicilan,
+        'potongan_tenor' => $cicilan->potongan_tenor,
+      );
+    }
 
     $dpRange = $dp * 0.2;
     $cicilanRange = $cicilan_motor[0]->cicilan * 0.2;
