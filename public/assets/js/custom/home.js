@@ -46,6 +46,11 @@ $(document).ready(function () {
     return "Rp. " + ribuan;
   }
 
+  // function hitungDiskon(dp, potongan) {
+  //   var potongan = dp - (dp * potongan);
+  //   return formatRupiah(potongan);
+  // }
+
   $('#model').on('change', function () {
     var id = $(this).val();
     console.log("onchange model berjalan ...")
@@ -103,7 +108,6 @@ $(document).ready(function () {
       `data di tangkap pada ajax, id_lokasi : ${id_lokasi}, id_motor : ${id_motor}, dp : ${dp}, tenor : ${tenor},`
     )
 
-    // Mengirim data ke endpoint
     $.ajax({
       url: '/cari-cicilan',
       type: 'GET',
@@ -114,13 +118,245 @@ $(document).ready(function () {
         tenor: tenor,
       },
       success: function (response) {
-        console.log(response);
-        console.log(`total bayar : ${response.total_pembayaran}, cicilan perbulan : ${response.cicilan}`)
+        $("#modalResult").modal("show");
+        const motorData = response.data.motor;
+        console.log(motorData.nama);
+
+        const detailMotorElement = document.querySelector('#motor');
+        detailMotorElement.innerHTML = `
+      											<div class="collection-wrapper">
+																<div class="custom-container">
+																		<div class="row">
+																				<div class="col-lg-4 col-sm-10 col-xs-12 order-up d-sm-flex justify-content-sm-center align-content-sm-center justify-content-md-center align-content-md-center mb-sm-4">
+																						<img src="/assets/images/detail-motor/${motorData.detail_motor.gambar}" alt="" class="img-fluid image_zoom_cls-0">
+																				</div>
+																				<div class="col-lg-7 rtl-text">
+																						<div class="product-right">
+																								<div class="d-flex justify-content-between">
+																										<p class="text-dark fs-4 fw-bold">${motorData.nama}</h>
+																										<div class="fs-5"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span
+																														class="ms-2">${response.lokasi}</span>
+																										</div>
+																								</div>
+																								<div class="pro-group">
+																										<h6 class="product-title">Metode Pembayaran :</h6>
+																										<span class="badge bg-success fs-5">Kredit</span>
+																								</div>
+																								<div class="pro-group">
+																										<h6 class="product-title">Tipe</h6>
+																										<p>${motorData.type}</p>
+																								</div>
+																								<div class="pro-group">
+																										<h6 class="product-title">Merk</h6>
+																										<p>${motorData.merk}</p>
+																								</div>
+																						</div>
+																				</div>
+																		</div>
+																</div>
+														</div>
+    `;
+
+        const cicilanMotorData = response.data.cicilan_motor;
+
+        const leasingContainer = document.querySelector('#leasing');
+
+        cicilanMotorData.forEach(function (leasingData) {
+          const leasingElement = document.createElement('div');
+          leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3');
+          leasingElement.innerHTML = `
+       									<div class="col-6 col-md-4 col-lg-3">
+																<div class="card" style="width: 18rem; margin-bottom: 20px;">
+																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="...">
+																		<div class="card-body">
+																				<h5 class="card-title">${leasingData.nama_leasing}</h5>
+																		</div>
+																		<ul class="list-group list-group-flush">
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>DP</p>
+																						<p>${formatRupiah(leasingData.dp)}</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Diskon</p>
+																						<p>${formatRupiah(leasingData.diskon)}</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>DP Bayar</p>
+																						<p>${formatRupiah(leasingData.dp_bayar)}</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Angsuran</p>
+																						<p>${formatRupiah(leasingData.angsuran)}</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Tenor</p>
+																						<p>${leasingData.tenor} Bulan</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Potongan Tenor</p>
+																						<p>${leasingData.potongan_tenor} Bulan</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Total Tenor</p>
+																						<p>${leasingData.total_tenor} Bulan</p>
+																				</li>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Total Bayar</p>
+																						<p>${formatRupiah(leasingData.total_bayar)}</p>
+																				</li>
+																		</ul>
+																		<div class="card-body d-flex justify-content-center">
+																				<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																		</div>
+																</div>
+														</div>
+      `;
+
+          leasingContainer.appendChild(leasingElement);
+        });
+
+        // area REKOMENDASI
+
+        const rekomendasiData = response.rekomendasi;
+
+
+        const rekomendasiWrapper = document.getElementById('rekomendasi-wrapper');
+
+        rekomendasiData.forEach(function (rekomendasiItem) {
+          const rekomendasiMotorElement = document.createElement('div');
+          rekomendasiMotorElement.classList.add('detail-motor');
+
+          rekomendasiMotorElement.innerHTML = `
+                                                                        <section class="section-big-pt-space b-g-light rekomendasi-motor">
+                                                                          <div class="collection-wrapper">
+                                                                            <div class="custom-container">
+                                                                              <div class="row">
+                                                                                <div class="col-lg-4 col-sm-10 col-xs-12 order-up d-sm-flex justify-content-sm-center align-content-sm-center justify-content-md-center align-content-md-center mb-sm-4">
+                                                                                  <img src="/assets/images/detail-motor/${rekomendasiItem.motor.detail_motor.gambar}" alt="${rekomendasiItem.motor.detail_motor.gambar}" class="img-fluid image_zoom_cls-0">
+                                                                                </div>
+                                                                                <div class="col-lg-7 rtl-text">
+                                                                                  <div class="product-right">
+                                                                                    <div class="d-flex justify-content-between">
+                                                                                      <p class="text-dark fs-4 fw-bold">${rekomendasiItem.motor.nama}</p>
+                                                                                      <div class="fs-5"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span class="ms-2">${response.lokasi}</span></div>
+                                                                                    </div>
+                                                                                    <div class="pro-group">
+                                                                                      <h6 class="product-title">Metode Pembayaran :</h6>
+                                                                                      <span class="badge bg-success fs-5">Kredit</span>
+                                                                                    </div>
+                                                                                    <div class="pro-group">
+                                                                                      <h6 class="product-title">Tipe</h6>
+                                                                                      <p>${rekomendasiItem.motor.type}</p>
+                                                                                    </div>
+                                                                                    <div class="pro-group">
+                                                                                      <h6 class="product-title">Merk</h6>
+                                                                                      <p>${rekomendasiItem.motor.merk}</p>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </section>
+                                                                        <hr>
+                                                                      `;
+
+          const leasingWrapper = document.createElement('div');
+          leasingWrapper.classList.add('row', 'leasing', 'rekomendasi-leasing', 'px-5');
+
+          console.log(rekomendasiItem.cicilan_motor)
+          rekomendasiItem.cicilan_motor.forEach(function (rekomendasiLeasingData) {
+            const leasingElement = document.createElement('div');
+            leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'space-l');
+            leasingElement.innerHTML = `
+                                                            <div class="card" style="width: 18rem; ">
+                                                              <img src="/assets/images/leasing/${rekomendasiLeasingData.gambar}" class="card-img-top" alt="...">
+                                                              <div class="card-body">
+                                                                <h5 class="card-title">${rekomendasiLeasingData.nama_leasing}</h5>
+                                                              </div>
+                                                              <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>DP</p>
+                                                                  <p>${formatRupiah(rekomendasiLeasingData.dp)}</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Diskon</p>
+                                                                  <p>${formatRupiah(rekomendasiLeasingData.diskon)}</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>DP Bayar</p>
+                                                                  <p>${formatRupiah(rekomendasiLeasingData.dp_bayar)}</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Angsuran</p>
+                                                                  <p>${formatRupiah(rekomendasiLeasingData.angsuran)}</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Tenor</p>
+                                                                  <p>${rekomendasiLeasingData.tenor} Bulan</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Potongan Tenor</p>
+                                                                  <p>${rekomendasiLeasingData.potongan_tenor} Bulan</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Total Tenor</p>
+                                                                  <p>${rekomendasiLeasingData.total_tenor} Bulan</p>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between">
+                                                                  <p>Total Bayar</p>
+                                                                  <p>${formatRupiah(rekomendasiLeasingData.total_bayar)}</p>
+                                                                </li>
+                                                              </ul>
+                                                              <div class="card-body d-flex justify-content-center">
+                                                                <a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+                                                              </div>
+                                                            </div>
+                                                          `;
+
+            leasingWrapper.appendChild(leasingElement);
+          });
+
+          rekomendasiMotorElement.appendChild(leasingWrapper);
+
+          rekomendasiWrapper.appendChild(rekomendasiMotorElement);
+        });
+
+
+
+
       },
       error: function (error) {
         console.log(error);
       }
     });
+
+
+
+    //old area start
+    // Mengirim data ke endpoint
+    // $.ajax({
+    //   url: '/cari-cicilan',
+    //   type: 'GET',
+    //   data: {
+    //     id_lokasi: id_lokasi,
+    //     id_motor: idmotor,
+    //     dp: dp,
+    //     tenor: tenor,
+    //   },
+    //   success: function (response) {
+    //     $("#modalResult").modal("show");
+    //     console.log(response.data);
+    //     // console.log(`total bayar : ${response.total_pembayaran}, cicilan perbulan : ${response.cicilan}`)
+    //   },
+    //   error: function (error) {
+    //     console.log(error);
+    //   }
+    // });
+    // old area end
+
+
   });
 
   // Menambahkan class "popup-open" ke elemen body untuk mengunci laman utama
