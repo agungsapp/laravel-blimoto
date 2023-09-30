@@ -235,17 +235,18 @@ class CicilanMotorController extends Controller
 
     foreach ($cicilan_motor as $cicilan) {
       $diskon = round($cicilan->dp * $cicilan->leasingMotor->diskon);
+      $dpBayar = $cicilan->dp - $diskon;
       $data['cicilan_motor'][] = array(
         'nama_leasing' => $cicilan->leasingMotor->nama,
         'dp' => $cicilan->dp,
         'diskon' => $diskon,
-        'dp_bayar' => $cicilan->dp - $diskon,
+        'dp_bayar' => $dpBayar,
         'gambar' => $cicilan->leasingMotor->gambar,
         'angsuran' => $cicilan->cicilan,
         'tenor' => $cicilan->tenor,
         'potongan_tenor' => $cicilan->potongan_tenor,
         'total_tenor' => $cicilan->tenor - $cicilan->potongan_tenor,
-        'total_bayar' => ($cicilan->tenor - $cicilan->potongan_tenor) * $cicilan->cicilan + $cicilan->dp,
+        'total_bayar' => ($cicilan->tenor - $cicilan->potongan_tenor) * $cicilan->cicilan + $dpBayar,
       );
     }
 
@@ -284,6 +285,7 @@ class CicilanMotorController extends Controller
     $rekomendasiMotor = array();
     foreach ($recommendationCicilan as $key => $recommendation) {
       $diskon = round($recommendation->dp * $recommendation->leasingMotor->diskon);
+      $dpBayar = $recommendation->dp - $diskon;
       $item = array(
         'motor' => array(
           'nama' => $recommendation->motor->nama,
@@ -297,13 +299,13 @@ class CicilanMotorController extends Controller
             'nama_leasing' => $recommendation->leasingMotor->nama,
             'dp' => $recommendation->dp,
             'diskon' => $diskon,
-            'dp_bayar' => $recommendation->dp - $diskon,
+            'dp_bayar' => $dpBayar,
             'gambar' => $recommendation->leasingMotor->gambar,
             'angsuran' => $recommendation->cicilan,
             'tenor' => $recommendation->tenor,
             'potongan_tenor' => $recommendation->potongan_tenor,
             'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
-            'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $recommendation->dp,
+            'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $dpBayar,
           )
         )
       );
