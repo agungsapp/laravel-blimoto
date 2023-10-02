@@ -1,4 +1,12 @@
 
+// fetch data merk motor 
+bacaMerk();
+// fetch data type 
+bacaType();
+var counterModel = 0;
+
+
+
 
 $(document).ready(function () {
 
@@ -8,35 +16,26 @@ $(document).ready(function () {
   var id_motor;
   var tenor;
 
-
-
-
   $('select[name="tipe"]').change(function () {
     console.log("area select logic running...");
     var merkId = $('#merk').val();
     var tipeId = $(this).val();
-    var modelSelect = $('select[name="model"]');
-    // console.log(merkId + tipeId);
-    modelSelect.empty();
-    modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
-    // console.log("sebelum if");
-    if (merkId !== '0' && tipeId !== '0') {
-      // console.log("get jalan!");
-      $.get('/get-model-options', {
-        merk_id: merkId,
-        tipe_id: tipeId
-      }, function (data) {
-        // console.log(data);
-        console.log("done bang!")
-        $.each(data, function (key, value) {
-          // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
-          console.log(`harga otr nya ${value.harga}`)
-          modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
-        });
-
-      });
-    }
+    counterModel += 1;
+    // panggil function
+    findMotorByTypeMerk(merkId, tipeId)
   });
+
+  $('select[name="merk"]').change(function () {
+    console.log("merk counter :" + counterModel);
+    if (counterModel > 0) {
+      var merkId = $(this).val();
+      var tipeId = $('#tipe').val();
+      return console.log("tipe harus di isi dulu")
+      findMotorByTypeMerk(merkId, tipeId)
+    } else {
+      return
+    }
+  })
 
   // onchange model motor di pilih 
   function formatRupiah(angka) {
@@ -128,7 +127,7 @@ $(document).ready(function () {
 																<div class="custom-container">
 																		<div class="row">
 																				<div class="col-lg-4 col-sm-10 col-xs-12 order-up d-sm-flex justify-content-sm-center align-content-sm-center justify-content-md-center align-content-md-center mb-sm-4">
-																						<img src="/assets/images/detail-motor/${motorData.detail_motor.gambar}" alt="" class="img-fluid image_zoom_cls-0">
+																						<img src="/assets/images/detail-motor/${motorData.detail_motor.gambar}" alt="${motorData.detail_motor.gambar}" class="img-fluid image_zoom_cls-0">
 																				</div>
 																				<div class="col-lg-7 rtl-text">
 																						<div class="product-right">
@@ -163,11 +162,11 @@ $(document).ready(function () {
 
         cicilanMotorData.forEach(function (leasingData) {
           const leasingElement = document.createElement('div');
-          leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3');
+          leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'p-5');
           leasingElement.innerHTML = `
        									<div class="col-6 col-md-4 col-lg-3">
 																<div class="card" style="width: 18rem; margin-bottom: 20px;">
-																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="...">
+																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="${leasingData.gambar}">
 																		<div class="card-body">
 																				<h5 class="card-title">${leasingData.nama_leasing}</h5>
 																		</div>
@@ -227,7 +226,7 @@ $(document).ready(function () {
           const rekomendasiMotorElement = document.createElement('div');
           rekomendasiMotorElement.classList.add('detail-motor');
 
-          rekomendasiMotorElement.innerHTML = `
+          rekomendasiMotorElement.innerHTML = `<hr>
                                                                         <section class="section-big-pt-space b-g-light rekomendasi-motor">
                                                                           <div class="collection-wrapper">
                                                                             <div class="custom-container">
@@ -259,7 +258,7 @@ $(document).ready(function () {
                                                                             </div>
                                                                           </div>
                                                                         </section>
-                                                                        <hr>
+                                                                        
                                                                       `;
 
           const leasingWrapper = document.createElement('div');
@@ -268,7 +267,7 @@ $(document).ready(function () {
           console.log(rekomendasiItem.cicilan_motor)
           rekomendasiItem.cicilan_motor.forEach(function (rekomendasiLeasingData) {
             const leasingElement = document.createElement('div');
-            leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'space-l');
+            leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'space-l', 'mt-5', 'p-5');
             leasingElement.innerHTML = `
                                                             <div class="card" style="width: 18rem; ">
                                                               <img src="/assets/images/leasing/${rekomendasiLeasingData.gambar}" class="card-img-top" alt="...">
@@ -413,3 +412,68 @@ $(document).ready(function () {
 function closeModal() {
   $('#modalResult').modal('hide');
 }
+
+
+function bacaMerk() {
+  const merkSelect = document.getElementById('merk');
+  const endpoint = 'get-merk';
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(data => {
+      const merkMotor = data.merk_motor;
+      merkMotor.forEach(merk => {
+        const option = document.createElement('option');
+        option.value = merk.id;
+        option.textContent = merk.nama;
+        merkSelect.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Terjadi kesalahan:', error);
+    });
+}
+
+function bacaType() {
+  const tipeSelect = document.querySelector('select[name="tipe"]');
+  const tipeEndpoint = '/get-type';
+  fetch(tipeEndpoint)
+    .then(response => response.json())
+    .then(data => {
+      const typeMotor = data.type_motor;
+      typeMotor.forEach(type => {
+        const option = document.createElement('option');
+        option.value = type.id;
+        option.textContent = type.nama;
+        tipeSelect.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Terjadi kesalahan:', error);
+    });
+}
+
+function findMotorByTypeMerk(merkId, tipeId) {
+  var modelSelect = $('select[name="model"]');
+  // console.log(merkId + tipeId);
+  modelSelect.empty();
+  modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
+  // console.log("sebelum if");
+  if (merkId !== '0' && tipeId !== '0') {
+    // console.log("get jalan!");
+    $.get('/get-model-options', {
+      merk_id: merkId,
+      tipe_id: tipeId
+    }, function (data) {
+      // console.log(data);
+      console.log("done bang!")
+      $.each(data, function (key, value) {
+        // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
+        console.log(`harga otr nya ${value.harga}`)
+        modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
+      });
+
+    });
+  } else {
+    alert('merk & tipe harus di isi terlebih dahulu !')
+  }
+} 
