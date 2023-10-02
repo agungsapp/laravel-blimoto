@@ -9,6 +9,7 @@ use App\Models\DetailMotor;
 use App\Models\Hook;
 use App\Models\Merk;
 use App\Models\Motor;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -125,6 +126,19 @@ class HomeController extends Controller
             ->pluck('dp');
 
         return response()->json(['dp' => $dps]);
+    }
+
+    public function getTypeMotor(Request $request)
+    {
+        $typeMotor = Type::all();
+
+        return response()->json(['type_motor' => $typeMotor], 200);
+    }
+    public function getMerkMotor(Request $request)
+    {
+        $merkMotor = Merk::all();
+
+        return response()->json(['merk_motor' => $merkMotor], 200);
     }
 
 
