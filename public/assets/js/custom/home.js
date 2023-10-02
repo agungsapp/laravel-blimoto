@@ -48,7 +48,34 @@ $(document).ready(function () {
   $("#model").on("change", function () {
     var id = $(this).val();
     console.log("get dp by model change running  ...");
-    getDp(id);
+    fetch("/get-harga/" + id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`harga otrnya : ${data.data.harga}`);
+        harga_motor = data.data.harga;
+        id_motor = data.data.id;
+        tenor = $('select[name="tenor"]').val();
+        // Fetch the DP options
+        fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Clear the select options
+            $("#dp").empty();
+            console.log(
+              "di bawah ini adalah data milik get dp response"
+            );
+            console.log(data);
+
+            // Add the new options
+            data.dp.forEach((option) => {
+              var formattedOption = formatToRupiah(option);
+              $("#dp").append(new Option(formattedOption, option));
+              $("#dp option:last-child").data("harga", option);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+      })
+      .catch((error) => console.error("Error:", error));
   });
 
   $("#tenor").on("change", function () {
