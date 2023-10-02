@@ -98,6 +98,10 @@
 				body.popup-open {
 						overflow: hidden;
 				}
+
+				.space-l {
+						margin-left: 20px !important;
+				}
 		</style>
 </head>
 
