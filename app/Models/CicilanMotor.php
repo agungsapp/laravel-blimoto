@@ -23,6 +23,7 @@ class CicilanMotor extends Model
   {
     return DB::select('
     SELECT 
+        cicilan_motor.id,
         motor.nama AS motor_name, 
         leasing_motor.nama AS leasing_name, 
         cicilan_motor.dp, 
