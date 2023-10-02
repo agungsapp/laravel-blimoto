@@ -38,12 +38,13 @@ $(document).ready(function () {
   })
 
   // onchange model motor di pilih 
-  function formatRupiah(angka) {
+  window.formatRupiah = function (angka) {
     var reverse = angka.toString().split('').reverse().join(''),
       ribuan = reverse.match(/\d{1,3}/g);
     ribuan = ribuan.join('.').split('').reverse().join('');
     return "Rp. " + ribuan;
-  }
+  };
+
 
   // function hitungDiskon(dp, potongan) {
   //   var potongan = dp - (dp * potongan);
@@ -52,33 +53,14 @@ $(document).ready(function () {
 
   $('#model').on('change', function () {
     var id = $(this).val();
-    console.log("onchange model berjalan ...")
-    fetch('/get-harga/' + id)
-      .then(response => response.json())
-      .then(data => {
-        console.log(`harga otrnya : ${data.data.harga}`)
-        harga_motor = data.data.harga;
-        id_motor = data.data.id;
-        tenor = $('select[name="tenor"]').val();
-        // Fetch the DP options
-        fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
-          .then(response => response.json())
-          .then(data => {
-            // Clear the select options
-            $('#dp').empty();
-            console.log("di bawah ini adalah data milik get dp response")
-            console.log(data)
+    console.log("get dp by model change running  ...")
+    getDp(id)
+  });
 
-            // Add the new options
-            data.dp.forEach(option => {
-              var formattedOption = formatRupiah(option);
-              $('#dp').append(new Option(formattedOption, option));
-              $('#dp option:last-child').data('harga', option);
-            });
-          })
-          .catch(error => console.error('Error:', error));
-      })
-      .catch(error => console.error('Error:', error));
+  $('#tenor').on('change', function () {
+    var id = $('#model').val();
+    console.log("get dp by tenor change running ...")
+    getDp(id)
   });
 
 
@@ -91,7 +73,7 @@ $(document).ready(function () {
 
     // Mengambil nilai dari setiap input
     var id_lokasi = $('#SelectKota').val();
-    var idmotor = id_motor; // Gantilah 'nilai_yang_anda_inginkan' dengan nilai yang sesuai
+    var idmotor = id_motor;
     var tenor = $('select[name="tenor"]').val();
     var dp = $('#dp').val();
     console.log("id motornya adalah : " + id_motor)
@@ -364,11 +346,11 @@ $(document).ready(function () {
 
 
   // Menutup pop-up
-  $("#closePopupBtn").click(function () {
-    // Menghapus class "popup-open" dari elemen body untuk mengizinkan scrolling kembali
-    $("body").removeClass("popup-open");
-    $("#popupOverlay").fadeOut();
-  });
+  // $("#closePopupBtn").click(function () {
+  //   // Menghapus class "popup-open" dari elemen body untuk mengizinkan scrolling kembali
+  //   $("body").removeClass("popup-open");
+  //   $("#popupOverlay").fadeOut();
+  // });
 
 
 })
@@ -392,25 +374,28 @@ function updateBubble(input) {
   bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
-
-function formatToRupiah(value) {
-  // Gunakan metode Intl.NumberFormat untuk mengonversi nilai menjadi format mata uang Rupiah
+window.formatToRupiah = function (value) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
   }).format(value);
-}
+};
 
 
-$(document).ready(function () {
-  // Temukan tombol "Tampilkan Pop-up" berdasarkan ID
-  $("#showPopupBtn").click(function () {
-    // Tampilkan modal dengan menggunakan ID
-    $("#modalResult").modal("show");
-  })
-})
+// $(document).ready(function () {
+//   // Temukan tombol "Tampilkan Pop-up" berdasarkan ID
+//   $("#showPopupBtn").click(function () {
+//     // Tampilkan modal dengan menggunakan ID
+//     $("#modalResult").modal("show");
+//   })
+// })
+
+
 function closeModal() {
   $('#modalResult').modal('hide');
+  clearModalContent('motor');
+  clearModalContent('leasing');
+  clearModalContent('rekomendasi-wrapper');
 }
 
 
@@ -452,6 +437,7 @@ function bacaType() {
     });
 }
 
+// func get nama motor dari database by triger change merk & type 
 function findMotorByTypeMerk(merkId, tipeId) {
   var modelSelect = $('select[name="model"]');
   // console.log(merkId + tipeId);
@@ -476,4 +462,44 @@ function findMotorByTypeMerk(merkId, tipeId) {
   } else {
     alert('merk & tipe harus di isi terlebih dahulu !')
   }
-} 
+}
+
+
+function getDp(id) {
+  fetch('/get-harga/' + id)
+    .then(response => response.json())
+    .then(data => {
+      console.log(`harga otrnya : ${data.data.harga}`)
+      harga_motor = data.data.harga;
+      id_motor = data.data.id;
+      tenor = $('select[name="tenor"]').val();
+      // Fetch the DP options
+      fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
+        .then(response => response.json())
+        .then(data => {
+          // Clear the select options
+          $('#dp').empty();
+          console.log("di bawah ini adalah data milik get dp response")
+          console.log(data)
+
+          // Add the new options
+          data.dp.forEach(option => {
+            var formattedOption = formatToRupiah(option);
+            $('#dp').append(new Option(formattedOption, option));
+            $('#dp option:last-child').data('harga', option);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+
+function clearModalContent(elementId) {
+  const parentElement = document.getElementById(elementId);
+  while (parentElement.firstChild) {
+    parentElement.removeChild(parentElement.firstChild);
+  }
+}
+
