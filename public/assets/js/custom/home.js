@@ -1,111 +1,101 @@
-
-// fetch data merk motor 
+// fetch data merk motor
 bacaMerk();
-// fetch data type 
+// fetch data type
 bacaType();
 var counterModel = 0;
 
-
-
-
-
 $(document).ready(function () {
+    console.log("jQuery aman bang !");
+    // misal
+    var harga_motor;
+    var id_motor;
+    var tenor;
 
-  console.log('jQuery aman bang !')
-  // misal
-  var harga_motor;
-  var id_motor;
-  var tenor;
+    $('select[name="tipe"]').change(function () {
+        console.log("area select logic running...");
+        var merkId = $("#merk").val();
+        var tipeId = $(this).val();
+        counterModel += 1;
+        // panggil function
+        findMotorByTypeMerk(merkId, tipeId);
+    });
 
-  $('select[name="tipe"]').change(function () {
-    console.log("area select logic running...");
-    var merkId = $('#merk').val();
-    var tipeId = $(this).val();
-    counterModel += 1;
-    // panggil function
-    findMotorByTypeMerk(merkId, tipeId)
-  });
+    $('select[name="merk"]').change(function () {
+        console.log("merk counter :" + counterModel);
+        if (counterModel > 0) {
+            var merkId = $(this).val();
+            var tipeId = $("#tipe").val();
+            return console.log("tipe harus di isi dulu");
+            findMotorByTypeMerk(merkId, tipeId);
+        } else {
+            return;
+        }
+    });
 
-  $('select[name="merk"]').change(function () {
-    console.log("merk counter :" + counterModel);
-    if (counterModel > 0) {
-      var merkId = $(this).val();
-      var tipeId = $('#tipe').val();
-      return console.log("tipe harus di isi dulu")
-      findMotorByTypeMerk(merkId, tipeId)
-    } else {
-      return
-    }
-  })
+    // onchange model motor di pilih
+    window.formatRupiah = function (angka) {
+        var reverse = angka.toString().split("").reverse().join(""),
+            ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join(".").split("").reverse().join("");
+        return "Rp. " + ribuan;
+    };
 
-  // onchange model motor di pilih 
-  window.formatRupiah = function (angka) {
-    var reverse = angka.toString().split('').reverse().join(''),
-      ribuan = reverse.match(/\d{1,3}/g);
-    ribuan = ribuan.join('.').split('').reverse().join('');
-    return "Rp. " + ribuan;
-  };
+    // function hitungDiskon(dp, potongan) {
+    //   var potongan = dp - (dp * potongan);
+    //   return formatRupiah(potongan);
+    // }
 
+    $("#model").on("change", function () {
+        var id = $(this).val();
+        console.log("get dp by model change running  ...");
+        getDp(id);
+    });
 
-  // function hitungDiskon(dp, potongan) {
-  //   var potongan = dp - (dp * potongan);
-  //   return formatRupiah(potongan);
-  // }
+    $("#tenor").on("change", function () {
+        var id = $("#model").val();
+        console.log("get dp by tenor change running ...");
+        getDp(id);
+    });
 
-  $('#model').on('change', function () {
-    var id = $(this).val();
-    console.log("get dp by model change running  ...")
-    getDp(id)
-  });
+    $("#form-simulasi").on("submit", function (e) {
+        e.preventDefault();
+        console.log("submit di triger =====================================");
+        console.log(`model on change id motor adalah : ${id_motor}`);
 
-  $('#tenor').on('change', function () {
-    var id = $('#model').val();
-    console.log("get dp by tenor change running ...")
-    getDp(id)
-  });
+        // Mengambil nilai dari setiap input
+        var id_lokasi = $("#SelectKota").val();
+        var idmotor = id_motor;
+        var tenor = $('select[name="tenor"]').val();
+        var dp = $("#dp").val();
+        console.log("id motornya adalah : " + id_motor);
 
+        // Memeriksa apakah ada input yang kosong
+        if (!id_lokasi || !tenor || !dp) {
+            alert("Semua input harus diisi!");
+            return;
+        }
 
+        console.log("ajax di mulai");
+        console.log(
+            `data di tangkap pada ajax, id_lokasi : ${id_lokasi}, id_motor : ${id_motor}, dp : ${dp}, tenor : ${tenor},`
+        );
 
-  $('#form-simulasi').on('submit', function (e) {
-    e.preventDefault();
-    console.log("submit di triger =====================================")
-    console.log(`model on change id motor adalah : ${id_motor}`)
+        $.ajax({
+            url: "/cari-cicilan",
+            type: "GET",
+            data: {
+                id_lokasi: id_lokasi,
+                id_motor: idmotor,
+                dp: dp,
+                tenor: tenor,
+            },
+            success: function (response) {
+                $("#modalResult").modal("show");
+                const motorData = response.data.motor;
+                console.log(motorData.nama);
 
-
-    // Mengambil nilai dari setiap input
-    var id_lokasi = $('#SelectKota').val();
-    var idmotor = id_motor;
-    var tenor = $('select[name="tenor"]').val();
-    var dp = $('#dp').val();
-    console.log("id motornya adalah : " + id_motor)
-
-    // Memeriksa apakah ada input yang kosong
-    if (!id_lokasi || !tenor || !dp) {
-      alert('Semua input harus diisi!');
-      return;
-    }
-
-    console.log("ajax di mulai")
-    console.log(
-      `data di tangkap pada ajax, id_lokasi : ${id_lokasi}, id_motor : ${id_motor}, dp : ${dp}, tenor : ${tenor},`
-    )
-
-    $.ajax({
-      url: '/cari-cicilan',
-      type: 'GET',
-      data: {
-        id_lokasi: id_lokasi,
-        id_motor: idmotor,
-        dp: dp,
-        tenor: tenor,
-      },
-      success: function (response) {
-        $("#modalResult").modal("show");
-        const motorData = response.data.motor;
-        console.log(motorData.nama);
-
-        const detailMotorElement = document.querySelector('#motor');
-        detailMotorElement.innerHTML = `
+                const detailMotorElement = document.querySelector("#motor");
+                detailMotorElement.innerHTML = `
       											<div class="collection-wrapper">
 																<div class="custom-container">
 																		<div class="row">
@@ -139,17 +129,26 @@ $(document).ready(function () {
 														</div>
     `;
 
-        const cicilanMotorData = response.data.cicilan_motor;
+                const cicilanMotorData = response.data.cicilan_motor;
 
-        const leasingContainer = document.querySelector('#leasing');
+                const leasingContainer = document.querySelector("#leasing");
 
-        cicilanMotorData.forEach(function (leasingData) {
-          const leasingElement = document.createElement('div');
-          leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'p-5');
-          leasingElement.innerHTML = `
+                cicilanMotorData.forEach(function (leasingData) {
+                    const leasingElement = document.createElement("div");
+                    leasingElement.classList.add(
+                        "col-6",
+                        "col-md-4",
+                        "col-lg-3",
+                        "p-5"
+                    );
+                    leasingElement.innerHTML = `
        									<div class="col-6 col-md-4 col-lg-3">
 																<div class="card" style="width: 18rem; margin-bottom: 20px;">
-																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="${leasingData.gambar}">
+																		<img src="/assets/images/leasing/${
+                                                                            leasingData.gambar
+                                                                        }" class="card-img-top" alt="${
+                        leasingData.gambar
+                    }">
 																		<div class="card-body">
 																				<h5 class="card-title">${leasingData.nama_leasing}</h5>
 																		</div>
@@ -195,21 +194,23 @@ $(document).ready(function () {
 														</div>
       `;
 
-          leasingContainer.appendChild(leasingElement);
-        });
+                    leasingContainer.appendChild(leasingElement);
+                });
 
-        // area REKOMENDASI
+                // area REKOMENDASI
 
-        const rekomendasiData = response.rekomendasi;
+                const rekomendasiData = response.rekomendasi;
 
+                const rekomendasiWrapper = document.getElementById(
+                    "rekomendasi-wrapper"
+                );
 
-        const rekomendasiWrapper = document.getElementById('rekomendasi-wrapper');
+                rekomendasiData.forEach(function (rekomendasiItem) {
+                    const rekomendasiMotorElement =
+                        document.createElement("div");
+                    rekomendasiMotorElement.classList.add("detail-motor");
 
-        rekomendasiData.forEach(function (rekomendasiItem) {
-          const rekomendasiMotorElement = document.createElement('div');
-          rekomendasiMotorElement.classList.add('detail-motor');
-
-          rekomendasiMotorElement.innerHTML = `<hr>
+                    rekomendasiMotorElement.innerHTML = `<hr>
                                                                         <section class="section-big-pt-space b-g-light rekomendasi-motor">
                                                                           <div class="collection-wrapper">
                                                                             <div class="custom-container">
@@ -244,51 +245,85 @@ $(document).ready(function () {
                                                                         
                                                                       `;
 
-          const leasingWrapper = document.createElement('div');
-          leasingWrapper.classList.add('row', 'leasing', 'rekomendasi-leasing', 'px-5');
+                    const leasingWrapper = document.createElement("div");
+                    leasingWrapper.classList.add(
+                        "row",
+                        "leasing",
+                        "rekomendasi-leasing",
+                        "px-5"
+                    );
 
-          console.log(rekomendasiItem.cicilan_motor)
-          rekomendasiItem.cicilan_motor.forEach(function (rekomendasiLeasingData) {
-            const leasingElement = document.createElement('div');
-            leasingElement.classList.add('col-6', 'col-md-4', 'col-lg-3', 'space-l', 'mt-5', 'p-5');
-            leasingElement.innerHTML = `
+                    console.log(rekomendasiItem.cicilan_motor);
+                    rekomendasiItem.cicilan_motor.forEach(function (
+                        rekomendasiLeasingData
+                    ) {
+                        const leasingElement = document.createElement("div");
+                        leasingElement.classList.add(
+                            "col-6",
+                            "col-md-4",
+                            "col-lg-3",
+                            "space-l",
+                            "mt-5",
+                            "p-5"
+                        );
+                        leasingElement.innerHTML = `
                                                             <div class="card" style="width: 18rem; ">
-                                                              <img src="/assets/images/leasing/${rekomendasiLeasingData.gambar}" class="card-img-top" alt="...">
+                                                              <img src="/assets/images/leasing/${
+                                                                  rekomendasiLeasingData.gambar
+                                                              }" class="card-img-top" alt="...">
                                                               <div class="card-body">
-                                                                <h5 class="card-title">${rekomendasiLeasingData.nama_leasing}</h5>
+                                                                <h5 class="card-title">${
+                                                                    rekomendasiLeasingData.nama_leasing
+                                                                }</h5>
                                                               </div>
                                                               <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>DP</p>
-                                                                  <p>${formatRupiah(rekomendasiLeasingData.dp)}</p>
+                                                                  <p>${formatRupiah(
+                                                                      rekomendasiLeasingData.dp
+                                                                  )}</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Diskon</p>
-                                                                  <p>${formatRupiah(rekomendasiLeasingData.diskon)}</p>
+                                                                  <p>${formatRupiah(
+                                                                      rekomendasiLeasingData.diskon
+                                                                  )}</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>DP Bayar</p>
-                                                                  <p>${formatRupiah(rekomendasiLeasingData.dp_bayar)}</p>
+                                                                  <p>${formatRupiah(
+                                                                      rekomendasiLeasingData.dp_bayar
+                                                                  )}</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Angsuran</p>
-                                                                  <p>${formatRupiah(rekomendasiLeasingData.angsuran)}</p>
+                                                                  <p>${formatRupiah(
+                                                                      rekomendasiLeasingData.angsuran
+                                                                  )}</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Tenor</p>
-                                                                  <p>${rekomendasiLeasingData.tenor} Bulan</p>
+                                                                  <p>${
+                                                                      rekomendasiLeasingData.tenor
+                                                                  } Bulan</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Potongan Tenor</p>
-                                                                  <p>${rekomendasiLeasingData.potongan_tenor} Bulan</p>
+                                                                  <p>${
+                                                                      rekomendasiLeasingData.potongan_tenor
+                                                                  } Bulan</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Total Tenor</p>
-                                                                  <p>${rekomendasiLeasingData.total_tenor} Bulan</p>
+                                                                  <p>${
+                                                                      rekomendasiLeasingData.total_tenor
+                                                                  } Bulan</p>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between">
                                                                   <p>Total Bayar</p>
-                                                                  <p>${formatRupiah(rekomendasiLeasingData.total_bayar)}</p>
+                                                                  <p>${formatRupiah(
+                                                                      rekomendasiLeasingData.total_bayar
+                                                                  )}</p>
                                                                 </li>
                                                               </ul>
                                                               <div class="card-body d-flex justify-content-center">
@@ -297,91 +332,82 @@ $(document).ready(function () {
                                                             </div>
                                                           `;
 
-            leasingWrapper.appendChild(leasingElement);
-          });
+                        leasingWrapper.appendChild(leasingElement);
+                    });
 
-          rekomendasiMotorElement.appendChild(leasingWrapper);
+                    rekomendasiMotorElement.appendChild(leasingWrapper);
 
-          rekomendasiWrapper.appendChild(rekomendasiMotorElement);
+                    rekomendasiWrapper.appendChild(rekomendasiMotorElement);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Data cicilan tidak ditemukan",
+                });
+            },
         });
 
-
-
-
-      },
-      error: function (error) {
-        console.log(error);
-      }
+        //old area start
+        // Mengirim data ke endpoint
+        // $.ajax({
+        //   url: '/cari-cicilan',
+        //   type: 'GET',
+        //   data: {
+        //     id_lokasi: id_lokasi,
+        //     id_motor: idmotor,
+        //     dp: dp,
+        //     tenor: tenor,
+        //   },
+        //   success: function (response) {
+        //     $("#modalResult").modal("show");
+        //     console.log(response.data);
+        //     // console.log(`total bayar : ${response.total_pembayaran}, cicilan perbulan : ${response.cicilan}`)
+        //   },
+        //   error: function (error) {
+        //     console.log(error);
+        //   }
+        // });
+        // old area end
     });
 
+    // Menambahkan class "popup-open" ke elemen body untuk mengunci laman utama
+    // $("body").addClass("popup-open");
+    // $("#popupOverlay").fadeIn();
 
-
-    //old area start
-    // Mengirim data ke endpoint
-    // $.ajax({
-    //   url: '/cari-cicilan',
-    //   type: 'GET',
-    //   data: {
-    //     id_lokasi: id_lokasi,
-    //     id_motor: idmotor,
-    //     dp: dp,
-    //     tenor: tenor,
-    //   },
-    //   success: function (response) {
-    //     $("#modalResult").modal("show");
-    //     console.log(response.data);
-    //     // console.log(`total bayar : ${response.total_pembayaran}, cicilan perbulan : ${response.cicilan}`)
-    //   },
-    //   error: function (error) {
-    //     console.log(error);
-    //   }
+    // Menutup pop-up
+    // $("#closePopupBtn").click(function () {
+    //   // Menghapus class "popup-open" dari elemen body untuk mengizinkan scrolling kembali
+    //   $("body").removeClass("popup-open");
+    //   $("#popupOverlay").fadeOut();
     // });
-    // old area end
-
-
-  });
-
-  // Menambahkan class "popup-open" ke elemen body untuk mengunci laman utama
-  // $("body").addClass("popup-open");
-  // $("#popupOverlay").fadeIn();
-
-
-  // Menutup pop-up
-  // $("#closePopupBtn").click(function () {
-  //   // Menghapus class "popup-open" dari elemen body untuk mengizinkan scrolling kembali
-  //   $("body").removeClass("popup-open");
-  //   $("#popupOverlay").fadeOut();
-  // });
-
-
-})
-
-
+});
 
 // range function
 
 function updateBubble(input) {
-  const val = input.value;
-  const bubble = document.getElementById("bubble");
+    const val = input.value;
+    const bubble = document.getElementById("bubble");
 
-  // Konversi nilai ke format mata uang Rupiah
-  const formattedValue = formatToRupiah(val);
-  bubble.textContent = formattedValue;
+    // Konversi nilai ke format mata uang Rupiah
+    const formattedValue = formatToRupiah(val);
+    bubble.textContent = formattedValue;
 
-  // Sorta magic numbers based on size of the native UI thumb
-  const min = input.min ? parseFloat(input.min) : 0;
-  const max = input.max ? parseFloat(input.max) : 100;
-  const newVal = ((val - min) * 100) / (max - min);
-  bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+    // Sorta magic numbers based on size of the native UI thumb
+    const min = input.min ? parseFloat(input.min) : 0;
+    const max = input.max ? parseFloat(input.max) : 100;
+    const newVal = ((val - min) * 100) / (max - min);
+    bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
 window.formatToRupiah = function (value) {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(value);
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+    }).format(value);
 };
-
 
 // $(document).ready(function () {
 //   // Temukan tombol "Tampilkan Pop-up" berdasarkan ID
@@ -391,116 +417,121 @@ window.formatToRupiah = function (value) {
 //   })
 // })
 
-
 function closeModal() {
-  $('#modalResult').modal('hide');
-  clearModalContent('motor');
-  clearModalContent('leasing');
-  clearModalContent('rekomendasi-wrapper');
+    $("#modalResult").modal("hide");
+    clearModalContent("motor");
+    clearModalContent("leasing");
+    clearModalContent("rekomendasi-wrapper");
 }
 
-
 function bacaMerk() {
-  const merkSelect = document.getElementById('merk');
-  const endpoint = 'get-merk';
-  fetch(endpoint)
-    .then(response => response.json())
-    .then(data => {
-      const merkMotor = data.merk_motor;
-      merkMotor.forEach(merk => {
-        const option = document.createElement('option');
-        option.value = merk.id;
-        option.textContent = merk.nama;
-        merkSelect.appendChild(option);
-      });
-    })
-    .catch(error => {
-      console.error('Terjadi kesalahan:', error);
-    });
+    const merkSelect = document.getElementById("merk");
+    const endpoint = "get-merk";
+    fetch(endpoint)
+        .then((response) => response.json())
+        .then((data) => {
+            const merkMotor = data.merk_motor;
+            merkMotor.forEach((merk) => {
+                const option = document.createElement("option");
+                option.value = merk.id;
+                option.textContent = merk.nama;
+                merkSelect.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error("Terjadi kesalahan:", error);
+        });
 }
 
 function bacaType() {
-  const tipeSelect = document.querySelector('select[name="tipe"]');
-  const tipeEndpoint = '/get-type';
-  fetch(tipeEndpoint)
-    .then(response => response.json())
-    .then(data => {
-      const typeMotor = data.type_motor;
-      typeMotor.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type.id;
-        option.textContent = type.nama;
-        tipeSelect.appendChild(option);
-      });
-    })
-    .catch(error => {
-      console.error('Terjadi kesalahan:', error);
-    });
+    const tipeSelect = document.querySelector('select[name="tipe"]');
+    const tipeEndpoint = "/get-type";
+    fetch(tipeEndpoint)
+        .then((response) => response.json())
+        .then((data) => {
+            const typeMotor = data.type_motor;
+            typeMotor.forEach((type) => {
+                const option = document.createElement("option");
+                option.value = type.id;
+                option.textContent = type.nama;
+                tipeSelect.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error("Terjadi kesalahan:", error);
+        });
 }
 
-// func get nama motor dari database by triger change merk & type 
+// func get nama motor dari database by triger change merk & type
 function findMotorByTypeMerk(merkId, tipeId) {
-  var modelSelect = $('select[name="model"]');
-  // console.log(merkId + tipeId);
-  modelSelect.empty();
-  modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
-  // console.log("sebelum if");
-  if (merkId !== '0' && tipeId !== '0') {
-    // console.log("get jalan!");
-    $.get('/get-model-options', {
-      merk_id: merkId,
-      tipe_id: tipeId
-    }, function (data) {
-      // console.log(data);
-      console.log("done bang!")
-      $.each(data, function (key, value) {
-        // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
-        console.log(`harga otr nya ${value.harga}`)
-        modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
-      });
-
-    });
-  } else {
-    alert('merk & tipe harus di isi terlebih dahulu !')
-  }
+    var modelSelect = $('select[name="model"]');
+    // console.log(merkId + tipeId);
+    modelSelect.empty();
+    modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
+    // console.log("sebelum if");
+    if (merkId !== "0" && tipeId !== "0") {
+        // console.log("get jalan!");
+        $.get(
+            "/get-model-options",
+            {
+                merk_id: merkId,
+                tipe_id: tipeId,
+            },
+            function (data) {
+                // console.log(data);
+                console.log("done bang!");
+                $.each(data, function (key, value) {
+                    // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
+                    console.log(`harga otr nya ${value.harga}`);
+                    modelSelect.append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.nama +
+                            "</option>"
+                    );
+                });
+            }
+        );
+    } else {
+        alert("merk & tipe harus di isi terlebih dahulu !");
+    }
 }
-
 
 function getDp(id) {
-  fetch('/get-harga/' + id)
-    .then(response => response.json())
-    .then(data => {
-      console.log(`harga otrnya : ${data.data.harga}`)
-      harga_motor = data.data.harga;
-      id_motor = data.data.id;
-      tenor = $('select[name="tenor"]').val();
-      // Fetch the DP options
-      fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
-        .then(response => response.json())
-        .then(data => {
-          // Clear the select options
-          $('#dp').empty();
-          console.log("di bawah ini adalah data milik get dp response")
-          console.log(data)
+    fetch("/get-harga/" + id)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(`harga otrnya : ${data.data.harga}`);
+            harga_motor = data.data.harga;
+            id_motor = data.data.id;
+            tenor = $('select[name="tenor"]').val();
+            // Fetch the DP options
+            fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Clear the select options
+                    $("#dp").empty();
+                    console.log(
+                        "di bawah ini adalah data milik get dp response"
+                    );
+                    console.log(data);
 
-          // Add the new options
-          data.dp.forEach(option => {
-            var formattedOption = formatToRupiah(option);
-            $('#dp').append(new Option(formattedOption, option));
-            $('#dp option:last-child').data('harga', option);
-          });
+                    // Add the new options
+                    data.dp.forEach((option) => {
+                        var formattedOption = formatToRupiah(option);
+                        $("#dp").append(new Option(formattedOption, option));
+                        $("#dp option:last-child").data("harga", option);
+                    });
+                })
+                .catch((error) => console.error("Error:", error));
         })
-        .catch(error => console.error('Error:', error));
-    })
-    .catch(error => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 }
-
-
 
 function clearModalContent(elementId) {
-  const parentElement = document.getElementById(elementId);
-  while (parentElement.firstChild) {
-    parentElement.removeChild(parentElement.firstChild);
-  }
+    const parentElement = document.getElementById(elementId);
+    while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+    }
 }
-
