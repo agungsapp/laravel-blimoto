@@ -488,58 +488,48 @@
 												<div>
 														<div class="hot-deal-contain">
 																<div class="row hot-deal-subcontain hotdeal-block1">
-																		<div class="col-lg-4 col-md-4">
-																				<div class="hotdeal-right-slick border-0">
+																		<div class="col-lg-4 col-md-4" >
+																				<div class="hotdeal-right-slick border-0" >
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
+																								<div class="img-wrraper" style="background-color: pink;">
+																									<!-- DEFAULTNYA ADA DIV NYA -->
 																												<img src="/assets/images/produk-terbaru/produk1.webp" alt="hot-deal"
 																														class="img-fluid bg-img" />
-																										</div>
+																										
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
-																												<img src="/assets/images/produk-terbaru/produk1.png" alt="hot-deal"
-																														class="img-fluid bg-img" />
-																										</div>
+																								<div class="img-wrraper"> 
+																												<img src="/assets/images/produk-terbaru/produk2.webp" alt="hot-deal"
+																														class="img-fluid bg-img" /> 
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
+																								<div class="img-wrraper"> 
 																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-abs-515x504-tr-3-02082023-090925.png"
-																														alt="hot-deal" class="img-fluid bg-img" />
-																										</div>
+																														src="/assets/images/produk-terbaru/produk3.webp"
+																														alt="hot-deal" class="img-fluid bg-img" /> 
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
+																								<div class="img-wrraper"> 
 																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-white-matte-cbs-sp-515x504-tr-3-02082023-090932.png"
-																														alt="hot-deal" class="img-fluid bg-img" />
-																										</div>
+																														src="/assets/images/produk-terbaru/produk4.webp"
+																														alt="hot-deal" class="img-fluid bg-img" /> 
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
+																								<div class="img-wrraper"> 
 																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-cbs-sp-515x504-tr-6-02082023-094319.png"
-																														alt="hot-deal" class="img-fluid bg-img" />
-																										</div>
+																														src="/assets/images/produk-terbaru/produk5.webp"
+																														alt="hot-deal" class="img-fluid bg-img" /> 
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper">
-																										<div>
+																								<div class="img-wrraper"> 
 																												<img
-																														src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-cbs-515x504-tr-6-02082023-091008.png"
-																														alt="hot-deal" class="img-fluid bg-img" />
-																										</div>
+																														src="/assets/images/produk-terbaru/produk6.webp"
+																														alt="hot-deal" class="img-fluid bg-img" /> 
 																								</div>
 																						</a>
 																				</div>
@@ -672,32 +662,32 @@
 																				<div class="hotdeal-right-nav">
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-red-matte-cbs-515x504-tr-3-02082023-091019.png"
+																										src="/assets/images/produk-terbaru/Produk-kotak1.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-white-matte-abs-515x504-tr-4-02082023-090911.png"
+																										src="/assets/images/produk-terbaru/produk-kotak2.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-abs-515x504-tr-3-02082023-090925.png"
+																										src="/assets/images/produk-terbaru/produk-kotak3.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-white-matte-cbs-sp-515x504-tr-3-02082023-090932.png"
+																										src="/assets/images/produk-terbaru/produk-kotak4.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-cbs-sp-515x504-tr-6-02082023-094319.png"
+																										src="/assets/images/produk-terbaru/produk-kotak5.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
 																								<img
-																										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/var160-black-matte-cbs-515x504-tr-6-02082023-091008.png"
+																										src="/assets/images/produk-terbaru/produk-kotak6.webp"
 																										alt="hot-dea" class="img-fluid" />
 																						</div>
 																				</div>

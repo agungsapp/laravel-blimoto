@@ -4694,11 +4694,16 @@ button {
   .hot-deal-contain
   .hotdeal-right-slick
   .img-wrraper
+  /*DEFAULT PRODUK TERBAIK 
   > div {
   width: 100%;
   height: 455px;
-}
-
+  }
+  */
+  {
+    width: 100%;
+    height: 455px;
+  }
 .hot-deal.hotdeal-first .hot-deal-contain h5,
 .hot-deal.hotdeal-third .hot-deal-contain h5 {
   font-size: calc(18px + (26 - 18) * ((100vw - 320px) / (1920 - 320)));
