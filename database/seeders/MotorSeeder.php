@@ -18,6 +18,7 @@ class MotorSeeder extends Seeder
       DB::table('motor')->insert([
         'nama' => 'Motor ' . $i,
         'berat' => rand(200, 500) . ' kg',
+        'stock' => 1,
         'power' => rand(100, 300) . ' cc',
         'harga' => $harga,
         'deskripsi' => 'Description for Motor ' . $i,

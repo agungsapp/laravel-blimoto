@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('berat');
             $table->string('power');
             $table->integer('harga');
+            $table->boolean('stock')->default(1);
             $table->text('deskripsi');
             $table->text('fitur_utama');
             $table->unsignedBigInteger('id_merk');
