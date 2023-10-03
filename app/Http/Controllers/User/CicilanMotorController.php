@@ -197,7 +197,7 @@ class CicilanMotorController extends Controller
           $query->select('id_motor', 'warna', 'gambar');
         },
       ])
-      ->where('stock', 0)
+      ->where('stock', 1)
       ->find($id_motor);
 
     if (!$motor) {
