@@ -154,6 +154,15 @@
 										</a>
 								</li>
 								<li class="nav-item">
+										<a href="{{ route('admin.dealer-motor.index') }}"
+												class="nav-link {{ \Route::is('admin.dealer-motor.*') ? 'active' : '' }}">
+												<i class="nav-icon fa fa-industry" aria-hidden="true"></i>
+												<p>
+														Data Dealer
+												</p>
+										</a>
+								</li>
+								<li class="nav-item">
 										<a href="{{ route('admin.logout') }}" class="nav-link">
 												<i class="nav-icon fas fa-sign-out-alt"></i>
 												<p>
