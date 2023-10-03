@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Motor;
 use Illuminate\Http\Request;
 
 class BandingkanController extends Controller
@@ -81,5 +82,13 @@ class BandingkanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMotor($id)
+    {
+        $motor = Motor::with('detailMotor', 'merk', 'type')->find($id);
+        return response()->json([
+            'data' => $motor
+        ], 200);
     }
 }

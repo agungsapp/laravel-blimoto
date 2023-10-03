@@ -42,7 +42,7 @@
 							@if ($kota == null)
 							<p class="text-danger">Tidak ada data dealer silahkan buat terlebih dahulu !</p>
 							@else
-							<select id="kota" name="kota" class="form-control select2 @error('kota') is-invalid @enderror" style="width: 100%;">
+							<select id="kota-insert" name="kota" class="form-control select2 @error('kota') is-invalid @enderror" style="width: 100%;">
 								<option value="" selected>-- Pilih kota dealer --</option>
 								@foreach ($kota as $k)
 								<option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -119,7 +119,7 @@
 									</form>
 								</div>
 								<!-- modal update dealer start -->
-								<div class="modal fade" id="modalEdit{{$d->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal fade" id="modalEdit{{$d->id}}" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -152,15 +152,11 @@
 													</div>
 													<div class="form-group">
 														<label>Kota Dealer</label>
-														@if ($kota == null)
-														<p class="text-danger">Tidak ada data dealer silahkan buat terlebih dahulu !</p>
-														@else
-														<select id="kota" name="kota" class="form-control select2 @error('kota') is-invalid @enderror" style="width: 100%;">
+														<select id="{{'dealer-update-'.$d->id}}" name="kota" class="form-control select2 @error('kota') is-invalid @enderror" style="width: 100%;">
 															@foreach ($kota as $k)
 															<option value="{{ $k->id }}" {{$k->id === $d->id_kota ? 'selected' : '' }}>{{ $k->nama }}</option>
 															@endforeach
 														</select>
-														@endif
 														@error('kota')
 														<div class="alert alert-danger">{{ $message }}</div>
 														@enderror
@@ -244,35 +240,8 @@
 		}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
 
 
-
 		//Initialize Select2 Elements
 		$('.select2').select2()
-
-		$('#tipe-motor').change(function() {
-			console.log("area select logic running...");
-			var dealersId = $('#dealer').val();
-			var tipeId = $(this).val();
-			var modelSelect = $('#model');
-			// console.log(dealersId + tipeId);
-			modelSelect.empty();
-			modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
-			// console.log("sebelum if");
-			if (dealersId !== '0' && tipeId !== '0') {
-				// console.log("get jalan!");
-				$.get('/get-model-options', {
-					dealers_id: dealersId,
-					tipe_id: tipeId
-				}, function(data) {
-					// console.log(data);
-					console.log("done bang!")
-					$.each(data, function(key, value) {
-						// console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
-						modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
-					});
-
-				});
-			}
-		});
 	})
 </script>
 @endpush
