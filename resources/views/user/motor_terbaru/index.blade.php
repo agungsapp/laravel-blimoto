@@ -181,7 +181,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -205,7 +205,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -229,7 +229,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -253,7 +253,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -277,7 +277,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -301,7 +301,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -325,7 +325,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -349,7 +349,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -373,7 +373,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -397,7 +397,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -421,7 +421,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
@@ -445,7 +445,7 @@
 																														<h3>Harga Mulai</h3>
 																														<h5>
 																																Rp. 23,050,000
-																																<span>Rp. 18,050,000</span>
+
 																														</h5>
 																												</div>
 																										</div>
