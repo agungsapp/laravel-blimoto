@@ -163,6 +163,15 @@
 										</a>
 								</li>
 								<li class="nav-item">
+										<a href="{{ route('admin.mitra.index') }}"
+												class="nav-link {{ \Route::is('admin.mitra.*') ? 'active' : '' }}">
+												<i class="nav-icon fas fa-users"></i>
+												<p>
+														Data Mitra
+												</p>
+										</a>
+								</li>
+								<li class="nav-item">
 										<a href="{{ route('admin.logout') }}" class="nav-link">
 												<i class="nav-icon fas fa-sign-out-alt"></i>
 												<p>

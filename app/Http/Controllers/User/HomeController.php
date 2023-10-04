@@ -144,7 +144,7 @@ class HomeController extends Controller
     public function getTenor()
     {
         $tenorData = CicilanMotor::select('tenor')
-            ->groupBy('tenor')
+            ->distinct('tenor')
             ->get();
 
         return response()->json($tenorData);
