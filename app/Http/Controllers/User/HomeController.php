@@ -11,6 +11,7 @@ use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -148,6 +149,18 @@ class HomeController extends Controller
             ->get();
 
         return response()->json($tenorData);
+    }
+
+    public function getLokasi()
+    {
+        $distinctKotaNama = CicilanMotor::with('kota:id,nama')
+            ->get()
+            ->pluck('kota.nama')
+            ->unique();
+
+        return response()->json([
+          "data" =>  $distinctKotaNama
+        ]);
     }
 
 
