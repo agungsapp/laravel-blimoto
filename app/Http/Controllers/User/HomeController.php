@@ -141,6 +141,15 @@ class HomeController extends Controller
         return response()->json(['merk_motor' => $merkMotor], 200);
     }
 
+    public function getTenor()
+    {
+        $tenorData = CicilanMotor::select('tenor')
+            ->groupBy('tenor')
+            ->get();
+
+        return response()->json($tenorData);
+    }
+
 
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
