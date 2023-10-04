@@ -67,13 +67,17 @@ $('#merk').change(function () {
 
 $('#cariMotor').on('submit', function (e) {
   e.preventDefault()
+  var merkId = $("#merk").val();
+  var tipeId = $("#tipe").val();
 
   var id_motor = $('#model').val();//0
   var selectMotor = $('#select-motor1');
   var hasilPilihan = $('#hasil-pilihan1')
   console.log(id_motor)
   console.log(!id_motor)
-  if (!id_motor) {
+  console.log(!merkId)
+  console.log(!tipeId)
+  if (!id_motor && !merkId && !tipeId) {
     Swal.fire({
       icon: "error",
       title: "Error",
@@ -91,7 +95,7 @@ $('#cariMotor').on('submit', function (e) {
       selectMotor.addClass('d-none');
       hasilPilihan.removeClass('d-none');
       var hasilContent = `
-                          <img class="img-fluid" src="https://motoloka.com/assets/uploads/NEW_BEAT_SPORTY_CBS.png" />
+                          <img class="img-fluid" src="/assets/images/detail-motor/${motor.detail_motor.gambar}" />
                       <h5 class="card-product-title text-center">${motor.nama}</h5>
                       <div style="padding-left: 12px;">
                       <h5 style="font-size: 12px; padding-top: 12px;">Harga</h5>

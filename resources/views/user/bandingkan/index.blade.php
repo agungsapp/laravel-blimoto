@@ -74,6 +74,20 @@
 								</div>
 								<div class="col-md-3 select-motor1">
 										{{-- select selanjutnya --}}
+										<div id="hasil-pilihan2" class="card bg-light d-none pb-3 shadow" data-bss-hover-animate="pulse"
+												style="background: rgb(234, 168, 168); border-radius: 10px">
+
+										</div>
+										{{-- box tigger modal open ! --}}
+										<div id="select-motor2" class="card bg-light pb-3 shadow" data-bss-hover-animate="pulse"
+												style="background: rgb(234, 168, 168); border-radius: 10px">
+												<a data-bs-toggle="modal" data-bs-target="#modalCariMotor2">
+														<div class="card-body m-3 text-center">
+																<img src="https://image.pngaaa.com/73/4388073-middle.png" width="50" />
+														</div>
+												</a>
+												<h6 style="text-align: center">Pilih Motor</h6>
+										</div>
 								</div>
 						</div>
 				</div>
@@ -101,14 +115,14 @@
 																<label for="merk" class="mb-0" style="font-size: 12px">Merk</label>
 																<select id="merk" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
 																		name="merk">
-																		<option value="0" selected>-- Pilih Merk --</option>
+																		<option value="" selected>-- Pilih Merk --</option>
 																</select>
 														</div>
 														<div class="form-group col-6">
 																<label for="tipe" class="mb-0" style="font-size: 12px">Tipe</label>
 																<select id="tipe" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
 																		name="tipe">
-																		<option value="0" selected>-- Pilih Tipe --</option>
+																		<option value="" selected>-- Pilih Tipe --</option>
 																</select>
 														</div>
 												</div>
@@ -125,8 +139,54 @@
 						</div>
 				</div>
 		</div>
-
 		{{-- modal cari motor end ============================================================================ --}}
+
+
+		{{-- modal cari motor start  ======================================================================== --}}
+		<!-- Modal -->
+		<div class="modal fade" id="modalCariMotor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="myModalLabel">Cari Motor</h5>
+										<button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+								<div class="modal-body">
+										<form id="cariMotor">
+												<div class="row">
+														<div class="form-group col-6">
+																<label for="merk" class="mb-0" style="font-size: 12px">Merk</label>
+																<select id="merk" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																		name="merk">
+																		<option value="" selected>-- Pilih Merk --</option>
+																</select>
+														</div>
+														<div class="form-group col-6">
+																<label for="tipe" class="mb-0" style="font-size: 12px">Tipe</label>
+																<select id="tipe" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																		name="tipe">
+																		<option value="" selected>-- Pilih Tipe --</option>
+																</select>
+														</div>
+												</div>
+												<div class="form-group">
+														<label for="SelectKota" class="mb-0" style="font-size: 12px">Nama Motor</label>
+														<select id="model" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
+																name="model">
+																<option value="" selected>-- Pilih Model --</option>
+														</select>
+												</div>
+												<button type="submit" class="btn btn-primary">Submit</button>
+										</form>
+								</div>
+						</div>
+				</div>
+		</div>
+		{{-- modal cari motor end ============================================================================ --}}
+
 
 		<!-- bandingkan start -->
 		<div class="container" data-select2-id="4">

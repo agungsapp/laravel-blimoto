@@ -4,6 +4,7 @@ export const bacaMerk = () => {
   fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       const merkMotor = data.merk_motor;
       merkMotor.forEach((merk) => {
         const option = document.createElement("option");

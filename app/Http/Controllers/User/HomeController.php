@@ -32,6 +32,8 @@ class HomeController extends Controller
             'hooks' => Hook::all()
         ];
 
+        // dd($data['best1']);
+
         // dd($data['hook']);
         return view('user.home.index', $data);
     }
@@ -158,7 +160,7 @@ class HomeController extends Controller
             ->select('kota.nama', 'kota.id')
             ->distinct()
             ->get();
-            
+
         return response()->json($distinctKotaNama);
     }
 
