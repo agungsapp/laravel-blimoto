@@ -153,14 +153,13 @@ class HomeController extends Controller
 
     public function getLokasi()
     {
-        $distinctKotaNama = CicilanMotor::with('kota:id,nama')
-            ->get()
-            ->pluck('kota.nama')
-            ->unique();
-
-        return response()->json([
-          "data" =>  $distinctKotaNama
-        ]);
+        $distinctKotaNama = DB::table('cicilan_motor')
+            ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id')
+            ->select('kota.nama', 'kota.id')
+            ->distinct()
+            ->get();
+            
+        return response()->json($distinctKotaNama);
     }
 
 
