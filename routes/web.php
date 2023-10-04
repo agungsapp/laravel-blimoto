@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TypeMotorController;
 use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\LeasingMotorController;
+use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
 // user
 use App\Http\Controllers\User\BandingkanController;
@@ -83,6 +84,7 @@ Route::get('/get-dp', [HomeController::class, 'getDpMotor']);
 Route::get('/get-type', [HomeController::class, 'getTypeMotor']);
 Route::get('/get-merk', [HomeController::class, 'getMerkMotor']);
 Route::get('/get-tenor', [HomeController::class, 'getTenor']);
+Route::get('/get-kota', [HomeController::class, 'getLokasi']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
@@ -112,6 +114,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('blog', BlogController::class);
         Route::resource('cicilan', AdminCicilanMotorController::class);
         Route::resource('dealer-motor', AdminDealerController::class);
+        Route::resource('mitra', MitraKamiController::class);
         Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
         Route::post('cicilan-motor/csv/update', [AdminCicilanMotorController::class, 'updateCsv'])->name('cicilan.csv.update');
     });
