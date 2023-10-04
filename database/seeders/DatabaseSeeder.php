@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MerkMotorSeeder::class);
         $this->call(TypeMotorSeeder::class);
         $this->call(BestMotorSeeder::class);
-        // $this->call(MotorSeeder::class);
-        // $this->call(MotorDetailSeeder::class);
+        $this->call(MotorSeeder::class);
+        $this->call(MotorDetailSeeder::class);
         $this->call(HookSeeder::class);
         $this->call(LeasingSeeder::class);
         $this->call(BlogSeeder::class);
