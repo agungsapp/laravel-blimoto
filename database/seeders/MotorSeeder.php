@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Motor;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
