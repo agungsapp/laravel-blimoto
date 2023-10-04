@@ -82,6 +82,7 @@ Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->na
 Route::get('/get-dp', [HomeController::class, 'getDpMotor']);
 Route::get('/get-type', [HomeController::class, 'getTypeMotor']);
 Route::get('/get-merk', [HomeController::class, 'getMerkMotor']);
+Route::get('/get-tenor', [HomeController::class, 'getTenor']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
