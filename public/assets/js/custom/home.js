@@ -1,7 +1,8 @@
 // fetch data merk motor
+bacaKota()
 bacaMerk();
-// fetch data type
 bacaType();
+bacaTenor();
 var counterModel = 0;
 
 $(document).ready(function () {
@@ -485,6 +486,46 @@ function bacaType() {
       console.error("Terjadi kesalahan:", error);
     });
 }
+
+function bacaTenor() {
+  const tenorSelect = document.getElementById('tenor');
+  const tenorEndpoint = "/get-tenor";
+  fetch(tenorEndpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const tenorMotor = data;
+      tenorMotor.forEach((tenor) => {
+        const option = document.createElement("option");
+        option.value = tenor.tenor;
+        option.textContent = tenor.tenor + ' Bulan';
+        tenorSelect.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan:", error);
+    });
+}
+
+function bacaKota() {
+  const kotaSelect = document.getElementById('SelectKota');
+  const kotaEndpoint = "/get-kota";
+  fetch(kotaEndpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const kotaMotor = data;
+      console.log(kotaMotor);
+      kotaMotor.forEach((kota) => {
+        const option = document.createElement("option");
+        option.value = kota.id;  // Menggunakan properti "nama" sebagai nilai
+        option.textContent = kota.nama;  // Menggunakan properti "nama" sebagai teks
+        kotaSelect.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan:", error);
+    });
+}
+
 
 // func get nama motor dari database by triger change merk & type
 function findMotorByTypeMerk(merkId, tipeId) {

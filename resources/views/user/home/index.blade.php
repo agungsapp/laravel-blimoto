@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -54,7 +54,8 @@
 																								<div class="product-imgbox">
 																										<div class="product-front">
 																												<a href="product-page(left-sidebar).html">
-																														<img src="assets/images/custom/diskon-terbaik/1.webp" class="img-fluid" alt="product" />
+																														<img src="assets/images/detail-motor/{{ $item1->image }}" class="img-fluid"
+																																alt="{{ $item1->image }}" />
 																												</a>
 																										</div>
 																										<button type="button" class="btn btn-outline btn-cart">
@@ -90,9 +91,8 @@
 																								<div class="product-imgbox">
 																										<div class="product-front">
 																												<a href="product-page(left-sidebar).html">
-																														<img
-																																src="{{ $item2->image == '2023-09-29_beat-green.png' ? '/assets/images/detail-motor/2023-09-29_beat-green.png' : 'https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-motor-new-crf150l-1-25102021-084848.png' }}"
-																																class="img-fluid" alt="product" />
+																														<img src="assets/images/detail-motor/{{ $item2->image }}" class="img-fluid"
+																																alt="{{ $item2->image }}" />
 																												</a>
 																										</div>
 																										<button type="button" class="btn btn-outline btn-cart">
@@ -129,9 +129,8 @@
 																								<div class="product-imgbox">
 																										<div class="product-front">
 																												<a href="product-page(left-sidebar).html">
-																														<img
-																																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																																class="img-fluid" alt="product" />
+																														<img src="assets/images/detail-motor/{{ $item3->image }}" class="img-fluid"
+																																alt="{{ $item3->image }}" />
 																												</a>
 																										</div>
 																										<button type="button" class="btn btn-outline btn-cart">
@@ -168,9 +167,8 @@
 																								<div class="product-imgbox">
 																										<div class="product-front">
 																												<a href="product-page(left-sidebar).html">
-																														<img
-																																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thmbnail-product-2-24012022-110536.png"
-																																class="img-fluid" alt="product" />
+																														<img src="assets/images/detail-motor/{{ $item4->image }}" class="img-fluid"
+																																alt="{{ $item4->image }}" />
 																												</a>
 																										</div>
 																										<button type="button" class="btn btn-outline btn-cart">
@@ -228,11 +226,11 @@
 																		<select id="SelectKota" class="js-example-basic-single form-select form-select-sm"
 																				style="width: 100%" name="kota">
 																				<option value="" selected>-- Pilih Kota --</option>
-																				<option value="1">Jakarta</option>
+																				{{-- <option value="1">Jakarta</option>
 																				<option value="2">Bogor</option>
 																				<option value="3">Depok</option>
 																				<option value="4">Tanggerang</option>
-																				<option value="5">Bekasi</option>
+																				<option value="5">Bekasi</option> --}}
 																		</select>
 																</div>
 														</div>
@@ -282,11 +280,6 @@
 																		<select id="tenor" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
 																				name="tenor">
 																				<option value="0" selected>-- Pilih Tenor --</option>
-																				<option value="12">12 Bulan</option>
-																				<option value="18">18 Bulan</option>
-																				<option value="24">24 Bulan</option>
-																				<option value="30">30 Bulan</option>
-																				<option value="36">36 Bulan</option>
 																		</select>
 																</div>
 														</div>
@@ -326,8 +319,8 @@
 														</div> --}}
 
 														<!-- <div class="double-slider-box">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</div> -->
 
 												</div>
 												<div class="row">
@@ -488,48 +481,44 @@
 												<div>
 														<div class="hot-deal-contain">
 																<div class="row hot-deal-subcontain hotdeal-block1">
-																		<div class="col-lg-4 col-md-4" >
-																				<div class="hotdeal-right-slick border-0" >
+																		<div class="col-lg-4 col-md-4">
+																				<div class="hotdeal-right-slick border-0">
 																						<a href="product-page(left-sidebar).html">
 																								<div class="img-wrraper" style="background-color: pink;">
-																									<!-- DEFAULTNYA ADA DIV NYA -->
-																												<img src="/assets/images/produk-terbaru/produk1.webp" alt="hot-deal"
-																														class="img-fluid bg-img" />
-																										
+																										<!-- DEFAULTNYA ADA DIV NYA -->
+																										<img src="/assets/images/produk-terbaru/produk1.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
+
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper"> 
-																												<img src="/assets/images/produk-terbaru/produk2.webp" alt="hot-deal"
-																														class="img-fluid bg-img" /> 
+																								<div class="img-wrraper">
+																										<img src="/assets/images/produk-terbaru/produk2.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper"> 
-																												<img
-																														src="/assets/images/produk-terbaru/produk3.webp"
-																														alt="hot-deal" class="img-fluid bg-img" /> 
+																								<div class="img-wrraper">
+																										<img src="/assets/images/produk-terbaru/produk3.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper"> 
-																												<img
-																														src="/assets/images/produk-terbaru/produk4.webp"
-																														alt="hot-deal" class="img-fluid bg-img" /> 
+																								<div class="img-wrraper">
+																										<img src="/assets/images/produk-terbaru/produk4.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper"> 
-																												<img
-																														src="/assets/images/produk-terbaru/produk5.webp"
-																														alt="hot-deal" class="img-fluid bg-img" /> 
+																								<div class="img-wrraper">
+																										<img src="/assets/images/produk-terbaru/produk5.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
 																								</div>
 																						</a>
 																						<a href="product-page(left-sidebar).html">
-																								<div class="img-wrraper"> 
-																												<img
-																														src="/assets/images/produk-terbaru/produk6.webp"
-																														alt="hot-deal" class="img-fluid bg-img" /> 
+																								<div class="img-wrraper">
+																										<img src="/assets/images/produk-terbaru/produk6.webp" alt="hot-deal"
+																												class="img-fluid bg-img" />
 																								</div>
 																						</a>
 																				</div>
@@ -661,34 +650,22 @@
 																		<div class="col-md-2">
 																				<div class="hotdeal-right-nav">
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/Produk-kotak1.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/Produk-kotak1.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/produk-kotak2.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/produk-kotak2.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/produk-kotak3.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/produk-kotak3.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/produk-kotak4.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/produk-kotak4.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/produk-kotak5.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/produk-kotak5.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																						<div>
-																								<img
-																										src="/assets/images/produk-terbaru/produk-kotak6.webp"
-																										alt="hot-dea" class="img-fluid" />
+																								<img src="/assets/images/produk-terbaru/produk-kotak6.webp" alt="hot-dea" class="img-fluid" />
 																						</div>
 																				</div>
 																		</div>
@@ -1166,38 +1143,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h3>up to 50% off</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<h4>replaair parts</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>up to 50% off</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>replaair parts</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
 						</div>
 				</div>
 		</section>
@@ -1254,7 +1231,7 @@
 																								class="img-fluid w-100" />
 																				</a>
 																		</div>
-																		<div style="padding: 0px; padding-top: 10px" class="blog-details-2 text-start">
+																		<div class="blog-details-2 px-3 py-3 text-start">
 																				<a href="{{ route('blog.show', $blog->id) }}">
 																						<h4>{{ $blog->judul }}</h4>
 																				</a>
