@@ -126,3 +126,4 @@ Route::prefix('app')->name('admin.')->group(function () {
 // agung -> form login & register user.
 
 // next -> seeder motor, dinamiskan motor.
+// test
