@@ -8,6 +8,7 @@ use App\Models\CicilanMotor;
 use App\Models\DetailMotor;
 use App\Models\Hook;
 use App\Models\Merk;
+use App\Models\Mitra;
 use App\Models\Motor;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class HomeController extends Controller
             'best3' => $this->getMotorData(4),
             'best4' => $this->getMotorData(5),
             'blogs' => Blog::orderBy('id', 'DESC')->get(),
-            'hooks' => Hook::all()
+            'hooks' => Hook::all(),
+            'mitras' => Mitra::all(),
         ];
 
         // dd($data['best1']);
