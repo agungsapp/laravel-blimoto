@@ -107,27 +107,15 @@ $(document).ready(function () {
 
   $(document).ready(function () {
     $('#modalResult').on('shown.bs.modal', function () {
-      $('.owl-carousel-result').owlCarousel({
-        // Owl Carousel options
-        items: 2,
-        loop: true,
-        margin: 10,
-        responsiveClass: true,
-        responsive: {
-          0: {
-            items: 1,
-            nav: true
-          },
-          600: {
-            items: 1,
-            nav: false
-          },
-          1000: {
-            items: 1,
-            nav: true,
-            loop: false
-          }
-        }
+      $('.slick-result-modal').slick({
+        centerMode: true,
+        centerPadding: '10px',
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        // variableWidth: '18rem'
       });
     });
   });
