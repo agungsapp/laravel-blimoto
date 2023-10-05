@@ -12,7 +12,6 @@
 		</div>
 		@endforeach
 
-<<<<<<< HEAD
 		<!--temukan kendaraanmu start-->
 		<section class="section-py-space mt-3">
 				<div class="tab-product-main">
@@ -28,27 +27,6 @@
 						</div>
 				</div>
 		</section>
-=======
-	</div>
-</div>
-<!-- new hook slider end -->
-
-<!--temukan kendaraanmu start-->
-<section class="section-py-space mt-3">
-	<div class="tab-product-main">
-		<div class="tab-prodcut-contain">
-			<ul class="tabs tab-title">
-				<li class="current"><a href="tab-1">DISKON TERBAIK</a></li>
-				<li class=""><a href="tab-2">DP TERMURAH</a></li>
-				<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
-				<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
-				<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<li class=""><a href="tab-6">books</a></li> -->
-			</ul>
-		</div>
-	</div>
-</section>
->>>>>>> 0c0d4efff95af5a3991656c81523238e57e34d4e
 
 <!-- media tab start -->
 <section class="ratio_40 section-pb-space">
@@ -323,15 +301,9 @@
 																<output id="bubble" class="bubble">Rp 100,000</output>
 														</div> --}}
 
-<<<<<<< HEAD
 														<!-- <div class="double-slider-box">
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<h3 class="range-title">DP / Angsuran</h3>
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div> -->
-=======
-						<!-- <div class="double-slider-box">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div> -->
->>>>>>> 0c0d4efff95af5a3991656c81523238e57e34d4e
 
 					</div>
 					<div class="row">
@@ -359,7 +331,6 @@
 </button>
 
 
-<<<<<<< HEAD
 		{{-- new modal result --}}
 		<!-- Modal -->
 		<div class="modal fade" id="modalResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -612,27 +583,6 @@
 								</div>
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
-=======
-{{-- new modal result --}}
-<!-- Modal -->
-<div class="modal fade" id="modalResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Diskon terbaik untuk anda !</h5>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()">
-					<i class="fa fa-times-circle" aria-hidden="true"></i>
-				</button>
-			</div>
-			<div class="modal-body p-5">
-				<div id="detail-motor-baru" class="row">
-					<div id="motor-baru" class="col-3 rounded-3" style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-						<img src="/assets/images/detail-motor/3.webp" class="img-fluid" alt="3.webp" srcset="" style="max-width: 100%; height: auto;">
-						<div class="product-right py-5">
-							<div class="d-flex justify-content-between">
-								<p class="text-dark fs-4 fw-bold">Beat Honda</h>
-								<div class="fs-5"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span class="ms-2">Jakarta</span>
->>>>>>> 0c0d4efff95af5a3991656c81523238e57e34d4e
 								</div>
 							</div>
 							<div class="d-flex justify-content-between">
@@ -1365,7 +1315,6 @@
 								</div>
 							</div>
 
-<<<<<<< HEAD
 								<!-- <div class="collection-banner-contain">
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<div>
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<h3>best discount </h3>
@@ -1402,269 +1351,6 @@
 						</div>
 				</div>
 		</section>
-=======
-							<div class="media-banner-box">
-								<div class="media-view">
-									<h5>View More</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="media-banner border-0">
-							<div class="media-banner-box">
-								<div class="media-heading">
-									<h5>New Products</h5>
-								</div>
-							</div>
-
-							<div class="media-banner-box">
-								<div class="media">
-									<a href="product-page(left-sidebar).html">
-										<img src="../assets/images/layout-2/media-banner/2.jpg" class="img-fluid" alt="banner" />
-									</a>
-									<div class="media-body">
-										<div class="media-contant">
-											<div>
-												<div class="product-detail">
-													<ul class="rating">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<a href="product-page(left-sidebar).html">
-														<p>rechargeable fan</p>
-													</a>
-													<h6>$79.05 <span>$47.21</span></h6>
-												</div>
-												<div class="cart-info">
-													<button onclick="openCart()" class="tooltip-top">
-														<i data-feather="shopping-cart"></i>
-													</button>
-													<a href="javascript:void(0)" class="add-to-wish tooltip-top" data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-													<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view" class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-													<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i data-feather="refresh-cw"></i></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="media-banner-box">
-								<div class="media">
-									<a href="product-page(left-sidebar).html">
-										<img src="../assets/images/layout-2/media-banner/3.jpg" class="img-fluid" alt="banner" />
-									</a>
-									<div class="media-body">
-										<div class="media-contant">
-											<div>
-												<div class="product-detail">
-													<ul class="rating">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<a href="product-page(left-sidebar).html">
-														<p>sumsung galaxy</p>
-													</a>
-													<h6>$51.05 <span>$76.21</span></h6>
-												</div>
-												<div class="cart-info">
-													<button onclick="openCart()" class="tooltip-top">
-														<i data-feather="shopping-cart"></i>
-													</button>
-													<a href="javascript:void(0)" class="add-to-wish tooltip-top" data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-													<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view" class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-													<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i data-feather="refresh-cw"></i></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="media-banner-box">
-								<div class="media">
-									<a href="product-page(left-sidebar).html">
-										<img src="../assets/images/layout-2/media-banner/1.jpg" class="img-fluid" alt="banner" />
-									</a>
-									<div class="media-body">
-										<div class="media-contant">
-											<div>
-												<div class="product-detail">
-													<ul class="rating">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<a href="product-page(left-sidebar).html">
-														<p>Bajaj GX-1 Mixer</p>
-													</a>
-													<h6>$24.05 <span>$56.21</span></h6>
-												</div>
-												<div class="cart-info">
-													<button onclick="openCart()" class="tooltip-top">
-														<i data-feather="shopping-cart"></i>
-													</button>
-													<a href="javascript:void(0)" class="add-to-wish tooltip-top" data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-													<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view" class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-													<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i data-feather="refresh-cw"></i></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="media-banner-box">
-								<div class="media-view">
-									<h5>View More</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!--motor terbaru start-->
-
-<!-- perbandingan motor populer start -->
-<div class="title8 mt-5">
-	<h4>Bandingkan Motor</h4>
-</div>
-
-<section class="collection-banner section-py-space b-g-white">
-	<div class="container-fluid">
-		<div class="row collection2">
-			<!-- url(&quot;assets/images/custom/compare.png&quot;); -->
-
-			<div class="col-md-4">
-				<div class="collection-banner-main p-left banner-13 text-center">
-					<div class="d-flex position-relative">
-						<div class="order-1">
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan2.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan2.webp" />
-							</div>
-						</div>
-						<div>
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan1.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan1.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
-							</div>
-						</div>
-
-						<div class="versus position-absolute">
-							<div class="bg-light rounded-circle">
-								<p>VS</p>
-							</div>
-						</div>
-
-						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
-							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="collection-banner-main p-left banner-13 text-center">
-					<div class="d-flex position-relative">
-						<div class="order-1">
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan4.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan4.webp" />
-							</div>
-						</div>
-						<div>
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan3.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan3.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
-							</div>
-						</div>
-
-						<div class="versus position-absolute">
-							<div class="bg-light rounded-circle">
-								<p>VS</p>
-							</div>
-						</div>
-
-						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
-							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="collection-banner-main p-left banner-13 text-center">
-					<div class="d-flex position-relative">
-						<div class="order-1">
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan6.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan6.webp" />
-							</div>
-						</div>
-						<div>
-							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan5.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan5.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
-							</div>
-						</div>
-
-						<div class="versus position-absolute">
-							<div class="bg-light rounded-circle">
-								<p>VS</p>
-							</div>
-						</div>
-
-						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
-							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	</div> -->
-
-			<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div> -->
-
-			<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h3>up to 50% off</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<h4>replaair parts</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div> -->
-		</div>
-	</div>
-</section>
->>>>>>> 0c0d4efff95af5a3991656c81523238e57e34d4e
 
 <!-- tukar motor anda start-->
 <section class="collection-banner mt-5">
