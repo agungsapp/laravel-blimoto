@@ -131,7 +131,7 @@ class MotorSeeder extends Seeder
         'fitur_utama' => 'Fitur motor 1',
         'id_merk' => 1,
         'id_type' => 2,
-        'id_best_motor' => 2,
+        'id_best_motor' => 3,
         'created_at' => '2023-10-03 19:55:45',
         'updated_at' => '2023-10-03 19:55:45',
       ],
