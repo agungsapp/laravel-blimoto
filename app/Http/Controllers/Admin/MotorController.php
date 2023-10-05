@@ -24,7 +24,8 @@ class MotorController extends Controller
         $motors = DB::table('motor')
             ->join('merk', 'motor.id_merk', '=', 'merk.id')
             ->join('type', 'motor.id_type', '=', 'type.id')
-            ->select('motor.id', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga')
+            ->leftJoin('best_motor', 'motor.id_best_motor', '=', 'best_motor.id')
+            ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name')
             ->get();
 
         $merk_motor = Merk::all();
@@ -67,7 +68,8 @@ class MotorController extends Controller
             'tipe-motor' => 'required',
         ]);
 
-        $kategori_best_motor = $request->input('kategori-best-motor') || 1;
+        $kategori_best_motor = $request->input('kategori-best-motor') ?? 1;
+        $stock = $request->input('stock-motor') ?? 1;
 
         if ($validator->fails()) {
             flash()->addError("Inputkan semua data dengan benar!");
@@ -85,6 +87,7 @@ class MotorController extends Controller
                 'id_merk' => $request->input('merk-motor'),
                 'id_type' => $request->input('tipe-motor'),
                 'id_best_motor' => $kategori_best_motor,
+                'stock' => $stock,
             ]);
             flash()->addSuccess("Motor $motor->nama berhasil dibuat");
             return redirect()->back();
@@ -153,7 +156,9 @@ class MotorController extends Controller
             return redirect()->back();
         }
 
-        $kategori_best_motor = $request->input('kategori-best-motor') || 1;
+        $kategori_best_motor = $request->input('kategori-best-motor') ?? 1;
+        $stock = $request->input('stock-motor') ?? 1;
+
         $motor = Motor::findOrFail($id);
         $motor->nama = $request->nama;
         $motor->berat = $request->berat;
@@ -163,6 +168,7 @@ class MotorController extends Controller
         $motor->fitur_utama = $request->fitur_motor;
         $motor->id_merk = $request->merk_motor;
         $motor->id_type = $request->tipe_motor;
+        $motor->stock = $stock;
         $motor->id_best_motor = $kategori_best_motor;
 
         $motor->save();

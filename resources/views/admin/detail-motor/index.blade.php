@@ -223,6 +223,24 @@
 				});
 			}
 		});
+
+		$('.show_confirm').click(function(event) {
+			var form = $(this).closest("form");
+			var name = $(this).data("name");
+			event.preventDefault();
+			swal({
+					title: `Delete Data Detail Motor ?`,
+					text: "data yang di hapus tidak dapat dipulihkan!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						form.submit();
+					}
+				});
+		})
 	})
 </script>
 @endpush

@@ -18,6 +18,8 @@ class Motor extends Model
         'fitur_utama',
         'id_merk',
         'id_type',
+        'id_best_motor',
+        'stock'
     ];
 
     public function detailMotor()
