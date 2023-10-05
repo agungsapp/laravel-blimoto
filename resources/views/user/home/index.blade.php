@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -319,8 +319,8 @@
 														</div> --}}
 
 														<!-- <div class="double-slider-box">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										</div> -->
 
 												</div>
 												<div class="row">
@@ -343,6 +343,10 @@
 		{{-- <button type="button" class="btn btn-primary" id="showPopupBtn">
 				Tampilkan Pop-up
 		</button> --}}
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalResult">
+				Buka Modal
+		</button>
+
 
 		{{-- new modal result --}}
 		<!-- Modal -->
@@ -352,11 +356,347 @@
 						<div class="modal-content">
 								<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabel">Diskon terbaik untuk anda !</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+										<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()">
 												<i class="fa fa-times-circle" aria-hidden="true"></i>
 										</button>
 								</div>
-								<div class="modal-body">
+								<div class="modal-body p-5">
+										<div id="detail-motor-baru" class="row">
+												<div id="motor-baru" class="col-4 rounded-3"
+														style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
+														<img src="/assets/images/detail-motor/3.webp" class="img-fluid" alt="3.webp" srcset=""
+																style="max-width: 100%; height: auto;">
+														<div class="product-right py-5">
+																<div class="d-flex justify-content-between">
+																		<p class="text-dark fs-4 fw-bold">Beat Honda</h>
+																		<div class="fs-5"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span
+																						class="ms-2">Jakarta</span>
+																		</div>
+																</div>
+																<div class="d-flex justify-content-between">
+																		<h6 class="product-title">Metode Pembayaran :</h6>
+																		<span class="badge bg-success fs-5">Kredit</span>
+																</div>
+																<div class="">
+																		<h6 class="product-title">Tipe</h6>
+																		<p>Matic</p>
+																</div>
+																<div class="">
+																		<h6 class="product-title">Merk</h6>
+																		<p>Honda</p>
+																</div>
+														</div>
+												</div>
+												<div id="leasing-baru" class="offset-1 col-7 d-flex owl-carousel-result owl-theme flex-row">
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+														<div class="item card" style="width: 18rem; margin-bottom: 20px;">
+																<img src="/assets/images/leasing/fif.jpg" class="card-img-top" alt="fif">
+																<div class="card-body">
+																		<h5 class="card-title">FIF GROUP</h5>
+																</div>
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>Rp. 000000000 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p>Rp. 000000000</p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
+														</div>
+												</div>
+
+
+										</div>
+										<div id="rekomendasi-wrapper-baru">
+
+										</div>
+										{{-- =============================================================== --}}
 										<div class="detail-motor">
 												<section id="motor" class="section-big-pt-space b-g-light">
 
@@ -1143,38 +1483,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>up to 50% off</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>replaair parts</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>up to 50% off</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>replaair parts</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div> -->
 						</div>
 				</div>
 		</section>
@@ -1304,7 +1644,8 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
+																		class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1327,7 +1668,8 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
+																		class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1350,7 +1692,8 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
+																		class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1373,7 +1716,8 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
+																		class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
@@ -1396,7 +1740,8 @@
 												</div>
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
+																		class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
