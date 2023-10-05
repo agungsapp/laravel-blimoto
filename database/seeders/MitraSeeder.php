@@ -17,19 +17,19 @@ class MitraSeeder extends Seeder
     $data = [
       [
         'nama' => 'Honda',
-        'gambar' => 'honda-1652082402.webp',
+        'gambar' => '2023-10-05_MITRA KAMI 01 .webp',
       ],
       [
         'nama' => 'Yamaha',
-        'gambar' => 'yamaha-1651737896.png',
+        'gambar' => '2023-10-05_MITRA KAMI 02.webp',
       ],
       [
         'nama' => 'Suzuki',
-        'gambar' => 'suzuki-1652082502.webp',
+        'gambar' => '2023-10-05_MITRA KAMI 03.webp',
       ],
       [
         'nama' => 'Kawasaki',
-        'gambar' => 'kawasaki-1652082467.webp',
+        'gambar' => '2023-10-05_MITRA KAMI 04.webp',
       ],
     ];
 
