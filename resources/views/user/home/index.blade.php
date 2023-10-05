@@ -1307,14 +1307,14 @@
 												<div class="d-flex position-relative">
 														<div class="order-1">
 																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan2.webp" alt="Honda Scoopy"
-																				title="Honda Scoopy" data-src="assets/images/custom/perbandingan2.webp" />
+																		<img class="img-fluid" src="assets/images/custom/perbandingan4.webp" alt="Honda Scoopy"
+																				title="Honda Scoopy" data-src="assets/images/custom/perbandingan4.webp" />
 																</div>
 														</div>
 														<div>
 																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan1.webp" alt="Yamaha Fazzio"
-																				title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan1.webp"
+																		<img class="img-fluid" src="assets/images/custom/perbandingan3.webp" alt="Yamaha Fazzio"
+																				title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan3.webp"
 																				onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 																</div>
 														</div>
@@ -1338,14 +1338,14 @@
 												<div class="d-flex position-relative">
 														<div class="order-1">
 																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan2.webp" alt="Honda Scoopy"
-																				title="Honda Scoopy" data-src="assets/images/custom/perbandingan2.webp" />
+																		<img class="img-fluid" src="assets/images/custom/perbandingan6.webp" alt="Honda Scoopy"
+																				title="Honda Scoopy" data-src="assets/images/custom/perbandingan6.webp" />
 																</div>
 														</div>
 														<div>
 																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan1.webp" alt="Yamaha Fazzio"
-																				title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan1.webp"
+																		<img class="img-fluid" src="assets/images/custom/perbandingan5.webp" alt="Yamaha Fazzio"
+																				title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan5.webp"
 																				onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 																</div>
 														</div>
