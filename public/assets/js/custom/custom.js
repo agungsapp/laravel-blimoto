@@ -105,6 +105,34 @@ $(document).ready(function () {
     owl.trigger('stop.owl.autoplay')
   })
 
+  $(document).ready(function () {
+    $('#modalResult').on('shown.bs.modal', function () {
+      $('.owl-carousel-result').owlCarousel({
+        // Owl Carousel options
+        items: 2,
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1,
+            nav: true
+          },
+          600: {
+            items: 1,
+            nav: false
+          },
+          1000: {
+            items: 1,
+            nav: true,
+            loop: false
+          }
+        }
+      });
+    });
+  });
+
+
 
   $('.slide-download-populer').slick({
     slidesToShow: 5,
@@ -219,4 +247,12 @@ $(document).ready(function () {
       // instead of a settings object
     ]
   });
+  $('.leasing-slick-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+  });
+
+
 });

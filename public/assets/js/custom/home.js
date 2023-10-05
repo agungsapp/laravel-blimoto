@@ -1,4 +1,5 @@
 // fetch data merk motor
+// $("#modalResult").modal("show");
 bacaKota()
 bacaMerk();
 bacaType();
@@ -176,9 +177,7 @@ $(document).ready(function () {
           leasingElement.innerHTML = `
        									<div class="col-6 col-md-4 col-lg-3">
 																<div class="card" style="width: 18rem; margin-bottom: 20px;">
-																		<img src="/assets/images/leasing/${leasingData.gambar
-            }" class="card-img-top" alt="${leasingData.gambar
-            }">
+																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="${leasingData.gambar}">
 																		<div class="card-body">
 																				<h5 class="card-title">${leasingData.nama_leasing}</h5>
 																		</div>
