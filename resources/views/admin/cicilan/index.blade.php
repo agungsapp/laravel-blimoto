@@ -16,6 +16,9 @@
 		<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalUpdate">
 			<i class="fas fa-sync-alt"></i><span class="ml-2">Update data cicilan</span>
 		</button>
+		<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalEditPotongan">
+			<i class="fas fa-sync-alt"></i><span class="ml-2">Update potongan tenor</span>
+		</button>
 
 		<!-- Modal import -->
 		<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="modalImportLabel" aria-hidden="true">
@@ -74,89 +77,121 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="col-12">
-		<div class="card card-primary">
-			<div class="card-header">
-				<h3 class="card-title">Data price list cicilan kendaraan</h3>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body">
-				<table id="example1" class="table-bordered table-striped table">
-					<thead>
-						<tr>
-							<th>No. </th>
-							<th>Motor</th>
-							<th>Leasing</th>
-							<th>DP</th>
-							<th>Tenor</th>
-							<th>Potongan Tenor</th>
-							<th>Cicilan</th>
-							<th>Action</th> <!-- Added Action Column -->
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($cicilan as $c)
-						<tr>
-							<td>{{ $loop->iteration }}</td>
-							<td>{{ $c->motor_name }}</td>
-							<td>{{ $c->leasing_name }}</td>
-							<td>{{ 'Rp. ' . number_format($c->dp, 0, ',', '.') }}</td>
-							<td>{{ $c->tenor }}</td>
-							<td>{{ $c->potongan_tenor }}</td>
-							<td>{{ 'Rp. ' . number_format($c->cicilan, 0, ',', '.') }}</td>
-							<td class="text-center">
-								<!-- Add your action button/link here -->
-								<button type="button" class="btn btn-primary btn-sm edit-button" data-toggle="modal" data-target="#editModal" data-id="{{ $c->id }}" data-dp="{{ $c->potongan_tenor }}">Edit</button>
-							</td>
-						</tr>
-						@endforeach
-					</tbody>
-					<tfoot>
-						<tr>
-							<th>No. </th>
-							<th>Motor</th>
-							<th>Leasing</th>
-							<th>DP</th>
-							<th>Tenor</th>
-							<th>Potongan Tenor</th>
-							<th>Cicilan</th>
-							<th>Action</th> <!-- Added Action Column -->
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-			<!-- /.card-body -->
-		</div>
-		<!-- /.card -->
-	</div>
-</div>
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg-warning">
-				<h5 class="modal-title" id="editModalLabel">Edit Data PriceList Cicilan</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form id="editForm" method="POST">
-					@csrf
-					@method('PUT')
-					<!-- Example: Input field for editing 'dp' -->
-					<div class="form-group">
-						<label for="dp">Potongan Tenor</label>
-						<input type="text" class="form-control" id="dp" name="potongan_tenor">
+	<!-- Modal edit potongan -->
+	<div class="modal fade" id="modalEditPotongan" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title" id="modalUpdateLabel">Update Data Potongan Tenor</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="{{ route('admin.cicilan.potongan-tenor.update') }}" method="POST" enctype="multipart/form-data">
+					<div class="modal-body">
+						@csrf
+						@method('PUT')
+						<div class="form-group">
+							<label>Pilih Motor</label>
+							@if ($motor == null)
+							<p>Tidak ada data best kategori motor silahkan buat terlebih dahulu !</p>
+							@else
+							<select name="motor" class="form-control select2">
+								<option value="" selected>-- Pilih motor --</option>
+								@foreach ($motor as $motor)
+								<option value="{{ $motor->id }}">{{ $motor->nama }}</option>
+								@endforeach
+							</select>
+							@endif
+						</div>
+						<div class="form-group">
+							<label>Pilih Tenor</label>
+							@if ($tenor == null)
+							<p>Tidak ada data buat terlebih dahulu !</p>
+							@else
+							<select name="tenor" class="form-control select2">
+								<option value="" selected>-- Pilih tenor --</option>
+								@foreach ($tenor as $tenor)
+								<option value="{{ $tenor->tenor }}">{{ $tenor->tenor }}</option>
+								@endforeach
+							</select>
+							@endif
+						</div>
+						<div class="form-group">
+							<label>Pilih leasing</label>
+							@if ($leasing == null)
+							<p>Tidak ada data silahkan buat terlebih dahulu !</p>
+							@else
+							<select name="leasing" class="form-control select2">
+								<option value="" selected>-- Pilih leasing --</option>
+								@foreach ($leasing as $leasing)
+								<option value="{{ $leasing->id }}">{{ $leasing->nama }}</option>
+								@endforeach
+							</select>
+							@endif
+						</div>
+						<div class="form-group">
+							<label for="potongan-tenor">Potongan Tenor</label>
+							<input name="potongan_tenor" type="text" class="form-control @error('nama') is-invalid @enderror" id="potongan-tenor" placeholder="Masukan data update potongan">
+						</div>
 					</div>
-					<!-- Add more input fields as needed -->
-
-					<button type="submit" class="btn btn-primary">Save Changes</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="col-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title">Data price list cicilan kendaraan</h3>
+		</div>
+		<!-- /.card-header -->
+		<div class="card-body">
+			<table id="example1" class="table-bordered table-striped table">
+				<thead>
+					<tr>
+						<th>No. </th>
+						<th>Motor</th>
+						<th>Leasing</th>
+						<th>DP</th>
+						<th>Tenor</th>
+						<th>Potongan Tenor</th>
+						<th>Cicilan</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($cicilan as $c)
+					<tr>
+						<td>{{ $loop->iteration }}</td>
+						<td>{{ $c->motor_name }}</td>
+						<td>{{ $c->leasing_name }}</td>
+						<td>{{ 'Rp. ' . number_format($c->dp, 0, ',', '.') }}</td>
+						<td>{{ $c->tenor }}</td>
+						<td>{{ $c->potongan_tenor }}</td>
+						<td>{{ 'Rp. ' . number_format($c->cicilan, 0, ',', '.') }}</td>
+					</tr>
+					@endforeach
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>No. </th>
+						<th>Motor</th>
+						<th>Leasing</th>
+						<th>DP</th>
+						<th>Tenor</th>
+						<th>Potongan Tenor</th>
+						<th>Cicilan</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
 </div>
 
 @endsection
@@ -171,22 +206,8 @@
 </script>
 <script>
 	$(document).ready(function() {
-		// Handle the click event of the "Edit" button
-		$('.edit-button').click(function() {
-			// Get data attributes from the clicked button
-			var id = $(this).data('id');
-			var dp = $(this).data('dp');
-
-			// Set the form action to the appropriate route
-			var editForm = $('#editForm');
-			editForm.attr('action', "{{ route('admin.cicilan.update', '') }}" + '/' + id);
-
-			// Populate the modal fields with data
-			$('#dp').val(dp);
-
-			// Show the modal
-			$('#editModal').modal('show');
-		});
+		//Initialize Select2 Elements
+		$('.select2').select2()
 	});
 </script>
 @endpush

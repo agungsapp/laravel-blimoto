@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BrosurMotor;
 use App\Models\CicilanMotor;
+use App\Models\LeasingMotor;
+use App\Models\Motor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +21,12 @@ class AdminCicilanMotorController extends Controller
   public function index()
   {
     $data = [
-      'cicilan' => CicilanMotor::getCicilanTable()
+      'cicilan' => CicilanMotor::getCicilanTable(),
+      'motor' => Motor::all(),
+      'leasing' => LeasingMotor::all(),
+      'tenor' => CicilanMotor::select('tenor')
+        ->distinct('tenor')
+        ->get()
     ];
 
     return view('admin.cicilan.index', $data);
@@ -156,6 +163,34 @@ class AdminCicilanMotorController extends Controller
     }
 
     flash()->addSuccess("Data csv berhasil diupdate");
+    return redirect()->back();
+  }
+
+  public function updatePotonganTenor(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'motor' => 'required',
+      'tenor' => 'required',
+      'leasing' => 'required',
+      'potongan_tenor' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $affectedRows = CicilanMotor::where('id_motor', $request->motor)
+      ->where('id_leasing', $request->leasing)
+      ->where('tenor', $request->tenor)
+      ->update(['potongan_tenor' => $request->potongan_tenor]);
+
+    if ($affectedRows > 0) {
+      flash()->addSuccess("Data updated successfully!");
+    } else {
+      flash()->addError("No matching record found!");
+    }
+
     return redirect()->back();
   }
 }
