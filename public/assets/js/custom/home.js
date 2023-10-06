@@ -228,7 +228,7 @@ $(document).ready(function () {
           rekomendasiMotorElement.classList.add("detail-motor-baru", "row");
 
 
-          rekomendasiMotorElement.innerHTML = `<hr>
+          rekomendasiMotorElement.innerHTML = `<hr class="mt-5 mb-5">
                             <div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
 														style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
                               <img src="/assets/images/detail-motor/${rekomendasiItem.motor.detail_motor.gambar}" class="img-fluid" alt="${rekomendasiItem.motor.detail_motor.gambar}" srcset=""
