@@ -472,6 +472,10 @@ section .simulasi-container .simulasi-wrapper .card {
         font-size: 38px;
         margin-top: 4rem;
     }
+
+    .nama-motor {
+        font-size: 12px !important;
+    }
 }
 /* ======================== RESPONSIVE AREA END ===================== */
 
@@ -481,4 +485,8 @@ section .simulasi-container .simulasi-wrapper .card {
     background-color: #dd0202;
     color: #ffffff;
     border: none;
+}
+
+.nama-motor {
+    font-size: 1.3em !important;
 }
