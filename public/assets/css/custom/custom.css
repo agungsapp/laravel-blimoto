@@ -490,3 +490,21 @@ section .simulasi-container .simulasi-wrapper .card {
 .nama-motor {
     font-size: 1.3em !important;
 }
+
+.slick-prev:before,
+.slick-next:before {
+    color: #198754 !important;
+}
+
+.slick-prev {
+    left: 50px !important;
+}
+
+.slick-next {
+    right: 50px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 50px !important;
+}

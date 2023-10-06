@@ -401,6 +401,12 @@ function updateBubble(input) {
   bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
+
+$('#SelectKota').change(function () {
+  $('#form-simulasi select').not(this).prop('selectedIndex', 0);
+});
+
+
 window.formatToRupiah = function (value) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -418,9 +424,9 @@ window.formatToRupiah = function (value) {
 
 function closeModal() {
   $("#modalResult").modal("hide");
-  clearModalContent("motor");
-  clearModalContent("leasing");
-  clearModalContent("rekomendasi-wrapper");
+  clearModalContent("motor-baru");
+  clearModalContent("leasing-baru");
+  clearModalContent("rekomendasi-wrapper-baru");
 }
 
 function bacaMerk() {
