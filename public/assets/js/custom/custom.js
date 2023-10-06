@@ -116,6 +116,78 @@ $(document).ready(function () {
         slidesToShow: 5,
         slidesToScroll: 1,
         // variableWidth: '18rem'
+        responsive: [
+          {
+            breakpoint: 500,
+            settings: {
+              centerMode: true,
+              centerPadding: '10px',
+              slidesToShow: 1,
+              slidesToScroll: 3,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              infinite: true,
+              // dots: true
+
+            }
+          },
+          {
+            breakpoint: 650,
+            settings: {
+              centerMode: true,
+              centerPadding: '10px',
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              infinite: true,
+              // dots: true
+
+            }
+          },
+          {
+            breakpoint: 1000,
+            settings: {
+              centerMode: true,
+              centerPadding: '10px',
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              infinite: true,
+              // dots: true
+
+            }
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              centerMode: true,
+              centerPadding: '10px',
+              slidesToShow: 3,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              infinite: true,
+              // dots: true
+
+            }
+          },
+          {
+            breakpoint: 1500,
+            settings: {
+              centerMode: true,
+              centerPadding: '10px',
+              slidesToShow: 4,
+              slidesToScroll: 2,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              infinite: true,
+              // dots: true
+
+            }
+          },
+        ]
       });
     });
   });
