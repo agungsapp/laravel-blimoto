@@ -1360,7 +1360,7 @@
                   background-position: center center;
                   display: block;
                 ">
-						<img src="https://nexianmotor.shop/wp-content/uploads/2023/04/jual-motor.jpg" class="w-100" alt="banner" />
+						<img src="/assets/images/custom/tukar-motor.webp" class="w-100" alt="banner" />
 					</div>
 					<div class="d-flex align-items-center justify-content-center">
 						<div class="position-absolute" style="margin-top: -6rem">
