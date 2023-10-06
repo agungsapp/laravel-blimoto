@@ -225,7 +225,7 @@ $(document).ready(function () {
 
         rekomendasiData.forEach(function (rekomendasiItem) {
           const rekomendasiMotorElement = document.createElement("div");
-          rekomendasiMotorElement.classList.add("detail-motor-baru");
+          rekomendasiMotorElement.classList.add("detail-motor-baru", "row");
 
 
           rekomendasiMotorElement.innerHTML = `<hr>
@@ -235,7 +235,7 @@ $(document).ready(function () {
                                   style="max-width: 100%; height: auto;">
                               <div class="product-right py-5">
                                   <div class="d-flex justify-content-between">
-                                      <p class="text-dark nama-motor fs-lg-4 fw-bold">${rekomendasiItem.nama}</h>
+                                      <p class="text-dark nama-motor fs-lg-4 fw-bold">${rekomendasiItem.motor.nama}</h>
                                       <div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span
                                               class="ms-2">${response.lokasi}</span>
                                       </div>
@@ -246,11 +246,11 @@ $(document).ready(function () {
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
                                       <h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-                                      <p class="nama-motor">${rekomendasiItem.type}</p>
+                                      <p class="nama-motor">${rekomendasiItem.motor.type}</p>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
                                       <h6 class="fw-bold text-doff nama-motor">Honda</h6>
-                                      <p class="nama-motor">${rekomendasiItem.merk}</p>
+                                      <p class="nama-motor">${rekomendasiItem.motor.merk}</p>
                                   </div>
                               </div>
                           </div>
