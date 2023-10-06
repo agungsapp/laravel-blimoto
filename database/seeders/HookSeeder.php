@@ -17,7 +17,7 @@ class HookSeeder extends Seeder
         $data = [
             [
                 'nama' => 'hook 1',
-                'gambar' => 'hook-img1.webp',
+                'gambar' => '2023-10-06_HOOK TEXT 1 .jpg',
                 'link' => '#',
                 'warna' => '#DD0202',
                 'warna_teks' => '#FFFFFF',
@@ -37,7 +37,7 @@ class HookSeeder extends Seeder
             ],
             [
                 'nama' => 'hook 3',
-                'gambar' => 'hook-img3.webp',
+                'gambar' => '2023-10-06_hook-3.webp',
                 'link' => '#',
                 'warna' => '#292929',
                 'warna_teks' => '#FFFFFF',
