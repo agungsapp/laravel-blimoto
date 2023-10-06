@@ -28,7 +28,7 @@
 										<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
 										<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
 										<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<li class=""><a href="tab-6">books</a></li> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<li class=""><a href="tab-6">books</a></li> -->
 								</ul>
 						</div>
 				</div>
@@ -319,8 +319,8 @@
 														</div> --}}
 
 														<!-- <div class="double-slider-box">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<h3 class="range-title">DP / Angsuran</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<h3 class="range-title">DP / Angsuran</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				</div> -->
 
 												</div>
 												<div class="row">
@@ -343,9 +343,9 @@
 		{{-- <button type="button" class="btn btn-primary" id="showPopupBtn">
 				Tampilkan Pop-up
 		</button> --}}
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalResult">
+		{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalResult">
 				Buka Modal
-		</button>
+		</button> --}}
 
 
 		{{-- new modal result --}}
@@ -370,28 +370,29 @@
 														style="flex-direction: row;">
 												</div>
 										</div>
+										<h3 class="text-dark mt-5 text-center">Rekomendasi yang cocok buat lo yang kurang dengan angsuran di atas.</h3>
 										<div id="rekomendasi-wrapper-baru">
 
 										</div>
 										{{-- =============================================================== --}}
-										<div class="detail-motor">
+										{{-- <div class="detail-motor">
 												<section id="motor" class="section-big-pt-space b-g-light">
 
-												</section>
-												<!-- Section ends -->
+												</section> --}}
+										<!-- Section ends -->
 
-												<hr>
+										{{-- <hr> --}}
 
-												{{-- compare leasing --}}
-												<div id="leasing" class="row leasing px-5">
+										{{-- compare leasing --}}
+										{{-- <div id="leasing" class="row leasing px-5">
 
 												</div>
 										</div>
-										<h3 class="text-dark text-center">Rekomendasi yang cocok buat lo yang kurang dengan angsuran di atas.</h3>
+										<h3 class="text-dark text-center">Rekomendasi yang cocok buat lo yang kurang dengan angsuran di atas.</h3> --}}
 										{{-- area REKOMENDASI --}}
-										<div id="rekomendasi-wrapper">
+										{{-- <div id="rekomendasi-wrapper">
 
-										</div>
+										</div> --}}
 								</div>
 								<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
@@ -797,258 +798,6 @@
 																</div>
 														</div>
 												</div>
-												<div>
-														<div class="media-banner border-0">
-																<div class="media-banner-box">
-																		<div class="media-heading">
-																				<h5>New Products</h5>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/3.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>sumsung galaxy</p>
-																												</a>
-																												<h6>$78.05 <span>$68.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/1.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>Bajaj GX-1 Mixer</p>
-																												</a>
-																												<h6>$72.05 <span>$63.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/2.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>rechargeable fan</p>
-																												</a>
-																												<h6>82.05 <span>$75.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-
-																<div class="media-banner-box">
-																		<div class="media-view">
-																				<h5>View More</h5>
-																		</div>
-																</div>
-														</div>
-												</div>
-												<div>
-														<div class="media-banner border-0">
-																<div class="media-banner-box">
-																		<div class="media-heading">
-																				<h5>New Products</h5>
-																		</div>
-																</div>
-
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/2.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>rechargeable fan</p>
-																												</a>
-																												<h6>$79.05 <span>$47.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/3.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>sumsung galaxy</p>
-																												</a>
-																												<h6>$51.05 <span>$76.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media">
-																				<a href="product-page(left-sidebar).html">
-																						<img src="../assets/images/layout-2/media-banner/1.jpg" class="img-fluid" alt="banner" />
-																				</a>
-																				<div class="media-body">
-																						<div class="media-contant">
-																								<div>
-																										<div class="product-detail">
-																												<ul class="rating">
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star"></i></li>
-																														<li><i class="fa fa-star-o"></i></li>
-																												</ul>
-																												<a href="product-page(left-sidebar).html">
-																														<p>Bajaj GX-1 Mixer</p>
-																												</a>
-																												<h6>$24.05 <span>$56.21</span></h6>
-																										</div>
-																										<div class="cart-info">
-																												<button onclick="openCart()" class="tooltip-top">
-																														<i data-feather="shopping-cart"></i>
-																												</button>
-																												<a href="javascript:void(0)" class="add-to-wish tooltip-top"
-																														data-tippy-content="Add to Wishlist"><i data-feather="heart"></i></a>
-																												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#quick-view"
-																														class="tooltip-top" data-tippy-content="Quick View"><i data-feather="eye"></i></a>
-																												<a href="compare.html" class="tooltip-top" data-tippy-content="Compare"><i
-																																data-feather="refresh-cw"></i></a>
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-																<div class="media-banner-box">
-																		<div class="media-view">
-																				<h5>View More</h5>
-																		</div>
-																</div>
-														</div>
-												</div>
 										</div>
 								</div>
 						</div>
@@ -1160,38 +909,38 @@
 								</div>
 
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h3>best discount </h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h4>cordless tools</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			</div> -->
 
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h3>up to 50% off</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<h4>replaair parts</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<div class="collection-banner-contain">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h3>up to 50% off</h3>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<h4>replaair parts</h4>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			</div> -->
 						</div>
 				</div>
 		</section>
@@ -1209,20 +958,20 @@
                   background-position: center center;
                   display: block;
                 ">
-										<img src="/assets/images/custom/tukar-motor.webp" class="w-100" alt="banner" />
-								</div>
-								<div class="d-flex align-items-center justify-content-center">
-										<div class="position-absolute" style="margin-top: -6rem">
-												<div class="shop">
-														<a class="btn btn-normal" href="product-page(left-sidebar).html">
-																Klik Disini
-														</a>
+														<img src="/assets/images/custom/tukar-motor.webp" class="w-100" alt="banner" />
+												</div>
+												<div class="d-flex align-items-center justify-content-center">
+														<div class="position-absolute" style="margin-top: -6rem">
+																<div class="shop">
+																		<a class="btn btn-normal" href="product-page(left-sidebar).html">
+																				Klik Disini
+																		</a>
+																</div>
+														</div>
 												</div>
 										</div>
 								</div>
 						</div>
-				</div>
-				</div>
 				</div>
 		</section>
 		<!-- tukar motor anda end-->
@@ -1571,8 +1320,7 @@
 										<div class="owl-carousel owl-theme">
 												<div class="item card border-12 p-2">
 														<div class="img-wrapper d-flex justify-content-center py-2">
-																<img src="./assets/images/testimonial/1.jpg" alt="testimonial"
-																		class="img-fluid rounded-circle w-25" />
+																<img src="./assets/images/testimonial/1.jpg" alt="testimonial" class="img-fluid rounded-circle w-25" />
 														</div>
 														<div class="pt-2 text-center">
 																<div class="d-flex justify-content-center">
