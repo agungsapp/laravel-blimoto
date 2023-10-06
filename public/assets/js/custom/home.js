@@ -219,9 +219,6 @@ $(document).ready(function () {
           }
         }
 
-
-
-        // area REKOMENDASI
         // area REKOMENDASI
         const rekomendasiData = response.rekomendasi;
         const rekomendasiWrapper = document.getElementById("rekomendasi-wrapper-baru");
