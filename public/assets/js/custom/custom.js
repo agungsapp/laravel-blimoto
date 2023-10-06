@@ -108,10 +108,10 @@ $(document).ready(function () {
   $(document).ready(function () {
     $('#modalResult').on('shown.bs.modal', function () {
       $('.slick-result-modal').slick({
-        centerMode: true,
+        centerMode: false,
         centerPadding: '10px',
         infinite: true,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -120,11 +120,11 @@ $(document).ready(function () {
           {
             breakpoint: 500,
             settings: {
-              centerMode: true,
+              centerMode: false,
               centerPadding: '10px',
               slidesToShow: 1,
               slidesToScroll: 3,
-              autoplay: true,
+              autoplay: false,
               autoplaySpeed: 2000,
               infinite: true,
               // dots: true
@@ -134,11 +134,11 @@ $(document).ready(function () {
           {
             breakpoint: 650,
             settings: {
-              centerMode: true,
+              centerMode: false,
               centerPadding: '10px',
               slidesToShow: 2,
               slidesToScroll: 1,
-              autoplay: true,
+              autoplay: false,
               autoplaySpeed: 2000,
               infinite: true,
               // dots: true
@@ -148,11 +148,11 @@ $(document).ready(function () {
           {
             breakpoint: 1000,
             settings: {
-              centerMode: true,
+              centerMode: false,
               centerPadding: '10px',
               slidesToShow: 2,
               slidesToScroll: 2,
-              autoplay: true,
+              autoplay: false,
               autoplaySpeed: 2000,
               infinite: true,
               // dots: true
@@ -162,11 +162,11 @@ $(document).ready(function () {
           {
             breakpoint: 1300,
             settings: {
-              centerMode: true,
+              centerMode: false,
               centerPadding: '10px',
               slidesToShow: 3,
               slidesToScroll: 2,
-              autoplay: true,
+              autoplay: false,
               autoplaySpeed: 2000,
               infinite: true,
               // dots: true
@@ -176,11 +176,11 @@ $(document).ready(function () {
           {
             breakpoint: 1500,
             settings: {
-              centerMode: true,
+              centerMode: false,
               centerPadding: '10px',
               slidesToShow: 4,
               slidesToScroll: 2,
-              autoplay: true,
+              autoplay: false,
               autoplaySpeed: 2000,
               infinite: true,
               // dots: true
