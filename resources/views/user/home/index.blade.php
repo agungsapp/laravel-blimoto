@@ -1209,19 +1209,6 @@
                   background-position: center center;
                   display: block;
                 ">
-														<<<<<<< HEAD <img src="/assets/images/tukar-motor/tukar.webp" class="w-100" alt="banner" />
-												</div>
-												<div class="d-flex align-items-center justify-content-center">
-														<div class="position-absolute" style="margin-top: -6rem">
-																<div class="shop">
-																		<a class="btn btn-normal" href="product-page(left-sidebar).html">
-																				Klik Disini
-																		</a>
-																</div>
-														</div>
-												</div>
-										</div>
-										=======
 										<img src="/assets/images/custom/tukar-motor.webp" class="w-100" alt="banner" />
 								</div>
 								<div class="d-flex align-items-center justify-content-center">
