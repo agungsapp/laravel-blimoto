@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
+use App\Http\Controllers\User\AboutUsController;
 // user
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
@@ -65,6 +66,7 @@ Route::get('/register', [UserRegisterController::class, 'index'])->name('registe
 
 // User Area
 Route::resource('/home', HomeController::class);
+Route::resource('/about-us', AboutUsController::class);
 // motor menu
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
 Route::resource('/bandingkan', BandingkanController::class);
@@ -76,7 +78,6 @@ Route::resource('/brosur_kredit', BrosurKreditController::class);
 Route::resource('/syarat_kredit', SyaratKreditController::class);
 Route::resource('/info_leasing', InfoLeasingController::class);
 Route::resource('/blog', UserBlogController::class);
-
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');

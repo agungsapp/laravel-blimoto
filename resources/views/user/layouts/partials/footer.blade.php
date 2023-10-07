@@ -31,7 +31,7 @@
 																		<li><a href="#testimonial">Testimonial</a></li>
 																		<li><a href="dealer.html">Dealer</a></li>
 																		<li>
-																				<a href="javascript:void(0)">Tentang Kami</a>
+																				<a href="/about-us">Tentang Kami</a>
 																		</li>
 																		<li>
 																				<a href="javascript:void(0)">Berita</a>
@@ -89,7 +89,7 @@
 																<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
 														</li>
 														<li>
-																<a href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
+																<a href="https://www.instagram.com/blimotoindonesia/"><i class="fa fa-instagram"></i></a>
 														</li>
 														<li>
 																<a href="javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
