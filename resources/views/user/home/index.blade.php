@@ -1,15 +1,113 @@
 @extends('user.layouts.main')
 @section('content')
-		<!-- new hook slider start -->
-		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-inner">
-						@foreach ($hooks as $hook)
-								<div class="carousel-item {{ $hook->id == 1 ? 'active' : '' }}" data-bs-interval="3500">
-										<img src="assets/images/custom/hook/{{ $hook->gambar }}" class="d-block w-100" alt="{{ $hook->gambar }}" />
-										<div class="carousel-caption d-none d-md-block">
-												<a href="{{ $hook->link }}"
-														style="background-color: {{ $hook->warna }}; color: {{ $hook->warna_teks }} ; font-weight: bold;"
-														class="btn rounded-pill fs-sm-4 fs-md-4 fs-lg-4 px-5">Lihat Promo</a>
+
+<!-- new hook slider start -->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-inner">
+		@foreach ($hooks as $hook)
+		<div class="carousel-item {{ $hook->id == 1 ? 'active' : '' }}" data-bs-interval="3500">
+			<img src="assets/images/custom/hook/{{ $hook->gambar }}" class="d-block w-100" alt="{{ $hook->gambar }}" />
+			<div class="carousel-caption d-none d-md-block">
+				<a href="{{ $hook->link }}" style="background-color: {{ $hook->warna }}; color: {{ $hook->warna_teks }} ; font-weight: bold;" class="btn rounded-pill fs-sm-4 fs-md-4 fs-lg-4 px-5">Lihat Promo</a>
+			</div>
+		</div>
+		@endforeach
+
+	</div>
+</div>
+<!-- new hook slider end -->
+
+<!--temukan kendaraanmu start-->
+<section class="section-py-space mt-3">
+	<div class="tab-product-main">
+		<div class="tab-prodcut-contain">
+			<ul class="tabs tab-title">
+				<li class="current"><a href="tab-1">DISKON TERBAIK</a></li>
+				<li class=""><a href="tab-2">DP TERMURAH</a></li>
+				<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
+				<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
+				<!-- <li class=""><a href="tab-5">toys</a></li>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<li class=""><a href="tab-6">books</a></li> -->
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- media tab start -->
+<section class="ratio_40 section-pb-space">
+	<div class="custom-container product">
+		<div class="row">
+			<div class="col pr-0">
+				<div class="theme-tab product">
+					<div class="tab-content-cls">
+						<!-- content tab 1 best diskon -->
+						<div id="tab-1" class="tab-content active default">
+							<div class="product-slide-5 product-m no-arrow">
+								<!-- custom card produk box for loop -->
+
+								{{-- {{ dd($best1) }} --}}
+
+								@foreach ($best1 as $item1)
+								<div>
+									<div class="product-box">
+										<div class="product-imgbox">
+											<div class="product-front">
+												<a href="product-page(left-sidebar).html">
+													<img src="assets/images/detail-motor/{{ $item1->image }}" class="img-fluid" alt="{{ $item1->image }}" />
+												</a>
+											</div>
+											<button type="button" class="btn btn-outline btn-cart">
+												Lihat Promo
+											</button>
+											<div class="best-label">
+												<div>Diskon Terbaik</div>
+											</div>
+										</div>
+										<div class="product-detail product-detail2">
+											<a href="product-page(left-sidebar).html">
+												<h3>{{ $item1->nama }}</h3>
+											</a>
+											<h3>Harga Mulai</h3>
+											<h5>
+												{{ 'Rp. ' . number_format($item1->harga, 0, '.', '.') }}
+												{{-- <span>Rp. 18,050,000</span> --}}
+											</h5>
+										</div>
+									</div>
+								</div>
+								@endforeach
+								<!-- custom card produk box for loop end -->
+							</div>
+						</div>
+						<!-- content tab 2 best dp -->
+						<div id="tab-2" class="tab-content">
+							<div class="product-slide-5 product-m no-arrow">
+								<!-- custom card produk box for loop -->
+								@foreach ($best2 as $item2)
+								<div>
+									<div class="product-box">
+										<div class="product-imgbox">
+											<div class="product-front">
+												<a href="product-page(left-sidebar).html">
+													<img src="assets/images/detail-motor/{{ $item2->image }}" class="img-fluid" alt="{{ $item2->image }}" />
+												</a>
+											</div>
+											<button type="button" class="btn btn-outline btn-cart">
+												Lihat Promo
+											</button>
+											<div class="best-label">
+												<div>Best DP</div>
+											</div>
+										</div>
+										<div class="product-detail product-detail2">
+											<a href="product-page(left-sidebar).html">
+												<h3>{{ $item2->nama }}</h3>
+											</a>
+											<h3>Harga Mulai</h3>
+											<h5>
+												{{ 'Rp. ' . number_format($item2->harga, 0, '.', '.') }}
+												{{-- <span>Rp. 18,050,000</span> --}}
+											</h5>
 										</div>
 								</div>
 						@endforeach
@@ -379,13 +477,91 @@
 										{{-- area REKOMENDASI --}}
 										{{-- <div id="rekomendasi-wrapper">
 
-										</div> --}}
+										</div> --}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- best motor -->
+<div class="list-product">
+	<div class="tab-content">
+		<div class="tab-pane fade"></div>
+	</div>
+</div>
+<!-- best motor end -->
+
+<!--kenapa harus blimoto start-->
+<section class="collection-banner section-py-space b-g-white">
+	<div class="container-fluid">
+		<div class="row collection-p4">
+			<div class="col-md-4">
+				<div class="collection-banner-main p-center p-top banner-16 banner-style7 text-center">
+					<div class="collection-img">
+						<img src="assets/images/custom/why/why.webp" class="img-fluid bg-img" alt="banner" />
+					</div>
+					<div class="collection-banner-contain">
+						<div>
+							<!-- <h1 id="why" class="text-doff">Kenapa Harus BliMoto ?</h1> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-12">
+						<div class="collection-banner-main p-left banner-13 banner-style7 text-center">
+							<div class="collection-img">
+								<img src="assets/images/custom/why/testimoni.webp" class="img-fluid bg-img" alt="banner" />
+							</div>
+							<div class="collection-banner-contain">
+								<div>
+									<!-- <h3>Testimoni</h3> -->
+									<!-- <h4>Video Founder BliMoto.com</h4> -->
+									<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-founder">
+										Play
+									</a>
 								</div>
-								<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="collection-banner-main p-left banner-13 banner-style7 text-center">
+							<div class="collection-img">
+								<img src="assets/images/custom/why/leasing.webp" class="img-fluid bg-img" alt="banner" />
+							</div>
+							<div class="collection-banner-contain">
+								<div>
+									<!-- <h3>Leasing</h3> -->
+									<!-- <h4>Video Founder BliMoto.com</h4> -->
+									<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-testimoni">
+										Play
+									</a>
+
 								</div>
 						</div>
 				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="collection-banner-main p-center p-top banner-16 banner-style7 text-center">
+					<div class="collection-img">
+						<img src="assets/images/custom/why/founder.webp" class="img-fluid bg-img" alt="banner" />
+					</div>
+					<div class="collection-banner-contain">
+						<div>
+							<!-- <h3>Founder</h3> -->
+							<!-- <h4>Video Founder BliMoto.com</h4> -->
+							<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-leasing">
+								Play
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 
@@ -739,42 +915,91 @@
 		<div class="title8 mt-5">
 				<h4>Bandingkan Motor</h4>
 		</div>
+	</div>
+</section>
+<!--motor terbaru start-->
 
-		<section class="collection-banner section-py-space b-g-white">
-				<div class="container-fluid">
-						<div class="row collection2">
-								<!-- url(&quot;assets/images/custom/compare.png&quot;); -->
+<!-- perbandingan motor populer start -->
+<div class="title8 mt-5">
+	<h4>Bandingkan Motor</h4>
+</div>
 
-								<div class="col-md-4">
-										<div class="collection-banner-main p-left banner-13 text-center">
-												<div class="d-flex position-relative">
-														<div class="order-1">
-																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan2.webp" alt="Honda Scoopy"
-																				title="Honda Scoopy" data-src="assets/images/custom/perbandingan2.webp" />
-																</div>
-														</div>
-														<div>
-																<div class="image-wrapper">
-																		<img class="img-fluid" src="assets/images/custom/perbandingan1.webp" alt="Yamaha Fazzio"
-																				title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan1.webp"
-																				onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
-																</div>
-														</div>
+<section class="collection-banner section-py-space b-g-white">
+	<div class="container-fluid">
+		<div class="row collection2">
+			<!-- url(&quot;assets/images/custom/compare.png&quot;); -->
+
+			<div class="col-md-4">
+				<div class="collection-banner-main p-left banner-13 text-center">
+					<div class="d-flex position-relative">
+						<div class="order-1">
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/2.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/2.webp" />
+							</div>
+						</div>
+						<div>
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/1.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/1.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+							</div>
+						</div>
+
+            
+						<div class="versus position-absolute" >
+							<div class="bg-light rounded-circle" style="background-color: silver;">
+								<p >VS</p>
+							</div>
+						</div>
+           
+
+						<div class="desc-versus position-absolute">
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
+							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="collection-banner-main p-left banner-13 text-center">
+					<div class="d-flex position-relative">
+						<div class="order-1">
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/4.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/4.webp" />
+							</div>
+						</div>
+						<div>
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/3.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/3.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+							</div>
+						</div>
 
 														<div class="versus position-absolute">
 																<div class="bg-light rounded-circle">
 																		<p>VS</p>
 																</div>
 														</div>
+						<div class="desc-versus position-absolute">
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
+							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-														<div class="desc-versus position-absolute">
-																<h3 class="mt-4">Beat vs Beat Steet</h3>
-																<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
-														</div>
-												</div>
-										</div>
-								</div>
+			<div class="col-md-4">
+				<div class="collection-banner-main p-left banner-13 text-center">
+					<div class="d-flex position-relative">
+						<div class="order-1">
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/6.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/6.webp" />
+							</div>
+						</div>
+						<div>
+							<div class="image-wrapper">
+								<img class="img-fluid" src="assets/images/custom/bandingkan/5.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/5.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+							</div>
+						</div>
+
 
 								<div class="col-md-4">
 										<div class="collection-banner-main p-left banner-13 text-center">
@@ -792,13 +1017,13 @@
 																				onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 																</div>
 														</div>
-
-														<div class="versus position-absolute">
-																<div class="bg-light rounded-circle">
-																		<p>VS</p>
-																</div>
-														</div>
-
+						<div class="desc-versus position-absolute">
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
+							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
+						</div>
+					</div>
+				</div>
+			</div>
 														<div class="desc-versus position-absolute">
 																<h3 class="mt-4">Beat vs Beat Steet</h3>
 																<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
@@ -837,40 +1062,9 @@
 												</div>
 										</div>
 								</div>
-
 								<!-- <div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div> -->
-
 								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div class="collection-banner-main p-left banner-style3 banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/custom/compare.png&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/custom/compare.png" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>best discount </h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>cordless tools</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div> -->
-
-								<!-- <div class="col-md-4">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div class="collection-banner-main banner-style3 p-left banner-13 text-center">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-img bg-size" style="background-image: url(&quot;assets/images/tools/collection-banner/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"> <img src="assets/images/tools/collection-banner/2.jpg" class="img-fluid bg-img" alt="banner" style="display: none;"> </div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															<div class="collection-banner-contain">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h3>up to 50% off</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<h4>replaair parts</h4>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<a href="product-page(left-sidebar).html" class="btn btn-rounded btn-sm">shop now</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div> -->
+								<!-- <div class="col-md-4">																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													</div> -->
 						</div>
 				</div>
 		</section>
