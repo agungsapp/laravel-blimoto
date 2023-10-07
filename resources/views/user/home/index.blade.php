@@ -59,7 +59,7 @@
 												Lihat Promo
 											</button>
 											<div class="best-label">
-												<div>Best Diskon</div>
+												<div>Diskon Terbaik</div>
 											</div>
 										</div>
 										<div class="product-detail product-detail2">
@@ -387,11 +387,11 @@
 			<div class="col-md-4">
 				<div class="collection-banner-main p-center p-top banner-16 banner-style7 text-center">
 					<div class="collection-img">
-						<img src="assets/images/why/why-blimoto.webp" class="img-fluid bg-img" alt="banner" />
+						<img src="assets/images/custom/why/why.webp" class="img-fluid bg-img" alt="banner" />
 					</div>
 					<div class="collection-banner-contain">
 						<div>
-							<h1 id="why" class="text-doff">Kenapa Harus BliMoto ?</h1>
+							<!-- <h1 id="why" class="text-doff">Kenapa Harus BliMoto ?</h1> -->
 						</div>
 					</div>
 				</div>
@@ -401,11 +401,11 @@
 					<div class="col-12">
 						<div class="collection-banner-main p-left banner-13 banner-style7 text-center">
 							<div class="collection-img">
-								<img src="assets/images/why/testimoni.webp" class="img-fluid bg-img" alt="banner" />
+								<img src="assets/images/custom/why/testimoni.webp" class="img-fluid bg-img" alt="banner" />
 							</div>
 							<div class="collection-banner-contain">
 								<div>
-									<h3>Testimoni</h3>
+									<!-- <h3>Testimoni</h3> -->
 									<!-- <h4>Video Founder BliMoto.com</h4> -->
 									<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-founder">
 										Play
@@ -417,11 +417,11 @@
 					<div class="col-12">
 						<div class="collection-banner-main p-left banner-13 banner-style7 text-center">
 							<div class="collection-img">
-								<img src="assets/images/why/leasing.webp" class="img-fluid bg-img" alt="banner" />
+								<img src="assets/images/custom/why/leasing.webp" class="img-fluid bg-img" alt="banner" />
 							</div>
 							<div class="collection-banner-contain">
 								<div>
-									<h3>Leasing</h3>
+									<!-- <h3>Leasing</h3> -->
 									<!-- <h4>Video Founder BliMoto.com</h4> -->
 									<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-testimoni">
 										Play
@@ -435,11 +435,11 @@
 			<div class="col-md-4">
 				<div class="collection-banner-main p-center p-top banner-16 banner-style7 text-center">
 					<div class="collection-img">
-						<img src="assets/images/why/founder.webp" class="img-fluid bg-img" alt="banner" />
+						<img src="assets/images/custom/why/founder.webp" class="img-fluid bg-img" alt="banner" />
 					</div>
 					<div class="collection-banner-contain">
 						<div>
-							<h3>Founder</h3>
+							<!-- <h3>Founder</h3> -->
 							<!-- <h4>Video Founder BliMoto.com</h4> -->
 							<a class="btn btn-rounded btn-xs px-5" data-bs-toggle="modal" data-bs-target="#v-leasing">
 								Play
@@ -781,23 +781,25 @@
 					<div class="d-flex position-relative">
 						<div class="order-1">
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan2.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan2.webp" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/2.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/2.webp" />
 							</div>
 						</div>
 						<div>
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan1.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan1.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/1.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/1.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 							</div>
 						</div>
 
-						<div class="versus position-absolute">
-							<div class="bg-light rounded-circle">
-								<p>VS</p>
+            
+						<div class="versus position-absolute" >
+							<div class="bg-light rounded-circle" style="background-color: silver;">
+								<p >VS</p>
 							</div>
 						</div>
+           
 
 						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
 							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
 						</div>
 					</div>
@@ -809,12 +811,12 @@
 					<div class="d-flex position-relative">
 						<div class="order-1">
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan4.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan4.webp" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/4.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/4.webp" />
 							</div>
 						</div>
 						<div>
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan3.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan3.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/3.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/3.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 							</div>
 						</div>
 
@@ -825,7 +827,7 @@
 						</div>
 
 						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
 							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
 						</div>
 					</div>
@@ -837,12 +839,12 @@
 					<div class="d-flex position-relative">
 						<div class="order-1">
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan6.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/perbandingan6.webp" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/6.webp" alt="Honda Scoopy" title="Honda Scoopy" data-src="assets/images/custom/bandingkan/6.webp" />
 							</div>
 						</div>
 						<div>
 							<div class="image-wrapper">
-								<img class="img-fluid" src="assets/images/custom/perbandingan5.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/perbandingan5.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
+								<img class="img-fluid" src="assets/images/custom/bandingkan/5.webp" alt="Yamaha Fazzio" title="Yamaha Fazzio" data-src="assets/images/custom/bandingkan/5.webp" onclick="gd.common.goto('https://www.oto.com/en/motor-baru/yamaha/fazzio')" />
 							</div>
 						</div>
 
@@ -853,7 +855,7 @@
 						</div>
 
 						<div class="desc-versus position-absolute">
-							<h3 class="mt-4">Beat vs Beat Steet</h3>
+							<!-- <h3 class="mt-4">Beat vs Beat Steet</h3> -->
 							<a class="btn btn-rounded btn-sm mt-2">Lihat Comparasi</a>
 						</div>
 					</div>
