@@ -276,6 +276,7 @@ class CicilanMotorController extends Controller
           $query->select('id', 'nama', 'gambar', 'diskon');
         },
       ])
+      ->where('id_motor', '!=', $id_motor)
       ->whereBetween('dp', [$dp - $dpRange, $dp + $dpRange])
       ->where('tenor', $tenor)
       ->where('id_lokasi', $id_lokasi)
@@ -286,7 +287,7 @@ class CicilanMotorController extends Controller
 
     $rekomendasiMotor = [];
     foreach ($recommendationCicilan as $recommendation) {
-      if(!$recommendation->motor){
+      if (!$recommendation->motor) {
         break;
       }
       $motorId = $recommendation->motor->id;
@@ -338,10 +339,9 @@ class CicilanMotorController extends Controller
 
         $rekomendasiMotor[$motorId] = $item;
       }
-
-      // Convert the associative array to a sequential array
-      $rekomendasiMotor = array_values($rekomendasiMotor);
     }
+    // Convert the associative array to a sequential array
+    $rekomendasiMotor = array_values($rekomendasiMotor);
 
     return response()->json([
       'lokasi' => $lokasi->nama,
