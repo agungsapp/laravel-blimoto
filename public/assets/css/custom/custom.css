@@ -508,3 +508,8 @@ section .simulasi-container .simulasi-wrapper .card {
 .slick-next:before {
     font-size: 50px !important;
 }
+
+.bandingkan-range div {
+    font-size: 1.3em !important;
+    color: #dd0202 !important;
+}
