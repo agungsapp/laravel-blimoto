@@ -36,11 +36,12 @@ $(document).ready(function () {
 
   // onchange model motor di pilih
   window.formatRupiah = function (angka) {
-    var reverse = angka.toString().split("").reverse().join(""),
-      ribuan = reverse.match(/\d{1,3}/g);
+    var reverse = angka.toString().split("").reverse().join("");
+    var ribuan = reverse.match(/\d{1,3}/g);
     ribuan = ribuan.join(".").split("").reverse().join("");
     return "Rp. " + ribuan;
   };
+
 
   // function hitungDiskon(dp, potongan) {
   //   var potongan = dp - (dp * potongan);
@@ -70,7 +71,7 @@ $(document).ready(function () {
 
             // Add the new options
             data.dp.forEach((option) => {
-              var formattedOption = formatToRupiah(option);
+              var formattedOption = formatRupiah(option);
               $("#dp").append(new Option(formattedOption, option));
               $("#dp option:last-child").data("harga", option);
             });
