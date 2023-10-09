@@ -166,9 +166,9 @@ $(document).ready(function () {
           );
           leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img src="/assets/images/leasing/${leasingData.gambar}" class="card-img-top" alt="${leasingData.gambar}">
+																		<img style="min-height: 130px;" src="/assets/images/custom/leasing/${leasingData.gambar}" class="card-img-top" alt="${leasingData.gambar}">
 																		<div class="card-body">
-																				<h5 class="card-title">FIF GROUP</h5>
+																				<h5 class="card-title">${leasingData.nama_leasing}</h5>
 																		</div>
 																		<ul class="list-group list-group-flush">
 																				<li class="list-group-item d-flex justify-content-between">
@@ -279,9 +279,9 @@ $(document).ready(function () {
 
             leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img src="/assets/images/leasing/${rekomendasiLeasingData.gambar}" class="card-img-top" alt="${rekomendasiLeasingData.gambar}">
+																		<img src="/assets/images/custom/leasing/${rekomendasiLeasingData.gambar}" class="card-img-top" alt="${rekomendasiLeasingData.gambar}">
 																		<div class="card-body">
-																				<h5 class="card-title">FIF GROUP</h5>
+																				<h5 class="card-title">${rekomendasiLeasingData.nama_leasing}</h5>
 																		</div>
 																		<ul class="list-group list-group-flush">
 																				<li class="list-group-item d-flex justify-content-between">
