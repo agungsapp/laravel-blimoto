@@ -30,6 +30,11 @@ class LeasingSeeder extends Seeder
                 'diskon' => 0.50,
                 'gambar' => 'oto.jpg',
             ],
+            [
+                'nama' => 'MCF',
+                'diskon' => 0.40,
+                'gambar' => '2023-10-09_Mega-Central-Finance.jpg',
+            ],
         ];
         DB::table('leasing_motor')->insert($data);
     }

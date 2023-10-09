@@ -112,8 +112,12 @@ class AdminCicilanMotorController extends Controller
     if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
       fgetcsv($handle);
 
+      $chunkSize = 1000;
+
+      DB::table('cicilan_motor')->truncate();
+
       while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-        DB::table('cicilan_motor')->insert([
+        $insertData[] = [
           'dp' => $data[0],
           'tenor' => $data[1],
           'potongan_tenor' => $data[2],
@@ -121,10 +125,21 @@ class AdminCicilanMotorController extends Controller
           'id_leasing' => $data[4],
           'id_lokasi' => $data[5],
           'id_motor' => $data[6],
-        ]);
+        ];
+
+        if (count($insertData) >= $chunkSize) {
+          DB::table('cicilan_motor')->insert($insertData);
+          $insertData = [];
+        }
       }
+
+      if (!empty($insertData)) {
+        DB::table('cicilan_motor')->insert($insertData);
+      }
+
       fclose($handle);
     }
+
     flash()->addSuccess("Data csv berhasil diimport");
     return redirect()->back();
   }
@@ -147,8 +162,10 @@ class AdminCicilanMotorController extends Controller
     if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
       fgetcsv($handle);
 
+      $chunkSize = 1000; // You can adjust this value as needed.
+
       while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-        DB::table('cicilan_motor')->insert([
+        $chunk[] = [
           'dp' => $data[0],
           'tenor' => $data[1],
           'potongan_tenor' => $data[2],
@@ -156,7 +173,16 @@ class AdminCicilanMotorController extends Controller
           'id_leasing' => $data[4],
           'id_lokasi' => $data[5],
           'id_motor' => $data[6],
-        ]);
+        ];
+
+        if (count($chunk) >= $chunkSize) {
+          DB::table('cicilan_motor')->insert($chunk);
+          $chunk = [];
+        }
+      }
+
+      if (!empty($chunk)) {
+        DB::table('cicilan_motor')->insert($chunk);
       }
 
       fclose($handle);
