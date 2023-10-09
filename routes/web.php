@@ -64,6 +64,9 @@ Route::get('/login', [UserLoginController::class, 'index'])->name('login');
 Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 
+// try 
+Route::get('/try', [HomeController::class, 'try'])->name('try');
+
 // User Area
 Route::resource('/home', HomeController::class);
 Route::resource('/about-us', AboutUsController::class);

@@ -178,4 +178,11 @@ class HomeController extends Controller
 
         return $motors;
     }
+
+
+    public function try()
+    {
+        // return "joss";
+        return view('user.home.try');
+    }
 }
