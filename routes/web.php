@@ -36,6 +36,7 @@ use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
 use App\Http\Controllers\User\CicilanMotorController;
 use App\Http\Controllers\User\DealerController;
+use App\Http\Controllers\User\DetailMotorControllerUser;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InfoLeasingController;
 use App\Http\Controllers\User\MotorTerbaruController;
@@ -89,6 +90,7 @@ Route::get('/get-type', [HomeController::class, 'getTypeMotor']);
 Route::get('/get-merk', [HomeController::class, 'getMerkMotor']);
 Route::get('/get-tenor', [HomeController::class, 'getTenor']);
 Route::get('/get-kota', [HomeController::class, 'getLokasi']);
+Route::get('/detail-motor', [DetailMotorControllerUser::class, 'getDetailMotor']);
 Route::get('/search-motor', [HomeController::class, 'getSearchMotor']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
