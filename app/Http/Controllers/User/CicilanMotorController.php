@@ -255,7 +255,8 @@ class CicilanMotorController extends Controller
     $dpRange = $dp * 0.2;
     $cicilanRange = $cicilan_motor[0]->cicilan * 0.2;
 
-    $recommendationCicilan = cicilanmotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
+    // $recommendationCicilan = CicilanMotor
+    $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
       ->with([
         'motor' => function ($query) {
           $query->select('id', 'id_merk', 'id_type', 'nama', 'harga')
@@ -281,9 +282,11 @@ class CicilanMotorController extends Controller
       ->where('tenor', $tenor)
       ->where('id_lokasi', $id_lokasi)
       ->whereBetween('cicilan', [$cicilan_motor[0]->cicilan - $cicilanRange, $cicilan_motor[0]->cicilan + $cicilanRange])
+      ->orderBy('cicilan', 'asc')
       ->take(3)
       ->get();
 
+    // $recommendationCicilan = $recommendationCicilan->unique('nama_leasing');
     $rekomendasiMotor = [];
     foreach ($recommendationCicilan as $recommendation) {
       if (!$recommendation->motor) {
