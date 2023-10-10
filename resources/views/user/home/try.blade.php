@@ -503,12 +503,10 @@
 																				</div>
 																				<div class="pro-group">
 																						<h6 class="product-title">Promo berakhir dalam :</h6>
-																						<div class="timer">
-																								<p id="demo">
-																								</p>
+																						<div class="timer" id="timer">
 																						</div>
 																				</div>
-																				<div id="selectSize" class="pro-group addeffect-section product-description border-product">
+																				{{-- <div id="selectSize" class="pro-group addeffect-section product-description border-product">
 																						<div class="product-buttons">
 																								<a href="javascript:void(0)" id="cartEffect" class="btn cart-btn btn-normal tooltip-top"
 																										data-tippy-content="Add to cart">
@@ -516,26 +514,44 @@
 																										Gas Beli
 																								</a>
 																						</div>
-																				</div>
+																				</div> --}}
 																				<div class="pro-group">
 																						<div class="product-offer">
 																								<h6 class="product-title"><i class="fa fa-tags"></i>Diskon 5 Leasing Terbaik </h6>
 																								<div class="offer-contain">
 																										<ul>
-																												<li>
-																														<span class="code-lable">Rp. 1.250.000</span>
-																														<div>
-																																<h5>FIF</h5>
-																																<p class="text-danger">klik untuk detail</p>
+
+																												<li class="d-flex justify-content-between flex-row">
+																														<div class="d-flex justify-content-between">
+																																<span class="code-lable d-flex align-items-center" style="width: 110px">Rp.
+																																		1.250.000</span>
+																																<div class="ms-3">
+																																		<h5>FIF</h5>
+																																		<del class="text-danger">Rp. 500.000</del>
+																																</div>
 																														</div>
+																														<button class="btn btn-sm btn-success ms-3">Lihat detail</button>
 																												</li>
-																												<li class="d-flex justify-content-between">
-																														<span class="code-lable">Rp. 950.000</span>
-																														<div>
+
+																												<li class="d-flex justify-content-between flex-row">
+																														<div class="d-flex justify-content-between">
+																																<span class="code-lable d-flex align-items-center" style="width: 110px">Rp.
+																																		1.250.000</span>
+																																<div class="ms-3">
+																																		<h5>FIF</h5>
+																																		<del class="text-danger">Rp. 500.000</del>
+																																</div>
+																														</div>
+																														<button class="btn btn-sm btn-success ms-3">Lihat detail</button>
+																												</li>
+
+																												{{-- <li class="d-flex justify-content-between">
+																														<div class="d-flex justify-content-between align-items-baseline">
+																																<span class="code-lable">Rp. 950.000</span>
 																																<h5>MCF</h5>
 																														</div>
-																														<button class="btn btn-xs btn-success">Lihat detail</button>
-																												</li>
+																														<button class="btn btn-sm btn-success">Lihat detail</button>
+																												</li> --}}
 																										</ul>
 																								</div>
 																						</div>
@@ -557,66 +573,39 @@
 																<div class="col-sm-12 col-lg-12">
 																		<ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
 																				<li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab"
-																								href="#top-home" role="tab" aria-selected="true"><i
+																								href="#top-deskripsi" role="tab" aria-selected="true"><i
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
-																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Details</a>
-																						<div class="material-border"></div>
-																				</li>
-																				<li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab"
-																								href="#top-contact" role="tab" aria-selected="false"><i
-																										class="icofont icofont-contacts"></i>Video</a>
-																						<div class="material-border"></div>
-																				</li>
-																				<li class="nav-item"><a class="nav-link" id="review-top-tab" data-bs-toggle="tab"
-																								href="#top-review" role="tab" aria-selected="false"><i
-																										class="icofont icofont-contacts"></i>Write Review</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
+																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
 																		<div class="tab-content nav-material" id="top-tabContent">
-																				<div class="tab-pane fade show active" id="top-home" role="tabpanel"
+																				<div class="tab-pane fade show active" id="top-deskripsi" role="tabpanel"
 																						aria-labelledby="top-home-tab">
 																						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
 																								the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-																								type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-																								also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in
-																								the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-																								with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem
-																								Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-																								industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-																								and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-																								the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-																								1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-																								desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+																								type and scrambled it to make a type specimen book.</p>
 																				</div>
-																				<div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+																				<div class="tab-pane fade" id="top-feature" role="tabpanel" aria-labelledby="profile-top-tab">
 																						<p class="ps-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 																								Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-																								took a galley of type and scrambled it to make a type specimen book. It has survived not only five
-																								centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-																								popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
-																								more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
-																								Ipsum.</p>
+																								took a galley of type and scram.</p>
 																						<div class="single-product-tables">
 																								<table>
 																										<tbody>
 																												<tr>
-																														<td>Febric</td>
-																														<td>Chiffon</td>
+																														<td>Berat</td>
+																														<td>Power</td>
 																												</tr>
 																												<tr>
-																														<td>Color</td>
-																														<td>Red</td>
-																												</tr>
-																												<tr>
-																														<td>Material</td>
-																														<td>Crepe printed</td>
+																														<td>12kg</td>
+																														<td>150cc</td>
 																												</tr>
 																										</tbody>
-																								</table>
+																										{{-- </table>
 																								<table>
 																										<tbody>
 																												<tr>
@@ -628,7 +617,7 @@
 																														<td>S, M, L .XXL</td>
 																												</tr>
 																										</tbody>
-																								</table>
+																								</table> --}}
 																						</div>
 																				</div>
 																				<div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
@@ -685,3 +674,58 @@
 		</section>
 		<!-- Section ends -->
 @endsection
+
+
+@push('script')
+		<script>
+				// count down :
+				simplyCountdown('.timer', {
+						year: 2023, // required
+						month: 10, // required
+						day: 10, // required
+						hours: 23, // Default is 0 [0-23] integer
+						minutes: 0, // Default is 0 [0-59] integer
+						seconds: 0, // Default is 0 [0-59] integer
+						words: { //words displayed into the countdown
+								days: {
+										singular: 'Hari',
+								},
+								hours: {
+										singular: 'Jam',
+								},
+								minutes: {
+										singular: 'Menit',
+								},
+								seconds: {
+										singular: 'Detik',
+								}
+						},
+						plural: false, //use plurals
+						inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
+						inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
+						// in case of inline set to false
+						enableUtc: false,
+						onEnd: function() {
+								// your code
+								return;
+						},
+						refresh: 1000, //default refresh every 1s
+						sectionClass: 'simply-section', //section css class
+						amountClass: 'simply-amount', // amount css class
+						wordClass: 'simply-word', // word css class
+						zeroPad: false,
+						countUp: false, // enable count up if set to true
+				});
+
+				// Also, you can init with already existing Javascript Object.
+				let myElement = document.querySelector('.my-countdown');
+				simplyCountdown(myElement, {
+						/* options */
+				});
+
+				let multipleElements = document.querySelectorAll('.my-countdown');
+				simplyCountdown(multipleElements, {
+						/* options */
+				});
+		</script>
+@endpush
