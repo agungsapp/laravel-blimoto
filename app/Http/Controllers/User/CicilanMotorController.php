@@ -281,11 +281,9 @@ class CicilanMotorController extends Controller
       ->where('tenor', $tenor)
       ->where('id_lokasi', $id_lokasi)
       ->whereBetween('cicilan', [$cicilan_motor[0]->cicilan - $cicilanRange, $cicilan_motor[0]->cicilan + $cicilanRange])
-      ->orderBy('cicilan', 'asc')
       ->take(3)
       ->get();
 
-    $recommendationCicilan = $recommendationCicilan->unique('nama_leasing');
     $rekomendasiMotor = [];
     foreach ($recommendationCicilan as $recommendation) {
       if (!$recommendation->motor) {
