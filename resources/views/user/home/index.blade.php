@@ -59,9 +59,9 @@
 																																alt="{{ $item1->image }}" />
 																												</a>
 																										</div>
-																										<button type="button" class="btn btn-outline btn-cart">
+																										{{-- <button type="button" class="btn btn-outline btn-cart">
 																												Lihat Promo
-																										</button>
+																										</button> --}}
 																										<div class="best-label">
 																												<div>Best Diskon</div>
 																										</div>
