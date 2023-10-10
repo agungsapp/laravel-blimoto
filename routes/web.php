@@ -89,6 +89,7 @@ Route::get('/get-type', [HomeController::class, 'getTypeMotor']);
 Route::get('/get-merk', [HomeController::class, 'getMerkMotor']);
 Route::get('/get-tenor', [HomeController::class, 'getTenor']);
 Route::get('/get-kota', [HomeController::class, 'getLokasi']);
+Route::get('/search-motor', [HomeController::class, 'getSearchMotor']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);

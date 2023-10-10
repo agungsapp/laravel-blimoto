@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leasing_motor', function (Blueprint $table) {
+        Schema::create('slik', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('gambar');
-            $table->float('diskon_normal');
-            $table->float('diskon');
+            $table->string('ktp');
+            $table->string('kk');
+            $table->string('status');
+            $table->unsignedBigInteger('id_type_slik');
+            // Add foreign key constraint if needed
+            $table->foreign('id_type_slik')->references('id')->on('type_slik');
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leasing_motor');
+        Schema::dropIfExists('slik');
     }
 };

@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LeasingMotor extends Model
+class TypeSlik extends Model
 {
-  protected $table = 'leasing_motor';
+  protected $table = 'type_slik';
   public $timestamps = false;
   protected $fillable = [
     'nama',
-    'diskon',
-    'diskon_normal',
-    'gambar'
+    'harga',
   ];
 }

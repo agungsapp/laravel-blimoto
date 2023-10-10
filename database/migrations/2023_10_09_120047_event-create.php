@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leasing_motor', function (Blueprint $table) {
+        Schema::create('event', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('gambar');
-            $table->float('diskon_normal');
-            $table->float('diskon');
+            $table->string('judul');
+            $table->text('deskripsi');
+            $table->string('thumbnail_berita');
+            // Add other columns as needed
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leasing_motor');
+        Schema::dropIfExists('event');
     }
 };

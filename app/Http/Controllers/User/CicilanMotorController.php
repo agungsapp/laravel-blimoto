@@ -285,6 +285,7 @@ class CicilanMotorController extends Controller
       ->take(3)
       ->get();
 
+    $recommendationCicilan = $recommendationCicilan->unique('nama_leasing');
     $rekomendasiMotor = [];
     foreach ($recommendationCicilan as $recommendation) {
       if (!$recommendation->motor) {

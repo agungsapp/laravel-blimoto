@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leasing_motor', function (Blueprint $table) {
+        Schema::create('type_slik', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('gambar');
-            $table->float('diskon_normal');
-            $table->float('diskon');
+            $table->integer('harga');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leasing_motor');
+        Schema::dropIfExists('type_slik');
     }
 };
