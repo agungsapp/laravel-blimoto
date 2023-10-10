@@ -10,6 +10,7 @@ use App\Models\Hook;
 use App\Models\Merk;
 use App\Models\Mitra;
 use App\Models\Motor;
+use App\Models\MotorKota;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -166,6 +167,22 @@ class HomeController extends Controller
         return response()->json($distinctKotaNama);
     }
 
+
+    public function getSearchMotor(Request $request)
+    {
+        $motorNama = $request->input('motor');
+        $idLokasi = intval($request->input('id-lokasi'));
+
+        $results = DB::table('motor_kota')
+            ->join('motor', 'motor_kota.id', '=', 'motor.id')
+            ->join('detail_motor', 'motor.id', '=', 'detail_motor.id_motor')
+            ->where('motor_kota.id_kota', '=', $idLokasi)
+            ->where('motor.nama', 'LIKE', "%$motorNama%")
+            ->get();
+        return response()->json([
+            'data' => $results,
+        ], 200);
+    }
 
     // get gambar pada detail :
     private function getMotorData($bestMotorId)

@@ -11,6 +11,7 @@ class LeasingMotor extends Model
   protected $fillable = [
     'nama',
     'diskon',
+    'diskon_normal',
     'gambar'
   ];
 }

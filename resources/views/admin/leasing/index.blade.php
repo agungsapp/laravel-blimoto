@@ -15,6 +15,10 @@
               <input name="nama" type="text" class="form-control" id="nama-leasing" placeholder="Masukan leasing (FIF Group, Adira, dll)">
             </div>
             <div class="form-group">
+              <label for="diskon-motor">Diskon Normal Leasing</label>
+              <input name="diskon_normal" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon normal leasing (0.20 = 20%, 0.50 = 50%, dll)">
+            </div>
+            <div class="form-group">
               <label for="diskon-motor">Diskon Leasing</label>
               <input name="diskon" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon leasing (0.20 = 20%, 0.50 = 50%, dll)">
             </div>
@@ -46,6 +50,7 @@
               <tr>
                 <th>NO</th>
                 <th>Nama Leasing</th>
+                <th>Diskon normal</th>
                 <th>Diskon Leasing</th>
                 <th>Gambar Leasing</th>
                 <th width="170px">Action</th>
@@ -56,6 +61,7 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$l->nama}}</td>
+                <td>{{($l->diskon_normal * 100).'%' }}</td>
                 <td>{{($l->diskon * 100).'%' }}</td>
                 <td>
                   <img width="150px" src="/assets/images/custom/leasing/{{ $l->gambar }}" alt="{{ $l->gambar }}" srcset="">
@@ -92,6 +98,10 @@
                                 <div class="form-group">
                                   <label for="nama-leasing">Nama Leasing</label>
                                   <input value="{{$l->nama}}" name="nama" type="text" class="form-control" id="nama-leasing" placeholder="Masukan leasing (FIF Group, Adira, dll)">
+                                </div>
+                                <div class="form-group">
+                                  <label for="diskon-motor">Diskon Normal Leasing</label>
+                                  <input name="diskon_normal" type="text" class="form-control" id="diskon-motor" placeholder="Masukan diskon normal leasing (0.20 = 20%, 0.50 = 50%, dll)" value="{{($l->diskon_normal * 100).'%'}}">
                                 </div>
                                 <div class="form-group">
                                   <label for="diskon-motor">Diskon Leasing</label>

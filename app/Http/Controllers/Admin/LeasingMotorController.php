@@ -33,13 +33,18 @@ class LeasingMotorController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
+      'diskon_normal' => 'required',
       'diskon' => 'required',
       'gambar' => 'required|mimes:jpeg,png,jpg,webp',
     ]);
 
     $diskon = $request->input('diskon');
+    $diskonNormal = $request->input('diskon_normal');
     if (strpos($diskon, '%') !== false) {
       $diskon = (float)rtrim($diskon, '%') / 100;
+    }
+    if (strpos($diskonNormal, '%') !== false) {
+      $diskonNormal = (float)rtrim($diskonNormal, '%') / 100;
     }
 
     if ($validator->fails()) {
@@ -58,6 +63,7 @@ class LeasingMotorController extends Controller
       $leasing = LeasingMotor::create([
         'nama' => $request->input('nama'),
         'diskon' => $diskon,
+        'diskon_normal' => $diskonNormal,
         'gambar' => $gambarName
       ]);
       flash()->addSuccess("Leasing $leasing->nama berhasil dibuat");
@@ -84,8 +90,12 @@ class LeasingMotorController extends Controller
     ]);
 
     $diskon = $request->input('diskon');
+    $diskonNormal = $request->input('diskon_normal');
     if (strpos($diskon, '%') !== false) {
       $diskon = (float)rtrim($diskon, '%') / 100;
+    }
+    if (strpos($diskonNormal, '%') !== false) {
+      $diskonNormal = (float)rtrim($diskonNormal, '%') / 100;
     }
 
     if ($validator->fails()) {
@@ -116,6 +126,7 @@ class LeasingMotorController extends Controller
       }
       $leasing->nama = $request->nama;
       $leasing->diskon = $diskon;
+      $leasing->diskon_normal = $diskonNormal;
       $leasing->save();
 
       // Redirect back with a success message
