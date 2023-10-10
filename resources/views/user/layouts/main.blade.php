@@ -107,7 +107,50 @@
 				.space-l {
 						margin-left: 20px !important;
 				}
+
+
+				/* count css */
+				/* Gaya container untuk countdown */
+				.timer {
+						display: flex;
+						/* Menggunakan tata letak flex */
+						flex-direction: row;
+						/* Menyusun elemen-elemen dalam baris */
+						align-items: center;
+						/* Pusatkan elemen secara vertikal */
+				}
+
+				/* Gaya untuk kotak merah */
+				.countdown-box {
+						background-color: red;
+						/* Warna latar belakang merah */
+						color: white;
+						/* Warna teks putih */
+						padding: 10px;
+						/* Ruang di dalam kotak */
+						margin: 5px;
+						/* Ruang di antara kotak-kotak */
+						border-radius: 5px;
+						/* Bentuk sudut kotak bulat */
+						font-size: 20px;
+						/* Ukuran font */
+				}
+
+				.simply-amount {}
+
+				.timer span {
+						/* background-color: red;
+						border-radius: 10px; */
+						font-size: 24px;
+						/* color: white; */
+				}
+
+				/* .simply-word {
+						display: none !important;
+				} */
 		</style>
+
+
 </head>
 
 <body class="bg-light">
@@ -169,6 +212,8 @@
 		<script src="{{ asset('assets') }}/js/script.js"></script>
 		<script src="{{ asset('assets') }}/js/modal.js"></script>
 
+		<script src="{{ asset('assets') }}/js/countDown.js"></script>
+
 		<!-- select 2 js  -->
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		<script src="{{ asset('assets') }}/js/custom/custom.js"></script>
@@ -178,6 +223,33 @@
 
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
 
+
+		<script>
+				var = lokasiNow = 1;
+
+				var locationLinks = document.querySelectorAll('ul li a');
+				var defaultLocationId = '1';
+				var currentLocationId = sessionStorage.getItem('lokasiUser');
+
+				if (!currentLocationId) {
+						currentLocationId = defaultLocationId;
+						sessionStorage.setItem('lokasiUser', defaultLocationId);
+				}
+
+				for (var i = 0; i < locationLinks.length; i++) {
+						locationLinks[i].addEventListener('click', function(e) {
+								e.preventDefault();
+								var id = this.dataset.id;
+								var location = this.textContent;
+								sessionStorage.setItem('lokasiUser', id);
+								var selectElement = document.querySelector('.dark-menu-item');
+								selectElement.textContent = location;
+
+								// Update nilai variabel global saat lokasi berubah
+								lokasiNow = id;
+						});
+				}
+		</script>
 
 		@stack('script')
 

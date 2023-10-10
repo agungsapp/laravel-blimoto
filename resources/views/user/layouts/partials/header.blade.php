@@ -44,16 +44,18 @@
 												<div class="categroy-contain">
 														<ul id="main-menu-header"
 																class="sm pixelstrap sm-horizontal align-items-center justify-content-center d-flex">
+
 																<li>
-																		<a class="dark-menu-item"><i class="fa fa-map-marker"></i> Lokasi</a>
-																		<ul>
-																				<li><a href="index.html">Jakarta Selatan</a></li>
-																				<li><a href="layout-2.html">Depok</a></li>
-																				<li><a href="layout-2.html">Bogor</a></li>
-																				<li><a href="layout-2.html">Tanggerang</a></li>
-																				<li><a href="layout-2.html">Bekasi</a></li>
+																		<a class="dark-menu-item"><i class="fa fa-map-marker"></i>Lokasi</a>
+																		<ul id="select-lokasi-user">
+																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
+																				<li><a href="#" data-id="2">Depok</a></li>
+																				<li><a href="#" data-id="3">Bogor</a></li>
+																				<li><a href="#" data-id="4">Tanggerang</a></li>
+																				<li><a href="#" data-id="5">Bekasi</a></li>
 																		</ul>
 																</li>
+
 																<li>
 																		<a href="{{ route('login') }}"><button type="button" class="btn bg-basic text-white"
 																						style="padding-left: 2.5rem; padding-right: 2.5rem">

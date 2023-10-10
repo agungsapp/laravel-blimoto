@@ -585,3 +585,10 @@ function clearModalContent(elementId) {
     parentElement.removeChild(parentElement.firstChild);
   }
 }
+
+// $(document).ready(function () {
+//   var detailLink = document.getElementById("detail-link");
+//   detailLink.href += lokasiNow;
+// })
+
+
