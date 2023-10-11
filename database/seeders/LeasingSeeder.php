@@ -17,27 +17,27 @@ class LeasingSeeder extends Seeder
         $data = [
             [
                 'nama' => 'FIF Group',
-                'diskon_normal' => 0.20,
+                'diskon_normal' => 0.10,
                 'diskon' => 0.20,
-                'gambar' => 'fif.jpg',
+                'gambar' => '2023-10-11_W1.webp',
             ],
             [
                 'nama' => 'Adira',
                 'diskon_normal' => 0.10,
                 'diskon' => 0.40,
-                'gambar' => 'adira.png',
+                'gambar' => '2023-10-11_W4.webp',
             ],
             [
                 'nama' => 'OTO',
                 'diskon_normal' => 0.30,
                 'diskon' => 0.50,
-                'gambar' => 'oto.jpg',
+                'gambar' => '2023-10-11_w2.webp',
             ],
             [
                 'nama' => 'MCF',
-                'diskon_normal' => 0.40,
+                'diskon_normal' => 0.10,
                 'diskon' => 0.40,
-                'gambar' => '2023-10-09_Mega-Central-Finance.jpg',
+                'gambar' => '2023-10-11_W3.webp',
             ],
         ];
         DB::table('leasing_motor')->insert($data);
