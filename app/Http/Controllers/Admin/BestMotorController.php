@@ -17,10 +17,9 @@ class BestMotorController extends Controller
    */
   public function index(Request $request)
   {
-    $search = $request->get('search');
     $data = DB::table('best_motor')
-      ->where('nama', 'LIKE', "%{$search}%")
-      ->paginate(10);
+      ->get();
+
     return view('admin.best-motor.index', [
       'best_motors' => $data
     ]);

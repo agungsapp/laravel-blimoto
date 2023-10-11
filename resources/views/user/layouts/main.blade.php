@@ -49,8 +49,12 @@
 		<!-- css custom agung -->
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/custom/custom.css" />
 
-		<link rel="stylesheet" href="{{ asset('assets') }}//owl/owl.carousel.min.css" />
-		<link rel="stylesheet" href="{{ asset('assets') }}//owl/owl.theme.default.min.css" />
+		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.carousel.min.css" />
+		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.theme.default.min.css" />
+
+		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
+		<script src="{{ asset('assets') }}/js/countDown.js"></script>
+
 
 		<!-- sweat alert -->
 		{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> --}}
@@ -107,47 +111,6 @@
 				.space-l {
 						margin-left: 20px !important;
 				}
-
-
-				/* count css */
-				/* Gaya container untuk countdown */
-				.timer {
-						display: flex;
-						/* Menggunakan tata letak flex */
-						flex-direction: row;
-						/* Menyusun elemen-elemen dalam baris */
-						align-items: center;
-						/* Pusatkan elemen secara vertikal */
-				}
-
-				/* Gaya untuk kotak merah */
-				.countdown-box {
-						background-color: red;
-						/* Warna latar belakang merah */
-						color: white;
-						/* Warna teks putih */
-						padding: 10px;
-						/* Ruang di dalam kotak */
-						margin: 5px;
-						/* Ruang di antara kotak-kotak */
-						border-radius: 5px;
-						/* Bentuk sudut kotak bulat */
-						font-size: 20px;
-						/* Ukuran font */
-				}
-
-				.simply-amount {}
-
-				.timer span {
-						/* background-color: red;
-						border-radius: 10px; */
-						font-size: 24px;
-						/* color: white; */
-				}
-
-				/* .simply-word {
-						display: none !important;
-				} */
 		</style>
 
 
@@ -212,7 +175,6 @@
 		<script src="{{ asset('assets') }}/js/script.js"></script>
 		<script src="{{ asset('assets') }}/js/modal.js"></script>
 
-		<script src="{{ asset('assets') }}/js/countDown.js"></script>
 
 		<!-- select 2 js  -->
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

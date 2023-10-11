@@ -520,3 +520,10 @@ section .simulasi-container .simulasi-wrapper .card {
 .stok h3 {
     font-size: 1.2em !important;
 }
+
+/* coount down  */
+
+/* .simply-section.simply-days-section div {
+    display: flex;
+    flex-direction: column;
+} */
