@@ -131,6 +131,7 @@ class HomeController extends Controller
             ->where('tenor', $tenor)
             ->pluck('dp');
 
+        $dps = $dps->unique();
         return response()->json(['dp' => $dps]);
     }
 
