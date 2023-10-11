@@ -513,3 +513,10 @@ section .simulasi-container .simulasi-wrapper .card {
     font-size: 1.3em !important;
     color: #dd0202 !important;
 }
+
+.stok p {
+    font-size: 1.3em !important;
+}
+.stok h3 {
+    font-size: 1.2em !important;
+}
