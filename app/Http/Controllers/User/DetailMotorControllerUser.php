@@ -91,8 +91,8 @@ class DetailMotorControllerUser extends Controller
 
   public function getDetailMotor(Request $request)
   {
-    $motorId = $request->input('id-motor');
-    $lokasiId = $request->input('id-lokasi');
+    $motorId = $request->input('id_motor');
+    $lokasiId = $request->input('id_lokasi');
     $detailMotor  = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
       ->with([
         'merk' => function ($query) {
@@ -134,7 +134,9 @@ class DetailMotorControllerUser extends Controller
       ],
       'diskon_leasing' => $diskonLeasing
     ];
-    
-    dd($data);
+
+
+    // dd($data);
+    return view('user.home.try', $data);
   }
 }
