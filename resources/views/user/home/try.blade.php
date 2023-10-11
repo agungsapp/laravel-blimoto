@@ -490,7 +490,7 @@
 																		<div class="product-right">
 																				<div class="pro-group d-flex justify-content-between align-items-baseline">
 																						<div>
-																								<h2>BeAt</h2>
+																								<h2>{{ $motor['nama'] }}</h2>
 																								<ul class="pro-price">
 																										<li>Rp. 19.450.000</li>
 																								</ul>
