@@ -93,7 +93,7 @@ class DetailMotorControllerUser extends Controller
   {
     $motorId = $request->input('id-motor');
     $lokasiId = $request->input('id-lokasi');
-    $detailMotor  = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
+    $detailMotor  = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
       ->with([
         'merk' => function ($query) {
           $query->select('id', 'nama');
@@ -108,16 +108,19 @@ class DetailMotorControllerUser extends Controller
       ->where('stock', 1)
       ->find($motorId);
 
-    $cicilanMotor = CicilanMotor::select('id', 'dp', 'id_leasing')
-      ->with([
-        'leasingMotor' => function ($query) {
-          $query->select('id', 'nama', 'diskon', 'diskon_normal');
-        }
-      ])
+    $diskonLeasing = DB::table('cicilan_motor')
+      ->select(DB::raw('MAX(cicilan_motor.dp) as dp'), DB::raw('MAX(cicilan_motor.tenor) as tenor'), 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.id')
+      ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+      ->where('cicilan_motor.id_motor', $motorId)
+      ->groupBy('leasing_motor.id', 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon')
       ->get();
     // ->where('id_lokasi', $lokasiId);
 
-
+    foreach ($diskonLeasing as $key => $c) {
+      $c->diskon_normal = round($c->dp * $c->diskon_normal);
+      $c->diskon = round($c->dp * $c->diskon);
+    }
 
     $data = [
       'motor' => [
@@ -125,11 +128,13 @@ class DetailMotorControllerUser extends Controller
         'harga' => $detailMotor->harga,
         'merk' => $detailMotor->merk->nama,
         'type' => $detailMotor->type->nama,
+        'deskripsi' => $detailMotor->deskripsi,
+        'fitur' => $detailMotor->fitur_utama,
         'detail_motor' => $detailMotor->detailMotor,
       ],
-      'cicilan_motor' => $cicilanMotor
+      'diskon_leasing' => $diskonLeasing
     ];
-    // dd($data);
-    return response()->json($cicilanMotor, 200);
+    
+    dd($data);
   }
 }
