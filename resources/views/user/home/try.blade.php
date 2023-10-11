@@ -1,5 +1,31 @@
 @extends('user.layouts.main')
 @section('content')
+		<!-- breadcrumb start -->
+		<div class="breadcrumb-main bg-dark">
+				<div class="container">
+						<div class="row">
+								<div class="col">
+										<div class="breadcrumb-contain">
+												<div>
+														<h2 class="text-white">Detail</h2>
+														<ul>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">home</a>
+																</li>
+																<li><i class="fa fa-angle-double-right text-white"></i></li>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">detail motor </a>
+																</li>
+														</ul>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
+		<!-- breadcrumb End -->
+
+
 		<!-- section start -->
 		<section class="section-big-pt-space b-g-light">
 				<div class="collection-wrapper">
@@ -447,7 +473,8 @@
 												<div class="container-fluid">
 														<div class="row">
 																<div class="col-xl-12">
-																		<div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter" aria-hidden="true"></i>
+																		<div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter"
+																								aria-hidden="true"></i>
 																						filter</span></div>
 																</div>
 														</div>
@@ -469,7 +496,9 @@
 																		</div>
 																		<div class="row">
 																				<div class="col-12 p-0">
-																						<h5 class="text-doff fw-bold p-3">Pilih warna favorit kamu</h5>
+																						<div class="p-3">
+																								<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
+																						</div>
 																						<div class="slider-nav">
 																								<div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
 																								</div>
@@ -504,11 +533,7 @@
 																								<li><span>Rp. 1.000.000</span></li>
 																						</ul>
 																				</div> --}}
-																				<div class="pro-group">
-																						<h6 class="product-title">Promo berlaku sampai dengan :</h6>
-																						<div class="simply-countdown" id="timer">
-																						</div>
-																				</div>
+
 																				{{-- <div id="selectSize" class="pro-group addeffect-section product-description border-product">
 																						<div class="product-buttons">
 																								<a href="javascript:void(0)" id="cartEffect" class="btn cart-btn btn-normal tooltip-top"
@@ -525,16 +550,21 @@
 																										<ul>
 
 																												@foreach ($diskon_leasing as $les)
-																														<li class="d-flex justify-content-between flex-row">
+																														<li class="d-flex justify-content-between align-items-center flex-row p-2"
+																																style="border: 1px solid #c0c0c0; border-radius: 8px;">
 																																<div class="d-flex justify-content-between">
-																																		<span class="code-lable d-flex align-items-center"
-																																				style="width: 110px">{{ Str::rupiah($les->diskon) }}</span>
+																																		<div class="d-flex flex-column justify-content-between">
+																																				<p class="fw-bold">Diskon Promo</p>
+																																				<span class="code-lable d-flex align-items-center"
+																																						style="width: 110px">{{ Str::rupiah($les->diskon) }}</span>
+																																		</div>
 																																		<div class="ms-3">
 																																				<h5>{{ $les->nama }}</h5>
-																																				<del class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																				<p class="fw-bold">Diskon normal : </p><del
+																																						class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
 																																		</div>
 																																</div>
-																																<button class="btn btn-sm btn-danger ms-3">Lihat detail</button>
+																																<button class="btn btn-sm bg-basic ms-3 text-white">Lihat detail</button>
 																														</li>
 																												@endforeach
 
@@ -549,6 +579,14 @@
 																												</li> --}}
 																										</ul>
 																								</div>
+																						</div>
+																				</div>
+																				<div class="pro-group">
+																						<div class="d-flex justify-content-between">
+																								<h6 class="product-title">Promo berlaku sampai dengan :</h6>
+																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">11 Oktober 2023</p>
+																						</div>
+																						<div class="simply-countdown" id="timer">
 																						</div>
 																				</div>
 																		</div>
@@ -566,8 +604,9 @@
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
-																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
+																								href="#top-feature" role="tab" aria-selected="false"><i
+																										class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
