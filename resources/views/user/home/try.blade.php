@@ -486,13 +486,19 @@
 																				</div>
 																		</div>
 																</div>
-																<div class="col-lg-6 rtl-text">
+																<div class="col-lg-6 rtl-text mt-lg-0 mt-5">
 																		<div class="product-right">
-																				<div class="pro-group">
-																						<h2>Mungkin BeAt</h2>
-																						<ul class="pro-price">
-																								<li>Rp. 19.450.000</li>
-																						</ul>
+																				<div class="pro-group d-flex justify-content-between align-items-baseline">
+																						<div>
+																								<h2>BeAt</h2>
+																								<ul class="pro-price">
+																										<li>Rp. 19.450.000</li>
+																								</ul>
+																						</div>
+																						<div class="d-flex align-items-baseline stok">
+																								<p class="me-3">Stok: </p>
+																								<h3 class="badge badge-pill bg-success badge-success">Tersedia</h3>
+																						</div>
 																				</div>
 																				<div class="pro-group">
 																						<h5 class="text-doff mb-2">Potongan diskon terbaik</h5>
@@ -605,19 +611,7 @@
 																														<td>150cc</td>
 																												</tr>
 																										</tbody>
-																										{{-- </table>
-																								<table>
-																										<tbody>
-																												<tr>
-																														<td>Length</td>
-																														<td>50 Inches</td>
-																												</tr>
-																												<tr>
-																														<td>Size</td>
-																														<td>S, M, L .XXL</td>
-																												</tr>
-																										</tbody>
-																								</table> --}}
+																								</table>
 																						</div>
 																				</div>
 																				<div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
