@@ -53,10 +53,22 @@ class BestMotorController extends Controller
       return redirect()->back();
     }
 
+    $nama = $request->input('nama');
+    $lowercaseNama = strtolower($nama);
+
+    $existingMotor = BestMotor::whereRaw("LOWER(nama) = ?", [$lowercaseNama])->first();
+
+    if ($existingMotor) {
+      flash()->addError("Nama $nama sudah ada!");
+      return redirect()->back();
+    }
+
+    
     try {
       $best_motor = BestMotor::create([
-        'nama' => $request->input('nama')
+        'nama' => $nama
       ]);
+
       flash()->addSuccess("Kategori $best_motor->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
