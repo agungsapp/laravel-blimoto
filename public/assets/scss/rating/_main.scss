@@ -1,7 +1,12 @@
 @import "variables.scss";
 @import "mixins.scss";
 .antennaio {
-    @include retina-image('../img/antenna.png', '../img/antenna$2x.png', 60px, 60px);
+    @include retina-image(
+        "../img/antenna.png",
+        "../img/antenna$2x.png",
+        60px,
+        60px
+    );
     background-repeat: no-repeat;
     color: lighten($textColor, 35%);
     width: 280px;
@@ -14,8 +19,8 @@
     letter-spacing: 2px;
     margin-bottom: 7em;
 
-    -webkit-transition: color  2s;
-    transition: color  2s;
+    -webkit-transition: color 2s;
+    transition: color 2s;
 
     &:hover {
         color: $textColor;
@@ -27,7 +32,7 @@
 }
 
 .bars {
-    @include retina-image('../img/bars.png', '../img/bars$2x.png', 80px, 80px);
+    @include retina-image("../img/bars.png", "../img/bars$2x.png", 80px, 80px);
     width: 80px;
     height: 80px;
     display: block;
@@ -64,7 +69,7 @@
     margin: 3em 0;
 }
 
-@mixin coloredDocs($color){
+@mixin coloredDocs($color) {
     header {
         background: $color;
     }
@@ -98,15 +103,19 @@
     width: 800px;
     margin: auto;
     max-height: 9999px; /* no font boosting please */
-    .how-to-use, .callbacks, .download {
+    .how-to-use,
+    .callbacks,
+    .download {
         @include coloredDocs($blueColor);
     }
 
-    .configuration, .faq {
+    .configuration,
+    .faq {
         @include coloredDocs($greenColor);
     }
 
-    .license, .methods {
+    .license,
+    .methods {
         @include coloredDocs($orangeColor);
     }
 
@@ -117,7 +126,7 @@
 
     .faq {
         p {
-            margin: 0 0 .5em 0;
+            margin: 0 0 0.5em 0;
         }
 
         .question {
@@ -142,13 +151,13 @@
         background-color: $greenColor;
         color: white;
         float: left;
-        padding: .3em 1em .5em 1em;
+        padding: 0.3em 1em 0.5em 1em;
         text-decoration: none;
         text-align: center;
         font-weight: 400;
 
-        -webkit-transition: background-color  2s;
-        transition: background-color  2s;
+        -webkit-transition: background-color 2s;
+        transition: background-color 2s;
 
         &:hover {
             background-color: darken($greenColor, 5%);
@@ -193,7 +202,6 @@
    ========================================================================== */
 
 @media only screen and (min-width: 35em) {
-
 }
 
 @media print {
@@ -245,7 +253,8 @@
                 color: black;
             }
 
-            code, strong {
+            code,
+            strong {
                 color: black;
             }
 
@@ -259,7 +268,6 @@
             }
         }
     }
-
 }
 
 /* ==========================================================================
