@@ -162,12 +162,12 @@ $(document).ready(function () {
 																		<p class="nama-motor">${motorData.type}</p>
 																</div>
 																<div class="d-flex justify-content-between mt-2">
-																		<h6 class="fw-bold text-doff nama-motor">Honda</h6>
+																		<h6 class="fw-bold text-doff nama-motor">Merk</h6>
 																		<p class="nama-motor">${motorData.merk}</p>
 																</div>
 																<div class="d-flex justify-content-between mt-2">
 																		<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-																		<p class="nama-motor" style="font-weight: bold; color: green;">Ready</p>
+																		<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
 																</div>
 														</div>
     `;
@@ -299,14 +299,14 @@ $(document).ready(function () {
                                       }</p>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
-                                      <h6 class="fw-bold text-doff nama-motor">Honda</h6>
+                                      <h6 class="fw-bold text-doff nama-motor">Merk</h6>
                                       <p class="nama-motor">${
                                           rekomendasiItem.motor.merk
                                       }</p>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
 																		<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-																		<p class="nama-motor" style="font-weight: bold; color: green;">Ready</p>
+																		<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
 																</div>
                               </div>
                           </div>
