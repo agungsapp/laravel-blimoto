@@ -362,7 +362,7 @@
 														style="flex-direction: row;">
 												</div>
 										</div>
-										<h3 class="text-dark mt-5 text-center">Rekomendasi yang cocok buat lo yang kurang dengan angsuran di atas.</h3>
+										<img class="mt-5 mx-auto d-block" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp" class="w-100" alt="banner">
 										<div id="rekomendasi-wrapper-baru">
 
 										</div>
