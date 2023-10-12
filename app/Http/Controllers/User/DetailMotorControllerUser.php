@@ -109,11 +109,11 @@ class DetailMotorControllerUser extends Controller
       ->find($motorId);
 
     $diskonLeasing = DB::table('cicilan_motor')
-      ->select(DB::raw('MAX(cicilan_motor.dp) as dp'), DB::raw('MAX(cicilan_motor.tenor) as tenor'), 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.id')
+      ->select(DB::raw('MAX(cicilan_motor.dp) as dp'), DB::raw('MAX(cicilan_motor.tenor) as tenor'), 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.id', 'leasing_motor.gambar')
       ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->where('cicilan_motor.id_motor', $motorId)
-      ->groupBy('leasing_motor.id', 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon')
+      ->groupBy('leasing_motor.id', 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.gambar')
       ->get();
     // ->where('id_lokasi', $lokasiId);
 
@@ -136,7 +136,7 @@ class DetailMotorControllerUser extends Controller
     ];
 
 
-    // dd($data);
+    dd($data);
     return view('user.home.try', $data);
   }
 }
