@@ -496,6 +496,11 @@ section .simulasi-container .simulasi-wrapper .card {
     color: #198754 !important;
 }
 
+.hidden-pseudo .slick-prev::before,
+.hidden-pseudo .slick-next::before {
+    display: none;
+}
+
 .slick-prev {
     left: 50px !important;
 }
@@ -527,3 +532,21 @@ section .simulasi-container .simulasi-wrapper .card {
     display: flex;
     flex-direction: column;
 } */
+
+/* .slick-next,
+.slick-prev {
+    transition: opacity 0.5s ease-in-out;
+} */
+
+/* Mengatur display awal .slick-next dan .slick-prev menjadi none */
+#leasing-baru ~ .slick-next,
+#leasing-baru ~ .slick-prev {
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Ketika mouse hover ke #leasing-baru, ubah display .slick-next dan .slick-prev menjadi block */
+#leasing-baru:hover ~ .slick-next,
+#leasing-baru:hover ~ .slick-prev {
+    display: block;
+}
