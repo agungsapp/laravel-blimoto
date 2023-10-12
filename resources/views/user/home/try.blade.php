@@ -1,5 +1,31 @@
 @extends('user.layouts.main')
 @section('content')
+		<!-- breadcrumb start -->
+		<div class="breadcrumb-main bg-dark">
+				<div class="container">
+						<div class="row">
+								<div class="col">
+										<div class="breadcrumb-contain">
+												<div>
+														<h2 class="text-white">Detail</h2>
+														<ul>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">home</a>
+																</li>
+																<li><i class="fa fa-angle-double-right text-white"></i></li>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">detail motor </a>
+																</li>
+														</ul>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
+		<!-- breadcrumb End -->
+
+
 		<!-- section start -->
 		<section class="section-big-pt-space b-g-light">
 				<div class="collection-wrapper">
@@ -447,7 +473,8 @@
 												<div class="container-fluid">
 														<div class="row">
 																<div class="col-xl-12">
-																		<div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter" aria-hidden="true"></i>
+																		<div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter"
+																								aria-hidden="true"></i>
 																						filter</span></div>
 																</div>
 														</div>
@@ -455,32 +482,31 @@
 																<div class="col-lg-6">
 																		<div class="product-slick">
 																				<div>
-																						<img src="/assets/images/product-sidebar/pro1.webp" alt="pro1.webp"
-																								class="img-fluid image_zoom_cls-0">
+																						<img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid image_zoom_cls-0">
 																				</div>
 																				<div>
-																						<img src="/assets/images/product-sidebar/pro2.webp" alt="pro1.webp"
-																								class="img-fluid image_zoom_cls-1">
+																						<img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid image_zoom_cls-1">
 																				</div>
 																				<div>
-																						<img src="/assets/images/product-sidebar/pro3.webp" alt="pro1.webp"
-																								class="img-fluid image_zoom_cls-2">
+																						<img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid image_zoom_cls-2">
 																				</div>
 																				<div>
-																						<img src="/assets/images/product-sidebar/pro4.webp" alt="pro1.webp"
-																								class="img-fluid image_zoom_cls-3">
+																						<img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid image_zoom_cls-3">
 																				</div>
 																		</div>
 																		<div class="row">
 																				<div class="col-12 p-0">
+																						<div class="p-3">
+																								<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
+																						</div>
 																						<div class="slider-nav">
-																								<div><img src="/assets/images/product-sidebar/pro1.webp" alt="pro1.webp" class="img-fluid">
+																								<div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
 																								</div>
-																								<div><img src="/assets/images/product-sidebar/pro2.webp" alt="pro1.webp" class="img-fluid">
+																								<div><img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid">
 																								</div>
-																								<div><img src="/assets/images/product-sidebar/pro3.webp" alt="pro1.webp" class="img-fluid">
+																								<div><img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid">
 																								</div>
-																								<div><img src="/assets/images/product-sidebar/pro4.webp" alt="pro1.webp" class="img-fluid">
+																								<div><img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid">
 																								</div>
 																						</div>
 																				</div>
@@ -492,7 +518,7 @@
 																						<div>
 																								<h2>{{ $motor['nama'] }}</h2>
 																								<ul class="pro-price">
-																										<li>Rp. 19.450.000</li>
+																										<li>{{ Str::rupiah($motor['harga']) }}</li>
 																								</ul>
 																						</div>
 																						<div class="d-flex align-items-baseline stok">
@@ -500,18 +526,14 @@
 																								<h3 class="badge badge-pill bg-success badge-success">Tersedia</h3>
 																						</div>
 																				</div>
-																				<div class="pro-group">
+																				{{-- <div class="pro-group">
 																						<h5 class="text-doff mb-2">Potongan diskon terbaik</h5>
 																						<ul class="pro-price">
 																								<li>Rp. 1.500.000</li>
 																								<li><span>Rp. 1.000.000</span></li>
 																						</ul>
-																				</div>
-																				<div class="pro-group">
-																						<h6 class="product-title">Promo berakhir dalam :</h6>
-																						<div class="timer" id="timer">
-																						</div>
-																				</div>
+																				</div> --}}
+
 																				{{-- <div id="selectSize" class="pro-group addeffect-section product-description border-product">
 																						<div class="product-buttons">
 																								<a href="javascript:void(0)" id="cartEffect" class="btn cart-btn btn-normal tooltip-top"
@@ -527,29 +549,26 @@
 																								<div class="offer-contain">
 																										<ul>
 
-																												<li class="d-flex justify-content-between flex-row">
-																														<div class="d-flex justify-content-between">
-																																<span class="code-lable d-flex align-items-center" style="width: 110px">Rp.
-																																		1.250.000</span>
-																																<div class="ms-3">
-																																		<h5>FIF</h5>
-																																		<del class="text-danger">Rp. 500.000</del>
+																												@foreach ($diskon_leasing as $les)
+																														<li class="d-flex justify-content-between align-items-center flex-row p-2"
+																																style="border: 1px solid #c0c0c0; border-radius: 8px;">
+																																<div class="d-flex justify-content-between">
+																																		<div class="d-flex flex-column justify-content-between">
+																																				<p class="fw-bold">Diskon Promo</p>
+																																				<span class="code-lable d-flex align-items-center"
+																																						style="width: 110px">{{ Str::rupiah($les->diskon) }}</span>
+																																		</div>
+																																		<div class="ms-3">
+																																				<h5>{{ $les->nama }}</h5>
+																																				<p class="fw-bold">Diskon normal : </p><del
+																																						class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																		</div>
 																																</div>
-																														</div>
-																														<button class="btn btn-sm btn-success ms-3">Lihat detail</button>
-																												</li>
+																																<button class="btn btn-sm bg-basic ms-3 text-white">Lihat detail</button>
+																														</li>
+																												@endforeach
 
-																												<li class="d-flex justify-content-between flex-row">
-																														<div class="d-flex justify-content-between">
-																																<span class="code-lable d-flex align-items-center" style="width: 110px">Rp.
-																																		1.250.000</span>
-																																<div class="ms-3">
-																																		<h5>FIF</h5>
-																																		<del class="text-danger">Rp. 500.000</del>
-																																</div>
-																														</div>
-																														<button class="btn btn-sm btn-success ms-3">Lihat detail</button>
-																												</li>
+
 
 																												{{-- <li class="d-flex justify-content-between">
 																														<div class="d-flex justify-content-between align-items-baseline">
@@ -563,10 +582,12 @@
 																						</div>
 																				</div>
 																				<div class="pro-group">
-																						<h6 class="product-title">Detail Produk</h6>
-																						<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque
-																								laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto
-																								beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem,</p>
+																						<div class="d-flex justify-content-between">
+																								<h6 class="product-title">Promo berlaku sampai dengan :</h6>
+																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">11 Oktober 2023</p>
+																						</div>
+																						<div class="simply-countdown" id="timer">
+																						</div>
 																				</div>
 																		</div>
 																</div>
@@ -583,24 +604,21 @@
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
-																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
+																								href="#top-feature" role="tab" aria-selected="false"><i
+																										class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
 																		<div class="tab-content nav-material" id="top-tabContent">
 																				<div class="tab-pane fade show active" id="top-deskripsi" role="tabpanel"
 																						aria-labelledby="top-home-tab">
-																						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-																								the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-																								type and scrambled it to make a type specimen book.</p>
+																						<p>{{ $motor['deskripsi'] }}</p>
 																				</div>
 																				<div class="tab-pane fade" id="top-feature" role="tabpanel" aria-labelledby="profile-top-tab">
-																						<p class="ps-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-																								Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-																								took a galley of type and scram.</p>
+																						<p class="ps-0">{{ $motor['fitur'] }}</p>
 																						<div class="single-product-tables">
-																								<table>
+																								{{-- <table>
 																										<tbody>
 																												<tr>
 																														<td>Berat</td>
@@ -611,7 +629,7 @@
 																														<td>150cc</td>
 																												</tr>
 																										</tbody>
-																								</table>
+																								</table> --}}
 																						</div>
 																				</div>
 																				<div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
@@ -620,7 +638,7 @@
 																										allow="autoplay; encrypted-media" allowfullscreen></iframe>
 																						</div>
 																				</div>
-																				<div class="tab-pane fade" id="top-review" role="tabpanel" aria-labelledby="review-top-tab">
+																				<div class="tab-pane fade mb-5" id="top-review" role="tabpanel" aria-labelledby="review-top-tab">
 																						<form class="theme-form">
 																								<div class="row">
 																										<div class="col-md-12">
@@ -673,53 +691,31 @@
 @push('script')
 		<script>
 				// count down :
-				simplyCountdown('.timer', {
+				simplyCountdown('#timer', {
 						year: 2023, // required
 						month: 10, // required
-						day: 10, // required
-						hours: 23, // Default is 0 [0-23] integer
+						day: 11, // required
+						hours: 24, // Default is 0 [0-23] integer
 						minutes: 0, // Default is 0 [0-59] integer
 						seconds: 0, // Default is 0 [0-59] integer
 						words: { //words displayed into the countdown
 								days: {
 										singular: 'Hari',
+										plural: 'Hari'
 								},
 								hours: {
 										singular: 'Jam',
+										plural: 'Jam'
 								},
 								minutes: {
 										singular: 'Menit',
+										plural: 'Menit'
 								},
 								seconds: {
 										singular: 'Detik',
+										plural: 'Detik'
 								}
 						},
-						plural: false, //use plurals
-						inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
-						inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
-						// in case of inline set to false
-						enableUtc: false,
-						onEnd: function() {
-								// your code
-								return;
-						},
-						refresh: 1000, //default refresh every 1s
-						sectionClass: 'simply-section', //section css class
-						amountClass: 'simply-amount', // amount css class
-						wordClass: 'simply-word', // word css class
-						zeroPad: false,
-						countUp: false, // enable count up if set to true
-				});
-
-				// Also, you can init with already existing Javascript Object.
-				let myElement = document.querySelector('.my-countdown');
-				simplyCountdown(myElement, {
-						/* options */
-				});
-
-				let multipleElements = document.querySelectorAll('.my-countdown');
-				simplyCountdown(multipleElements, {
-						/* options */
-				});
+				})
 		</script>
 @endpush
