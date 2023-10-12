@@ -92,8 +92,9 @@ class DetailMotorControllerUser extends Controller
   public function getDetailMotor(Request $request)
   {
     $motorId = $request->input('id_motor');
-    $lokasiId = $request->input('id_lokasi');
-    $detailMotor  = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
+    // $lokasiId = $request->input('id_lokasi');
+
+    $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
       ->with([
         'merk' => function ($query) {
           $query->select('id', 'nama');
@@ -101,19 +102,32 @@ class DetailMotorControllerUser extends Controller
         'type' => function ($query) {
           $query->select('id', 'nama');
         },
-        'detailMotor' => function ($query) {
-          $query->select('id_motor', 'warna', 'gambar');
-        },
       ])
       ->where('stock', 1)
       ->find($motorId);
 
+    $detailMotor  = DetailMotor::select(
+      'detail_motor.id',
+      'detail_motor.gambar',
+      'detail_motor.warna',
+    )
+      ->where('detail_motor.id_motor', $motorId)
+      ->get();
+
     $diskonLeasing = DB::table('cicilan_motor')
-      ->select(DB::raw('MAX(cicilan_motor.dp) as dp'), DB::raw('MAX(cicilan_motor.tenor) as tenor'), 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.id')
+      ->select(
+        DB::raw('MAX(cicilan_motor.dp) as dp'),
+        DB::raw('MAX(cicilan_motor.tenor) as tenor'),
+        'leasing_motor.gambar',
+        'leasing_motor.nama',
+        'leasing_motor.diskon_normal',
+        'leasing_motor.diskon',
+        'leasing_motor.id',
+      )
       ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->where('cicilan_motor.id_motor', $motorId)
-      ->groupBy('leasing_motor.id', 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon')
+      ->groupBy('leasing_motor.id', 'leasing_motor.nama', 'leasing_motor.diskon_normal', 'leasing_motor.diskon', 'leasing_motor.gambar')
       ->get();
     // ->where('id_lokasi', $lokasiId);
 
@@ -122,21 +136,32 @@ class DetailMotorControllerUser extends Controller
       $c->diskon = round($c->dp * $c->diskon);
     }
 
+
     $data = [
       'motor' => [
-        'nama' => $detailMotor->nama,
-        'harga' => $detailMotor->harga,
-        'merk' => $detailMotor->merk->nama,
-        'type' => $detailMotor->type->nama,
-        'deskripsi' => $detailMotor->deskripsi,
-        'fitur' => $detailMotor->fitur_utama,
-        'detail_motor' => $detailMotor->detailMotor,
+        'nama' => $motor->nama,
+        'harga' => $motor->harga,
+        'merk' => $motor->merk->nama,
+        'type' => $motor->type->nama,
+        'deskripsi' => $motor->deskripsi,
+        'fitur' => $motor->fitur_utama,
+        'detail_motor' => $detailMotor,
       ],
       'diskon_leasing' => $diskonLeasing
     ];
 
 
+
     // dd($data);
-    return view('user.home.try', $data);
+    return view('user.detail.detail_motor', $data);
+  }
+
+
+
+
+
+  public function getDetailLeasing()
+  {
+    return view('user.detail.detail_leasing');
   }
 }

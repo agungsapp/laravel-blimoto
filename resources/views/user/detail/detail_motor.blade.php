@@ -481,18 +481,13 @@
 														<div class="row">
 																<div class="col-lg-6">
 																		<div class="product-slick">
-																				<div>
-																						<img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid image_zoom_cls-0">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid image_zoom_cls-1">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid image_zoom_cls-2">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid image_zoom_cls-3">
-																				</div>
+																				@foreach ($motor['detail_motor'] as $det)
+																						<div>
+																								<img src="/assets/images/detail-motor/{{ $det->gambar }}" alt="{{ $det->gambar }}"
+																										class="img-fluid image_zoom_cls-0">
+																						</div>
+																				@endforeach
+
 																		</div>
 																		<div class="row">
 																				<div class="col-12 p-0">
@@ -500,14 +495,14 @@
 																								<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
 																						</div>
 																						<div class="slider-nav">
-																								<div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid">
-																								</div>
+																								@foreach ($motor['detail_motor'] as $det)
+																										<div>
+																												<img src="/assets/images/detail-motor/{{ $det->gambar }}" alt="{{ $det->gambar }}"
+																														class="img-fluid image_zoom_cls-0">
+																										</div>
+																								@endforeach
+																								{{-- <div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
+																								</div> --}}
 																						</div>
 																				</div>
 																		</div>
@@ -560,11 +555,21 @@
 																																		</div>
 																																		<div class="ms-3">
 																																				<h5>{{ $les->nama }}</h5>
-																																				<p class="fw-bold">Diskon normal : </p><del
-																																						class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																				<p class="fw-bold">Diskon normal : </p>
+																																				<del class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																				<p class="fw-bold btn-outline-success btn d-block btn-sm mt-2 py-0">Dp Bayar :
+																																						{{ Str::rupiah($les->dp - $les->diskon) }}</p>
+																																				<del class="fw-bold text-basic">Dp Normal :
+																																						{{ Str::rupiah($les->dp - $les->diskon_normal) }}</del>
 																																		</div>
 																																</div>
-																																<button class="btn btn-sm bg-basic ms-3 text-white">Lihat detail</button>
+																																<div>
+																																		<img width="80"
+																																				src="{{ asset('assets') }}/images/custom/leasing/{{ $les->gambar }}"
+																																				alt="{{ $les->gambar }}" srcset="">
+																																</div>
+																																<a href="{{ route('detail-leasing') }}" class="btn btn-sm bg-basic ms-3 text-white">Lihat
+																																		detail</a>
 																														</li>
 																												@endforeach
 
@@ -584,7 +589,7 @@
 																				<div class="pro-group">
 																						<div class="d-flex justify-content-between">
 																								<h6 class="product-title">Promo berlaku sampai dengan :</h6>
-																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">11 Oktober 2023</p>
+																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">15 Oktober 2023</p>
 																						</div>
 																						<div class="simply-countdown" id="timer">
 																						</div>
@@ -604,9 +609,8 @@
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
-																								href="#top-feature" role="tab" aria-selected="false"><i
-																										class="icofont icofont-man-in-glasses"></i>Feature</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
+																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
@@ -694,7 +698,7 @@
 				simplyCountdown('#timer', {
 						year: 2023, // required
 						month: 10, // required
-						day: 11, // required
+						day: 15, // required
 						hours: 24, // Default is 0 [0-23] integer
 						minutes: 0, // Default is 0 [0-59] integer
 						seconds: 0, // Default is 0 [0-59] integer

@@ -66,7 +66,6 @@ Route::post('/login', [UserLoginController::class, 'store'])->name('login.store'
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 
 // try 
-Route::get('/try', [HomeController::class, 'try'])->name('try');
 
 // User Area
 Route::resource('/home', HomeController::class);
@@ -91,6 +90,7 @@ Route::get('/get-merk', [HomeController::class, 'getMerkMotor']);
 Route::get('/get-tenor', [HomeController::class, 'getTenor']);
 Route::get('/get-kota', [HomeController::class, 'getLokasi']);
 Route::get('/detail-motor', [DetailMotorControllerUser::class, 'getDetailMotor'])->name('detail-motor');
+Route::get('/detail-leasing', [DetailMotorControllerUser::class, 'getDetailLeasing'])->name('detail-leasing');
 Route::get('/search-motor', [HomeController::class, 'getSearchMotor']);
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
