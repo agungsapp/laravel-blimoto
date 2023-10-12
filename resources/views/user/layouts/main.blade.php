@@ -10,8 +10,8 @@
 				content="Blimoto adalah startup pembelian motor baru dengan harga terbaik, proses cepat dan mudah serta terpercaya untuk wilayah jabodetabek " />
 		<meta name="keywords" content="Blimoto" />
 		<meta name="author" content="Blimoto" />
-		<link rel="icon" href="{{ asset('assets') }}//images/favicon/favicon.webp" type="image/x-icon" />
-		<link rel="shortcut icon" href="{{ asset('assets') }}//images/favicon/favicon.webp" type="image/x-icon" />
+		<link rel="icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
 		<!--Google font-->
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
@@ -26,18 +26,18 @@
 				href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 				rel="stylesheet" />
 		<!--icon css-->
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/font-awesome.css" />
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/themify.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/themify.css" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
 		<!--Slick slider css-->
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/slick.css" />
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/slick-theme.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/slick-theme.css" />
 		<!--Animate css-->
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/animate.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/animate.css" />
 		<!-- Bootstrap css -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/bootstrap.css" />
 		<!-- Theme css -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/color10.css" media="screen" id="color" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/color10.css" media="screen" id="color" />
 
 		<!-- select 2 css & js -->
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -47,10 +47,10 @@
 				href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css" />
 
 		<!-- css custom agung -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}//css/custom/custom.css" />
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/custom/custom.css" />
 
-		<link rel="stylesheet" href="{{ asset('assets') }}//owl/owl.carousel.min.css" />
-		<link rel="stylesheet" href="{{ asset('assets') }}//owl/owl.theme.default.min.css" />
+		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.carousel.min.css" />
+		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.theme.default.min.css" />
 
 		<!-- sweat alert -->
 		{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> --}}
