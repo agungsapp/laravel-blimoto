@@ -150,6 +150,18 @@ class DetailMotorControllerUser extends Controller
       'diskon_leasing' => $diskonLeasing
     ];
 
-    return view('user.home.try', $data);
+
+
+    // dd($data['motor']['detail_motor']);
+    return view('user.detail.detail_motor', $data);
+  }
+
+
+
+
+
+  public function getDetailLeasing()
+  {
+    return view('user.detail.detail_leasing');
   }
 }

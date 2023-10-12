@@ -564,7 +564,13 @@
 																																						class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
 																																		</div>
 																																</div>
-																																<button class="btn btn-sm bg-basic ms-3 text-white">Lihat detail</button>
+																																<div>
+																																		<img width="80"
+																																				src="{{ asset('assets') }}/images/custom/leasing/{{ $les->gambar }}"
+																																				alt="{{ $les->gambar }}" srcset="">
+																																</div>
+																																<a href="{{ route('detail-leasing') }}" class="btn btn-sm bg-basic ms-3 text-white">Lihat
+																																		detail</a>
 																														</li>
 																												@endforeach
 
@@ -584,7 +590,7 @@
 																				<div class="pro-group">
 																						<div class="d-flex justify-content-between">
 																								<h6 class="product-title">Promo berlaku sampai dengan :</h6>
-																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">11 Oktober 2023</p>
+																								<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">15 Oktober 2023</p>
 																						</div>
 																						<div class="simply-countdown" id="timer">
 																						</div>
@@ -694,7 +700,7 @@
 				simplyCountdown('#timer', {
 						year: 2023, // required
 						month: 10, // required
-						day: 11, // required
+						day: 15, // required
 						hours: 24, // Default is 0 [0-23] integer
 						minutes: 0, // Default is 0 [0-59] integer
 						seconds: 0, // Default is 0 [0-59] integer
