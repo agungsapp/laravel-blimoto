@@ -136,7 +136,16 @@ class DetailMotorControllerUser extends Controller
     ];
 
 
-    dd($data);
-    return view('user.home.try', $data);
+    // dd($data['motor']['detail_motor']);
+    return view('user.detail.detail_motor', $data);
+  }
+
+
+
+
+
+  public function getDetailLeasing()
+  {
+    return view('user.detail.detail_leasing');
   }
 }
