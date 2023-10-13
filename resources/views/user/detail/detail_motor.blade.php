@@ -568,8 +568,13 @@
 																																				src="{{ asset('assets') }}/images/custom/leasing/{{ $les->gambar }}"
 																																				alt="{{ $les->gambar }}" srcset="">
 																																</div>
-																																<a href="{{ route('detail-leasing') }}" class="btn btn-sm bg-basic ms-3 text-white">Lihat
-																																		detail</a>
+																																<form action="{{ route('detail-leasing') }}" method="get">
+																																		@csrf
+																																		<input type="hidden" name="id_motor" value="{{ $id_motor }}">
+																																		<input type="hidden" name="id_leasing" value="{{ $les->id }}">
+																																		<button type="submit" class="btn btn-sm bg-basic ms-3 text-white">Lihat
+																																				detail</button>
+																																</form>
 																														</li>
 																												@endforeach
 
@@ -609,8 +614,9 @@
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
-																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
+																								href="#top-feature" role="tab" aria-selected="false"><i
+																										class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
@@ -713,6 +719,7 @@
 														<!-- content tab 1 best diskon -->
 														<div id="tab-1" class="tab-content active default">
 																<div class="product-slide-5 product-m no-arrow">
+																		{{-- for loop --}}
 																		<div>
 																				<div class="product-box">
 																						<div class="product-imgbox img-rekomendasi-detail-mortor">
@@ -749,6 +756,7 @@
 																						</div>
 																				</div>
 																		</div>
+																		{{-- for loop --}}
 																</div>
 														</div>
 												</div>

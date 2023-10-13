@@ -147,7 +147,9 @@ class DetailMotorControllerUser extends Controller
         'fitur' => $motor->fitur_utama,
         'detail_motor' => $detailMotor,
       ],
-      'diskon_leasing' => $diskonLeasing
+      'diskon_leasing' => $diskonLeasing,
+      'id_motor' => $motorId
+
     ];
 
     $motorRekomendasi = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
@@ -191,6 +193,8 @@ class DetailMotorControllerUser extends Controller
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
 
-    return view('user.detail.detail_leasing');
+    // dd($data[0]);
+
+    return view('user.detail.detail_leasing', ['data' => $data]);
   }
 }

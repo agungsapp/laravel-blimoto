@@ -133,9 +133,9 @@ $(document).ready(function () {
                     document.querySelector("#motor-baru");
                 detailMotorElement.innerHTML = `
         														<img src="/assets/images/detail-motor/${motorData
-                        .detail_motor
+                        .detail_motor[0]
                         .gambar
-                    }" class="img-fluid" alt="${motorData.detail_motor.gambar
+                    }" class="img-fluid" alt="${motorData.detail_motor[0].gambar
                     }" srcset=""
 																style="max-width: 100%; height: auto;">
 														<div class="product-right py-5">
@@ -639,7 +639,59 @@ function clearModalContent(elementId) {
     }
 }
 
+// handle click dari prev & next
+$('#prev').on('click', function () {
+    $('.slick-result-modal').slick("slickPrev");
+});
+$('#next').on('click', function () {
+    $('.slick-result-modal').slick("slickNext");
+});
+
+$(document).ready(function () {
+    // Sembunyikan navigasi saat halaman dimuat
+    $('.prev, .next').css('opacity', 0);
+
+    // Tampilkan navigasi saat mouse masuk ke dalam elemen .slider_content
+    $('.slick-result-modal').hover(
+        function () {
+            $('.prev, .next').css('opacity', 1);
+        },
+        function () {
+            $('.prev, .next').css('opacity', 0);
+        }
+    );
+});
+
+
+
+
 // $(document).ready(function () {
 //   var detailLink = document.getElementById("detail-link");
 //   detailLink.href += lokasiNow;
 // })
+
+
+// testing input form diskon
+function setSelectionAfterDelay() {
+    console.log("mode testing auto fill active ...........")
+    const selections = [
+        { selector: '#SelectKota', value: '1', delay: 2000 },
+        { selector: '#merk', value: '1', delay: 2500 },
+        { selector: '#tipe', value: '1', delay: 3000 },
+        { selector: '#pembayaran', value: '2', delay: 3500 },
+        { selector: '#tenor', value: '11', delay: 4000 },
+        { selector: '#model', value: '1', delay: 5000 },
+        { selector: '#dp', value: '2200000', delay: 9000 }
+    ];
+
+    selections.forEach(item => {
+        setTimeout(function () {
+            $(item.selector).val(item.value).trigger('change');
+        }, item.delay);
+    });
+}
+
+
+$(document).ready(function () {
+    setSelectionAfterDelay()
+});
