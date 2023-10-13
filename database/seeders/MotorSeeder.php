@@ -195,7 +195,7 @@ class MotorSeeder extends Seeder
         'updated_at' => '2023-10-03 19:55:45',
       ],
       [
-        'nama' => 'V125',
+        'nama' => 'Vario 125',
         'berat' => '78kg',
         'power' => '150cc',
         'harga' => 23198000,
