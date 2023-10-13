@@ -26,7 +26,7 @@
 		<!-- breadcrumb End -->
 
 
-		<!-- section start -->
+		<!-- section detail motor -->
 		<section class="section-big-pt-space b-g-light">
 				<div class="collection-wrapper">
 						<div class="custom-container">
@@ -481,18 +481,13 @@
 														<div class="row">
 																<div class="col-lg-6">
 																		<div class="product-slick">
-																				<div>
-																						<img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid image_zoom_cls-0">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid image_zoom_cls-1">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid image_zoom_cls-2">
-																				</div>
-																				<div>
-																						<img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid image_zoom_cls-3">
-																				</div>
+																				@foreach ($motor['detail_motor'] as $det)
+																						<div>
+																								<img src="/assets/images/detail-motor/{{ $det->gambar }}" alt="{{ $det->gambar }}"
+																										class="img-fluid image_zoom_cls-0">
+																						</div>
+																				@endforeach
+
 																		</div>
 																		<div class="row">
 																				<div class="col-12 p-0">
@@ -500,14 +495,14 @@
 																								<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
 																						</div>
 																						<div class="slider-nav">
-																								<div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/2.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/3.webp" alt="1.webp" class="img-fluid">
-																								</div>
-																								<div><img src="/assets/images/detail-color/4.webp" alt="1.webp" class="img-fluid">
-																								</div>
+																								@foreach ($motor['detail_motor'] as $det)
+																										<div>
+																												<img src="/assets/images/detail-motor/{{ $det->gambar }}" alt="{{ $det->gambar }}"
+																														class="img-fluid image_zoom_cls-0">
+																										</div>
+																								@endforeach
+																								{{-- <div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
+																								</div> --}}
 																						</div>
 																				</div>
 																		</div>
@@ -560,8 +555,12 @@
 																																		</div>
 																																		<div class="ms-3">
 																																				<h5>{{ $les->nama }}</h5>
-																																				<p class="fw-bold">Diskon normal : </p><del
-																																						class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																				<p class="fw-bold">Diskon normal : </p>
+																																				<del class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
+																																				<p class="fw-bold btn-outline-success btn d-block btn-sm mt-2 py-0">Dp Bayar :
+																																						{{ Str::rupiah($les->dp - $les->diskon) }}</p>
+																																				<del class="fw-bold text-basic">Dp Normal :
+																																						{{ Str::rupiah($les->dp - $les->diskon_normal) }}</del>
 																																		</div>
 																																</div>
 																																<div>
@@ -610,9 +609,8 @@
 																										class="icofont icofont-ui-home"></i>Description</a>
 																						<div class="material-border"></div>
 																				</li>
-																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
-																								href="#top-feature" role="tab" aria-selected="false"><i
-																										class="icofont icofont-man-in-glasses"></i>Feature</a>
+																				<li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-feature"
+																								role="tab" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Feature</a>
 																						<div class="material-border"></div>
 																				</li>
 																		</ul>
@@ -690,7 +688,76 @@
 						</div>
 				</div>
 		</section>
-		<!-- Section ends -->
+		<!-- Section detail motor ends -->
+
+		<hr>
+
+		{{-- banner rekomendasi  --}}
+		<section class="container-fluid">
+				<div class="row">
+						<div class="col-12">
+								<img class="img-fluid" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp"
+										alt="banner-Rekomendasi.webp" srcset="">
+						</div>
+				</div>
+		</section>
+
+
+		{{-- section rekomendasi motor --}}
+		<section class="ratio_40 section-pb-space mt-5">
+				<div class="custom-container product">
+						<div class="row">
+								<div class="col pr-0">
+										<div class="theme-tab product">
+												<div class="tab-content-cls">
+														<!-- content tab 1 best diskon -->
+														<div id="tab-1" class="tab-content active default">
+																<div class="product-slide-5 product-m no-arrow">
+																		<div>
+																				<div class="product-box">
+																						<div class="product-imgbox img-rekomendasi-detail-mortor">
+																								<div class="product-front">
+																										<a href="product-page(left-sidebar).html">
+																												<img src="{{ asset('assets') }}/images/detail-motor/1.webp" class="img-fluid"
+																														alt="1.webp" />
+																										</a>
+																								</div>
+
+																						</div>
+																						<div class="product-detail product-detail2 rekomendasi-motor-detail-motor">
+																								<a href="product-page(left-sidebar).html">
+																										<h3>Honda BeAT</h3>
+																								</a>
+
+																								<div class="mt-2">
+																										<div class="d-flex justify-content-between">
+																												<p class="text-doff">Harga OTR : </p>
+																												<p class="text-basic fw-bold">Rp. 21.500.000</p>
+																										</div>
+																										<div class="d-flex justify-content-between">
+																												<p class="text-doff">DP Minimal : </p>
+																												<p class="text-basic">Rp. 850.000</p>
+																										</div>
+																								</div>
+																								<form action="sdsd" method="GET">
+																										@csrf
+																										<input type="hidden" name="id_lokasi" value="">
+																										<input type="hidden" name="id_motor" value="id">
+																										<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Diskon
+																												Terbaik</button>
+																								</form>
+																						</div>
+																				</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</section>
+		{{-- section end rekomendasi motor --}}
 @endsection
 
 

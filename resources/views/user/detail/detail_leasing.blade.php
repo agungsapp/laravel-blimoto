@@ -28,4 +28,86 @@
 				</div>
 		</div>
 		<!-- breadcrumb End -->
+
+
+
+		{{-- section logo leasing --}}
+		<div class="container-fluid mb-5 mt-5">
+				<div class="row">
+						<div class="col-12 d-flex justify-content-center">
+								<img src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.webp" alt="2023-10-11_W1.webp" srcset="">
+						</div>
+				</div>
+				<div class="row mt-5">
+						<div class="col-12 bg-basic p-4">
+								<h3 class="text-center text-white">Opsi angsuran BeAt Deluxe terbaik untukmu hari ini !</h3>
+						</div>
+				</div>
+		</div>
+
+
+		{{-- section detail cicilan --}}
+		<section class="container mb-5">
+				<div class="row px-4">
+
+						{{-- for loop --}}
+						<div class="col-12 cicilan-wrapper d-flex flex-column mt-3 p-3">
+								<h4 class="text-doff fw-bold text-start">Cicilan:</h4>
+								<h4 class="text-danger fw-bold text-start">Rp. 1.734.000 x 11 Bulan</h4>
+								<div class="d-flex justify-content-between align-content-end mt-4">
+										<div class="d-flex align-content-end btn-wrapper">
+												<a href="#" class="cicilan-link bg-basic fw-bold text-white">Ajukan
+														Sekarang</a>
+										</div>
+										<div>
+												<del class="text-doff text-end">DP : Rp. 2.200.000</del>
+												<h5 class="text-doff text-end">DP : Rp. 2.200.000</h5>
+										</div>
+								</div>
+						</div>
+						{{-- end --}}
+						<div class="col-12 cicilan-wrapper d-flex flex-column mt-3 p-3">
+								<h4 class="text-doff fw-bold text-start">Cicilan:</h4>
+								<h4 class="text-danger fw-bold text-start">Rp. 1.734.000 x 11 Bulan</h4>
+								<div class="d-flex justify-content-between align-content-end mt-4">
+										<div class="d-flex align-content-end btn-wrapper">
+												<a href="#" class="cicilan-link bg-basic fw-bold text-white">Ajukan
+														Sekarang</a>
+										</div>
+										<div>
+												<del class="text-doff text-end">DP : Rp. 2.200.000</del>
+												<h5 class="text-doff text-end">DP : Rp. 2.200.000</h5>
+										</div>
+								</div>
+						</div>
+						<div class="col-12 cicilan-wrapper d-flex flex-column mt-3 p-3">
+								<h4 class="text-doff fw-bold text-start">Cicilan:</h4>
+								<h4 class="text-danger fw-bold text-start">Rp. 1.734.000 x 11 Bulan</h4>
+								<div class="d-flex justify-content-between align-content-end mt-4">
+										<div class="d-flex align-content-end btn-wrapper">
+												<a href="#" class="cicilan-link bg-basic fw-bold text-white">Ajukan
+														Sekarang</a>
+										</div>
+										<div>
+												<del class="text-doff text-end">DP : Rp. 2.200.000</del>
+												<h5 class="text-doff text-end">DP : Rp. 2.200.000</h5>
+										</div>
+								</div>
+						</div>
+						<div class="col-12 cicilan-wrapper d-flex flex-column mt-3 p-3">
+								<h4 class="text-doff fw-bold text-start">Cicilan:</h4>
+								<h4 class="text-danger fw-bold text-start">Rp. 1.734.000 x 11 Bulan</h4>
+								<div class="d-flex justify-content-between align-content-end mt-4">
+										<div class="d-flex align-content-end btn-wrapper">
+												<a href="#" class="cicilan-link bg-basic fw-bold text-white">Ajukan
+														Sekarang</a>
+										</div>
+										<div>
+												<del class="text-doff text-end">DP : Rp. 2.200.000</del>
+												<h5 class="text-doff text-end">DP : Rp. 2.200.000</h5>
+										</div>
+								</div>
+						</div>
+				</div>
+		</section>
 @endsection

@@ -251,6 +251,22 @@ section .simulasi-container .simulasi-wrapper .card {
     left: -25%;
 }
 
+.cicilan-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 1.3em;
+    padding: 5px 30px;
+}
+
+.rekomendasi-motor-detail-motor {
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #a4a4a4;
+    border-top: 0;
+    padding: 0;
+}
+
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -297,6 +313,15 @@ section .simulasi-container .simulasi-wrapper .card {
     #why {
         font-size: 19px;
         margin-top: -7rem;
+    }
+
+    .cicilan-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        font-size: 1em !important;
+        padding: 5px 20px;
     }
 }
 
@@ -549,4 +574,10 @@ section .simulasi-container .simulasi-wrapper .card {
 #leasing-baru:hover ~ .slick-next,
 #leasing-baru:hover ~ .slick-prev {
     display: block;
+}
+
+.cicilan-wrapper {
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 2px dashed #a4a4a4;
 }

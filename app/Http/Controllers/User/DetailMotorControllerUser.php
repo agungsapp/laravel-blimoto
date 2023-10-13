@@ -152,7 +152,7 @@ class DetailMotorControllerUser extends Controller
 
 
 
-    dd($data['diskon_leasing']);
+    // dd($data);
     return view('user.detail.detail_motor', $data);
   }
 
