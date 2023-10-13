@@ -77,4 +77,6 @@ export const findMotorByTypeMerk = (merkId, tipeId) => {
   }
 }
 
+
+
 // export default { bacaMerk, bacaType };

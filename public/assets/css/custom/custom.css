@@ -266,6 +266,45 @@ section .simulasi-container .simulasi-wrapper .card {
     border-top: 0;
     padding: 0;
 }
+.content-slick-wrapper {
+    position: relative;
+    z-index: 9999;
+}
+.nav-wrapper {
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+}
+
+#next,
+#prev {
+    position: absolute;
+    font-size: 30px;
+    top: 0;
+    opacity: 0.5; /* Atur opacity awal ke 0 (tersembunyi) */
+    transition: opacity 0.5s ease-in; /* Transisi opacity dengan durasi 0.5 detik dan fungsi animasi ease-in */
+}
+
+#next:hover,
+#prev:hover {
+    opacity: 1; /* Ketika elemen dihover, atur opacity menjadi 1 (muncul) */
+    transition: opacity 0.5s ease-in; /* Atur kembali transisi hanya untuk opacity */
+}
+
+#next {
+    font-size: 30px;
+    right: 8%;
+}
+
+#next span i {
+    color: #198754 !important;
+}
+
+#prev {
+    display: none;
+    font-size: 30px;
+    left: 40% !important;
+}
 
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
@@ -516,7 +555,7 @@ section .simulasi-container .simulasi-wrapper .card {
     font-size: 1.3em !important;
 }
 
-.slick-prev:before,
+/* .slick-prev:before,
 .slick-next:before {
     color: #198754 !important;
 }
@@ -537,7 +576,7 @@ section .simulasi-container .simulasi-wrapper .card {
 .slick-prev:before,
 .slick-next:before {
     font-size: 50px !important;
-}
+} */
 
 .bandingkan-range div {
     font-size: 1.3em !important;
