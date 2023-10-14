@@ -137,20 +137,7 @@ class DetailMotorControllerUser extends Controller
     }
 
 
-    $data = [
-      'motor' => [
-        'nama' => $motor->nama,
-        'harga' => $motor->harga,
-        'merk' => $motor->merk->nama,
-        'type' => $motor->type->nama,
-        'deskripsi' => $motor->deskripsi,
-        'fitur' => $motor->fitur_utama,
-        'detail_motor' => $detailMotor,
-      ],
-      'diskon_leasing' => $diskonLeasing,
-      'id_motor' => $motorId
 
-    ];
 
     $motorRekomendasi = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
       ->with([
@@ -173,6 +160,22 @@ class DetailMotorControllerUser extends Controller
       ->inRandomOrder()
       ->take(5)
       ->get();
+
+    $data = [
+      'motor' => [
+        'nama' => $motor->nama,
+        'harga' => $motor->harga,
+        'merk' => $motor->merk->nama,
+        'type' => $motor->type->nama,
+        'deskripsi' => $motor->deskripsi,
+        'fitur' => $motor->fitur_utama,
+        'detail_motor' => $detailMotor,
+      ],
+      'diskon_leasing' => $diskonLeasing,
+      'id_motor' => $motorId,
+      'rekomendasi' => $motorRekomendasi
+
+    ];
 
     // dd($data);
     return view('user.detail.detail_motor', $data);
