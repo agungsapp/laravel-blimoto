@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Motor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class MotorTerbaruController extends Controller
 {
@@ -81,5 +83,24 @@ class MotorTerbaruController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMotorTinggiRendah(Request $request)
+    {
+        // $motor = Motor::all();
+        $motorTermahal = Motor::with('merk', 'type', 'detailMotor')
+            ->orderBy('motor.harga', 'desc')
+            ->get();
+
+        return response()->json($motorTermahal);
+    }
+
+    public function getMotorRenahTingg(Request $request)
+    {
+        $motorTermurah = Motor::with('merk', 'type', 'detailMotor')
+            ->orderBy('motor.harga', 'asc')
+            ->get();
+
+        return response()->json($motorTermurah);
     }
 }
