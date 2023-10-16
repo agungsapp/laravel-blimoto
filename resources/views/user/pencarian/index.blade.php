@@ -86,6 +86,17 @@
 																						<div class="load-more-sec">
 																								<a href="javascript:void(0)" class="loadMore">load more</a>
 																						</div>
+																				@else
+																						<div class="container-fluid d-flex flex-column">
+																								<div class="mx-auto text-center">
+																										<img width="300" class="d-block" src="{{ asset('assets') }}/images/gif/sorry.gif"
+																												alt="sorry.gif">
+																										<h4 class="text-center">
+																												Yah Maaf banget pencarian motor <strong>"{{ $keyword }}"</strong> untuk lokasi kota
+																												<strong>"{{ $lokasi[0]->nama }}"</strong> belum ada
+																										</h4>
+																								</div>
+																						</div>
 																				@endif
 																		</div>
 																</div>

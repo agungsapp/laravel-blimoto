@@ -67,7 +67,7 @@
 														</div>
 														<!-- color filter start here -->
 														<div class="collection-collapse-block open">
-																<h3 class="collapse-block-title">Harga Min - Max</h3>
+																<h3 class="collapse-block-title">Filter harga</h3>
 																<div class="collection-collapse-block-content">
 																		<div class="filter-harga-wrapper mt-3">
 																				<div class="input-group mb-3">
@@ -77,9 +77,11 @@
 																				</div>
 																				<div class="input-group mb-3">
 																						<span class="input-group-text" id="inputGroup-sizing-default">Max</span>
-																						<input onkeyup="formatRupiah(this)" type="text" class="form-control" aria-label="Sizing example input"
-																								aria-describedby="inputGroup-sizing-default">
+																						<input onkeyup="formatRupiah(this)" type="text" class="form-control"
+																								aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 																				</div>
+
+																				<button class="btn bg-basic btn-block fw-bold text-white">Terapkan</button>
 																		</div>
 																</div>
 														</div>
