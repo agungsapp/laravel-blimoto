@@ -306,6 +306,22 @@ section .simulasi-container .simulasi-wrapper .card {
     left: 40% !important;
 }
 
+.card-detail-motor {
+    flex-shrink: 0;
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 2px dashed #a4a4a4;
+}
+
+.label-diskon {
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px dashed #fa0000;
+    background-color: #f9ede9;
+    padding: 3px 12px;
+    box-size: border-box;
+}
+
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

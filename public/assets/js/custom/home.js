@@ -183,7 +183,7 @@ $(document).ready(function () {
                     );
                     leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img style="min-height: 130px;" src="/assets/images/custom/leasing/${leasingData.gambar
+																		<img style="min-height: 130px; background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${leasingData.gambar
                         }" class="card-img-top" alt="${leasingData.gambar
                         }">
 																		<ul class="list-group list-group-flush">
@@ -259,8 +259,8 @@ $(document).ready(function () {
                     rekomendasiMotorElement.innerHTML = `<hr class="mt-5 mb-5">
                             <div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
 														style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-                              <img src="/assets/images/detail-motor/${rekomendasiItem.motor.detail_motor.gambar
-                        }" class="img-fluid" alt="${rekomendasiItem.motor.detail_motor.gambar
+                              <img src="/assets/images/detail-motor/${rekomendasiData[0].motor.detail_motor[0].gambar
+                        }" class="img-fluid" alt="${rekomendasiData[0].motor.detail_motor[0].gambar
                         }" srcset=""
                                   style="max-width: 100%; height: auto;">
                               <div class="product-right py-5">
@@ -330,7 +330,7 @@ $(document).ready(function () {
 
                         leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img src="/assets/images/custom/leasing/${rekomendasiLeasingData.gambar
+																		<img style="background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${rekomendasiLeasingData.gambar
                             }" class="card-img-top" alt="${rekomendasiLeasingData.gambar
                             }">
 																		<ul class="list-group list-group-flush">

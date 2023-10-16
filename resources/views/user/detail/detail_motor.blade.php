@@ -471,13 +471,13 @@
 										</div> --}}
 										<div class="col-lg-12 col-sm-12 col-xs-12">
 												<div class="container-fluid">
-														<div class="row">
+														{{-- <div class="row">
 																<div class="col-xl-12">
 																		<div class="filter-main-btn mb-2"><span class="filter-btn"><i class="fa fa-filter"
 																								aria-hidden="true"></i>
 																						filter</span></div>
 																</div>
-														</div>
+														</div> --}}
 														<div class="row">
 																<div class="col-lg-6">
 																		<div class="product-slick">
@@ -521,72 +521,67 @@
 																								<h3 class="badge badge-pill bg-success badge-success">Tersedia</h3>
 																						</div>
 																				</div>
-																				{{-- <div class="pro-group">
-																						<h5 class="text-doff mb-2">Potongan diskon terbaik</h5>
-																						<ul class="pro-price">
-																								<li>Rp. 1.500.000</li>
-																								<li><span>Rp. 1.000.000</span></li>
-																						</ul>
-																				</div> --}}
-
-																				{{-- <div id="selectSize" class="pro-group addeffect-section product-description border-product">
-																						<div class="product-buttons">
-																								<a href="javascript:void(0)" id="cartEffect" class="btn cart-btn btn-normal tooltip-top"
-																										data-tippy-content="Add to cart">
-																										<i class="fa fa-shopping-cart"></i>
-																										Gas Beli
-																								</a>
-																						</div>
-																				</div> --}}
 																				<div class="pro-group">
 																						<div class="product-offer">
 																								<h6 class="product-title"><i class="fa fa-tags"></i>Diskon 5 Leasing Terbaik </h6>
-																								<div class="offer-contain">
+																								<div class="offer-contain mt-3">
+																										<h3 class="text-danger mb-4 text-center">** Promo Motor Spesial Hari Ini! ** 🚀</h3>
 																										<ul>
 
 																												@foreach ($diskon_leasing as $les)
-																														<li class="d-flex justify-content-between align-items-center flex-row p-2"
-																																style="border: 1px solid #c0c0c0; border-radius: 8px;">
-																																<div class="d-flex justify-content-between">
-																																		<div class="d-flex flex-column justify-content-between">
-																																				<p class="fw-bold">Diskon Promo</p>
-																																				<span class="code-lable d-flex align-items-center"
-																																						style="width: 110px">{{ Str::rupiah($les->diskon) }}</span>
+																														<li class="w-100 card-detail-motor row">
+																																<div class="row">
+																																		<h3 class="text-doff w-100 text-center">{{ $les->nama }}</h3>
+																																</div>
+																																<div class="row">
+																																		<div class="col-7 mt-0">
+																																				<h5 class="text-doff mt-2">DP Asli : <span
+																																								class="text-basic">{{ Str::rupiah($les->dp) }}</span></h5>
+																																				<div class="d-flex justify-content-between mt-3">
+																																						<h5 class="text-doff">Diskon DP Normal</h5>
+																																						<del class="text-basic">
+																																								<h5>{{ Str::rupiah($les->diskon_normal) }}</h5>
+																																						</del>
+																																				</div>
+																																				<div class="d-flex justify-content-between mt-2">
+																																						<h5 class="text-doff">DP Normalnya</h5>
+																																						<del class="text-basic">
+																																								<h5>{{ Str::rupiah($les->dp - $les->diskon_normal) }}</h5>
+																																						</del>
+																																				</div>
+																																				<h5 class="bg-basic mt-2 py-1 text-center text-white">Hanya hari ini !</h5>
+																																				<div class="d-flex justify-content-between align-items-baseline mt-2">
+																																						<h5 class="text-doff">Diskon DP Promo</h5>
+																																						<div class="label-diskon">
+																																								<p class="text-basic">{{ Str::rupiah($les->diskon) }}</p>
+																																						</div>
+																																				</div>
+																																				<div class="d-flex justify-content-between align-items-baseline mt-2">
+																																						<h5 class="text-doff">DP Promo</h5>
+																																						<div class="label-diskon">
+																																								<p class="text-basic">{{ Str::rupiah($les->dp - $les->diskon) }}</p>
+																																						</div>
+																																				</div>
 																																		</div>
-																																		<div class="ms-3">
-																																				<h5>{{ $les->nama }}</h5>
-																																				<p class="fw-bold">Diskon normal : </p>
-																																				<del class="text-danger">{{ Str::rupiah($les->diskon_normal) }}</del>
-																																				<p class="fw-bold btn-outline-success btn d-block btn-sm mt-2 py-0">Dp Bayar :
-																																						{{ Str::rupiah($les->dp - $les->diskon) }}</p>
-																																				<del class="fw-bold text-basic">Dp Normal :
-																																						{{ Str::rupiah($les->dp - $les->diskon_normal) }}</del>
+																																		<div class="col-4 offset-1 d-flex align-items-start justify-content-center flex-column">
+																																				<img class="img-fluid"
+																																						src="{{ asset('assets') }}/images/custom/leasing/{{ $les->gambar }}"
+																																						alt="{{ $les->gambar }}">
+
 																																		</div>
 																																</div>
-																																<div>
-																																		<img width="80"
-																																				src="{{ asset('assets') }}/images/custom/leasing/{{ $les->gambar }}"
-																																				alt="{{ $les->gambar }}" srcset="">
+																																<div class="row">
+																																		<div class="col-8">
+																																				<p class="text-basic fw-bold">Hemat hingga Rp 1.020.000 ! Segera kunjungi kami.
+																																						Penawaran
+																																						terbatas! 🏍💨</p>
+																																		</div>
+																																		<div class="col-4">
+																																				<a href="#" class="btn btn-block bg-basic text-white">Lihat Detail</a>
+																																		</div>
 																																</div>
-																																<form action="{{ route('detail-leasing') }}" method="get">
-																																		@csrf
-																																		<input type="hidden" name="id_motor" value="{{ $id_motor }}">
-																																		<input type="hidden" name="id_leasing" value="{{ $les->id }}">
-																																		<button type="submit" class="btn btn-sm bg-basic ms-3 text-white">Lihat
-																																				detail</button>
-																																</form>
 																														</li>
 																												@endforeach
-
-
-
-																												{{-- <li class="d-flex justify-content-between">
-																														<div class="d-flex justify-content-between align-items-baseline">
-																																<span class="code-lable">Rp. 950.000</span>
-																																<h5>MCF</h5>
-																														</div>
-																														<button class="btn btn-sm btn-success">Lihat detail</button>
-																												</li> --}}
 																										</ul>
 																								</div>
 																						</div>
@@ -701,7 +696,7 @@
 		{{-- banner rekomendasi  --}}
 		<section class="container-fluid">
 				<div class="row">
-						<div class="col-12">
+						<div class="col-12 d-flex justify-content-center">
 								<img class="img-fluid" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp"
 										alt="banner-Rekomendasi.webp" srcset="">
 						</div>
@@ -720,42 +715,44 @@
 														<div id="tab-1" class="tab-content active default">
 																<div class="product-slide-5 product-m no-arrow">
 																		{{-- for loop --}}
-																		<div>
-																				<div class="product-box">
-																						<div class="product-imgbox img-rekomendasi-detail-mortor">
-																								<div class="product-front">
+																		@foreach ($rekomendasi as $rek)
+																				<div>
+																						<div class="product-box">
+																								<div class="product-imgbox img-rekomendasi-detail-mortor">
+																										<div class="product-front">
+																												<a href="product-page(left-sidebar).html">
+																														<img src="{{ asset('assets') }}/images/detail-motor/{{ $rek->detailMotor[0]->gambar }}"
+																																class="img-fluid" alt="{{ $rek->detailMotor[0]->gambar }}" />
+																												</a>
+																										</div>
+
+																								</div>
+																								<div class="product-detail product-detail2 rekomendasi-motor-detail-motor">
 																										<a href="product-page(left-sidebar).html">
-																												<img src="{{ asset('assets') }}/images/detail-motor/1.webp" class="img-fluid"
-																														alt="1.webp" />
+																												<h3>{{ $rek->nama }}</h3>
 																										</a>
-																								</div>
 
-																						</div>
-																						<div class="product-detail product-detail2 rekomendasi-motor-detail-motor">
-																								<a href="product-page(left-sidebar).html">
-																										<h3>Honda BeAT</h3>
-																								</a>
-
-																								<div class="mt-2">
-																										<div class="d-flex justify-content-between">
-																												<p class="text-doff">Harga OTR : </p>
-																												<p class="text-basic fw-bold">Rp. 21.500.000</p>
+																										<div class="mt-2">
+																												<div class="d-flex justify-content-between">
+																														<p class="text-doff">Harga OTR : </p>
+																														<p class="text-basic fw-bold">{{ Str::rupiah($rek->harga) }}</p>
+																												</div>
+																												<div class="d-flex justify-content-between">
+																														<p class="text-doff">DP Minimal : </p>
+																														<p class="text-basic">{{ Str::rupiah($rek->cicilanMotor[0]->min_dp) }}</p>
+																												</div>
 																										</div>
-																										<div class="d-flex justify-content-between">
-																												<p class="text-doff">DP Minimal : </p>
-																												<p class="text-basic">Rp. 850.000</p>
-																										</div>
+																										<form action="{{ route('detail-motor') }}" method="GET">
+																												@csrf
+																												<input type="hidden" name="id_lokasi" value="">
+																												<input type="hidden" name="id_motor" value="{{ $rek->id }}">
+																												<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat
+																														Detail</button>
+																										</form>
 																								</div>
-																								<form action="sdsd" method="GET">
-																										@csrf
-																										<input type="hidden" name="id_lokasi" value="">
-																										<input type="hidden" name="id_motor" value="id">
-																										<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Diskon
-																												Terbaik</button>
-																								</form>
 																						</div>
 																				</div>
-																		</div>
+																		@endforeach
 																		{{-- for loop --}}
 																</div>
 														</div>
