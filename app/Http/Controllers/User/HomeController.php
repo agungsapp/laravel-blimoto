@@ -173,8 +173,8 @@ class HomeController extends Controller
     public function getSearchMotor(Request $request)
     {
         $motorNama = $request->input('motor');
-        $idLokasi = intval($request->input('id-lokasi'));
-        $typeMotor = $request->input('kategori');
+        $idLokasi = intval($request->input('id_lokasi'));
+        $typeMotor = intval($request->input('kategori'));
 
         $results = MotorKota::where('id_kota', $idLokasi)
             ->with([
@@ -187,7 +187,7 @@ class HomeController extends Controller
                             },
                             'type' => function ($query) use ($typeMotor) {
                                 $query->select('id', 'nama')
-                                    ->where('nama', '=', $typeMotor);
+                                    ->where('id', '=', $typeMotor);
                             },
                             'merk' => function ($query) {
                                 $query->select('id', 'nama');
@@ -201,8 +201,8 @@ class HomeController extends Controller
 
 
 
-        // return response()->json($results);
-        dd($results);
+        return response()->json($results);
+        // dd($results);
     }
 
     // get gambar pada detail :
