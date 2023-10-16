@@ -24,23 +24,27 @@
 																</a>
 														</div>
 												</div>
-												<div class="header-search ajax-search the-basics">
-														<div class="input-group">
-																<div class="input-group-text bg-basic">
-																		<select class="">
-																				<option class="bg-basic">Kategori</option>
-																				<option class="bg-basic">Matic</option>
-																				<option class="bg-basic">Bebek/Cub</option>
-																				<option class="bg-basic">Sport</option>
-																				<option class="bg-basic">Big Bike</option>
-																		</select>
-																</div>
-																<input type="search" class="form-control typeahead" placeholder="Cari motor impian anda !" />
-																<div class="input-group-text">
-																		<i class="fa fa-search"></i>
+												<form action="{{ route('search-motor') }}" method="GET">
+														@csrf
+														<div class="header-search ajax-search the-basics">
+																<div class="input-group">
+																		<div class="input-group-text bg-basic">
+																				<input type="hidden" name="id_lokasi" value="">
+																				<select name="kategori" class="">
+																						<option value="" class="bg-basic">Kategori</option>
+																						<option value="1" class="bg-basic">Matic</option>
+																						<option value="2" class="bg-basic">Bebek/Cub</option>
+																						<option value="3" class="bg-basic">Sport</option>
+																						<option value="4" class="bg-basic">Big Bike</option>
+																				</select>
+																		</div>
+																		<input type="search" class="form-control typeahead" placeholder="Cari motor impian anda !" />
+																		<button type="submit" class="input-group-text">
+																				<i class="fa fa-search"></i>
+																		</button>
 																</div>
 														</div>
-												</div>
+												</form>
 												<div class="categroy-contain">
 														<ul id="main-menu-header"
 																class="sm pixelstrap sm-horizontal align-items-center justify-content-center d-flex">
@@ -81,8 +85,8 @@
 						<div class="input-group">
 								<div class="input-group-append">
 										<span class="input-group-text">
-												<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-														x="0px" y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
+												<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+														y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
 														style="enable-background: new 0 0 28.931 28.932" xml:space="preserve">
 														<g>
 																<path
@@ -207,8 +211,8 @@
 				<div class="searchbar-input ajax-search the-basics">
 						<div class="input-group bg-basic">
 								<span class="input-group-text">
-										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-												x="0px" y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
+										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+												y="0px" width="28.931px" height="28.932px" viewBox="0 0 28.931 28.932"
 												style="enable-background: new 0 0 28.931 28.932" xml:space="preserve">
 												<g>
 														<path

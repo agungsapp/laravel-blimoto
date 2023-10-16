@@ -201,8 +201,8 @@ class HomeController extends Controller
 
 
 
-        // return response()->json($results);
-        dd($results);
+        return response()->json($results);
+        // dd($results);
     }
 
     // get gambar pada detail :

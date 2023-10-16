@@ -93,7 +93,7 @@ Route::get('/get-tenor', [HomeController::class, 'getTenor']);
 Route::get('/get-kota', [HomeController::class, 'getLokasi']);
 Route::get('/detail-motor', [DetailMotorControllerUser::class, 'getDetailMotor'])->name('detail-motor');
 Route::get('/detail-leasing', [DetailMotorControllerUser::class, 'getDetailLeasing'])->name('detail-leasing');
-Route::get('/search-motor', [HomeController::class, 'getSearchMotor']);
+Route::get('/search-motor', [HomeController::class, 'getSearchMotor'])->name('search-motor');
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
