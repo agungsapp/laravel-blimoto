@@ -185,11 +185,11 @@
 
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
 
-
 		<script>
-				var = lokasiNow = 1;
+				console.log("aman running")
+				var lokasiNow = 1;
 
-				var locationLinks = document.querySelectorAll('ul li a');
+				var locationLinks = document.querySelectorAll('#select-lokasi-user li a');
 				var defaultLocationId = '1';
 				var currentLocationId = sessionStorage.getItem('lokasiUser');
 
@@ -197,6 +197,9 @@
 						currentLocationId = defaultLocationId;
 						sessionStorage.setItem('lokasiUser', defaultLocationId);
 				}
+
+				// Set nilai lokasi ke dalam input field saat halaman dimuat
+				setLokasiToInput();
 
 				for (var i = 0; i < locationLinks.length; i++) {
 						locationLinks[i].addEventListener('click', function(e) {
@@ -209,9 +212,23 @@
 
 								// Update nilai variabel global saat lokasi berubah
 								lokasiNow = id;
+								setLokasiToInput()
+								console.log(`behasil ubah id lokasi ke ${lokasiNow}`)
 						});
 				}
+
+				function setLokasiToInput() {
+						// Mendapatkan nilai dari session
+						var lokasiId = sessionStorage.getItem('lokasiUser');
+
+						// Men-set nilai tersebut ke dalam input field
+						var inputElement = document.getElementById('lokasi-user-pencarian');
+						inputElement.value = lokasiId;
+						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`)
+				}
 		</script>
+
+
 
 		@stack('script')
 
