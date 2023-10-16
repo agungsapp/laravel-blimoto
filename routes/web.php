@@ -72,6 +72,8 @@ Route::resource('/home', HomeController::class);
 Route::resource('/about-us', AboutUsController::class);
 // motor menu
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
+Route::get('/motor-terbaru/tinggi', [MotorTerbaruController::class, 'getMotorTinggiRendah']);
+Route::get('/motor-terbaru/rendah', [MotorTerbaruController::class, 'getMotorRenahTingg']);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
 Route::resource('/dealer', DealerController::class);

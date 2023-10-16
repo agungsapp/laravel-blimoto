@@ -13,4 +13,14 @@ class MotorKota extends Model
         'id_kota',
         'id_motor'
     ];
+
+    public function motor()
+    {
+        return $this->belongsTo(Motor::class, 'id_motor', 'id');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id');
+    }
 }

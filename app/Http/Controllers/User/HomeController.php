@@ -174,16 +174,35 @@ class HomeController extends Controller
     {
         $motorNama = $request->input('motor');
         $idLokasi = intval($request->input('id-lokasi'));
+        $typeMotor = $request->input('kategori');
 
-        $results = DB::table('motor_kota')
-            ->join('motor', 'motor_kota.id', '=', 'motor.id')
-            ->join('detail_motor', 'motor.id', '=', 'detail_motor.id_motor')
-            ->where('motor_kota.id_kota', '=', $idLokasi)
-            ->where('motor.nama', 'LIKE', "%$motorNama%")
+        $results = MotorKota::where('id_kota', $idLokasi)
+            ->with([
+                'motor' => function ($query) use ($motorNama, $typeMotor) {
+                    $query->whereRaw("MATCH(nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
+                        ->where('stock', '=', 1)
+                        ->with([
+                            'detailMotor' => function ($query) {
+                                $query->select('id', 'id_motor', 'gambar', 'warna');
+                            },
+                            'type' => function ($query) use ($typeMotor) {
+                                $query->select('id', 'nama')
+                                    ->where('nama', '=', $typeMotor);
+                            },
+                            'merk' => function ($query) {
+                                $query->select('id', 'nama');
+                            },
+                        ]);
+                },
+            ])
+            ->whereHas('motor')
+            ->whereHas('kota')
             ->get();
-        return response()->json([
-            'data' => $results,
-        ], 200);
+
+
+
+        // return response()->json($results);
+        dd($results);
     }
 
     // get gambar pada detail :
