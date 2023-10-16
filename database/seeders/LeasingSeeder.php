@@ -19,7 +19,7 @@ class LeasingSeeder extends Seeder
                 'nama' => 'FIF Group',
                 'diskon_normal' => 0.10,
                 'diskon' => 0.20,
-                'gambar' => '2023-10-11_W1.webp',
+                'gambar' => '2023-10-11_W1.png',
             ],
             [
                 'nama' => 'Adira',

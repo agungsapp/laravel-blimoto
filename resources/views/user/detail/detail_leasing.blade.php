@@ -50,7 +50,6 @@
 		{{-- section detail cicilan --}}
 		<section class="container mb-5">
 				<div class="row px-4">
-
 						{{-- for loop --}}
 						@foreach ($data as $d)
 								<div class="col-12 cicilan-wrapper d-flex flex-column mt-3 p-3">
