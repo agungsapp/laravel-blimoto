@@ -67,39 +67,19 @@
 														</div>
 														<!-- color filter start here -->
 														<div class="collection-collapse-block open">
-																<h3 class="collapse-block-title">Warna</h3>
+																<h3 class="collapse-block-title">Harga Min - Max</h3>
 																<div class="collection-collapse-block-content">
-																		<div class="color-selector">
-																				<ul>
-																						<li>
-																								<div class="color-1 active"></div>
-																								white (14)
-																						</li>
-																						<li>
-																								<div class="color-2"></div>
-																								brown(24)
-																						</li>
-																						<li>
-																								<div class="color-3"></div>
-																								red(18)
-																						</li>
-																						<li>
-																								<div class="color-4"></div>
-																								purple(10)
-																						</li>
-																						<li>
-																								<div class="color-5"></div>
-																								teal(9)
-																						</li>
-																						<li>
-																								<div class="color-6"></div>
-																								pink(11)
-																						</li>
-																						<li>
-																								<div class="color-7"></div>
-																								coral(15)
-																						</li>
-																				</ul>
+																		<div class="filter-harga-wrapper mt-3">
+																				<div class="input-group mb-3">
+																						<span class="input-group-text" id="inputGroup-sizing-default">Min</span>
+																						<input id="min" type="text" class="form-control" aria-label="Sizing example input"
+																								onkeyup="formatRupiah(this)" aria-describedby="inputGroup-sizing-default" value="">
+																				</div>
+																				<div class="input-group mb-3">
+																						<span class="input-group-text" id="inputGroup-sizing-default">Max</span>
+																						<input onkeyup="formatRupiah(this)" type="text" class="form-control" aria-label="Sizing example input"
+																								aria-describedby="inputGroup-sizing-default">
+																				</div>
 																		</div>
 																</div>
 														</div>
@@ -466,3 +446,12 @@
 		</section>
 		<!-- list motor terbaru end -->
 @endsection
+
+@push('script')
+		<script>
+				function formatRupiah(input) {
+						var value = input.value.replace(/\D/g, '');
+						input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+				}
+		</script>
+@endpush
