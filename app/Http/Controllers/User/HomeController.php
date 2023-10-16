@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\CicilanMotor;
 use App\Models\DetailMotor;
 use App\Models\Hook;
+use App\Models\Kota;
 use App\Models\Merk;
 use App\Models\Mitra;
 use App\Models\Motor;
@@ -201,12 +202,13 @@ class HomeController extends Controller
 
         $data = [
             'data' => $results,
-            'keyword' => $motorNama
+            'keyword' => $motorNama,
+            'lokasi' => Kota::where('id', $idLokasi)->get()
         ];
 
 
         // return response()->json($results);
-        // dd($data['data']);
+        // dd($data['lokasi']);
         return view('user.pencarian.index', $data);
     }
 

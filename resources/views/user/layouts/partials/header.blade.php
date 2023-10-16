@@ -52,7 +52,7 @@
 
 																<li>
 																		<a class="dark-menu-item"><i class="fa fa-map-marker"></i>Lokasi</a>
-																		<ul id="select-lokasi-user">
+																		<ul id="select-lokasi-user" class="select-lokasi-user">
 																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Depok</a></li>
 																				<li><a href="#" data-id="3">Bogor</a></li>
