@@ -29,16 +29,17 @@
 														<div class="header-search ajax-search the-basics">
 																<div class="input-group">
 																		<div class="input-group-text bg-basic">
-																				<input type="hidden" name="id_lokasi" value="">
+																				<input id="lokasi-user-pencarian" type="hidden" name="id_lokasi" value="">
 																				<select name="kategori" class="">
 																						<option value="" class="bg-basic">Kategori</option>
-																						<option value="1" class="bg-basic">Matic</option>
+																						<option value="1" selected class="bg-basic">Matic</option>
 																						<option value="2" class="bg-basic">Bebek/Cub</option>
 																						<option value="3" class="bg-basic">Sport</option>
 																						<option value="4" class="bg-basic">Big Bike</option>
 																				</select>
 																		</div>
-																		<input type="search" class="form-control typeahead" placeholder="Cari motor impian anda !" />
+																		<input type="search" class="form-control typeahead" name="motor"
+																				placeholder="Cari motor impian anda !" />
 																		<button type="submit" class="input-group-text">
 																				<i class="fa fa-search"></i>
 																		</button>

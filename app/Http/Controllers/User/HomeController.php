@@ -199,10 +199,15 @@ class HomeController extends Controller
             ->whereHas('kota')
             ->get();
 
+        $data = [
+            'data' => $results,
+            'keyword' => $motorNama
+        ];
 
 
-        return response()->json($results);
-        // dd($results);
+        // return response()->json($results);
+        // dd($data['data']);
+        return view('user.pencarian.index', $data);
     }
 
     // get gambar pada detail :
