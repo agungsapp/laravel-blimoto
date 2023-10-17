@@ -104,6 +104,7 @@ Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend'
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 Route::get('/get-motor', [BandingkanController::class, 'getMotor']);
+Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMotor']);
 // Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 
 

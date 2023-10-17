@@ -230,4 +230,9 @@ class HomeController extends Controller
         // return "joss";
         return view('user.home.try');
     }
+
+    private function getBandingkanMotor()
+    {
+        // $motor = Motor
+    }
 }
