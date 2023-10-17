@@ -84,11 +84,17 @@ class BandingkanController extends Controller
         //
     }
 
-    public function getMotor($id)
+    public function getMotor(Request $request)
     {
-        $motor = Motor::with('detailMotor', 'merk', 'type')->find($id);
+        $idMotor1 = $request->input('id_motor1');
+        $idMotor2 = $request->input('id_motor2');
+
+        $motor1 = Motor::with('detailMotor', 'merk', 'type', 'cicilanMotor')->find($idMotor1);
+
+        $motor2 = Motor::with('detailMotor', 'merk', 'type', 'cicilanMotor')->find($idMotor2);
         return response()->json([
-            'data' => $motor
+            'motor1' => $motor1,
+            'motor2' => $motor2
         ], 200);
     }
 }
