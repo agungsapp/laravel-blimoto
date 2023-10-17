@@ -169,7 +169,9 @@
 																												</div>
 																										</div>
 																								@endforeach
-																								{{ $data->links('user.layouts.partials.pagination') }}
+																								<div class="mb-5 mt-5">
+																										{{ $data->links('user.layouts.partials.pagination') }}
+																								</div>
 
 
 																						</div>
