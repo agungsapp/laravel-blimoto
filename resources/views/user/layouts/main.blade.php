@@ -185,11 +185,11 @@
 
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
 
-
 		<script>
-				var = lokasiNow = 1;
+				console.log("aman running")
+				var lokasiNow = 1;
 
-				var locationLinks = document.querySelectorAll('ul li a');
+				var locationLinks = document.querySelectorAll('.select-lokasi-user li a');
 				var defaultLocationId = '1';
 				var currentLocationId = sessionStorage.getItem('lokasiUser');
 
@@ -197,6 +197,10 @@
 						currentLocationId = defaultLocationId;
 						sessionStorage.setItem('lokasiUser', defaultLocationId);
 				}
+
+				// Set nilai lokasi ke dalam input field dan teks menu saat halaman dimuat
+				setLokasiToInput();
+				setTeksMenuLokasi();
 
 				for (var i = 0; i < locationLinks.length; i++) {
 						locationLinks[i].addEventListener('click', function(e) {
@@ -209,9 +213,39 @@
 
 								// Update nilai variabel global saat lokasi berubah
 								lokasiNow = id;
+								setLokasiToInput()
+								console.log(`behasil ubah id lokasi ke ${lokasiNow}`)
 						});
 				}
+
+				function setLokasiToInput() {
+						// Mendapatkan nilai dari session
+						var lokasiId = sessionStorage.getItem('lokasiUser');
+
+						// Men-set nilai tersebut ke dalam input field
+						var inputElement = document.getElementById('lokasi-user-pencarian');
+						inputElement.value = lokasiId;
+						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`)
+				}
+
+				function setTeksMenuLokasi() {
+						// Mendapatkan nilai dari session
+						var lokasiId = sessionStorage.getItem('lokasiUser');
+
+						// Mendapatkan elemen link berdasarkan id lokasi
+						var linkElement = document.querySelector('.select-lokasi-user li a[data-id="' + lokasiId + '"]');
+
+						// Mendapatkan teks lokasi dari elemen link
+						var lokasiText = linkElement.textContent;
+
+						// Men-set teks tersebut ke dalam elemen menu
+						var selectElement = document.querySelector('.dark-menu-item');
+						selectElement.textContent = lokasiText;
+				}
 		</script>
+
+
+
 
 		@stack('script')
 

@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\CicilanMotor;
 use App\Models\DetailMotor;
 use App\Models\Hook;
+use App\Models\Kota;
 use App\Models\Merk;
 use App\Models\Mitra;
 use App\Models\Motor;
@@ -199,10 +200,16 @@ class HomeController extends Controller
             ->whereHas('kota')
             ->get();
 
+        $data = [
+            'data' => $results,
+            'keyword' => $motorNama,
+            'lokasi' => Kota::where('id', $idLokasi)->get()
+        ];
 
 
-        return response()->json($results);
-        // dd($results);
+        // return response()->json($results);
+        // dd($data['lokasi']);
+        return view('user.pencarian.index', $data);
     }
 
     // get gambar pada detail :
