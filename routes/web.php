@@ -72,13 +72,13 @@ Route::get('/register', [UserRegisterController::class, 'index'])->name('registe
 Route::resource('/home', HomeController::class);
 Route::resource('/about-us', AboutUsController::class);
 // motor menu
-Route::resource('/motor_terbaru', MotorTerbaruController::class);
-Route::get('/motor-terbaru/tinggi', [MotorTerbaruController::class, 'getMotorTinggiRendah']);
-Route::get('/motor-terbaru/rendah', [MotorTerbaruController::class, 'getMotorRendahTingg']);
-Route::get('/motor-terbaru/terbaru', [MotorTerbaruController::class, 'getMotorTerbaru']);
-Route::get('/motor-terbaru/lokasi', [UserMotorController::class, 'getMotorByLocation']);
-Route::get('/motor-terbaru/merk', [UserMotorController::class, 'getAllMerk']);
-Route::get('/motor-terbaru/motor-by-merk', [UserMotorController::class, 'getMotorByMerk']);
+Route::resource('/motor', MotorTerbaruController::class);
+Route::get('/sort/tinggi', [MotorTerbaruController::class, 'getMotorTinggiRendah']);
+Route::get('/sort/rendah', [MotorTerbaruController::class, 'getMotorRendahTinggi']);
+Route::get('/sort/terbaru', [MotorTerbaruController::class, 'getMotorTerbaru'])->name('motor-terbaru');
+Route::get('/sort/lokasi', [UserMotorController::class, 'getMotorByLocation']);
+Route::get('/sort/merk', [UserMotorController::class, 'getAllMerk']);
+Route::get('/sort/motor-by-merk', [UserMotorController::class, 'getMotorByMerk']);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
 Route::resource('/dealer', DealerController::class);

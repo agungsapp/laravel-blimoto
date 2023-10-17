@@ -16,7 +16,13 @@ class MotorTerbaruController extends Controller
      */
     public function index()
     {
-        return view('user.motor_terbaru.index');
+        $motorData =  Motor::with('merk', 'type', 'detailMotor')
+            ->orderBy('motor.updated_at', 'desc')
+            ->get();
+
+        // return response()->json($motorData);
+        // dd($motorData);
+        return view('user.motor_terbaru.index', ['data' => $motorData]);
     }
 
     /**
@@ -92,16 +98,19 @@ class MotorTerbaruController extends Controller
             ->orderBy('motor.harga', 'desc')
             ->get();
 
-        return response()->json($motorTermahal);
+        // return response()->json($motorTermahal);
+        return view('user.motor_terbaru.index', ['data' => $motorTermahal]);
     }
 
-    public function getMotorRendahTingg(Request $request)
+    public function getMotorRendahTinggi()
     {
+
         $motorTermurah = Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.harga', 'asc')
             ->get();
 
-        return response()->json($motorTermurah);
+        // return response()->json($motorTermurah);
+        return view('user.motor_terbaru.index', ['data' => $motorTermurah]);
     }
 
     public function getMotorTerbaru(Request $request)
@@ -110,6 +119,7 @@ class MotorTerbaruController extends Controller
             ->orderBy('motor.updated_at', 'desc')
             ->get();
 
-        return response()->json($motorData);
+        // return response()->json($motorData);
+        return view('user.motor_terbaru.index', ['data' => $motorData]);
     }
 }
