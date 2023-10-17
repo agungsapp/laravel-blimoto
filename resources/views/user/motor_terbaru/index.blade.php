@@ -126,317 +126,55 @@
 																						</div>
 																						<div class="row">
 																								<div class="col-12">
-																										<ul class="text-center" style="font-size: medium">
+																										<ul class="text-lg-center text-start" style="font-size: medium">
+																												<li class="text-doff">
+																														<h4>Urutan :</h4>
+																												</li>
 																												<li>
 																														<a class="text-dark" href="javascript:void(0)">Motor Terbaru |
 																														</a>
 																												</li>
+
 																												<li>
-																														<a class="text-dark" href="javascript:void(0)">Harga(Tinggi ke Rendah) |
-																														</a>
-																												</li>
-																												<li>
-																														<a class="text-dark" href="javascript:void(0)">Harga(Rendah ke Tinggi)</a>
+																														<select id="sortHarga" class="form-select" style="width: fit-content"
+																																aria-label="Default select example">
+																																<option selected>Harga</option>
+																																<option value="{{ url('/sort/rendah') }}">Harga: Rendah ke tinggi</option>
+																																<option value="{{ url('/sort/tinggi') }}">Harga: Tinggi ke rendah</option>
+																														</select>
 																												</li>
 																										</ul>
 																								</div>
 																						</div>
 																				</div>
-																				<div class="product-wrapper-grid product-load-more product">
+																				<div class="product-wrapper-grid product">
 																						<div class="row">
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
+																								@foreach ($data as $motor)
+																										<div class="col-xl-3 col-md-4 col-6 col-grid-box">
+																												<div class="product-box">
+																														<div class="product-imgbox">
+																																<div class="product-front">
+																																		<img
+																																				src="{{ asset('assets') }}/images/detail-motor/{{ $motor->detailMotor[0]->gambar }}"
+																																				class="img-fluid" alt="{{ $motor->detailMotor[0]->gambar }}" />
+																																</div>
 																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
+																														<div class="product-detail product-detail2 text-start">
+																																<a href="product-page(left-sidebar).html" tabindex="0">
+																																		<h3>{{ $motor->nama }}</h3>
+																																</a>
+																																<h3>Harga Spesial</h3>
+																																<h5>{{ Str::rupiah($motor->harga) }}</h5>
+																														</div>
 																												</div>
 																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
+																								@endforeach
 
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div class="col-xl-3 col-md-4 col-6 col-grid-box">
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<img
-																																		src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/product-draft/colors/deluxe-dark-silver-1-2-01022023-085913.jpg"
-																																		class="img-fluid" alt="product" />
-																														</div>
-																														<button type="button" class="btn btn-outline btn-cart" tabindex="0">
-																																Ajukan Sekarang
-																														</button>
-																												</div>
-																												<div class="product-detail product-detail2 text-start">
-																														<a href="product-page(left-sidebar).html" tabindex="0">
-																																<h3>Honda BeAT</h3>
-																														</a>
-																														<h3>Harga Mulai</h3>
-																														<h5>
-																																Rp. 23,050,000
-
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
 																						</div>
 																				</div>
-																				<div class="load-more-sec">
+																				{{-- <div class="load-more-sec">
 																						<a href="javascript:void(0)" class="loadMore">load more</a>
-																				</div>
+																				</div> --}}
 																		</div>
 																</div>
 														</div>
@@ -455,5 +193,11 @@
 						var value = input.value.replace(/\D/g, '');
 						input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 				}
+
+				$(document).ready(function() {
+						$('#sortHarga').change(function() {
+								window.location.href = $(this).val();
+						});
+				});
 		</script>
 @endpush

@@ -35,16 +35,16 @@
 										<h3 class="mb-3 text-center">Bandingkan Motor</h3>
 
 										<h4 class="text-black">Temukan kendaraan impianmu !</h4>
-										<p class="mt-2">
+										<h4 class="fw-normal mt-2">
 												Apakah Anda berencana membeli sepeda motor baru pada tahun 2023?
-												Oto bisa membantu Anda dengan menyediakan rangkaian lengkap motor
+												BliMoto bisa membantu Anda dengan menyediakan rangkaian lengkap motor
 												baru yang tersedia di Indonesia dengan daftar harga terbaru 2023.
 												Melalui berbagai filter, Anda bisa dengan mudah mengurutkan model
 												berdasarkan budget, tipe bahan bakar, tipe transmisi, tipe bodi
 												(seperti cafe racer, cruiser, sport, scooter, off-road, super
 												sport, maxi scooter, touring, street, dan moped), dan kategori
 												(termasuk big bikes, naked, dan commuter).
-										</p>
+										</h4>
 								</div>
 						</div>
 				</div>

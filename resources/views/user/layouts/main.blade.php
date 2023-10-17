@@ -208,7 +208,7 @@
 								var id = this.dataset.id;
 								var location = this.textContent;
 								sessionStorage.setItem('lokasiUser', id);
-								var selectElement = document.querySelector('.dark-menu-item');
+								var selectElement = document.querySelector('.lokasiTextShow');
 								selectElement.textContent = location;
 
 								// Update nilai variabel global saat lokasi berubah
@@ -222,7 +222,6 @@
 						// Mendapatkan nilai dari session
 						var lokasiId = sessionStorage.getItem('lokasiUser');
 
-						// Men-set nilai tersebut ke dalam input field
 						var inputElement = document.getElementById('lokasi-user-pencarian');
 						inputElement.value = lokasiId;
 						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`)
@@ -239,7 +238,7 @@
 						var lokasiText = linkElement.textContent;
 
 						// Men-set teks tersebut ke dalam elemen menu
-						var selectElement = document.querySelector('.dark-menu-item');
+						var selectElement = document.querySelector('.lokasiTextShow');
 						selectElement.textContent = lokasiText;
 				}
 		</script>

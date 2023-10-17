@@ -86,7 +86,7 @@ $('#cariMotor').on('submit', function (e) {
     return;
   }
 
-  fetch(`/get-motor/${id_motor}`)
+  fetch(`/get-single-motor/${id_motor}`)
     .then((response) => response.json())
     .then((data) => {
       $('#modalCariMotor').modal('hide');
@@ -95,11 +95,11 @@ $('#cariMotor').on('submit', function (e) {
       selectMotor.addClass('d-none');
       hasilPilihan.removeClass('d-none');
       var hasilContent = `
-                          <img class="img-fluid" src="/assets/images/detail-motor/${motor.detail_motor.gambar}" />
-                      <h5 class="card-product-title text-center">${motor.nama}</h5>
+                          <img class="img-fluid" src="/assets/images/detail-motor/${motor.detail_motor[0].gambar}" alt="${motor.detail_motor[0].gambar}" />
+                      <h4 class="card-product-title text-center mt-2">${motor.nama}</h4>
                       <div style="padding-left: 12px;">
-                      <h5 style="font-size: 12px; padding-top: 12px;">Harga</h5>
-                      <h5 style="font-size: 14px; color: deeppink">
+                      <h5 class="text-doff" style="font-size: 12px; padding-top: 12px;">Harga</h5>
+                      <h5 style="font-size: 14px;" class="text-basic">
                       <b>Rp. ${motor.harga}</b>
                       </h5>
                       </div>

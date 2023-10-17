@@ -51,7 +51,10 @@
 																class="sm pixelstrap sm-horizontal align-items-center justify-content-center d-flex">
 
 																<li>
-																		<a class="dark-menu-item"><i class="fa fa-map-marker"></i>Lokasi</a>
+																		<a class="dark-menu-item">
+																				<i class="fa fa-map-marker"></i>
+																				<span id="lokasiTextShow" class="lokasiTextShow ms-2">Lokasi</span>
+																		</a>
 																		<ul id="select-lokasi-user" class="select-lokasi-user">
 																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Depok</a></li>
@@ -149,7 +152,7 @@
 																						<a class="dark-menu-item text-dark" href="javascript:void(0)">Motor</a>
 																						<ul>
 																								<li>
-																										<a href="{{ route('motor_terbaru.index') }}">Motor Terbaru</a>
+																										<a href="{{ route('motor.index') }}">Motor Terbaru</a>
 																								</li>
 																								<li>
 																										<a href="{{ route('bandingkan.index') }}">Bandingkan Motor</a>
@@ -195,6 +198,20 @@
 																				</li>
 																				<li>
 																						<a class="dark-menu-item text-dark" href="blog.html">Event</a>
+																				</li>
+																				{{-- lokasi navbar kedua  --}}
+																				<li>
+																						<a class="dark-menu-item">
+																								<i class="fa fa-map-marker"></i>
+																								<span id="lokasiTextShow2" class="lokasiTextShow ms-2">Lokasi</span>
+																						</a>
+																						<ul id="select-lokasi-user2" class="select-lokasi-user">
+																								<li><a href="#" data-id="1">Jakarta Selatan</a></li>
+																								<li><a href="#" data-id="2">Depok</a></li>
+																								<li><a href="#" data-id="3">Bogor</a></li>
+																								<li><a href="#" data-id="4">Tanggerang</a></li>
+																								<li><a href="#" data-id="5">Bekasi</a></li>
+																						</ul>
 																				</li>
 																		</ul>
 																</nav>

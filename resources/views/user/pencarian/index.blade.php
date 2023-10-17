@@ -35,13 +35,29 @@
 														<div class="row">
 																<div class="col-sm-12">
 																		<div class="top-banner-wrapper">
-																				<a href="product-page(left-sidebar).html"><img
-																								src="./assets/images/motor-terbaru-termurah/All Moto.webp" class="img-fluid" alt="" /></a>
+																				<a href="product-page(left-sidebar).html">
+																						<img src="{{ asset('assets') }}/images/motor-terbaru-termurah/All Moto.webp" class="img-fluid"
+																								alt="" />
+																				</a>
 																				<div class="top-banner-content small-section">
-																						<h3 class="text-doff">Menampilkan hasil pencarian untuk : <strong class="text-capitalize"
-																										style="text-decoration: underline">{{ $keyword }}</strong></h3>
-
+																						<h3 class="text-doff">
+																								<i class="fa fa-search" aria-hidden="true"></i>
+																								Menampilkan hasil pencarian untuk :
+																								<strong class="text-capitalize text-basic">'{{ $keyword }}'
+																								</strong>
+																						</h3>
 																				</div>
+																				<div class="d-flex align-items-baseline gap-3">
+																						<div>
+																								<h4 class="text-doff">Urutkan :</h4>
+																						</div>
+																						<select class="form-select" style="width: 9rem" aria-label="Default select example">
+																								<option selected>Harga</option>
+																								<option value="1">Harga: Rendah ke tinggi</option>
+																								<option value="2">Harga: Tinggi ke rendah</option>
+																						</select>
+																				</div>
+																				<hr>
 																		</div>
 																		<div class="collection-product-wrapper">
 
@@ -86,7 +102,8 @@
 																						<div class="load-more-sec">
 																								<a href="javascript:void(0)" class="loadMore">load more</a>
 																						</div>
-																				@else
+																				@endif
+																				@if ($data->count() == 0)
 																						<div class="container-fluid d-flex flex-column">
 																								<div class="mx-auto text-center">
 																										<img width="300" class="d-block" src="{{ asset('assets') }}/images/gif/sorry.gif"
