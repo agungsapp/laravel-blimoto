@@ -44,6 +44,7 @@ use App\Http\Controllers\User\SimulasiKreditController;
 use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserBlogController;
 use App\Http\Controllers\User\UserLoginController;
+use App\Http\Controllers\User\UserMotorController;
 use App\Http\Controllers\User\UserRegisterController;
 // lain lain
 use Illuminate\Support\Facades\Route;
@@ -73,7 +74,11 @@ Route::resource('/about-us', AboutUsController::class);
 // motor menu
 Route::resource('/motor_terbaru', MotorTerbaruController::class);
 Route::get('/motor-terbaru/tinggi', [MotorTerbaruController::class, 'getMotorTinggiRendah']);
-Route::get('/motor-terbaru/rendah', [MotorTerbaruController::class, 'getMotorRenahTingg']);
+Route::get('/motor-terbaru/rendah', [MotorTerbaruController::class, 'getMotorRendahTingg']);
+Route::get('/motor-terbaru/terbaru', [MotorTerbaruController::class, 'getMotorTerbaru']);
+Route::get('/motor-terbaru/lokasi', [UserMotorController::class, 'getMotorByLocation']);
+Route::get('/motor-terbaru/merk', [UserMotorController::class, 'getAllMerk']);
+Route::get('/motor-terbaru/motor-by-merk', [UserMotorController::class, 'getMotorByMerk']);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
 Route::resource('/dealer', DealerController::class);
@@ -98,7 +103,7 @@ Route::get('/search-motor', [HomeController::class, 'getSearchMotor'])->name('se
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
 // Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
-Route::get('/get-motor/{id}', [BandingkanController::class, 'getMotor']);
+Route::get('/get-motor', [BandingkanController::class, 'getMotor']);
 // Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 
 

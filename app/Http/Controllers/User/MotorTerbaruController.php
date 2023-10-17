@@ -95,12 +95,21 @@ class MotorTerbaruController extends Controller
         return response()->json($motorTermahal);
     }
 
-    public function getMotorRenahTingg(Request $request)
+    public function getMotorRendahTingg(Request $request)
     {
         $motorTermurah = Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.harga', 'asc')
             ->get();
 
         return response()->json($motorTermurah);
+    }
+
+    public function getMotorTerbaru(Request $request)
+    {
+        $motorData =  Motor::with('merk', 'type', 'detailMotor')
+            ->orderBy('motor.updated_at', 'desc')
+            ->get();
+
+        return response()->json($motorData);
     }
 }
