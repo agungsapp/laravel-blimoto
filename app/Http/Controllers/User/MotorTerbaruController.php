@@ -96,7 +96,7 @@ class MotorTerbaruController extends Controller
         // $motor = Motor::all();
         $motorTermahal = Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.harga', 'desc')
-            ->get();
+            ->paginate(8);
 
         // return response()->json($motorTermahal);
         return view('user.motor_terbaru.index', ['data' => $motorTermahal]);
@@ -107,7 +107,7 @@ class MotorTerbaruController extends Controller
 
         $motorTermurah = Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.harga', 'asc')
-            ->get();
+            ->paginate(8);
 
         // return response()->json($motorTermurah);
         return view('user.motor_terbaru.index', ['data' => $motorTermurah]);
@@ -117,7 +117,7 @@ class MotorTerbaruController extends Controller
     {
         $motorData =  Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.updated_at', 'desc')
-            ->get();
+            ->paginate(8);
 
         // return response()->json($motorData);
         return view('user.motor_terbaru.index', ['data' => $motorData]);
