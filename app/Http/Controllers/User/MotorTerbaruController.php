@@ -18,7 +18,7 @@ class MotorTerbaruController extends Controller
     {
         $motorData =  Motor::with('merk', 'type', 'detailMotor')
             ->orderBy('motor.updated_at', 'desc')
-            ->get();
+            ->paginate(8);
 
         // return response()->json($motorData);
         // dd($motorData);
