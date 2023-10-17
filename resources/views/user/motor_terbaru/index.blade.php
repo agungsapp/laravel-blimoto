@@ -169,6 +169,8 @@
 																												</div>
 																										</div>
 																								@endforeach
+																								{{ $data->links('user.layouts.partials.pagination') }}
+
 
 																						</div>
 																				</div>
