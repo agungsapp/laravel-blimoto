@@ -99,6 +99,7 @@ class MotorTerbaruController extends Controller
             ->paginate(8);
 
         // return response()->json($motorTermahal);
+        dd($motorTermahal);
         return view('user.motor_terbaru.index', ['data' => $motorTermahal]);
     }
 
