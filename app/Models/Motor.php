@@ -22,6 +22,11 @@ class Motor extends Model
         'stock'
     ];
 
+    public function motorKota()
+    {
+        return $this->hasMany(MotorKota::class, 'id_motor', 'id');
+    }
+
     public function cicilanMotor()
     {
         return $this->hasMany(CicilanMotor::class, 'id_motor', 'id');

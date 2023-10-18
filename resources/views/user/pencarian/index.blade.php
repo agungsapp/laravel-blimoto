@@ -71,23 +71,23 @@
 																														<div class="product-imgbox">
 																																<div class="product-front">
 																																		<img
-																																				src="{{ asset('assets') }}/images/detail-motor/{{ $d->motor->detailMotor[0]->gambar }}"
-																																				class="img-fluid" alt="{{ $d->motor->detailMotor[0]->gambar }}" />
+																																				src="{{ asset('assets') }}/images/detail-motor/{{ $d->detailMotor[0]->gambar }}"
+																																				class="img-fluid" alt="{{ $d->detailMotor[0]->gambar }}" />
 																																</div>
 
 																														</div>
 																														<div class="product-detail product-detail2 text-start">
 
-																																<h4 class="fw-bold text-doff fw-bold mt-2 text-center">{{ $d->motor->nama }}</h4>
+																																<h4 class="fw-bold text-doff fw-bold mt-2 text-center">{{ $d->nama }}</h4>
 
 																																<h3>Harga Mulai</h3>
 																																<h5>
-																																		{{ Str::rupiah($d->motor->harga) }}
+																																		{{ Str::rupiah($d->harga) }}
 																																</h5>
 																																<form action="{{ route('detail-motor') }}" method="GET">
 																																		@csrf
 																																		<input type="hidden" name="id_lokasi" value="">
-																																		<input type="hidden" name="id_motor" value="{{ $d->motor->id }}">
+																																		<input type="hidden" name="id_motor" value="{{ $d->id }}">
 																																		<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Promo
 																																				Menarik</button>
 																																</form>

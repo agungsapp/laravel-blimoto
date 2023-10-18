@@ -177,27 +177,19 @@ class HomeController extends Controller
         $idLokasi = intval($request->input('id_lokasi'));
         $typeMotor = intval($request->input('kategori'));
 
-        $results = MotorKota::where('id_kota', $idLokasi)
-            ->with([
-                'motor' => function ($query) use ($motorNama, $typeMotor) {
-                    $query->whereRaw("MATCH(nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
-                        ->where('stock', '=', 1)
-                        ->with([
-                            'detailMotor' => function ($query) {
-                                $query->select('id', 'id_motor', 'gambar', 'warna');
-                            },
-                            'type' => function ($query) use ($typeMotor) {
-                                $query->select('id', 'nama')
-                                    ->where('id', '=', $typeMotor);
-                            },
-                            'merk' => function ($query) {
-                                $query->select('id', 'nama');
-                            },
-                        ]);
-                },
-            ])
-            ->whereHas('motor')
-            ->whereHas('kota')
+        $results = Motor::with([
+            'motorKota',
+            'merk',
+            'type',
+            'detailMotor'
+        ])
+            ->whereHas('type', function ($query) use ($typeMotor) {
+                $query->where('id', '=', $typeMotor);
+            })
+            ->whereHas('motorKota', function ($query) use ($idLokasi) {
+                $query->where('id_kota', '=', $idLokasi);
+            })
+            ->whereRaw("MATCH(motor.nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
             ->get();
 
         $data = [
@@ -207,7 +199,7 @@ class HomeController extends Controller
         ];
 
 
-        // return response()->json($results);
+        // return response()->json($data);
         // dd($data['lokasi']);
         return view('user.pencarian.index', $data);
     }
