@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CicilanMotor;
 use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\MotorKota;
@@ -12,7 +13,7 @@ class UserMotorController extends Controller
 {
   public function getMotorByLocation(Request $request)
   {
-    $idKota = intval($request->input('id_kota')) ?? 1;
+    $idKota = intval($request->input('id_kota')) ?: 1;
     $motorData = MotorKota::where('id_kota', $idKota)
       ->with([
         'motor' => function ($query) {
@@ -32,7 +33,7 @@ class UserMotorController extends Controller
       ])
       ->whereHas('motor')
       ->whereHas('kota')
-      ->get();
+      ->paginate(8);
 
     return response()->json($motorData);
   }
@@ -61,7 +62,30 @@ class UserMotorController extends Controller
       ->where('id_merk', '=', $idMerk)
       ->whereHas('type')
       ->whereHas('merk')
-      ->get();
+      ->paginate(8);
     return response()->json($motorData);
+  }
+
+  public function getMotorByPriceRange(Request $request)
+  {
+    $minPrice = $request->input('min_price');
+    $maxPrice = $request->input('max_price');
+
+    $motor = Motor::whereBetween('harga', [$minPrice, $maxPrice])
+      ->paginate(8);
+
+    return response()->json($motor);
+  }
+
+  public function getMotorTenor(Request $request)
+  {
+    $idMotor = $request->input('id_motor');
+
+    $tenor = CicilanMotor::select('tenor')
+      ->distinct('tenor')
+      ->where('id_motor', '=', $idMotor)
+      ->get();
+
+    return response()->json($tenor);
   }
 }
