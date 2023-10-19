@@ -31,6 +31,94 @@
 .scroll-white {
     background-color: #fff;
 }
+
+/* BUTTON CUSTOM BLIMOTO START */
+.btn-basic {
+    color: #fff;
+    background-color: #dd0202;
+    border-color: #dd0202;
+}
+.btn-basic:hover {
+    color: #fff;
+    background-color: #b50202;
+    border-color: #a50202;
+}
+.btn-check:focus + .btn-basic,
+.btn-basic:focus {
+    color: #fff;
+    background-color: #b50202;
+    border-color: #a50202;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+}
+.btn-check:checked + .btn-basic,
+.btn-check:active + .btn-basic,
+.btn-basic:active,
+.btn-basic.active,
+.show > .btn-basic.dropdown-toggle {
+    color: #fff;
+    background-color: #a50202;
+    border-color: #9f0202;
+}
+.btn-check:checked + .btn-basic:focus,
+.btn-check:active + .btn-basic:focus,
+.btn-basic:active:focus,
+.btn-basic.active:focus,
+.show > .btn-basic.dropdown-toggle:focus {
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+}
+.btn-basic:disabled,
+.btn-basic.disabled {
+    color: #fff;
+    background-color: #dd0202;
+    border-color: #dd0202;
+}
+
+.btn-outline-basic {
+    color: #dd0202 !important;
+    background-color: transparent;
+    border-color: #dd0202;
+}
+.btn-outline-basic:hover {
+    color: #dd0202;
+    background-color: #fff;
+    border-color: #dd0202;
+}
+.btn-check:focus + .btn-outline-basic,
+.btn-outline-basic:focus {
+    color: #dd0202;
+    background-color: #fff;
+    border-color: #dd0202;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+}
+.btn-check:checked + .btn-outline-basic,
+.btn-check:active + .btn-outline-basic,
+.btn-outline-basic:active,
+.btn-outline-basic.active,
+.btn-outline-basic.dropdown-toggle.show {
+    color: #fff;
+    background-color: #dd0202;
+    border-color: #dd0202;
+}
+.btn-check:checked + .btn-outline-basic:focus,
+.btn-check:active + .btn-outline-basic:focus,
+.btn-outline-basic:active:focus,
+.btn-outline-basic.active:focus,
+.btn-outline-basic.dropdown-toggle.show:focus {
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(221, 2, 2, 0.5);
+}
+.btn-outline-basic:disabled,
+.btn-outline-basic.disabled {
+    color: #dd0202;
+    background-color: transparent;
+    border-color: #dd0202;
+}
+
+/* BUTTON CUSTOM BLIMOTO END */
+
 /* color area end */
 
 .viewmore {
