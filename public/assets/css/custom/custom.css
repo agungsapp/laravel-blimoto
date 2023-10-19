@@ -8,6 +8,12 @@
     border-bottom-left-radius: 50px;
   } */
 
+#main-nav {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 /* color area */
 .bg-basic {
     background-color: #dd0202 !important;
