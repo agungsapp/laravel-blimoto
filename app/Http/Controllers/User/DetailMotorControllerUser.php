@@ -210,8 +210,23 @@ class DetailMotorControllerUser extends Controller
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
 
+    // data tenor motor
+    $dataTenor = CicilanMotor::select('tenor')
+      ->distinct('tenor')
+      ->where('id_motor', '=', $idMotor)
+      ->where('id_leasing', '=', $idLeasing)
+      ->get();
+
+
     $motor = Motor::find($idMotor);
 
-    return view('user.detail.detail_leasing', ['data' => $data, 'motor' => $motor]);
+    return view(
+      'user.detail.detail_leasing',
+      [
+        'data' => $data,
+        'motor' => $motor,
+        'tenor' => $dataTenor
+      ]
+    );
   }
 }

@@ -668,7 +668,8 @@ $(document).ready(function () {
 // $(document).ready(function () {
 //   var detailLink = document.getElementById("detail-link");
 //   detailLink.href += lokasiNow;
-// })
+// })slide-mitra-kami
+
 
 
 // testing input form diskon
