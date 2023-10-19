@@ -20,22 +20,6 @@
 								<label for="nama-motor">Nama Motor</label>
 								<input name="nama" type="text" class="form-control" id="nama-motor" placeholder="Masukan nama motor" value="{{ $motor[0]->nama }}">
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="berat">Berat Motor</label>
-								<input name="berat" type="text" class="form-control" id="berat-motor" placeholder="Masukan berat motor" value="{{ $motor[0]->berat }}">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="power-motor">Power Motor</label>
-								<input name="power" type="text" class="form-control" id="power-motor" placeholder="Masukan power motor" value="{{ $motor[0]->power }}">
-							</div>
-						</div>
-						<div class="col-md-6">
 							<div class="form-group">
 								<label for="harga-motor">Harga Motor</label>
 								<input name="harga" type="number" class="form-control" id="harga-motor" placeholder="Masukan harga motor" value="{{ $motor[0]->harga }}">
@@ -44,11 +28,15 @@
 					</div>
 					<div class="form-group">
 						<label>Deskripsi Motor</label>
-						<textarea name="deskripsi_motor" class="form-control" rows="3" placeholder="Deskripsi Motor">{{ $motor[0]->deskripsi }}</textarea>
+						<textarea id="deskripsi_motor" name="deskripsi_motor" class="form-control" rows="3" placeholder="Deskripsi Motor">{{ $motor[0]->deskripsi }}</textarea>
 					</div>
 					<div class="form-group">
 						<label>Fitur Motor</label>
-						<textarea name="fitur_motor" class="form-control" rows="3" placeholder="Fitur Motor">{{ $motor[0]->fitur_utama }}</textarea>
+						<textarea id="fitur_motor" name="fitur_motor" class="form-control" rows="3" placeholder="Fitur Motor">{{ $motor[0]->fitur_utama }}</textarea>
+					</div>
+					<div class="form-group">
+						<label>Bonus Motor</label>
+						<textarea id="bonus_motor" name="bonus_motor" class="form-control" rows="3" placeholder="Bonus Motor">{{ $motor[0]->bonus }}</textarea>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
@@ -127,3 +115,33 @@
 
 
 @endsection
+@push('script')
+<script>
+	$(document).ready(function() {
+		// Summernote
+		$('#deskripsi_motor').summernote({
+			placeholder: 'buat isi deskripsi motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+
+	$(document).ready(function() {
+		// Summernote
+		$('#fitur_motor').summernote({
+			placeholder: 'buat isi fitur motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+
+	$(document).ready(function() {
+		// Summernote
+		$('#bonus_motor').summernote({
+			placeholder: 'buat isi bonus motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+</script>
+@endpush

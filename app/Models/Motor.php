@@ -11,15 +11,14 @@ class Motor extends Model
 
     protected $fillable = [
         'nama',
-        'berat',
-        'power',
         'harga',
         'deskripsi',
         'fitur_utama',
         'id_merk',
         'id_type',
         'id_best_motor',
-        'stock'
+        'stock',
+        'bonus'
     ];
 
     public function motorKota()
