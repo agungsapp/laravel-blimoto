@@ -575,9 +575,21 @@
 																																				<p class="text-basic fw-bold">Hemat hingga Rp 1.020.000 ! Segera kunjungi kami.
 																																						Penawaran
 																																						terbatas! 🏍💨</p>
+																																				<a href="https://wa.me/6281373939116?text=Hallo%2C%20admin%0Asaya%20mau%20pesan%20unit%20Honda%20{{ $motor['nama'] }}%2C%20dengan%20pembayaran%20kredit%20melalui%20leasing%20{{ $les->nama }}.%20%0AApakah%20saat%20ini%20unit%20tersedia%20%3F%20"
+																																						target="_blank" class="btn btn-sm btn-success mt-1 text-white"><i
+																																								class="fa fa-whatsapp" aria-hidden="true"></i><span class="ms-2">Ajukan
+																																								Sekarang</span></a>
+
 																																		</div>
 																																		<div class="col-4">
-																																				<a href="#" class="btn btn-block bg-basic text-white">Lihat Detail</a>
+																																				{{-- <a href="#" class="btn btn-block bg-basic text-white">Lihat Detail</a> --}}
+																																				<form action="{{ route('detail-leasing') }}" method="get">
+																																						@csrf
+																																						<input type="hidden" name="id_motor" value="{{ $id_motor }}">
+																																						<input type="hidden" name="id_leasing" value="{{ $les->id }}">
+																																						<button type="submit" class="btn btn-block bg-basic text-white">Lihat
+																																								detail</button>
+																																				</form>
 																																		</div>
 																																</div>
 																														</li>

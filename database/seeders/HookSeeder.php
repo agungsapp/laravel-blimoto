@@ -16,12 +16,12 @@ class HookSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'hook 1',
-                'gambar' => '2023-10-11_HOOK 01 REVISI .webp',
+                'nama' => 'hook 3',
+                'gambar' => '2023-10-06_hook-3.webp',
                 'link' => '#',
-                'warna' => '#DD0202',
+                'warna' => '#292929',
                 'warna_teks' => '#FFFFFF',
-                'caption' => 'Lihat Promo',
+                'caption' => 'Beli Sekarang',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -35,13 +35,14 @@ class HookSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
             [
-                'nama' => 'hook 3',
-                'gambar' => '2023-10-06_hook-3.webp',
+                'nama' => 'hook 1',
+                'gambar' => '2023-10-11_HOOK 01 REVISI .webp',
                 'link' => '#',
-                'warna' => '#292929',
+                'warna' => '#DD0202',
                 'warna_teks' => '#FFFFFF',
-                'caption' => 'Beli Sekarang',
+                'caption' => 'Lihat Promo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

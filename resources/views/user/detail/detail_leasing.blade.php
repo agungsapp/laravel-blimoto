@@ -41,7 +41,7 @@
 				</div>
 				<div class="row mt-5">
 						<div class="col-12 bg-basic p-4">
-								<h3 class="text-center text-white">Opsi angsuran BeAt Deluxe terbaik untukmu hari ini !</h3>
+								<h3 class="text-center text-white">Opsi angsuran {{ $motor->nama }} terbaik untukmu hari ini !</h3>
 						</div>
 				</div>
 		</div>
