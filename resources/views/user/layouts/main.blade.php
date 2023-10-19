@@ -246,6 +246,24 @@
 						var stickyNav = document.getElementById('lokasiTextShow2');
 						stickyNav.textContent = lokasiText;
 				}
+
+
+				// manipulasi navigasi
+
+				$(document).ready(function() {
+						$('#lokasi-ambang').hide();
+
+						$(window).scroll(function() {
+								var currentPosition = $(window).scrollTop();
+								var triggerElementPosition = $('#stickyheader').offset().top;
+
+								if (currentPosition >= triggerElementPosition) {
+										$('#lokasi-ambang').show();
+								} else {
+										$('#lokasi-ambang').hide();
+								}
+						});
+				});
 		</script>
 
 

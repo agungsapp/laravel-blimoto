@@ -200,7 +200,7 @@
 																						<a class="dark-menu-item text-dark" href="blog.html">Event</a>
 																				</li>
 																				{{-- lokasi navbar kedua  --}}
-																				<li>
+																				<li id="lokasi-ambang">
 																						<a class="dark-menu-item">
 																								<i class="fa fa-map-marker"></i>
 																								<span id="lokasiTextShow2" class="lokasiTextShow ms-2">Lokasi</span>
