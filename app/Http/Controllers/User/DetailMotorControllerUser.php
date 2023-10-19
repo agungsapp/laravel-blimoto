@@ -94,7 +94,7 @@ class DetailMotorControllerUser extends Controller
     $motorId = $request->input('id_motor');
     // $lokasiId = $request->input('id_lokasi');
 
-    $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
+    $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama', 'bonus')
       ->with([
         'merk' => function ($query) {
           $query->select('id', 'nama');
@@ -169,6 +169,7 @@ class DetailMotorControllerUser extends Controller
         'type' => $motor->type->nama,
         'deskripsi' => $motor->deskripsi,
         'fitur' => $motor->fitur_utama,
+        'bonus' => $motor->bonus,
         'detail_motor' => $detailMotor,
       ],
       'diskon_leasing' => $diskonLeasing,
@@ -188,32 +189,26 @@ class DetailMotorControllerUser extends Controller
     $idLeasing = $request->input('id_leasing');
     $tenor = $request->input('tenor');
 
-    if ($tenor) {
-      // Jika ada input 'tenor', lakukan pencarian berdasarkan 'tenor'
-      $data = CicilanMotor::where('id_motor', $idMotor)
-        ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-        ->where('id_leasing', $idLeasing)
-        ->where('tenor', $tenor)
-        ->get();
-    } else {
-      // Jika tidak ada input 'tenor', gunakan 'maxTenor' sebagai nilai default
-      $maxTenor = CicilanMotor::select(DB::raw('MAX(cicilan_motor.tenor) as tenor'))
-        ->where('id_motor', $idMotor)
-        ->where('id_leasing', $idLeasing)
-        ->get();
+    $maxTenorQuery = CicilanMotor::select(DB::raw('MAX(cicilan_motor.tenor) as tenor'))
+      ->where('id_motor', $idMotor)
+      ->where('id_leasing', $idLeasing);
 
-      $data = CicilanMotor::where('id_motor', $idMotor)
-        ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-        ->where('id_leasing', $idLeasing)
-        ->where('tenor', $maxTenor[0]->tenor)
-        ->get();
+    if ($tenor) {
+      $maxTenorQuery->where('tenor', $tenor);
     }
+
+    $maxTenor = $maxTenorQuery->first()->tenor;
+
+    $data = CicilanMotor::where('id_motor', $idMotor)
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+      ->where('id_leasing', $idLeasing)
+      ->where('tenor', $maxTenor)
+      ->get();
 
     foreach ($data as $key => $c) {
       $c->diskon_normal = $c->dp - round($c->dp * $c->diskon_normal);
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
-
 
     $motor = Motor::find($idMotor);
 
