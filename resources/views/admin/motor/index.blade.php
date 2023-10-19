@@ -18,16 +18,6 @@
 							<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama-motor" placeholder="Masukan nama motor">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="berat-motor">Berat Motor</label>
-							<input name="berat" type="text" class="form-control @error('berat') is-invalid @enderror" id="berat-motor" placeholder="Masukan berat motor">
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="power-motor">Power Motor</label>
-							<input name="power" type="text" class="form-control @error('power') is-invalid @enderror" id="power-motor" placeholder="Masukan power motor">
-						</div>
-						<div class="form-group col-md-6">
 							<label for="harga-motor">Harga Motor</label>
 							<input name="harga" type="number" class="form-control @error('harga') is-invalid @enderror" id="harga-motor" placeholder="Masukan harga motor">
 						</div>
@@ -35,13 +25,19 @@
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label>Deskripsi Motor</label>
-							<textarea name="deskripsi-motor" class="form-control @error('deskripsi-motor') is-invalid @enderror" rows="3" placeholder="Deskripsi Motor"></textarea>
+							<textarea id="deskripsi-motor" name="deskripsi-motor" class="form-control @error('deskripsi-motor') is-invalid @enderror" rows="3" placeholder="Deskripsi Motor"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label>Fitur Motor</label>
-							<textarea name="fitur-motor" class="form-control @error('fitur-motor') is-invalid @enderror" rows="3" placeholder="Fitur Motor"></textarea>
+							<textarea id="fitur-motor" name="fitur-motor" class="form-control @error('fitur-motor') is-invalid @enderror" rows="3" placeholder="Fitur Motor"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label>Bonus Motor</label>
+							<textarea id="bonus-motor" name="bonus-motor" class="form-control @error('bonus-motor') is-invalid @enderror" rows="3" placeholder="bonus Motor"></textarea>
 						</div>
 					</div>
 					<div class="row">
@@ -178,6 +174,33 @@
 
 @push('script')
 <script>
+	$(document).ready(function() {
+		// Summernote
+		$('#deskripsi-motor').summernote({
+			placeholder: 'buat isi deskripsi motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+
+	$(document).ready(function() {
+		// Summernote
+		$('#fitur-motor').summernote({
+			placeholder: 'buat isi fitur motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+
+	$(document).ready(function() {
+		// Summernote
+		$('#bonus-motor').summernote({
+			placeholder: 'buat isi bonus motor ...',
+			tabsize: 2,
+			height: 300
+		})
+	})
+
 	$(function() {
 		$("#dataMotor").DataTable({
 			"responsive": true,

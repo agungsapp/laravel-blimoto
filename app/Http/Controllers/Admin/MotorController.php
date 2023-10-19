@@ -59,11 +59,10 @@ class MotorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'berat' => 'required',
-            'power' => 'required',
             'harga' => 'required',
             'deskripsi-motor' => 'required',
             'fitur-motor' => 'required',
+            'bonus-motor' => 'required',
             'merk-motor' => 'required',
             'tipe-motor' => 'required',
         ]);
@@ -79,11 +78,10 @@ class MotorController extends Controller
         try {
             $motor = Motor::create([
                 'nama' => $request->input('nama'),
-                'berat' => $request->input('berat'),
-                'power' => $request->input('power'),
                 'harga' => $request->input('harga'),
                 'deskripsi' => $request->input('deskripsi-motor'),
                 'fitur_utama' => $request->input('fitur-motor'),
+                'bonus' => $request->input('bonus-motor'),
                 'id_merk' => $request->input('merk-motor'),
                 'id_type' => $request->input('tipe-motor'),
                 'id_best_motor' => $kategori_best_motor,
@@ -92,6 +90,7 @@ class MotorController extends Controller
             flash()->addSuccess("Motor $motor->nama berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
+            throw $th;
             flash()->addError("Gagal membuat data pastikan sudah benar!");
             return redirect()->back();
         }
@@ -142,11 +141,10 @@ class MotorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'berat' => 'required',
-            'power' => 'required',
             'harga' => 'required',
             'deskripsi_motor' => 'required',
             'fitur_motor' => 'required',
+            'bonus_motor' => 'required',
             'merk_motor' => 'required',
             'tipe_motor' => 'required',
         ]);
@@ -161,11 +159,10 @@ class MotorController extends Controller
 
         $motor = Motor::findOrFail($id);
         $motor->nama = $request->nama;
-        $motor->berat = $request->berat;
-        $motor->power = $request->power;
         $motor->harga = $request->harga;
         $motor->deskripsi = $request->deskripsi_motor;
         $motor->fitur_utama = $request->fitur_motor;
+        $motor->bonus = $request->bonus_motor;
         $motor->id_merk = $request->merk_motor;
         $motor->id_type = $request->tipe_motor;
         $motor->stock = $stock;
