@@ -196,8 +196,10 @@ class DetailMotorControllerUser extends Controller
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
 
+    $motor = Motor::find($idMotor);
+
     // dd($data[0]);
 
-    return view('user.detail.detail_leasing', ['data' => $data]);
+    return view('user.detail.detail_leasing', ['data' => $data, 'motor' => $motor]);
   }
 }
