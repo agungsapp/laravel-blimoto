@@ -79,6 +79,8 @@ Route::get('/sort/terbaru', [MotorTerbaruController::class, 'getMotorTerbaru'])-
 Route::get('/sort/lokasi', [UserMotorController::class, 'getMotorByLocation']);
 Route::get('/sort/merk', [UserMotorController::class, 'getAllMerk']);
 Route::get('/sort/motor-by-merk', [UserMotorController::class, 'getMotorByMerk']);
+Route::get('/sort/range-harga', [UserMotorController::class, 'getMotorByPriceRange']);
+Route::get('/get-motor-tenor', [UserMotorController::class, 'getMotorTenor']);
 Route::resource('/bandingkan', BandingkanController::class);
 Route::resource('/brosur', BrosurController::class);
 Route::resource('/dealer', DealerController::class);
@@ -101,11 +103,9 @@ Route::get('/detail-leasing', [DetailMotorControllerUser::class, 'getDetailLeasi
 Route::get('/search-motor', [HomeController::class, 'getSearchMotor'])->name('search-motor');
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
-// Route::get('/cicilan-motor', [CicilanMotorController::class, 'hitungCicilan']);
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 Route::get('/get-motor', [BandingkanController::class, 'getMotor']);
 Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMotor']);
-// Route::get('/cicilan-motor/{id}', [CicilanMotorController::class, 'getCicilan'])->where('id', '[0-9]+');
 
 
 
@@ -135,10 +135,3 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
     });
 });
-
-
-
-// agung -> form login & register user.
-
-// next -> seeder motor, dinamiskan motor.
-// test

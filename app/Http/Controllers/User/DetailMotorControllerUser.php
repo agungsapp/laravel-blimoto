@@ -186,19 +186,36 @@ class DetailMotorControllerUser extends Controller
   {
     $idMotor = $request->input('id_motor');
     $idLeasing = $request->input('id_leasing');
-    $data = CicilanMotor::where('id_motor', $idMotor)
-      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-      ->where('id_leasing', $idLeasing)
-      ->get();
+    $tenor = $request->input('tenor');
+
+    if ($tenor) {
+      // Jika ada input 'tenor', lakukan pencarian berdasarkan 'tenor'
+      $data = CicilanMotor::where('id_motor', $idMotor)
+        ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+        ->where('id_leasing', $idLeasing)
+        ->where('tenor', $tenor)
+        ->get();
+    } else {
+      // Jika tidak ada input 'tenor', gunakan 'maxTenor' sebagai nilai default
+      $maxTenor = CicilanMotor::select(DB::raw('MAX(cicilan_motor.tenor) as tenor'))
+        ->where('id_motor', $idMotor)
+        ->where('id_leasing', $idLeasing)
+        ->get();
+
+      $data = CicilanMotor::where('id_motor', $idMotor)
+        ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+        ->where('id_leasing', $idLeasing)
+        ->where('tenor', $maxTenor[0]->tenor)
+        ->get();
+    }
 
     foreach ($data as $key => $c) {
       $c->diskon_normal = $c->dp - round($c->dp * $c->diskon_normal);
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
 
-    $motor = Motor::find($idMotor);
 
-    // dd($data[0]);
+    $motor = Motor::find($idMotor);
 
     return view('user.detail.detail_leasing', ['data' => $data, 'motor' => $motor]);
   }
