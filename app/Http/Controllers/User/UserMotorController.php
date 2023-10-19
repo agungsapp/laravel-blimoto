@@ -80,12 +80,14 @@ class UserMotorController extends Controller
   public function getMotorTenor(Request $request)
   {
     $idMotor = $request->input('id_motor');
+    $idLeasing = $request->input('id_leasing');
 
-    $tenor = CicilanMotor::select('tenor')
+    $dataTenor = CicilanMotor::select('tenor')
       ->distinct('tenor')
       ->where('id_motor', '=', $idMotor)
+      ->where('id_leasing', '=', $idLeasing)
       ->get();
 
-    return response()->json($tenor);
+    return response()->json($dataTenor);
   }
 }
