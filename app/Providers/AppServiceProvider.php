@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,14 @@ class AppServiceProvider extends ServiceProvider
         //
         Str::macro('rupiah', function ($value) {
             return 'Rp. ' . number_format($value, 0, '.', '.');
+        });
+
+        Str::macro('wa', function ($text) {
+            if (is_string($text)) {
+                return str_replace(' ', '%', $text);
+            } else {
+                throw new Exception('Input must be a string');
+            }
         });
     }
 }

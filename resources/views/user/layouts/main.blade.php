@@ -210,6 +210,9 @@
 								sessionStorage.setItem('lokasiUser', id);
 								var selectElement = document.querySelector('.lokasiTextShow');
 								selectElement.textContent = location;
+								var stickyNav = document.getElementById('lokasiTextShow2');
+								stickyNav.textContent = location;
+
 
 								// Update nilai variabel global saat lokasi berubah
 								lokasiNow = id;
@@ -240,6 +243,8 @@
 						// Men-set teks tersebut ke dalam elemen menu
 						var selectElement = document.querySelector('.lokasiTextShow');
 						selectElement.textContent = lokasiText;
+						var stickyNav = document.getElementById('lokasiTextShow2');
+						stickyNav.textContent = lokasiText;
 				}
 		</script>
 
