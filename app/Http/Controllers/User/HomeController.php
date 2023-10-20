@@ -155,8 +155,10 @@ class HomeController extends Controller
     public function getTenor(Request $request)
     {
         $id_lokasi = $request->input('id_lokasi');
+        $id_motor = $request->input('id_motor');
         $tenorData = CicilanMotor::select('tenor')
             ->where('id_lokasi', $id_lokasi)
+            ->where('id_motor', $id_motor)
             ->distinct('tenor')
             ->get();
 
