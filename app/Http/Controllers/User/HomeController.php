@@ -126,10 +126,12 @@ class HomeController extends Controller
     public function getDpMotor(Request $request)
     {
         $id_motor = $request->input('id_motor');
+        $id_lokasi = $request->input('id_lokasi');
         $tenor = $request->input('tenor');
 
         $dps = CicilanMotor::where('id_motor', $id_motor)
             ->where('tenor', $tenor)
+            ->where('id_lokasi', $id_lokasi)
             ->pluck('dp');
 
         $dps = $dps->unique()->values()->all();
@@ -150,9 +152,11 @@ class HomeController extends Controller
         return response()->json(['merk_motor' => $merkMotor], 200);
     }
 
-    public function getTenor()
+    public function getTenor(Request $request)
     {
+        $id_lokasi = $request->input('id_lokasi');
         $tenorData = CicilanMotor::select('tenor')
+            ->where('id_lokasi', $id_lokasi)
             ->distinct('tenor')
             ->get();
 
