@@ -128,27 +128,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($motors as $index => $motor)
-						<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
-							<td>{{ $loop->iteration }}</td>
-							<td>{{ $motor->nama }}</td>
-							<td>{{ $motor->best_motor_name }}</td>
-							<td>{{ $motor->merk_nama }}</td>
-							<td>{{ $motor->type_nama }}</td>
-							<td>{{ 'Rp. ' . number_format($motor->harga, 0, ',', '.') }}</td>
-							<td>{{ $motor->stock === 1 ? 'Ada' : 'Kosong' }}</td>
-							<td>
-								<div class="d-flex justify-content-between">
-									<a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-warning">Edit</a>
-									<form action="{{ route('admin.motor.destroy', $motor->id) }}" method="post">
-										@csrf
-										@method('DELETE')
-										<button type="submit" class="btn btn-danger show_confirm">Delete</button>
-									</form>
-								</div>
-							</td>
-						</tr>
-						@endforeach
+
 					</tbody>
 					<tfoot>
 						<tr>
@@ -202,12 +182,50 @@
 	})
 
 	$(function() {
-		$("#dataMotor").DataTable({
-			"responsive": true,
-			"lengthChange": false,
-			"autoWidth": false,
-			//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
-		}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
+		$('#dataMotor').DataTable({
+			serverSide: true,
+			ajax: {
+				url: '{{ route("admin.motor.index") }}',
+				type: 'GET',
+			},
+			columns: [{
+					data: 'id',
+					name: 'id'
+				},
+				{
+					data: 'nama',
+					name: 'nama'
+				},
+				{
+					data: 'best_motor_name',
+					name: 'best_motor_name'
+				},
+				{
+					data: 'merk_nama',
+					name: 'merk_nama'
+				},
+				{
+					data: 'type_nama',
+					name: 'type_nama'
+				},
+				{
+					data: 'harga',
+					name: 'harga',
+					render: function(data, type, row) {
+						return 'Rp. ' + parseInt(data).toLocaleString();
+					}
+				},
+				{
+					data: 'stock',
+					name: 'stock'
+				},
+				{
+					data: 'action',
+					name: 'action',
+					orderable: false
+				}
+			]
+		});
 	});
 
 	$(document).ready(function() {

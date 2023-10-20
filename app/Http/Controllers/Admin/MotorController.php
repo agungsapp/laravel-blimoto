@@ -10,7 +10,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
+use Yajra\DataTables\DataTables;
 
 class MotorController extends Controller
 {
@@ -21,18 +21,33 @@ class MotorController extends Controller
      */
     public function index(Request $request)
     {
-        $motors = DB::table('motor')
-            ->join('merk', 'motor.id_merk', '=', 'merk.id')
-            ->join('type', 'motor.id_type', '=', 'type.id')
-            ->leftJoin('best_motor', 'motor.id_best_motor', '=', 'best_motor.id')
-            ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name')
-            ->get();
+        if ($request->ajax()) {
+            $motors = DB::table('motor')
+                ->join('merk', 'motor.id_merk', '=', 'merk.id')
+                ->join('type', 'motor.id_type', '=', 'type.id')
+                ->leftJoin('best_motor', 'motor.id_best_motor', '=', 'best_motor.id')
+                ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name')
+                ->get();
+
+            return DataTables::of($motors)
+                ->addColumn('action', function ($motor) {
+                    return '<div class="d-flex justify-content-between">
+                                <a href="' . route('admin.motor.edit', $motor->id) . '" class="btn btn-warning">Edit</a>
+                                <form action="' . route('admin.motor.destroy', $motor->id) . '" method="post">
+                                    ' . csrf_field() . '
+                                    ' . method_field('DELETE') . '
+                                    <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+                                </form>
+                            </div>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
         return view('admin.motor.index', [
-            'motors' => $motors,
             'merk_motor' => $merk_motor,
             'tipe_motor' => $tipe_motor,
             'kategori_best_motor' => $kategori_best_motor,

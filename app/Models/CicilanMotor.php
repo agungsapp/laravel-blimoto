@@ -25,6 +25,7 @@ class CicilanMotor extends Model
     SELECT 
         cicilan_motor.id,
         motor.nama AS motor_name, 
+        kota.nama AS lokasi_name,
         leasing_motor.nama AS leasing_name, 
         cicilan_motor.dp, 
         cicilan_motor.tenor, 
@@ -36,6 +37,8 @@ class CicilanMotor extends Model
         motor ON cicilan_motor.id_motor = motor.id
     INNER JOIN 
         leasing_motor ON cicilan_motor.id_leasing = leasing_motor.id
+    INNER JOIN 
+        kota ON cicilan_motor.id_lokasi = kota.id
     ');
   }
 
