@@ -28,7 +28,7 @@ class LokasiSeeder extends Seeder
                 'nama' => 'Tanngerang',
             ],
             [
-                'nama' => 'bekasi',
+                'nama' => 'Bekasi',
             ],
         ];
         DB::table('kota')->insert($data);

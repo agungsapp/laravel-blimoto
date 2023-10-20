@@ -155,9 +155,10 @@
 			<table id="example1" class="table-bordered table-striped table">
 				<thead>
 					<tr>
-						<th>No. </th>
-						<th>Motor</th>
-						<th>Leasing</th>
+						<th>ID</th>
+						<th>Motor Name</th>
+						<th>Leasing Name</th>
+						<th>Kota Name</th>
 						<th>DP</th>
 						<th>Tenor</th>
 						<th>Potongan Tenor</th>
@@ -165,29 +166,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach ($cicilan as $c)
-					<tr>
-						<td>{{ $loop->iteration }}</td>
-						<td>{{ $c->motor_name }}</td>
-						<td>{{ $c->leasing_name }}</td>
-						<td>{{ 'Rp. ' . number_format($c->dp, 0, ',', '.') }}</td>
-						<td>{{ $c->tenor }}</td>
-						<td>{{ $c->potongan_tenor }}</td>
-						<td>{{ 'Rp. ' . number_format($c->cicilan, 0, ',', '.') }}</td>
-					</tr>
-					@endforeach
+					<!-- Data rows will be dynamically added here -->
 				</tbody>
-				<tfoot>
-					<tr>
-						<th>No. </th>
-						<th>Motor</th>
-						<th>Leasing</th>
-						<th>DP</th>
-						<th>Tenor</th>
-						<th>Potongan Tenor</th>
-						<th>Cicilan</th>
-					</tr>
-				</tfoot>
 			</table>
 		</div>
 	</div>
@@ -198,11 +178,50 @@
 
 @push('script')
 <script>
-	$("#example1").DataTable({
-		"responsive": true,
-		"lengthChange": false,
-		"autoWidth": false,
-	}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+	$('#example1').DataTable({
+		processing: true,
+		serverSide: true,
+		ajax: "{{ route('serverSideCicilanMotor') }}",
+		columns: [{
+				data: 'id',
+				name: 'id'
+			},
+			{
+				data: 'motor_name',
+				name: 'motor_name'
+			},
+			{
+				data: 'leasing_name',
+				name: 'leasing_name'
+			},
+			{
+				data: 'lokasi_name',
+				name: 'lokasi_name'
+			},
+			{
+				data: 'dp',
+				name: 'dp',
+				render: function(data, type, row) {
+					return 'Rp. ' + parseInt(data).toLocaleString();
+				}
+			},
+			{
+				data: 'tenor',
+				name: 'tenor'
+			},
+			{
+				data: 'potongan_tenor',
+				name: 'potongan_tenor'
+			},
+			{
+				data: 'cicilan',
+				name: 'cicilan',
+				render: function(data, type, row) {
+					return 'Rp. ' + parseInt(data).toLocaleString();
+				}
+			}
+		]
+	});
 </script>
 <script>
 	$(document).ready(function() {

@@ -10,6 +10,7 @@ use App\Models\Motor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class AdminCicilanMotorController extends Controller
 {
@@ -21,7 +22,6 @@ class AdminCicilanMotorController extends Controller
   public function index()
   {
     $data = [
-      'cicilan' => CicilanMotor::getCicilanTable(),
       'motor' => Motor::all(),
       'leasing' => LeasingMotor::all(),
       'tenor' => CicilanMotor::select('tenor')
@@ -192,5 +192,11 @@ class AdminCicilanMotorController extends Controller
     }
 
     return redirect()->back();
+  }
+
+  public function dataTable()
+  {
+    $cicilan = CicilanMotor::getCicilanTable();
+    return Datatables::of($cicilan)->make(true);
   }
 }
