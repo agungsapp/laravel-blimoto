@@ -3,7 +3,7 @@
 bacaKota();
 bacaMerk();
 bacaType();
-bacaTenor();
+// bacaTenor();
 var counterModel = 0;
 
 $(document).ready(function () {
@@ -80,6 +80,9 @@ $(document).ready(function () {
                     .catch((error) => console.error("Error:", error));
             })
             .catch((error) => console.error("Error:", error));
+
+        bacaTenor();
+
     });
 
     $("#tenor").on("change", function () {
@@ -523,8 +526,10 @@ function bacaType() {
 }
 
 function bacaTenor() {
+    var id_motor = $('select[name="model"]').val();
+    var id_lokasi = $("#SelectKota").val();
     const tenorSelect = document.getElementById("tenor");
-    const tenorEndpoint = "/get-tenor";
+    const tenorEndpoint = `/get-tenor?id_lokasi=${id_lokasi}&id_motor=${id_motor}`;
     fetch(tenorEndpoint)
         .then((response) => response.json())
         .then((data) => {
@@ -602,6 +607,8 @@ function findMotorByTypeMerk(merkId, tipeId) {
 }
 
 function getDp(id) {
+    var id_lokasi = $("#SelectKota").val();
+
     fetch("/get-harga/" + id)
         .then((response) => response.json())
         .then((data) => {
@@ -610,7 +617,7 @@ function getDp(id) {
             id_motor = data.data.id;
             tenor = $('select[name="tenor"]').val();
             // Fetch the DP options
-            fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}`)
+            fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}&id_lokasi=${id_lokasi}`)
                 .then((response) => response.json())
                 .then((data) => {
                     // Clear the select options
@@ -694,5 +701,5 @@ function setSelectionAfterDelay() {
 
 
 $(document).ready(function () {
-    setSelectionAfterDelay()
+    // setSelectionAfterDelay()
 });

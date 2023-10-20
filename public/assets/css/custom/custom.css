@@ -346,12 +346,12 @@ section .simulasi-container .simulasi-wrapper .card {
 }
 
 .cicilan-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    font-size: 1.3em;
-    padding: 5px 30px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 20px !important;
+    font-size: 1.3em !important;
+    padding: 5px 30px !important;
 }
 
 .rekomendasi-motor-detail-motor {
@@ -470,7 +470,7 @@ section .simulasi-container .simulasi-wrapper .card {
         align-items: center;
         border-radius: 20px;
         font-size: 1em !important;
-        padding: 5px 20px;
+        padding: 2px 15px;
     }
 }
 
