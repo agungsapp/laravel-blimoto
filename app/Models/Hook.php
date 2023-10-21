@@ -17,5 +17,7 @@ class Hook extends Model
         'warna',
         'warna_teks',
         'gambar',
+        'status',
+        'order',
     ];
 }

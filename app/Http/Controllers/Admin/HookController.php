@@ -50,6 +50,8 @@ class HookController extends Controller
             'caption' => 'required|string|max:255',
             'warna' => 'required|string|max:7',
             'warna_teks' => 'required|string|max:7',
+            'status-hook' => 'required',
+            'urutan-hook' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
@@ -71,6 +73,8 @@ class HookController extends Controller
                 'gambar' => $gambarName,
                 'link' => $request->input('link'),
                 'warna' => $request->input('warna'),
+                'status' => $request->input('status-hook'),
+                'order' => $request->input('urutan-hook'),
                 'warna_teks' => $request->input('warna_teks'),
                 'caption' => $request->input('caption'),
             ]);
@@ -122,6 +126,8 @@ class HookController extends Controller
             'caption' => 'required|string|max:255',
             'warna' => 'required|string|max:7', // Sesuaikan dengan panjang HEX
             'warna_teks' => 'required|string|max:7', // Sesuaikan dengan panjang HEX
+            'status' => $request->input('status-hook'),
+            'order' => $request->input('urutan-hook'),
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Sesuaikan dengan jenis dan ukuran gambar
         ]);
 
@@ -153,6 +159,8 @@ class HookController extends Controller
             $hook->caption = $request->input('caption');
             $hook->warna = $request->input('warna');
             $hook->warna_teks = $request->input('warna_teks');
+            $hook->status = $request->input('status-hook');
+            $hook->order = $request->input('urutan-hook');
 
             $hook->save();
 
