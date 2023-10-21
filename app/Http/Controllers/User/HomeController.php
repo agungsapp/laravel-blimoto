@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         // dd($data['best1']);
 
-        dd($data['hooks']);
+        // dd($data['hooks']);
         return view('user.home.index', $data);
     }
 

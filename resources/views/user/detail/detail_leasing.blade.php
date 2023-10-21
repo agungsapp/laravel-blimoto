@@ -80,8 +80,9 @@
 																		Sekarang</span></a>
 												</div>
 												<div class="d-flex justify-content-between flex-column">
+														{{-- {{ dd($d) }} --}}
 														<div>
-																<del class="text-doff text-end">Harga sebelum DP : {{ Str::rupiah($d->diskon_normal) }}</del>
+																<del class="text-doff text-end">Potongan diskon : {{ Str::rupiah($d->diskon) }}</del>
 														</div>
 														<div>
 																<del class="text-doff text-end">DP Normal : {{ Str::rupiah($d->diskon_normal) }}</del>
