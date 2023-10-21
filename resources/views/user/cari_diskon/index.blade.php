@@ -105,13 +105,11 @@
 								<img class="w-100 mx-auto mt-5" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp" class="w-100"
 										alt="banner">
 						</div>
-						<div>
+						<div class="row mb-5 mt-5">
 								<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
 										style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-										<img src="/assets/images/detail-motor/2023-10-07_Produk Promo 31 - Copy.webp" class="img-fluid"
-												alt="${motorData.detail_motor[0].gambar
-                    }" srcset=""
-												style="max-width: 100%; height: auto;">
+										<img src="/assets/images/detail-motor/2023-10-07_Produk Promo 31 - Copy.webp" class="img-fluid" alt="gambar"
+												srcset="" style="max-width: 100%; height: auto;">
 										<div class="product-right py-5">
 												<div class="d-flex justify-content-between">
 														<p class="text-dark nama-motor fs-lg-4 fw-bold">Beat</h>
