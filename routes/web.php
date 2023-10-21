@@ -34,6 +34,7 @@ use App\Http\Controllers\User\AboutUsController;
 use App\Http\Controllers\User\BandingkanController;
 use App\Http\Controllers\User\BrosurController;
 use App\Http\Controllers\User\BrosurKreditController;
+use App\Http\Controllers\User\CariDiskonController;
 use App\Http\Controllers\User\CicilanMotorController;
 use App\Http\Controllers\User\DealerController;
 use App\Http\Controllers\User\DetailMotorControllerUser;
@@ -110,7 +111,7 @@ Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMot
 Route::get('/serverSideCicilanMotor', [AdminCicilanMotorController::class, 'dataTable'])->name('serverSideCicilanMotor');
 Route::get('/serverSideDetailMotor', [DetailMotorController::class, 'serverSideDataTable'])->name('serverSideDetailMotor');
 
-
+Route::resource('/cari-diskon', CariDiskonController::class);
 
 // admin area
 Route::prefix('app')->name('admin.')->group(function () {
