@@ -82,7 +82,6 @@ $(document).ready(function () {
             .catch((error) => console.error("Error:", error));
 
         bacaTenor();
-
     });
 
     $("#tenor").on("change", function () {
@@ -135,11 +134,13 @@ $(document).ready(function () {
                 const detailMotorElement =
                     document.querySelector("#motor-baru");
                 detailMotorElement.innerHTML = `
-        														<img src="/assets/images/detail-motor/${motorData
-                        .detail_motor[0]
-                        .gambar
-                    }" class="img-fluid" alt="${motorData.detail_motor[0].gambar
-                    }" srcset=""
+        														<img src="/assets/images/detail-motor/${
+                                                                    motorData
+                                                                        .detail_motor[0]
+                                                                        .gambar
+                                                                }" class="img-fluid" alt="${
+                    motorData.detail_motor[0].gambar
+                }" srcset=""
 																style="max-width: 100%; height: auto;">
 														<div class="product-right py-5">
 																<div class="d-flex justify-content-between">
@@ -151,8 +152,8 @@ $(document).ready(function () {
 																<div class="d-flex justify-content-between mt-2">
                                     <h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
 																		<p class="nama-motor" style="font-weight: bold; color: red;">${formatRupiah(
-                        motorData.otr
-                    )}</p>
+                                                                            motorData.otr
+                                                                        )}</p>
 																</div>
 																<div class="d-flex justify-content-between mt-2">
 																		<h6 class="product-title nama-motor">Metode Pembayaran</h6>
@@ -186,9 +187,11 @@ $(document).ready(function () {
                     );
                     leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img style="min-height: 130px; background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${leasingData.gambar
-                        }" class="card-img-top" alt="${leasingData.gambar
-                        }">
+																		<img style="min-height: 130px; background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${
+                                                                            leasingData.gambar
+                                                                        }" class="card-img-top" alt="${
+                        leasingData.gambar
+                    }">
 																		<ul class="list-group list-group-flush">
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP</p>
@@ -201,14 +204,14 @@ $(document).ready(function () {
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP Bayar</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                            leasingData.dp_bayar
-                        )}</p>
+                                                                                            leasingData.dp_bayar
+                                                                                        )}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Angsuran</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                            leasingData.angsuran
-                        )}</p>
+                                                                                            leasingData.angsuran
+                                                                                        )}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Tenor</p>
@@ -225,8 +228,8 @@ $(document).ready(function () {
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Total Bayar</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                            leasingData.total_bayar
-                        )}</p>
+                                                                                            leasingData.total_bayar
+                                                                                        )}</p>
 																				</li>
 																		</ul>
 																		<div class="card-body d-flex justify-content-center">
@@ -262,26 +265,31 @@ $(document).ready(function () {
                     rekomendasiMotorElement.innerHTML = `<hr class="mt-5 mb-5">
                             <div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
 														style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-                              <img src="/assets/images/detail-motor/${rekomendasiData[0].motor.detail_motor[0].gambar
-                        }" class="img-fluid" alt="${rekomendasiData[0].motor.detail_motor[0].gambar
-                        }" srcset=""
+                              <img src="/assets/images/detail-motor/${
+                                  rekomendasiData[0].motor.detail_motor[0]
+                                      .gambar
+                              }" class="img-fluid" alt="${
+                        rekomendasiData[0].motor.detail_motor[0].gambar
+                    }" srcset=""
                                   style="max-width: 100%; height: auto;">
                               <div class="product-right py-5">
                                   <div class="d-flex justify-content-between">
-                                      <p class="text-dark nama-motor fs-lg-4 fw-bold">${rekomendasiItem.motor.nama
-                        }</h>
+                                      <p class="text-dark nama-motor fs-lg-4 fw-bold">${
+                                          rekomendasiItem.motor.nama
+                                      }</h>
                                       <div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span
-                                              class="ms-2">${response.lokasi
-                        }</span>
+                                              class="ms-2">${
+                                                  response.lokasi
+                                              }</span>
                                       </div>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
                                     <h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
 																		<p class="nama-motor" style="font-weight: bold; color: red;">${formatRupiah(
-                            rekomendasiItem
-                                .motor
-                                .otr
-                        )}</p>
+                                                                            rekomendasiItem
+                                                                                .motor
+                                                                                .otr
+                                                                        )}</p>
 																  </div>
                                   <div class="d-flex justify-content-between mt-2">
                                       <h6 class="product-title nama-motor">Metode Pembayaran</h6>
@@ -289,13 +297,15 @@ $(document).ready(function () {
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
                                       <h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-                                      <p class="nama-motor">${rekomendasiItem.motor.type
-                        }</p>
+                                      <p class="nama-motor">${
+                                          rekomendasiItem.motor.type
+                                      }</p>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
                                       <h6 class="fw-bold text-doff nama-motor">Merk</h6>
-                                      <p class="nama-motor">${rekomendasiItem.motor.merk
-                        }</p>
+                                      <p class="nama-motor">${
+                                          rekomendasiItem.motor.merk
+                                      }</p>
                                   </div>
                                   <div class="d-flex justify-content-between mt-2">
 																		<h6 class="fw-bold text-doff nama-motor">Stock</h6>
@@ -333,9 +343,11 @@ $(document).ready(function () {
 
                         leasingElement.innerHTML = `
 																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img style="background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${rekomendasiLeasingData.gambar
-                            }" class="card-img-top" alt="${rekomendasiLeasingData.gambar
-                            }">
+																		<img style="background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${
+                                                                            rekomendasiLeasingData.gambar
+                                                                        }" class="card-img-top" alt="${
+                            rekomendasiLeasingData.gambar
+                        }">
 																		<ul class="list-group list-group-flush">
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP</p>
@@ -348,14 +360,14 @@ $(document).ready(function () {
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP Bayar</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                                rekomendasiLeasingData.dp_bayar
-                            )}</p>
+                                                                                            rekomendasiLeasingData.dp_bayar
+                                                                                        )}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Angsuran</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                                rekomendasiLeasingData.angsuran
-                            )}</p>
+                                                                                            rekomendasiLeasingData.angsuran
+                                                                                        )}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Tenor</p>
@@ -372,8 +384,8 @@ $(document).ready(function () {
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Total Bayar</p>
 																						<p style="font-weight: bold; color: red;">${formatRupiah(
-                                rekomendasiLeasingData.total_bayar
-                            )}</p>
+                                                                                            rekomendasiLeasingData.total_bayar
+                                                                                        )}</p>
 																				</li>
 																		</ul>
 																		<div class="card-body d-flex justify-content-center">
@@ -589,10 +601,10 @@ function findMotorByTypeMerk(merkId, tipeId) {
                     console.log(`harga otr nya ${value.harga}`);
                     modelSelect.append(
                         '<option value="' +
-                        value.id +
-                        '">' +
-                        value.nama +
-                        "</option>"
+                            value.id +
+                            '">' +
+                            value.nama +
+                            "</option>"
                     );
                 });
             }
@@ -617,7 +629,9 @@ function getDp(id) {
             id_motor = data.data.id;
             tenor = $('select[name="tenor"]').val();
             // Fetch the DP options
-            fetch(`/get-dp?tenor=${tenor}&id_motor=${id_motor}&id_lokasi=${id_lokasi}`)
+            fetch(
+                `/get-dp?tenor=${tenor}&id_motor=${id_motor}&id_lokasi=${id_lokasi}`
+            )
                 .then((response) => response.json())
                 .then((data) => {
                     // Clear the select options
@@ -647,59 +661,71 @@ function clearModalContent(elementId) {
 }
 
 // handle click dari prev & next
-$('#prev').on('click', function () {
-    $('.slick-result-modal').slick("slickPrev");
+$("#prev").on("click", function () {
+    $(".slick-result-modal").slick("slickPrev");
 });
-$('#next').on('click', function () {
-    $('.slick-result-modal').slick("slickNext");
+$("#next").on("click", function () {
+    $(".slick-result-modal").slick("slickNext");
 });
 
 $(document).ready(function () {
     // Sembunyikan navigasi saat halaman dimuat
-    $('.prev, .next').css('opacity', 0);
+    $(".prev, .next").css("opacity", 0);
 
     // Tampilkan navigasi saat mouse masuk ke dalam elemen .slider_content
-    $('.slick-result-modal').hover(
+    $(".slick-result-modal").hover(
         function () {
-            $('.prev, .next').css('opacity', 1);
+            $(".prev, .next").css("opacity", 1);
         },
         function () {
-            $('.prev, .next').css('opacity', 0);
+            $(".prev, .next").css("opacity", 0);
         }
     );
 });
-
-
-
 
 // $(document).ready(function () {
 //   var detailLink = document.getElementById("detail-link");
 //   detailLink.href += lokasiNow;
 // })slide-mitra-kami
 
-
-
 // testing input form diskon
 function setSelectionAfterDelay() {
-    console.log("mode testing auto fill active ...........")
+    console.log("mode testing auto fill active ...........");
     const selections = [
-        { selector: '#SelectKota', value: '1', delay: 2000 },
-        { selector: '#merk', value: '1', delay: 2500 },
-        { selector: '#tipe', value: '1', delay: 3000 },
-        { selector: '#pembayaran', value: '2', delay: 3500 },
-        { selector: '#tenor', value: '11', delay: 4000 },
-        { selector: '#model', value: '1', delay: 5000 },
-        { selector: '#dp', value: '2200000', delay: 9000 }
+        { selector: "#SelectKota", value: "1", delay: 2000 },
+        { selector: "#merk", value: "1", delay: 2500 },
+        { selector: "#tipe", value: "1", delay: 3000 },
+        { selector: "#pembayaran", value: "2", delay: 3500 },
+        { selector: "#tenor", value: "11", delay: 4000 },
+        { selector: "#model", value: "1", delay: 5000 },
+        { selector: "#dp", value: "2200000", delay: 9000 },
     ];
 
-    selections.forEach(item => {
+    selections.forEach((item) => {
         setTimeout(function () {
-            $(item.selector).val(item.value).trigger('change');
+            $(item.selector).val(item.value).trigger("change");
         }, item.delay);
     });
 }
 
-
 $(document).ready(function () {
-    // setSelectionAfterDelay()
+    $("#btn-reset").click(function () {
+        $("#tenor").empty();
+        $("#model").empty();
+        $("#dp").empty();
+
+        const selections = [
+            { selector: "#SelectKota", value: "1", delay: 2000 },
+            { selector: "#merk", value: "1", delay: 2500 },
+            { selector: "#tipe", value: "1", delay: 3000 },
+            { selector: "#pembayaran", value: "2", delay: 3500 },
+            { selector: "#tenor", value: "11", delay: 4000 },
+            { selector: "#model", value: "1", delay: 5000 },
+            { selector: "#dp", value: "2200000", delay: 9000 },
+        ];
+
+        selections.forEach((item) => {
+            $(item.selector).val("").trigger("change");
+        });
+    });
 });
