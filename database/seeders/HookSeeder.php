@@ -17,23 +17,25 @@ class HookSeeder extends Seeder
         $data = [
             [
                 'nama' => 'hook 3',
-                'gambar' => '2023-10-06_hook-3.webp',
+                'gambar' => '2023-10-21_Hook Blimoto 3.webp',
                 'link' => '#',
                 'warna' => '#292929',
                 'warna_teks' => '#FFFFFF',
                 'caption' => 'Beli Sekarang',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'order' => 3,
             ],
             [
                 'nama' => 'hook 2',
-                'gambar' => 'hook-img2.webp',
+                'gambar' => '2023-10-21_Hook Blimoto 2.webp',
                 'link' => '#',
                 'warna' => '#FFFFFF',
                 'warna_teks' => '#292929',
                 'caption' => 'Selengkapnya',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'order' => 2,
             ],
 
             [
@@ -45,6 +47,7 @@ class HookSeeder extends Seeder
                 'caption' => 'Lihat Promo',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'order' => 1,
             ],
         ];
         DB::table('hook')->insert($data);

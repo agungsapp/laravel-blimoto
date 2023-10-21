@@ -32,13 +32,14 @@ class HomeController extends Controller
             'best3' => $this->getMotorData(4),
             'best4' => $this->getMotorData(5),
             'blogs' => Blog::orderBy('id', 'DESC')->get(),
-            'hooks' => Hook::all(),
+            'hooks' => Hook::where('status', 1)
+                ->orderBy('order', 'asc')->get(),
             'mitras' => Mitra::all(),
         ];
 
         // dd($data['best1']);
 
-        // dd($data['hook']);
+        dd($data['hooks']);
         return view('user.home.index', $data);
     }
 

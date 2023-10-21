@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('gambar')->default('path_gambar');
             $table->string('link')->default('url_href');
             $table->string('warna')->default('#DD0202');
+            $table->boolean('status')->default(1);
+            $table->integer('order');
             $table->string('warna_teks')->default('#DD0202');
             $table->string('caption')->default('caption_hook');
             $table->timestamps();
