@@ -370,19 +370,19 @@ section .simulasi-container .simulasi-wrapper .card {
     top: 50%;
 }
 
-#next,
+/* #next,
 #prev {
     position: absolute;
     font-size: 30px;
     top: 0;
-    opacity: 0.5; /* Atur opacity awal ke 0 (tersembunyi) */
-    transition: opacity 0.5s ease-in; /* Transisi opacity dengan durasi 0.5 detik dan fungsi animasi ease-in */
+    opacity: 0.5; 
+    transition: opacity 0.5s ease-in; 
 }
 
 #next:hover,
 #prev:hover {
-    opacity: 1; /* Ketika elemen dihover, atur opacity menjadi 1 (muncul) */
-    transition: opacity 0.5s ease-in; /* Atur kembali transisi hanya untuk opacity */
+    opacity: 1; 
+    transition: opacity 0.5s ease-in; 
 }
 
 #next {
@@ -398,7 +398,7 @@ section .simulasi-container .simulasi-wrapper .card {
     display: none;
     font-size: 30px;
     left: 40% !important;
-}
+} */
 
 .card-detail-motor {
     flex-shrink: 0;

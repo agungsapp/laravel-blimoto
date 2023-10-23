@@ -335,3 +335,116 @@ $(document).ready(function () {
 
 
 });
+
+$(document).ready(function () {
+  console.log("slick jalan..")
+  $('.slick-cari-diskon').slick({
+    centerMode: false,
+    centerPadding: '10px',
+    infinite: true,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    prevArrow: '#prev',
+    nextArrow: '#next',
+    // variableWidth: '18rem'
+    responsive: [
+      {
+        breakpoint: 500,
+        settings: {
+          centerMode: false,
+          centerPadding: '10px',
+          slidesToShow: 1,
+          slidesToScroll: 3,
+          autoplay: false,
+          autoplaySpeed: 2000,
+          infinite: true,
+          prevArrow: '#prev',
+          nextArrow: '#next',
+          // dots: true
+
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          centerMode: false,
+          centerPadding: '10px',
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          autoplay: false,
+          autoplaySpeed: 2000,
+          infinite: true,
+          prevArrow: '#prev',
+          nextArrow: '#next',
+          // dots: true
+
+        }
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          centerMode: false,
+          centerPadding: '10px',
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          autoplay: false,
+          autoplaySpeed: 2000,
+          infinite: true,
+          prevArrow: '#prev',
+          nextArrow: '#next',
+          // dots: true
+
+        }
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          centerMode: false,
+          centerPadding: '10px',
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          autoplay: false,
+          autoplaySpeed: 2000,
+          infinite: true,
+          prevArrow: '#prev',
+          nextArrow: '#next',
+          // dots: true
+
+        }
+      },
+      {
+        breakpoint: 1500,
+        settings: {
+          centerMode: false,
+          centerPadding: '10px',
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          autoplay: false,
+          autoplaySpeed: 2000,
+          infinite: true,
+          prevArrow: '#prev',
+          nextArrow: '#next',
+          // dots: true
+
+        }
+      },
+    ]
+  })
+})
+
+$(document).ready(function () {
+  // Sembunyikan navigasi saat halaman dimuat
+  $('.arrow_prev, .arrow_next').hide();
+
+  // Tampilkan navigasi saat mouse masuk ke dalam elemen .slider_content
+  $('.slick-cari-diskon').hover(
+    function () { // Saat mouse masuk
+      $('.arrow_prev, .arrow_next').show();
+    },
+    function () { // Saat mouse keluar
+      $('.arrow_prev, .arrow_next').hide();
+    }
+  );
+});

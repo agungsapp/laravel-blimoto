@@ -104,7 +104,7 @@ Route::get('/detail-motor', [DetailMotorControllerUser::class, 'getDetailMotor']
 Route::get('/detail-leasing', [DetailMotorControllerUser::class, 'getDetailLeasing'])->name('detail-leasing');
 Route::get('/search-motor', [HomeController::class, 'getSearchMotor'])->name('search-motor');
 // cari dan rekomendasi motor
-Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend']);
+Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend'])->name('cari-cicilan');
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 Route::get('/get-motor', [BandingkanController::class, 'getMotor']);
 Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMotor']);
