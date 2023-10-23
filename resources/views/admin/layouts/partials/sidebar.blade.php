@@ -82,6 +82,13 @@
 														</a>
 												</li>
 												<li class="nav-item">
+														<a href="{{ route('admin.diskon-motor.index') }}"
+																class="nav-link {{ \Route::is('admin.diskon-motor.*') ? 'active' : '' }}">
+																<i class="far fa-circle nav-icon"></i>
+																<p>Data Diskon Motor</p>
+														</a>
+												</li>
+												<li class="nav-item">
 														<a href="{{ route('admin.brosur-motor.index') }}"
 																class="nav-link {{ \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
 																<i class="far fa-circle nav-icon"></i>

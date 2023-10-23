@@ -10,8 +10,6 @@ class LeasingMotor extends Model
   public $timestamps = false;
   protected $fillable = [
     'nama',
-    'diskon',
-    'diskon_normal',
     'gambar'
   ];
 }
