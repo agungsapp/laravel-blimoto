@@ -345,10 +345,17 @@ class CicilanMotorController extends Controller
     // Convert the associative array to a sequential array
     $rekomendasiMotor = array_values($rekomendasiMotor);
 
-    return response()->json([
+    // return response()->json([
+    //   'lokasi' => $lokasi->nama,
+    //   'data' => $data,
+    //   'rekomendasi' => $rekomendasiMotor,
+    // ], 200);
+    $data = [
       'lokasi' => $lokasi->nama,
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
-    ], 200);
+    ];
+
+    return view('user.cari_diskon.index', $data);
   }
 }

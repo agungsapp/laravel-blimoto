@@ -90,6 +90,20 @@ $(document).ready(function () {
         getDp(id);
     });
 
+    $("#form-simulasi").on("submit", function (e) {
+        e.preventDefault();
+        var id_lokasi = $("#SelectKota").val();
+        var idmotor = id_motor;
+        var tenor = $('select[name="tenor"]').val();
+        var dp = $("#dp").val();
+
+        var tenor = $("#tenor").val();
+
+        // Redirect to /cari-cicilan with the tenor parameter
+        window.location.href = `cari-cicilan?id_lokasi=${id_lokasi}&id_motor=${id_motor}&dp=${dp}&tenor=${tenor}`;
+    });
+
+
     // $("#form-simulasi").on("submit", function (e) {
     //     e.preventDefault();
     //     console.log("submit di triger =====================================");
@@ -454,6 +468,9 @@ $(document).ready(function () {
     //   $("body").removeClass("popup-open");
     //   $("#popupOverlay").fadeOut();
     // });
+
+
+
 });
 
 // range function
