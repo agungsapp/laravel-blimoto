@@ -20,8 +20,6 @@ class MotorTerbaruController extends Controller
             ->orderBy('motor.updated_at', 'desc')
             ->paginate(8);
 
-        // return response()->json($motorData);
-        // dd($motorData);
         return view('user.motor_terbaru.index', ['data' => $motorData]);
     }
 
@@ -99,7 +97,7 @@ class MotorTerbaruController extends Controller
             ->paginate(8);
 
         // return response()->json($motorTermahal);
-        dd($motorTermahal);
+        // dd($motorTermahal);
         return view('user.motor_terbaru.index', ['data' => $motorTermahal]);
     }
 
