@@ -69,44 +69,46 @@
 														<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
 																<img
 																		style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																		src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																		alt="2023-10-11_W1.png">
+																		src="{{ asset('assets') }}/images/custom/leasing/{{ $les1['gambar'] }}" class="card-img-top"
+																		alt="{{ $les1['gambar'] }}">
 																<ul class="list-group list-group-flush">
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>DP</p>
-																				<p>Rp. 1.000.000 </p>
+
+																				<p>{{ Str::rupiah($les1['dp']) }} </p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Diskon</p>
-																				<p>Rp. 1.000.000 </p>
+																				<p>{{ Str::rupiah($les1['diskon']) }}</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>DP Bayar</p>
-																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['dp_bayar']) }}</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Angsuran</p>
-																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['angsuran']) }}</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Tenor</p>
-																				<p>1 Bulan</p>
+																				<p>{{ $les1['tenor'] }} Bulan</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Potongan Tenor</p>
-																				<p>1 Bulan</p>
+																				<p>{{ $les1['potongan_tenor'] }} Bulan</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Total Tenor</p>
-																				<p>1 Bulan</p>
+																				<p>{{ $les1['total_tenor'] }} Bulan</p>
 																		</li>
 																		<li class="list-group-item d-flex justify-content-between">
 																				<p>Total Bayar</p>
-																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['total_bayar']) }}</p>
 																		</li>
 																</ul>
 																<div class="card-body d-flex justify-content-center">
-																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																		<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $data['motor']['merk'] . ' ' . $data['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $les1['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($les1['angsuran']) }}%20tenor%20{{ $les1['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
+																				target="_blank" class="btn btn-success w-100">Ajukan Sekarang</a>
 																</div>
 														</div>
 												</div>
@@ -209,39 +211,40 @@
 																		<ul class="list-group list-group-flush">
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP</p>
-																						<p>Rp. 1.000.000 </p>
+																						<p>{{ Str::rupiah($reles['dp']) }}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Diskon</p>
-																						<p>Rp. 1.000.000 </p>
+																						<p>{{ Str::rupiah($reles['diskon']) }}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>DP Bayar</p>
-																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['dp_bayar']) }}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Angsuran</p>
-																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['angsuran']) }}</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Tenor</p>
-																						<p>1 Bulan</p>
+																						<p>{{ Str::rupiah($reles['tenor']) }} Bulan</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Potongan Tenor</p>
-																						<p>1 Bulan</p>
+																						<p>{{ Str::rupiah($reles['potongan_tenor']) }} Bulan</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Total Tenor</p>
-																						<p>1 Bulan</p>
+																						<p>{{ Str::rupiah($reles['total_tenor']) }} Bulan</p>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between">
 																						<p>Total Bayar</p>
-																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['total_bayar']) }} </p>
 																				</li>
 																		</ul>
 																		<div class="card-body d-flex justify-content-center">
-																				<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																				<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $rek['motor']['merk'] . ' ' . $rek['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $reles['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($reles['angsuran']) }}%20tenor%20{{ $reles['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
+																						target="_blank" class="btn btn-success w-100">Ajukan Sekarang</a>
 																		</div>
 																</div>
 														</div>
