@@ -356,6 +356,8 @@ class CicilanMotorController extends Controller
       'rekomendasi' => $rekomendasiMotor,
     ];
 
+    // dd($data['rekomendasi']);
+
     return view('user.cari_diskon.index', $data);
   }
 }
