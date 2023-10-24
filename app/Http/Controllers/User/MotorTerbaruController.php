@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\MotorKota;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -21,7 +23,11 @@ class MotorTerbaruController extends Controller
       ->orderBy('motor.updated_at', 'desc')
       ->paginate(8);
 
-    return view('user.motor_terbaru.index', ['data' => $motorData]);
+    return view('user.motor_terbaru.index', [
+      'data' => $motorData,
+      'merks' => Merk::all(),
+      'types' => Type::all()
+    ]);
   }
 
   /**
