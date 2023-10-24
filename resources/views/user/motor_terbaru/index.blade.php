@@ -102,6 +102,7 @@
 									</div>
 
 									<button class="btn bg-basic btn-block fw-bold text-white">Terapkan</button>
+									<button class="mt-2 btn btn-outline-dark btn-block fw-bold">Reset</button>
 								</div>
 							</div>
 						</div>
