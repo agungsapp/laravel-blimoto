@@ -30,20 +30,19 @@
 						<div id="detail-motor-baru " class="row">
 								<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
 										style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-										<img src="/assets/images/detail-motor/2023-10-07_Produk Promo 31 - Copy.webp" class="img-fluid"
-												alt="${motorData.detail_motor[0].gambar
-                    }" srcset=""
+										<img src="{{ asset('assets') }}/images/detail-motor/{{ $data['motor']['detail_motor'][0]['gambar'] }}"
+												class="img-fluid" alt="{{ $data['motor']['detail_motor'][0]['gambar'] }}" srcset=""
 												style="max-width: 100%; height: auto;">
 										<div class="product-right py-5">
 												<div class="d-flex justify-content-between">
-														<p class="text-dark nama-motor fs-lg-4 fw-bold">Beat</h>
+														<p class="text-dark nama-motor fs-lg-4 fw-bold">{{ $data['motor']['nama'] }}</h>
 														<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
-																<span class="ms-2">Jakarta</span>
+																<span class="ms-2">{{ $lokasi }}</span>
 														</div>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-														<p class="nama-motor" style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+														<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($data['motor']['otr']) }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="product-title nama-motor">Metode Pembayaran</h6>
@@ -51,11 +50,11 @@
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-														<p class="nama-motor">Matic</p>
+														<p class="nama-motor">{{ $data['motor']['type'] }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-														<p class="nama-motor">Honda</p>
+														<p class="nama-motor">{{ $data['motor']['merk'] }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Stock</h6>
@@ -63,374 +62,67 @@
 												</div>
 										</div>
 								</div>
-								<div class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+								<div id="slick-cari-diskon"
+										class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
+										@foreach ($data['cicilan_motor'] as $les1)
+												<div class="p-1">
+														<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
+																<img
+																		style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
+																		src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
+																		alt="2023-10-11_W1.png">
+																<ul class="list-group list-group-flush">
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP</p>
+																				<p>Rp. 1.000.000 </p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Diskon</p>
+																				<p>Rp. 1.000.000 </p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>DP Bayar</p>
+																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Angsuran</p>
+																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Tenor</p>
+																				<p>1 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Potongan Tenor</p>
+																				<p>1 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Tenor</p>
+																				<p>1 Bulan</p>
+																		</li>
+																		<li class="list-group-item d-flex justify-content-between">
+																				<p>Total Bayar</p>
+																				<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																		</li>
+																</ul>
+																<div class="card-body d-flex justify-content-center">
+																		<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																</div>
 														</div>
 												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
+										@endforeach
+
+										@for ($i = count($data['cicilan_motor']); $i < 7; $i++)
+												<div class="p-1"></div>
+										@endfor
+
 								</div>
 								<div class="d-flex justify-content-around text-basic position-relative"
 										style="width: 100%; margin-top: 3rem; top: -37vh;">
-										<div id="prev" class="arrow_prev">
-												<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+										<div class="prev arrow_prev">
+												<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Prev
 										</div>
-										<div id="next" class="arrow_next">
+										<div class="next arrow_next">
 												<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
 										</div>
 								</div>
@@ -463,413 +155,107 @@
 								{{-- nav slick slider end --}}
 						</div>
 						<div class="collection-img">
-								<img class="w-100 mx-auto mt-5" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp"
-										class="w-100" alt="banner">
+								<img class="w-100 mx-auto mt-5" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp" class="w-100"
+										alt="banner">
 						</div>
+						{{-- {{ count($rekomendasi[0]['cicilan_motor']) }} --}}
 						{{-- loop rekomendasi motor --}}
-						<div id="rekomendasi-motor" class="row mt-5">
-								<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
-										style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-										<img src="{{ asset('assets') }}/images/detail-motor/2023-10-07_Produk Promo 31 - Copy.webp" class="img-fluid"
-												alt="${motorData.detail_motor[0].gambar
-                    }" srcset=""
-												style="max-width: 100%; height: auto;">
-										<div class="product-right py-5">
-												<div class="d-flex justify-content-between">
-														<p class="text-dark nama-motor fs-lg-4 fw-bold">Beat</h>
-														<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
-																<span class="ms-2">Jakarta</span>
+						@foreach ($rekomendasi as $rek)
+								<div id="rekomendasi-motor" class="row mt-5">
+										<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
+												style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
+												<img src="{{ asset('assets') }}/images/detail-motor/{{ $rek['motor']['detail_motor'][0]['gambar'] }}"
+														class="img-fluid" alt="{{ $rek['motor']['detail_motor'][0]['gambar'] }}" srcset=""
+														style="max-width: 100%; height: auto;">
+												<div class="product-right py-5">
+														<div class="d-flex justify-content-between">
+																<p class="text-dark nama-motor fs-lg-4 fw-bold">{{ $rek['motor']['nama'] }}</h>
+																<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
+																		<span class="ms-2">{{ $lokasi }}</span>
+																</div>
 														</div>
-												</div>
-												<div class="d-flex justify-content-between mt-2">
-														<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-														<p class="nama-motor" style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-												</div>
-												<div class="d-flex justify-content-between mt-2">
-														<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-														<span class="badge bg-success nama-motor">Kredit</span>
-												</div>
-												<div class="d-flex justify-content-between mt-2">
-														<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-														<p class="nama-motor">Matic</p>
-												</div>
-												<div class="d-flex justify-content-between mt-2">
-														<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-														<p class="nama-motor">Honda</p>
-												</div>
-												<div class="d-flex justify-content-between mt-2">
-														<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-														<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
-												</div>
-										</div>
-								</div>
-								<div class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+														<div class="d-flex justify-content-between mt-2">
+																<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
+																<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($rek['motor']['otr']) }}
+																</p>
+														</div>
+														<div class="d-flex justify-content-between mt-2">
+																<h6 class="product-title nama-motor">Metode Pembayaran</h6>
+																<span class="badge bg-success nama-motor">Kredit</span>
+														</div>
+														<div class="d-flex justify-content-between mt-2">
+																<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
+																<p class="nama-motor">{{ $rek['motor']['type'] }}</p>
+														</div>
+														<div class="d-flex justify-content-between mt-2">
+																<h6 class="fw-bold text-doff nama-motor">Merk</h6>
+																<p class="nama-motor">{{ $rek['motor']['merk'] }}</p>
+														</div>
+														<div class="d-flex justify-content-between mt-2">
+																<h6 class="fw-bold text-doff nama-motor">Stock</h6>
+																<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
 														</div>
 												</div>
 										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+										<div class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
+												{{-- @dd($rek) --}}
+												@foreach ($rek['cicilan_motor'] as $reles)
+														<div class="p-1">
+																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
+																		<img
+																				style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
+																				src="{{ asset('assets') }}/images/custom/leasing/{{ $reles['gambar'] }}" class="card-img-top"
+																				alt="{{ $reles['gambar'] }}">
+																		<ul class="list-group list-group-flush">
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>DP</p>
+																						<p>Rp. 1.000.000 </p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Diskon</p>
+																						<p>Rp. 1.000.000 </p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>DP Bayar</p>
+																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Angsuran</p>
+																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Tenor</p>
+																						<p>1 Bulan</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Potongan Tenor</p>
+																						<p>1 Bulan</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Total Tenor</p>
+																						<p>1 Bulan</p>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between">
+																						<p>Total Bayar</p>
+																						<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
+																				</li>
+																		</ul>
+																		<div class="card-body d-flex justify-content-center">
+																				<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
+																		</div>
+																</div>
 														</div>
-												</div>
+												@endforeach
+
+												@for ($i = count($rek['cicilan_motor']); $i < 7; $i++)
+														<div class="p-1"></div>
+												@endfor
 										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-										<div class="p-1">
-												<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_W1.png" class="card-img-top"
-																alt="2023-10-11_W1.png">
-														<ul class="list-group list-group-flush">
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Diskon</p>
-																		<p>Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>DP Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Angsuran</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Potongan Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Tenor</p>
-																		<p>1 Bulan</p>
-																</li>
-																<li class="list-group-item d-flex justify-content-between">
-																		<p>Total Bayar</p>
-																		<p style="font-weight: bold; color: red;">Rp. 1.000.000 </p>
-																</li>
-														</ul>
-														<div class="card-body d-flex justify-content-center">
-																<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-														</div>
-												</div>
-										</div>
-								</div>
-								{{-- <div id="leasing-baru"
+										{{-- <div id="leasing-baru"
 										class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex justify-content-center slick-result-modal mt-lg-0 mt-3 flex-row"
 										style="flex-direction: row;"></div> --}}
-								{{-- nav slick slider custom --}}
-								{{-- <div class="d-flex justify-content-between nav-wrapper">
+										{{-- nav slick slider custom --}}
+										{{-- <div class="d-flex justify-content-between nav-wrapper">
 										<div id="next" class="next">
 												<span>
 														<i class="fa fa-1x fa-arrow-circle-right" aria-hidden="true"></i>
@@ -881,9 +267,10 @@
 												</span>
 										</div>
 								</div> --}}
-								{{-- nav slick slider end --}}
-						</div>
-						<hr>
+										{{-- nav slick slider end --}}
+								</div>
+								<hr>
+						@endforeach
 				</div>
 		</section>
 @endsection
