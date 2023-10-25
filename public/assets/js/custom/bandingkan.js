@@ -1,12 +1,56 @@
-import { bacaMerk, bacaType, findMotorByTypeMerk } from "./function.js";
+import { findMotorByTypeMerk } from "./function.js";
 
 var counterModel = 0;
 
 
-bacaMerk();
+bacaMerk(1);
+bacaMerk(2);
+bacaMerk(3);
+bacaMerk(4);
 
-bacaType();
+bacaType(1);
+bacaType(2);
+bacaType(3);
+bacaType(4);
 
+function bacaMerk(urutan) {
+  const merkSelect = document.getElementById("merk" + urutan);
+  const endpoint = "get-merk";
+  fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      const merkMotor = data.merk_motor;
+      merkMotor.forEach((merk) => {
+        const option = document.createElement("option");
+        option.value = merk.id;
+        option.textContent = merk.nama;
+        merkSelect.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan:", error);
+    });
+}
+
+function bacaType(urutan) {
+  const tipeSelect = document.getElementById("tipe" + urutan);
+  const tipeEndpoint = "/get-type";
+  fetch(tipeEndpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const typeMotor = data.type_motor;
+      typeMotor.forEach((type) => {
+        const option = document.createElement("option");
+        option.value = type.id;
+        option.textContent = type.nama;
+        tipeSelect.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan:", error);
+    });
+}
 
 $(document).ready(function () {
   console.log('aman bang...')
@@ -44,20 +88,82 @@ $(document).ready(function () {
 //     });
 // });
 
-$('#tipe').change(function () {
+// tipe change 
+$('#tipe1').change(function () {
   console.log("area select logic running...");
-  var merkId = $("#merk").val();
+  var merkId = $("#merk1").val();
+  var tipeId = $(this).val();
+  counterModel += 1;
+  // panggil function
+  findMotorByTypeMerk(merkId, tipeId);
+});
+$('#tipe2').change(function () {
+  console.log("area select logic running...");
+  var merkId = $("#merk2").val();
+  var tipeId = $(this).val();
+  counterModel += 1;
+  // panggil function
+  findMotorByTypeMerk(merkId, tipeId);
+});
+$('#tipe3').change(function () {
+  console.log("area select logic running...");
+  var merkId = $("#merk3").val();
+  var tipeId = $(this).val();
+  counterModel += 1;
+  // panggil function
+  findMotorByTypeMerk(merkId, tipeId);
+});
+$('#tipe4').change(function () {
+  console.log("area select logic running...");
+  var merkId = $("#merk4").val();
   var tipeId = $(this).val();
   counterModel += 1;
   // panggil function
   findMotorByTypeMerk(merkId, tipeId);
 });
 
-$('#merk').change(function () {
+// merk change
+$('#merk1').change(function () {
   console.log("merk counter :" + counterModel);
   if (counterModel > 0) {
     var merkId = $(this).val();
-    var tipeId = $("#tipe").val();
+    var tipeId = $("#tipe1").val();
+    // return console.log("tipe harus di isi dulu");
+    findMotorByTypeMerk(merkId, tipeId);
+  } else {
+    return;
+  }
+});
+
+$('#merk2').change(function () {
+  console.log("merk counter :" + counterModel);
+  if (counterModel > 0) {
+    var merkId = $(this).val();
+    var tipeId = $("#tipe2").val();
+    // return console.log("tipe harus di isi dulu");
+    findMotorByTypeMerk(merkId, tipeId);
+  } else {
+    return;
+  }
+});
+
+$('#merk3').change(function () {
+  console.log("merk counter :" + counterModel);
+  if (counterModel > 0) {
+    var merkId = $(this).val();
+    var tipeId = $("#tipe3").val();
+    // return console.log("tipe harus di isi dulu");
+    findMotorByTypeMerk(merkId, tipeId);
+  } else {
+    return;
+  }
+});
+
+$('#merk4').change(function () {
+  console.log("merk counter :" + counterModel);
+  if (counterModel > 0) {
+    var merkId = $(this).val();
+    var tipeId = $("#tipe4").val();
     // return console.log("tipe harus di isi dulu");
     findMotorByTypeMerk(merkId, tipeId);
   } else {

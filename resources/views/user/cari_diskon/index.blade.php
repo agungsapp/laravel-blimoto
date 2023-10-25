@@ -119,7 +119,11 @@
 										@endfor
 
 								</div>
-								<div class="d-flex justify-content-around text-basic position-relative"
+
+
+								{{-- navigasi custom --}}
+
+								{{-- <div class="d-flex justify-content-around text-basic position-relative"
 										style="width: 100%; margin-top: 3rem; top: -37vh;">
 										<div class="prev arrow_prev">
 												<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Prev
@@ -127,7 +131,7 @@
 										<div class="next arrow_next">
 												<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
 										</div>
-								</div>
+								</div> --}}
 
 								{{-- <div>
 										<div id="prev" class="arrow_prev">

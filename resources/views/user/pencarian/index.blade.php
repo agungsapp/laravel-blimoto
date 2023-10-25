@@ -34,6 +34,7 @@
 												<!-- side-bar colleps block stat -->
 												<form action="/testingform" method="GET"
 														class="collection-filter-block creative-card creative-inner category-side">
+														@csrf
 														<!-- brand filter start -->
 														<div class="collection-mobile-back">
 																<span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -43,26 +44,15 @@
 																<h3 class="collapse-block-title mt-0">Merk Motor</h3>
 																<div class="collection-collapse-block-content">
 																		<div class="collection-brand-filter">
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" name="merk[]" value="1" class="custom-control-input form-check-input"
-																								id="zara" />
-																						<label class="custom-control-label form-check-label" for="zara">Honda</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" name="merk[]" value="2" class="custom-control-input form-check-input"
-																								id="vera-moda" />
-																						<label class="custom-control-label form-check-label" for="vera-moda">Kawasaki</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" name="merk[]" value="3" class="custom-control-input form-check-input"
-																								id="forever-21" />
-																						<label class="custom-control-label form-check-label" for="forever-21">Yamaha</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" name="merk[]" value="4" class="custom-control-input form-check-input"
-																								id="roadster" />
-																						<label class="custom-control-label form-check-label" for="roadster">Suzuki</label>
-																				</div>
+																				@foreach ($merks as $merk)
+																						<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
+																								<input type="checkbox" name="merk[]" value="{{ $merk->id }}"
+																										class="custom-control-input form-check-input" id="{{ $merk->name . $merk->id }}" />
+																								<label class="custom-control-label form-check-label"
+																										for="{{ $merk->name . $merk->id }}">{{ $merk->nama }}</label>
+																						</div>
+																				@endforeach
+
 																		</div>
 																</div>
 														</div>
@@ -70,26 +60,15 @@
 																<h3 class="collapse-block-title mt-3">Jenis Motor</h3>
 																<div class="collection-collapse-block-content">
 																		<div class="collection-brand-filter">
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" class="custom-control-input form-check-input" id="zara" />
-																						<label class="custom-control-label form-check-label" for="zara">Matic</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" class="custom-control-input form-check-input" id="vera-moda" />
-																						<label class="custom-control-label form-check-label" for="vera-moda">Sport</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" class="custom-control-input form-check-input" id="forever-21" />
-																						<label class="custom-control-label form-check-label" for="forever-21">Cub</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" class="custom-control-input form-check-input" id="roadster" />
-																						<label class="custom-control-label form-check-label" for="roadster">EV</label>
-																				</div>
-																				<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
-																						<input type="checkbox" class="custom-control-input form-check-input" id="only" />
-																						<label class="custom-control-label form-check-label" for="only">Big Bike</label>
-																				</div>
+																				@foreach ($types as $type)
+																						<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
+																								<input type="checkbox" name="type[]" value="{{ $type->id }}"
+																										class="custom-control-input form-check-input" id="{{ $type->nama . $type->id }}" />
+																								<label class="custom-control-label form-check-label"
+																										for="{{ $type->nama . $type->id }}">{{ $type->nama }}</label>
+																						</div>
+																				@endforeach
+
 																		</div>
 																</div>
 														</div>
@@ -100,20 +79,27 @@
 																				<div class="input-group mb-3">
 																						<span class="input-group-text" id="inputGroup-sizing-default">Min</span>
 																						<input id="min" type="text" class="form-control" aria-label="Sizing example input"
-																								onkeyup="formatRupiah(this)" aria-describedby="inputGroup-sizing-default" value="">
+																								onkeyup="formatRupiah(this)" aria-describedby="inputGroup-sizing-default"
+																								placeholder="Contoh: 20.000.000" name="min_price">
 																				</div>
 																				<div class="input-group mb-3">
 																						<span class="input-group-text" id="inputGroup-sizing-default">Max</span>
 																						<input onkeyup="formatRupiah(this)" type="text" class="form-control"
-																								aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+																								aria-label="Sizing example input" placeholder="Contoh : 25.000.000"
+																								aria-describedby="inputGroup-sizing-default" name="max_price">
 																				</div>
-
-																				<button type="submit" class="btn bg-basic btn-block fw-bold text-white">Terapkan</button>
 																		</div>
+																</div>
+																<div class="mt-5">
+
+																		<button type="submit" class="btn bg-basic btn-block fw-bold text-white">Terapkan</button>
+																		<button class="btn btn-outline-dark btn-block fw-bold mt-2">Reset</button>
 																</div>
 														</div>
 												</form>
+												{{-- end form --}}
 										</div>
+										{{-- end col --}}
 										<div class="collection-content col-sm-9">
 												<div class="page-main-content">
 														<div class="row">

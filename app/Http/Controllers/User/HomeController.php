@@ -202,7 +202,9 @@ class HomeController extends Controller
         $data = [
             'data' => $results,
             'keyword' => $motorNama,
-            'lokasi' => Kota::where('id', $idLokasi)->get()
+            'lokasi' => Kota::where('id', $idLokasi)->get(),
+            'merks' => Merk::all(),
+            'types' => Type::all()
         ];
 
 
