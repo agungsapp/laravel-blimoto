@@ -11,12 +11,8 @@ class DiskonMotor extends Model
   protected $fillable = [
     'id_motor',
     'id_leasing',
-    'diskon_35',
-    'diskon_24',
-    'diskon_12',
-    'dp_35',
-    'dp_24',
-    'dp_12',
+    'diskon',
+    'tenor',
   ];
 
   public function motor()

@@ -55,12 +55,8 @@ class AdminDiskonMotorController extends Controller
     $validator = Validator::make($request->all(), [
       'nama_motor' => 'required',
       'leasing_motor' => 'required',
-      'diskon_35' => 'required',
-      'diskon_24' => 'required',
-      'diskon_12' => 'required',
-      'dp_35' => 'required',
-      'dp_24' => 'required',
-      'dp_12' => 'required',
+      'tenor' => 'required',
+      'diskon' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -72,12 +68,8 @@ class AdminDiskonMotorController extends Controller
       DiskonMotor::create([
         'id_motor' => $request->input('nama_motor'),
         'id_leasing' => $request->input('leasing_motor'),
-        'diskon_35' => $request->input('diskon_35'),
-        'diskon_24' => $request->input('diskon_24'),
-        'diskon_12' => $request->input('diskon_12'),
-        'dp_35' => $request->input('dp_35'),
-        'dp_24' => $request->input('dp_24'),
-        'dp_12' => $request->input('dp_12'),
+        'diskon' => $request->input('diskon'),
+        'tenor' => $request->input('tenor'),
       ]);
       flash()->addSuccess("Diskon motor berhasil dibuat");
       return redirect()->back();
@@ -122,12 +114,8 @@ class AdminDiskonMotorController extends Controller
     $validator = Validator::make($request->all(), [
       'nama_motor' => 'required',
       'leasing_motor' => 'required',
-      'diskon_35' => 'required',
-      'diskon_24' => 'required',
-      'diskon_12' => 'required',
-      'dp_35' => 'required',
-      'dp_24' => 'required',
-      'dp_12' => 'required',
+      'tenor' => 'required',
+      'diskon' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -138,12 +126,8 @@ class AdminDiskonMotorController extends Controller
     $diskonMotor = DiskonMotor::findOrFail($id);
     $diskonMotor->id_motor = $request->input('nama_motor');
     $diskonMotor->id_leasing = $request->input('leasing_motor');
-    $diskonMotor->diskon_35 = $request->input('diskon_35');
-    $diskonMotor->diskon_24 = $request->input('diskon_24');
-    $diskonMotor->diskon_12 = $request->input('diskon_12');
-    $diskonMotor->dp_35 = $request->input('dp_35');
-    $diskonMotor->dp_24 = $request->input('dp_24');
-    $diskonMotor->dp_12 = $request->input('dp_12');
+    $diskonMotor->diskon = $request->input('diskon');
+    $diskonMotor->tenor = $request->input('tenor');
 
     $diskonMotor->save();
     flash()->addSuccess("Berhasil merubah diskon motor!");

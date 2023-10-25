@@ -184,6 +184,7 @@ class MotorTerbaruController extends Controller
 
     $motor = Motor::whereBetween('harga', [$minPrice, $maxPrice])
       ->paginate(8);
+      
 
     return response()->json($motor);
   }
