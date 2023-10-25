@@ -141,3 +141,8 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
     });
 });
+
+
+
+// testing
+Route::get('testingform', [CicilanMotorController::class, 'handleForm']);

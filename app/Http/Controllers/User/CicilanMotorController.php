@@ -356,8 +356,18 @@ class CicilanMotorController extends Controller
       'rekomendasi' => $rekomendasiMotor,
     ];
 
-    // dd($data['rekomendasi']);
+    // dd($data);
 
     return view('user.cari_diskon.index', $data);
+  }
+
+
+  public function handleForm(Request $request)
+  {
+    $merk = $request->get('merk');
+    $type = $request->get('type');
+
+    $data = [$merk, $type];
+    return dd($data);
   }
 }
