@@ -42,31 +42,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-4">
-              <label for="model">Diskon 35 Bulan</label>
-              <input name="diskon_35" type="text" class="form-control @error('diskon_35') is-invalid @enderror" id="diskon_35" placeholder="Masukan diskon motor 35 bulan">
+            <div class="form-group col-md-6">
+              <label for="model">Diskon</label>
+              <input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror" id="diskon" placeholder="Masukan diskon">
             </div>
-            <div class="form-group col-md-4">
-              <label for="model">Diskon 24 Bulan</label>
-              <input name="diskon_24" type="text" class="form-control @error('diskon_24') is-invalid @enderror" id="diskon_24" placeholder="Masukan diskon motor 24 bulan">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="model">Diskon 12 Bulan</label>
-              <input name="diskon_12" type="text" class="form-control @error('diskon_12') is-invalid @enderror" id="diskon_12" placeholder="Masukan diskon motor 12 bulan">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label for="model">DP 35 Bulan</label>
-              <input name="dp_35" type="text" class="form-control @error('dp_35') is-invalid @enderror" id="dp_35" placeholder="Masukan diskon dp motor 35 bulan">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="model">DP 24 Bulan</label>
-              <input name="dp_24" type="text" class="form-control @error('dp_24') is-invalid @enderror" id="dp_24" placeholder="Masukan diskon dp motor 24 bulan">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="model">DP 12 Bulan</label>
-              <input name="dp_12" type="text" class="form-control @error('dp_12') is-invalid @enderror" id="dp_12" placeholder="Masukan diskon dp motor 12 bulan">
+            <div class="form-group col-md-6">
+              <label for="model">Tenor</label>
+              <input name="tenor" type="text" class="form-control @error('tenor') is-invalid @enderror" id="tenor" placeholder="Masukan tenor">
             </div>
           </div>
         </div>
@@ -93,12 +75,8 @@
               <th>ID</th>
               <th>Nama Motor</th>
               <th>Leasing</th>
-              <th>Diskon 35 Bulan</th>
-              <th>Diskon 24 Bulan</th>
-              <th>Diskon 12 Bulan</th>
-              <th>DP Diskon 35 Bulan</th>
-              <th>DP Diskon 24 Bulan</th>
-              <th>DP Diskon 12 Bulan</th>
+              <th>Diskon</th>
+              <th>Tenor</th>
               <th width="120px">Action</th>
             </tr>
           </thead>
@@ -108,12 +86,8 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $d->motor->nama }}</td>
               <td>{{ $d->leasing->nama }}</td>
-              <td>{{ $d->diskon_35 }}</td>
-              <td>{{ $d->diskon_24 }}</td>
-              <td>{{ $d->diskon_12 }}</td>
-              <td>{{ $d->dp_35 }}</td>
-              <td>{{ $d->dp_24 }}</td>
-              <td>{{ $d->dp_12 }}</td>
+              <td>{{ $d->diskon }}</td>
+              <td>{{ $d->tenor }}</td>
               <td>
                 <div class="d-flex justify-content-between">
                   <button data-toggle="modal" data-target="#modalEdit{{$d->id}}" class="btn btn-warning">Edit</button>
@@ -163,31 +137,13 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="form-group col-md-4">
-                              <label for="model">Diskon 35 Bulan</label>
-                              <input name="diskon_35" type="text" class="form-control @error('diskon_35') is-invalid @enderror" id="diskon_35" placeholder="Masukan diskon motor 35 bulan" value="{{$d->diskon_35}}">
+                            <div class="form-group col-md-6">
+                              <label for="model">Diskon</label>
+                              <input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror" id="diskon" placeholder="Masukan diskon" value="{{$d->diskon}}">
                             </div>
-                            <div class="form-group col-md-4">
-                              <label for="model">Diskon 24 Bulan</label>
-                              <input name="diskon_24" type="text" class="form-control @error('diskon_24') is-invalid @enderror" id="diskon_24" placeholder="Masukan diskon motor 24 bulan" value="{{$d->diskon_24}}">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="model">Diskon 12 Bulan</label>
-                              <input name="diskon_12" type="text" class="form-control @error('diskon_12') is-invalid @enderror" id="diskon_12" placeholder="Masukan diskon motor 12 bulan" value="{{$d->diskon_12}}">
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="form-group col-md-4">
-                              <label for="model">DP 35 Bulan</label>
-                              <input name="dp_35" type="text" class="form-control @error('dp_35') is-invalid @enderror" id="dp_35" placeholder="Masukan diskon dp motor 35 bulan" value="{{$d->dp_35}}">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="model">DP 24 Bulan</label>
-                              <input name="dp_24" type="text" class="form-control @error('dp_24') is-invalid @enderror" id="dp_24" placeholder="Masukan diskon dp motor 24 bulan" value="{{$d->dp_24}}">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="model">DP 12 Bulan</label>
-                              <input name="dp_12" type="text" class="form-control @error('dp_12') is-invalid @enderror" id="dp_12" placeholder="Masukan diskon dp motor 12 bulan" value="{{$d->diskon_12}}">
+                            <div class="form-group col-md-6">
+                              <label for="model">Tenor</label>
+                              <input name="tenor" type="text" class="form-control @error('tenor') is-invalid @enderror" id="tenor" placeholder="Masukan tenor" value="{{$d->tenor}}">
                             </div>
                           </div>
                         </div>
@@ -209,12 +165,8 @@
               <th>ID</th>
               <th>Nama Motor</th>
               <th>Leasing</th>
-              <th>Diskon 35 Bulan</th>
-              <th>Diskon 24 Bulan</th>
-              <th>Diskon 12 Bulan</th>
-              <th>DP Diskon 35 Bulan</th>
-              <th>DP Diskon 24 Bulan</th>
-              <th>DP Diskon 12 Bulan</th>
+              <th>Diskon</th>
+              <th>Tenor</th>
               <th width="120px">Action</th>
             </tr>
           </tfoot>
