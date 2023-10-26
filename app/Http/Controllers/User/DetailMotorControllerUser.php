@@ -116,8 +116,8 @@ class DetailMotorControllerUser extends Controller
 
     $diskonLeasing = DB::table('cicilan_motor')
       ->select(
-        DB::raw('MAX(cicilan_motor.dp) as dp'),
-        DB::raw('MAX(cicilan_motor.tenor) as tenor'),
+        DB::raw('MIN(cicilan_motor.dp) as dp'),
+        DB::raw('MIN(cicilan_motor.tenor) as tenor'),
         'leasing_motor.gambar',
         'leasing_motor.nama',
         'leasing_motor.diskon_normal',
@@ -135,8 +135,6 @@ class DetailMotorControllerUser extends Controller
       $c->diskon_normal = round($c->dp * $c->diskon_normal);
       $c->diskon = round($c->dp * $c->diskon);
     }
-
-
 
 
     $motorRekomendasi = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga', 'deskripsi', 'fitur_utama')
