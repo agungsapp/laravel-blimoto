@@ -240,7 +240,7 @@ class DetailMotorControllerUser extends Controller
       ->where('id_leasing', $idLeasing);
 
     if ($dp) {
-      $maxDpQuery->where('dp', $dp);
+      $maxDpQuery->where('dp', $dp); // Tambahkan kondisi DP ke dalam query jika dp diberikan
     }
     $maxDP = $maxDpQuery->first()->dp;
 
@@ -259,7 +259,7 @@ class DetailMotorControllerUser extends Controller
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->where('id_leasing', $idLeasing)
       ->where('tenor', $maxTenor)
-      ->where('dp', $dp)
+      ->where('dp', $maxDP)
       ->get();
 
     foreach ($data as $key => $c) {
