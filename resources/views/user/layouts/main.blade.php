@@ -227,6 +227,7 @@
 
 						var inputElement = document.getElementById('lokasi-user-pencarian');
 						inputElement.value = lokasiId;
+						window.idLokasi = lokasiId;
 						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`)
 				}
 
