@@ -210,9 +210,7 @@ $('#cariMotor').on('submit', function (e) {
                       </h5>
                       </div>
     `
-
       hasilPilihan.html(hasilContent);
-
     })
     .catch((error) => console.error("Error:", error));
 })
