@@ -131,6 +131,19 @@
 							@endif
 						</div>
 						<div class="form-group">
+							<label>Pilih Lokasi</label>
+							@if ($lokasi == null)
+							<p>Tidak ada data silahkan buat terlebih dahulu !</p>
+							@else
+							<select name="lokasi" class="form-control select2">
+								<option value="" selected>-- Pilih lokasi --</option>
+								@foreach ($lokasi as $lokasi)
+								<option value="{{ $lokasi->id }}">{{ $lokasi->nama }}</option>
+								@endforeach
+							</select>
+							@endif
+						</div>
+						<div class="form-group">
 							<label for="potongan-tenor">Potongan Tenor</label>
 							<input name="potongan_tenor" type="text" class="form-control @error('nama') is-invalid @enderror" id="potongan-tenor" placeholder="Masukan data update potongan">
 						</div>
