@@ -108,7 +108,8 @@
 																</ul>
 																<div class="card-body d-flex justify-content-center">
 																		<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $data['motor']['merk'] . ' ' . $data['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $les1['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($les1['angsuran']) }}%20tenor%20{{ $les1['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
-																				target="_blank" class="btn btn-success w-100">Ajukan Sekarang</a>
+																				target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
+																						class="ms-2">Ajukan Sekarang</span></a>
 																</div>
 														</div>
 												</div>
@@ -248,7 +249,8 @@
 																		</ul>
 																		<div class="card-body d-flex justify-content-center">
 																				<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $rek['motor']['merk'] . ' ' . $rek['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $reles['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($reles['angsuran']) }}%20tenor%20{{ $reles['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
-																						target="_blank" class="btn btn-success w-100">Ajukan Sekarang</a>
+																						target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp"
+																								aria-hidden="true"></i><span class="ms-2">Ajukan Sekarang</span></a>
 																		</div>
 																</div>
 														</div>
@@ -281,3 +283,24 @@
 				</div>
 		</section>
 @endsection
+
+
+@push('script')
+		<script>
+				var owl = $('.leasing-owl-carousel');
+				owl.owlCarousel({
+						items: 4,
+						loop: true,
+						margin: 10,
+						autoplay: true,
+						autoplayTimeout: 1000,
+						autoplayHoverPause: true
+				});
+				$('.play').on('click', function() {
+						owl.trigger('play.owl.autoplay', [1000])
+				})
+				$('.stop').on('click', function() {
+						owl.trigger('stop.owl.autoplay')
+				})
+		</script>
+@endpush
