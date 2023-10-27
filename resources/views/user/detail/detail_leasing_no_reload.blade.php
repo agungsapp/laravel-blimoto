@@ -7,7 +7,7 @@
 								<div class="col">
 										<div class="breadcrumb-contain">
 												<div>
-														<h2 class="text-white">Detail Leasing</h2>
+														<h2 class="text-white">Detail Leasing no reload</h2>
 														<ul>
 																<li>
 																		<a class="text-white" href="javascript:void(0)">Home</a>
@@ -52,6 +52,20 @@
 				<div class="row px-4">
 						<div class="col-12">
 
+								<div class="d-flex align-items-baseline mb-3">
+										<h4 class="text-doff">Filter By DP :</h4>
+										<div class="w-75 ms-3">
+												<select id="dp" class="form-select rounded-3 w-100" style="width: 100% !important"
+														aria-label="Default select example">
+														<option selected="">-- Pilih DP --</option>
+														@foreach ($dp as $d)
+																<option value="{{ $d->dp }}">{{ Str::rupiah($d->dp) }}</option>
+														@endforeach
+												</select>
+										</div>
+								</div>
+
+
 								<ul>
 										<li>
 												<h4 class="text-doff">Filter By Tenor :</h4>
@@ -81,9 +95,9 @@
 												</div>
 												<div class="d-flex justify-content-between flex-column">
 														{{-- {{ dd($d) }} --}}
-														<div>
+														{{-- <div>
 																<del class="text-doff text-end">Potongan diskon : {{ Str::rupiah($d->diskon) }}</del>
-														</div>
+														</div> --}}
 														<div>
 																<del class="text-doff text-end">DP Normal : {{ Str::rupiah($d->diskon_normal) }}</del>
 																<h5 class="text-doff text-end">DP Hari ini : {{ Str::rupiah($d->diskon) }}</h5>
@@ -96,3 +110,18 @@
 				</div>
 		</section>
 @endsection
+
+
+@push('script')
+		<script>
+				$(document).ready(function() {
+						var selectElement = $("#dp");
+						selectElement.on("change", function() {
+								var selectedDp = selectElement.val();
+								var currentUrl = window.location.href;
+								var newUrl = currentUrl + "&dp=" + selectedDp;
+								window.location.href = newUrl;
+						});
+				});
+		</script>
+@endpush
