@@ -232,18 +232,9 @@ class DetailMotorControllerUser extends Controller
   {
     $idMotor = $request->input('id_motor');
     $idLeasing = $request->input('id_leasing');
+    $idLokasi = $request->input('id_lokasi');
     $tenor = $request->input('tenor');
     $dp = $request->input('dp');
-
-    $maxDpQuery = CicilanMotor::select(DB::raw('MAX(cicilan_motor.dp) as dp'))
-      ->where('id_motor', $idMotor)
-      ->where('id_leasing', $idLeasing);
-
-    if ($dp) {
-      $maxDpQuery->where('dp', $dp); // Tambahkan kondisi DP ke dalam query jika dp diberikan
-    }
-    $maxDP = $maxDpQuery->first()->dp;
-
 
     $maxTenorQuery = CicilanMotor::select(DB::raw('MAX(cicilan_motor.tenor) as tenor'))
       ->where('id_motor', $idMotor)
@@ -255,18 +246,26 @@ class DetailMotorControllerUser extends Controller
 
     $maxTenor = $maxTenorQuery->first()->tenor;
 
-    $data = CicilanMotor::where('id_motor', $idMotor)
+    $query = DB::table('cicilan_motor')
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
-      ->where('id_leasing', $idLeasing)
-      ->where('tenor', $maxTenor)
-      ->where('dp', $maxDP)
-      ->get();
+      ->where('cicilan_motor.id_motor', '=', $idMotor)
+      ->where('cicilan_motor.id_lokasi', '=', $idLokasi)
+      ->where('cicilan_motor.id_leasing', '=', $idLeasing)
+      ->where('cicilan_motor.tenor', '=', $maxTenor);
 
-    foreach ($data as $key => $c) {
+    if ($dp !== null) {
+      $query->where('cicilan_motor.dp', '=', $dp);
+    }
+
+    $result = $query->get();
+
+
+    foreach ($result as $key => $c) {
       $c->diskon_normal = $c->dp - round($c->dp * $c->diskon_normal);
       $c->diskon = $c->dp - round($c->dp * $c->diskon);
     }
 
+    // dd($result);
     // data tenor motor
     $dataTenor = CicilanMotor::select('tenor')
       ->distinct('tenor')
@@ -274,7 +273,6 @@ class DetailMotorControllerUser extends Controller
       ->where('id_leasing', '=', $idLeasing)
       ->get();
 
-    // data tenor motor
     $dataDP = CicilanMotor::select('dp')
       ->distinct('dp')
       ->where('id_motor', '=', $idMotor)
@@ -282,15 +280,17 @@ class DetailMotorControllerUser extends Controller
       ->get();
 
 
+
     $motor = Motor::find($idMotor);
 
-    $data  = [
-      'data' => $data,
-      'motor' => $motor,
-      'tenor' => $dataTenor,
-      'dp' => $dataDP
-    ];
-
-    return view('user.detail.detail_leasing_no_reload', $data);
+    return view(
+      'user.detail.detail_leasing_no_reload',
+      [
+        'data' => $result,
+        'motor' => $motor,
+        'tenor' => $dataTenor,
+        'dp' => $dataDP
+      ]
+    );
   }
 }
