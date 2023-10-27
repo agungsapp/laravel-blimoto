@@ -13,6 +13,7 @@ class DiskonMotor extends Model
     'id_leasing',
     'diskon',
     'tenor',
+    'diskon_promo',
   ];
 
   public function motor()

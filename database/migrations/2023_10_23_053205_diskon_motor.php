@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('diskon_motor', function (Blueprint $table) {
             $table->id();
             $table->integer('diskon');
+            $table->integer('diskon_promo');
             $table->integer('tenor');
             $table->unsignedBigInteger('id_leasing');
             $table->unsignedBigInteger('id_motor');
