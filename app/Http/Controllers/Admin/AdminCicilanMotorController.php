@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BrosurMotor;
 use App\Models\CicilanMotor;
+use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class AdminCicilanMotorController extends Controller
   public function index()
   {
     $data = [
+      'lokasi' => Kota::all(),
       'motor' => Motor::all(),
       'leasing' => LeasingMotor::all(),
       'tenor' => CicilanMotor::select('tenor')
@@ -172,6 +174,7 @@ class AdminCicilanMotorController extends Controller
       'motor' => 'required',
       'tenor' => 'required',
       'leasing' => 'required',
+      'lokasi' => 'required',
       'potongan_tenor' => 'required',
     ]);
 
@@ -183,12 +186,13 @@ class AdminCicilanMotorController extends Controller
     $affectedRows = CicilanMotor::where('id_motor', $request->motor)
       ->where('id_leasing', $request->leasing)
       ->where('tenor', $request->tenor)
+      ->where('id_lokasi', $request->lokasi)
       ->update(['potongan_tenor' => $request->potongan_tenor]);
 
     if ($affectedRows > 0) {
-      flash()->addSuccess("Data updated successfully!");
+      flash()->addSuccess("Data berhasil dirubah!");
     } else {
-      flash()->addError("No matching record found!");
+      flash()->addError("Data tidak ditemukan isikan input dengan benar!");
     }
 
     return redirect()->back();

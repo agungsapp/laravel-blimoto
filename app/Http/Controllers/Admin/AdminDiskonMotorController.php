@@ -57,6 +57,7 @@ class AdminDiskonMotorController extends Controller
       'leasing_motor' => 'required',
       'tenor' => 'required',
       'diskon' => 'required',
+      'diskon_promo' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -69,6 +70,7 @@ class AdminDiskonMotorController extends Controller
         'id_motor' => $request->input('nama_motor'),
         'id_leasing' => $request->input('leasing_motor'),
         'diskon' => $request->input('diskon'),
+        'diskon_promo' => $request->input('diskon_promo'),
         'tenor' => $request->input('tenor'),
       ]);
       flash()->addSuccess("Diskon motor berhasil dibuat");
@@ -116,6 +118,7 @@ class AdminDiskonMotorController extends Controller
       'leasing_motor' => 'required',
       'tenor' => 'required',
       'diskon' => 'required',
+      'diskon_promo' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -127,6 +130,7 @@ class AdminDiskonMotorController extends Controller
     $diskonMotor->id_motor = $request->input('nama_motor');
     $diskonMotor->id_leasing = $request->input('leasing_motor');
     $diskonMotor->diskon = $request->input('diskon');
+    $diskonMotor->diskon_promo = $request->input('diskon_promo');
     $diskonMotor->tenor = $request->input('tenor');
 
     $diskonMotor->save();
