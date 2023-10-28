@@ -1,5 +1,6 @@
 @extends('user.layouts.main')
 @section('content')
+
 <!-- breadcrumb start -->
 <div class="breadcrumb-main bg-dark">
     <div class="container">
@@ -104,6 +105,7 @@
 
 
 @push('script')
+
 <script>
     $(document).ready(function() {
         var selectElement = $("#dp");
@@ -116,3 +118,4 @@
     });
 </script>
 @endpush
+
