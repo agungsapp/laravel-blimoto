@@ -116,9 +116,10 @@ class DetailMotorControllerUser extends Controller
       ->get();
 
     $diskonMotor = DiskonMotor::where('id_motor', $motorId)
-      ->where(function ($query) {
-        $query->select('id_leasing', DB::raw('MAX(tenor) as max_tenor'))
+      ->whereIn(DB::raw('(id_leasing, tenor)'), function ($query) {
+        $query->select(DB::raw('id_leasing, MAX(tenor)'))
           ->from('diskon_motor')
+          ->whereColumn('diskon_motor.id_leasing', '=', 'id_leasing')
           ->groupBy('id_leasing');
       })
       ->get();
@@ -141,8 +142,17 @@ class DetailMotorControllerUser extends Controller
       ->get();
 
     foreach ($diskonLeasing as $key => $c) {
-      $c->diskon_normal = round($c->dp * $c->diskon_normal);
-      $c->diskon = round($c->dp * $c->diskon);
+      $foundDiscount = $diskonMotor->first(function ($item) use ($c) {
+        return $item->id_leasing === $c->id;
+      });
+
+      if ($foundDiscount) {
+        $c->diskon_normal = $c->dp - $foundDiscount->diskon;
+        $c->diskon = $c->dp - $foundDiscount->diskon_promo;
+      } else {
+        $c->diskon_normal = 0;
+        $c->diskon = 0;
+      }
     }
 
 
