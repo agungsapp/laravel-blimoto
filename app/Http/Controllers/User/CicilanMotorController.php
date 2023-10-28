@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\CicilanMotor;
+use App\Models\DiskonMotor;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
@@ -209,7 +210,7 @@ class CicilanMotorController extends Controller
     $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor', 'id_lokasi')
       ->with([
         'leasingMotor' => function ($query) {
-          $query->select('id', 'nama', 'gambar', 'diskon');
+          $query->select('id', 'nama', 'gambar');
         },
       ])
       ->where('id_lokasi', $id_lokasi)
@@ -235,9 +236,25 @@ class CicilanMotorController extends Controller
       'cicilan_motor' => array(),
     );
 
+    $diskonMotor = DiskonMotor::where('id_motor', $id_motor)
+      ->where('tenor', $tenor)
+      ->get();
+
+
     foreach ($cicilan_motor as $cicilan) {
-      $diskon = round($cicilan->dp * $cicilan->leasingMotor->diskon);
-      $dpBayar = $cicilan->dp - $diskon;
+      $dpBayar = $cicilan->dp;
+      $foundDiscount = $diskonMotor->first(function ($item) use ($cicilan) {
+        return $item->id_leasing === $cicilan->id_leasing;
+      });
+
+      if ($foundDiscount) {
+        $diskon = $foundDiscount->diskon_promo;
+        $dpBayar = $cicilan->dp - $diskon;
+      } else {
+        $diskon = 0;
+        $dpBayar = $cicilan->dp;
+      }
+
       $data['cicilan_motor'][] = array(
         'nama_leasing' => $cicilan->leasingMotor->nama,
         'dp' => $cicilan->dp,
@@ -252,6 +269,7 @@ class CicilanMotorController extends Controller
       );
     }
 
+    // dd($data);
     $dpRange = $dp * 0.2;
     $cicilanRange = $cicilan_motor[0]->cicilan * 0.2;
 
@@ -274,7 +292,7 @@ class CicilanMotorController extends Controller
           ]);
         },
         'leasingmotor' => function ($query) {
-          $query->select('id', 'nama', 'gambar', 'diskon');
+          $query->select('id', 'nama', 'gambar');
         },
       ])
       ->where('id_motor', '!=', $id_motor)
@@ -283,38 +301,45 @@ class CicilanMotorController extends Controller
       ->where('id_lokasi', $id_lokasi)
       ->whereBetween('cicilan', [$cicilan_motor[0]->cicilan - $cicilanRange, $cicilan_motor[0]->cicilan + $cicilanRange])
       ->orderBy('cicilan', 'asc')
-      ->take(3)
       ->get();
 
-    // $recommendationCicilan = $recommendationCicilan->unique('nama_leasing');
     $rekomendasiMotor = [];
+    // dd($recommendationCicilan);
     foreach ($recommendationCicilan as $recommendation) {
       if (!$recommendation->motor) {
-        break;
+        continue; // Skip if recommendation doesn't have motor
       }
-      $motorId = $recommendation->motor->id;
-      $diskon = round($recommendation->dp * $recommendation->leasingMotor->diskon);
+
+      $dpBayar = $recommendation->dp;
+      $foundDiscount = $diskonMotor->first(function ($item) use ($recommendation) {
+        return $item->id_leasing === $recommendation->leasingMotor->id;
+      });
+
+      $diskon = $foundDiscount ? $foundDiscount->diskon_promo : 0;
       $dpBayar = $recommendation->dp - $diskon;
 
-      // Check if the motor ID already exists in the $rekomendasiMotor array
-      if (isset($rekomendasiMotor[$motorId])) {
-        // If the motor ID exists, add the new cicilan_motor item to the existing motor
-        $cicilanMotor = [
-          'nama_leasing' => $recommendation->leasingMotor->nama,
-          'dp' => $recommendation->dp,
-          'diskon' => $diskon,
-          'dp_bayar' => $dpBayar,
-          'gambar' => $recommendation->leasingMotor->gambar,
-          'angsuran' => $recommendation->cicilan,
-          'tenor' => $recommendation->tenor,
-          'potongan_tenor' => $recommendation->potongan_tenor,
-          'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
-          'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $dpBayar,
-        ];
+      $motorId = $recommendation->motor->id;
 
-        $rekomendasiMotor[$motorId]['cicilan_motor'][] = $cicilanMotor;
+      $cicilanMotor = [
+        'nama_leasing' => $recommendation->leasingMotor->nama,
+        'dp' => $recommendation->dp,
+        'diskon' => $diskon,
+        'dp_bayar' => $dpBayar,
+        'gambar' => $recommendation->leasingMotor->gambar,
+        'angsuran' => $recommendation->cicilan,
+        'tenor' => $recommendation->tenor,
+        'potongan_tenor' => $recommendation->potongan_tenor,
+        'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
+        'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $dpBayar,
+      ];
+
+      if (isset($rekomendasiMotor[$motorId])) {
+        $existingLeasing = array_column($rekomendasiMotor[$motorId]['cicilan_motor'], 'nama_leasing');
+
+        if (!in_array($recommendation->leasingMotor->nama, $existingLeasing)) {
+          $rekomendasiMotor[$motorId]['cicilan_motor'][] = $cicilanMotor;
+        }
       } else {
-        // If the motor ID doesn't exist, create a new motor item with the cicilan_motor item
         $item = [
           'motor' => [
             'nama' => $recommendation->motor->nama,
@@ -323,40 +348,20 @@ class CicilanMotorController extends Controller
             'type' => $recommendation->motor->type->nama,
             'detail_motor' => $recommendation->motor->detailMotor,
           ],
-          'cicilan_motor' => [
-            [
-              'nama_leasing' => $recommendation->leasingMotor->nama,
-              'dp' => $recommendation->dp,
-              'diskon' => $diskon,
-              'dp_bayar' => $dpBayar,
-              'gambar' => $recommendation->leasingMotor->gambar,
-              'angsuran' => $recommendation->cicilan,
-              'tenor' => $recommendation->tenor,
-              'potongan_tenor' => $recommendation->potongan_tenor,
-              'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
-              'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $dpBayar,
-            ],
-          ],
+          'cicilan_motor' => [$cicilanMotor],
         ];
 
         $rekomendasiMotor[$motorId] = $item;
       }
     }
+
     // Convert the associative array to a sequential array
     $rekomendasiMotor = array_values($rekomendasiMotor);
-
-    // return response()->json([
-    //   'lokasi' => $lokasi->nama,
-    //   'data' => $data,
-    //   'rekomendasi' => $rekomendasiMotor,
-    // ], 200);
     $data = [
       'lokasi' => $lokasi->nama,
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
     ];
-
-    // dd($data);
 
     return view('user.cari_diskon.index', $data);
   }
