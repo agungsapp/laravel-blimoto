@@ -64,7 +64,7 @@ desired effect
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="/admin/dashboard" class="logo">
+			<a href="/app/dashboard" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>B</b>LT</span>
 				<!-- logo for regular state and mobile devices -->

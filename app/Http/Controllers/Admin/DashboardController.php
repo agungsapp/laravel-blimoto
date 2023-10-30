@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Motor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardController extends Controller
     {
         $data = [
             'motor' => Motor::all()->count(),
-            'blog' => Blog::all()->count()
+            'blog' => Blog::all()->count(),
         ];
 
         // dd($data['motor']);
