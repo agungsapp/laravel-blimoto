@@ -146,6 +146,7 @@
 												<a href="" target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp"
 																aria-hidden="true"></i><span class="ms-2">Ajukan Sekarang</span></a>
 										</div>
+
 								</div>
 								<div class="card" style=" margin-left: 10px;">
 										<img style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
