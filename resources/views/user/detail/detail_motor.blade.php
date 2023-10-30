@@ -92,26 +92,26 @@
 																<div class="d-flex justify-content-between mt-3">
 																	<h5 class="text-doff">Diskon DP Pembayaran</h5>
 																	<del class="text-basic">
-																		<h5>{{ Str::rupiah($les->diskon_normal) }}</h5>
+																		<h5>{{ Str::rupiah($les->dp - $les->diskon_normal) }}</h5>
 																	</del>
 																</div>
 																<div class="d-flex justify-content-between mt-2">
 																	<h5 class="text-doff">DP Normalnya</h5>
 																	<del class="text-basic">
-																		<h5>{{ Str::rupiah($les->dp - $les->diskon_normal) }}</h5>
+																		<h5>{{ Str::rupiah($les->diskon_normal) }}</h5>
 																	</del>
 																</div>
 																<h5 class="bg-basic mt-2 py-1 text-center text-white">Hanya hari ini !</h5>
 																<div class="d-flex justify-content-between align-items-baseline mt-2">
 																	<h5 class="text-doff">Diskon DP Promo</h5>
 																	<div class="label-diskon">
-																		<p class="text-basic">{{ Str::rupiah($les->diskon) }}</p>
+																		<p class="text-basic">{{ Str::rupiah($les->dp - $les->diskon) }}</p>
 																	</div>
 																</div>
 																<div class="d-flex justify-content-between align-items-baseline mt-2">
 																	<h5 class="text-doff">DP Bayar</h5>
 																	<div class="label-diskon">
-																		<p class="text-basic">{{ Str::rupiah($les->dp - $les->diskon) }}</p>
+																		<p class="text-basic">{{ Str::rupiah($les->diskon) }}</p>
 																	</div>
 																</div>
 															</div>

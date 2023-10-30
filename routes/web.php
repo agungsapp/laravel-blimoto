@@ -15,6 +15,7 @@
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
+use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -61,7 +62,6 @@ Route::get('/app', function () {
 Route::get('/admin/login', function () {
     return redirect()->to(route('admin.'));
 });
-
 
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
@@ -120,7 +120,8 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::get('login', [LoginAdminController::class, 'index']);
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
-    Route::middleware(['auth.admin:admin'])->group(function () {
+
+    Route::middleware(['auth.admin.sales'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('motor', MotorController::class);
         Route::resource('type-motor', TypeMotorController::class);
@@ -140,6 +141,10 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
         Route::post('cicilan-motor/csv/update', [AdminCicilanMotorController::class, 'updateCsv'])->name('cicilan.csv.update');
         Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
+
+        Route::middleware(['auth.admin:admin'])->group(function () {
+            Route::resource('/sales', AdminSalesController::class);
+        });
     });
 });
 
