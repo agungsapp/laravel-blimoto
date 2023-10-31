@@ -41,12 +41,16 @@
 .container-home-promo {
     padding: 0 15rem;
 }
+.product-box {
+    padding-bottom: 10px;
+}
 
 .style-border-home-promo {
     overflow: hidden;
     position: relative;
     background-color: #fff;
     z-index: 999;
+    padding-bottom: 10px;
     top: -5rem;
     border-radius: 15px !important;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25) !important;
