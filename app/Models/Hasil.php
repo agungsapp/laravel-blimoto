@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LeasingMotor extends Model
+class Hasil extends Model
 {
-  protected $table = 'leasing_motor';
   public $timestamps = false;
+  protected $table = 'hasil';
   protected $fillable = [
-    'nama',
-    'gambar'
+    'hasil'
   ];
 
   public function penjualan()
   {
-    return $this->hasMany(Penjualan::class, 'id_leasing');
+    return $this->hasMany(Penjualan::class, 'id_hasil');
   }
 }

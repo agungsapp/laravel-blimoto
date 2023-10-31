@@ -36,6 +36,11 @@ class Motor extends Model
         return $this->hasMany(DetailMotor::class, 'id_motor', 'id');
     }
 
+    public function penjualan()
+    {
+        return $this->hasMany(Penjualan::class, 'id_motor');
+    }
+
     public function merk()
     {
         return $this->belongsTo(Merk::class, 'id_merk', 'id');

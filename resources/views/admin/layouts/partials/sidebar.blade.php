@@ -132,7 +132,20 @@
 						</li>
 					</ul>
 					@endif
-
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.penjualan.data.index') }}" class="nav-link {{ \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Penjualan</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.penjualan.hasil.index') }}" class="nav-link {{ \Route::is('admin.penjualan.hasil.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Master Hasil</p>
+							</a>
+						</li>
+					</ul>
 				</li>
 
 				<li class="nav-item">
