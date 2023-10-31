@@ -2325,7 +2325,7 @@
         }
       },
       {
-        breakpoint: 1200,
+        breakpoint: 1500,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
@@ -2333,7 +2333,7 @@
         }
       },
       {
-        breakpoint: 991,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -2341,10 +2341,18 @@
         }
       },
       {
-        breakpoint: 576,
+        breakpoint: 991,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2
+          slidesToScroll: 2,
+          infinite: true
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
         }
       }
     ]

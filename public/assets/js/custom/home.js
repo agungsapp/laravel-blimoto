@@ -81,7 +81,7 @@ $(document).ready(function () {
             })
             .catch((error) => console.error("Error:", error));
 
-        bacaTenor();
+        // bacaTenor();
     });
 
     $("#tenor").on("change", function () {
@@ -634,6 +634,9 @@ function findMotorByTypeMerk(merkId, tipeId) {
         });
     }
 }
+
+
+// ubah ini ////// warnning revisi area ==============!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function getDp(id) {
     var id_lokasi = $("#SelectKota").val();
