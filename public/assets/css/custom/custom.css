@@ -8,6 +8,15 @@
     border-bottom-left-radius: 50px;
   } */
 
+.owl-stage {
+    display: flex;
+}
+
+.owl-carousel-leasing .owl-nav,
+.owl-carousel-leasing .owl-dots {
+    display: none;
+}
+
 #main-nav {
     display: flex !important;
     justify-content: center !important;
