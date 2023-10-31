@@ -8,6 +8,51 @@
     border-bottom-left-radius: 50px;
   } */
 
+/* .tab-product-main .tab-prodcut-contain ul li.current:before {
+} */
+
+.product .product-box .product-detail.product-detail2 {
+    border: 1px solid #b8b8b8 !important;
+    border-top: 0 !important;
+    border-radius: 0 0 19px 19px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.product .product-box .product-imgbox img {
+    border-radius: 19px 19px 0 0;
+    overflow: hidden;
+    border: 1px solid #b8b8b8 !important;
+    border-bottom: 0 !important;
+}
+
+.tab-product-main .tab-prodcut-contain ul li.current {
+    background-color: #dd0202 !important;
+    margin-top: -3px !important;
+}
+.tab-product-main .tab-prodcut-contain ul li.current a {
+    color: #fff !important;
+}
+
+.tab-product-main .tab-prodcut-contain ul li {
+    padding: 10px 15px 5px 15px;
+    border-radius: 0 0 10px 10px;
+}
+
+.container-home-promo {
+    padding: 0 15rem;
+}
+
+.style-border-home-promo {
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    z-index: 999;
+    top: -5rem;
+    border-radius: 15px !important;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid #b8b8b8;
+}
+
 .owl-stage {
     display: flex;
 }
@@ -142,6 +187,7 @@
 
 .best-label {
     position: absolute;
+    boder-radius: 19px 0 0 0 !important;
     top: 0;
     left: 0;
     padding: 7px 25px;
@@ -322,7 +368,7 @@ section.tools-slide
 a.btn.btn-rounded.bg-basic.btn-hook {
     position: absolute;
     left: 18%;
-    top: 65%;
+    top: -65% !important;
     font-size: 30px;
 }
 /* a.btn.btn-rounded.bg-basic.btn-hook {
@@ -428,6 +474,15 @@ section .simulasi-container .simulasi-wrapper .card {
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    .style-border-home-promo {
+        top: 0rem;
+        border-radius: 20px !important;
+    }
+
+    .container-home-promo {
+        padding: 0 0;
+    }
+
     section .simulasi-container .simulasi-wrapper .card {
         margin-top: 3rem;
     }
@@ -485,6 +540,15 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+    .style-border-home-promo {
+        top: 0rem;
+        border-radius: 20px !important;
+    }
+
+    .container-home-promo {
+        padding: 0 0;
+    }
+
     section .simulasi-container .simulasi-wrapper .card {
         margin-top: 3rem;
     }
@@ -520,6 +584,15 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    .style-border-home-promo {
+        top: 0rem;
+        border-radius: 20px !important;
+    }
+
+    .container-home-promo {
+        padding: 0 0;
+    }
+
     section .simulasi-container .simulasi-wrapper .card {
         margin-top: -3rem;
     }
@@ -555,6 +628,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .container-home-promo {
+        padding: 0 7rem;
+    }
+
     .versus div {
         background-color: white !important;
         padding: 8px 10px;
@@ -610,6 +687,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .container-home-promo {
+        padding: 0 15rem;
+    }
+
     .versus div {
         background-color: white !important;
         padding: 8px 10px;
