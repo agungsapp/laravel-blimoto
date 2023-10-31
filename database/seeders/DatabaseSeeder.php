@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MotorKotaSeeder::class);
         $this->call(DiskonMotorSeeder::class);
         $this->call(SalesSeeder::class);
+        $this->call(HasilSeeder::class);
+        $this->call(PenjualanSeeder::class);
         DB::table('admin')->insert([
             'nama' => 'Admin BliMoto',
             'username' => 'admin',

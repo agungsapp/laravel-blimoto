@@ -12,4 +12,9 @@ class Kota extends Model
     protected $fillable = [
         'nama'
     ];
+
+    public function penjualan()
+    {
+        return $this->hasMany(Penjualan::class, 'id_kota');
+    }
 }
