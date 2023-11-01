@@ -130,12 +130,16 @@ class HomeController extends Controller
         $id_lokasi = $request->input('id_lokasi');
         $tenor = $request->input('tenor');
 
-        $dps = CicilanMotor::where('id_motor', $id_motor)
-            ->where('tenor', $tenor)
-            ->where('id_lokasi', $id_lokasi)
-            ->pluck('dp');
+        // $dps = CicilanMotor::where('id_motor', $id_motor)
+        //     ->where('tenor', $tenor)
+        //     ->where('id_lokasi', $id_lokasi)
+        //     ->pluck('dp');
 
-        $dps = $dps->unique()->values()->all();
+        // $dps = $dps->unique()->values()->all();
+        // sort($dps);
+
+        $dps = CicilanMotor::getDpminLeasing($id_motor, $id_lokasi, $tenor);
+        $dps = $dps->toArray();
         sort($dps);
         return response()->json(['dp' => $dps]);
     }

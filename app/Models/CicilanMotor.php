@@ -42,11 +42,23 @@ class CicilanMotor extends Model
     ');
   }
 
+  public static function getDpminLeasing($idMotor, $idLokasi, $tenor)
+  {
+    return DB::table('cicilan_motor')
+      ->select(DB::raw('MIN(cicilan_motor.dp) AS min_dp'), 'leasing_motor.nama')
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+      ->where('id_motor', $idMotor)
+      ->where('id_lokasi', $idLokasi)
+      ->where('tenor', $tenor)
+      ->groupBy('id_leasing', 'leasing_motor.nama')
+      ->get();
+  }
+
   public function leasingMotor()
   {
     return $this->belongsTo(LeasingMotor::class, 'id_leasing', 'id');
   }
-  
+
   public function motor()
   {
     return $this->belongsTo(Motor::class, 'id_motor');
