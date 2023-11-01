@@ -140,7 +140,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('dealer-motor', AdminDealerController::class);
         Route::resource('mitra', MitraKamiController::class);
         Route::resource('diskon-motor', AdminDiskonMotorController::class);
-        Route::prefix('penjualan')->name('penjualan.')->group(function() {
+        Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
         });
@@ -151,6 +151,9 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::middleware(['auth.admin:admin'])->group(function () {
             Route::resource('/sales', AdminSalesController::class);
+        });
+
+        Route::middleware(['auth.sales:sales'])->group(function () {
         });
     });
 });
