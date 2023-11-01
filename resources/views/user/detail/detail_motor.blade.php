@@ -60,7 +60,8 @@
 										</div>
 								</div>
 						</div>
-						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex mt-3 overflow-hidden">
+						<div
+								class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex align-items-center mt-3 overflow-hidden">
 								<div class="card" style=" margin-left: 10px;">
 										<img style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
 												src="{{ asset('assets') }}/images/custom/leasing/2023-10-11_w2.webp" class="card-img-top"
@@ -374,7 +375,7 @@
 										</div>
 								</div>
 						</div>
-						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex mt-3 overflow-hidden">
+						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex align-items-center mt-3 overflow-hidden">
 								<div class="card" style=" margin-left: 10px;">
 										<img
 												style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"

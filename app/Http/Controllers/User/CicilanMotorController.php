@@ -395,7 +395,7 @@ class CicilanMotorController extends Controller
       'rekomendasi' => $rekomendasiMotor,
     ];
 
-    return response()->json($data);
+    // return response()->json($data);
     return view('user.cari_diskon.index', $data);
   }
 
