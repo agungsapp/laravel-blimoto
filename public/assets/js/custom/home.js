@@ -87,7 +87,7 @@ $(document).ready(function () {
     $("#tenor").on("change", function () {
         var id = $("#model").val();
         console.log("get dp by tenor change running ...");
-        getDp(id);
+        // getDp(id);
     });
 
     $("#form-simulasi").on("submit", function (e) {
@@ -663,9 +663,9 @@ function getDp(id) {
 
                     // Add the new options
                     data.dp.forEach((option) => {
-                        var formattedOption = formatToRupiah(option);
-                        $("#dp").append(new Option(formattedOption, option));
-                        $("#dp option:last-child").data("harga", option);
+                        var formattedOption = option.nama + " : " + formatToRupiah(option.min_dp);
+                        $("#dp").append(new Option(formattedOption, option.min_dp));
+                        $("#dp option:last-child").data("harga", option.min_dp);
                     });
                 })
                 .catch((error) => console.error("Error:", error));
