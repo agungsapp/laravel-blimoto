@@ -379,7 +379,8 @@ class DetailMotorControllerUser extends Controller
       'rekomendasi' => $rekomendasiMotor,
     ];
 
-    return response()->json($data);
+    // return response()->json($data);
+    return view('user.detail.detail_motor', $data);
   }
 
 

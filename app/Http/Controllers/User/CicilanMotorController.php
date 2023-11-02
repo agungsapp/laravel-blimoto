@@ -398,7 +398,7 @@ class CicilanMotorController extends Controller
     // return response()->json($data);
     return view('user.cari_diskon.index', $data);
   }
-
+  // sss
 
   public function handleForm(Request $request)
   {
