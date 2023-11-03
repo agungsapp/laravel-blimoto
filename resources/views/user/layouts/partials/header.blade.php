@@ -154,9 +154,9 @@
 																								<li>
 																										<a href="{{ route('motor.index') }}">Motor Terbaru</a>
 																								</li>
-																								<li>
+																								{{-- <li>
 																										<a href="{{ route('bandingkan.index') }}">Bandingkan Motor</a>
-																								</li>
+																								</li> --}}
 																								<li>
 																										<a href="motor-termurah.html">Tukar Motor</a>
 																								</li>
