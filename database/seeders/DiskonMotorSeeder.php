@@ -15,7 +15,7 @@ class DiskonMotorSeeder extends Seeder
         'id_motor' => 1,
         'id_leasing' => 2,
         'diskon' => 500000,
-        'diskon_promo' => 10000000,
+        'diskon_promo' => 1000000,
         'tenor' => 35,
       ],
       [

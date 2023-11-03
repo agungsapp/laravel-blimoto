@@ -226,18 +226,20 @@ class DetailMotorControllerUser extends Controller
       ->pluck('tenor')
       ->first();
 
-    $subQuery = DB::table('cicilan_motor')
-      ->where('id_motor', $motorId)
-      ->where('id_lokasi', $lokasiId)
-      ->selectRaw('MIN(dp) as dp')
-      ->groupBy('id_leasing')
-      ->pluck('dp');
+    // $subQuery = DB::table('cicilan_motor')
+    //   ->where('id_motor', $motorId)
+    //   ->where('id_lokasi', $lokasiId)
+    //   ->selectRaw('MIN(dp) as dp')
+    //   ->groupBy('id_leasing')
+    //   ->pluck('dp');
 
-    $cicilan_motor = CicilanMotor::with('leasingMotor')
+    $cicilan_motor = DB::table('cicilan_motor')
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->where('id_motor', $motorId)
-      ->where('tenor', $minTenor)
       ->where('id_lokasi', $lokasiId)
-      ->whereIn('dp', $subQuery)
+      ->where('tenor', $minTenor)
+      ->groupBy('id_leasing')
+      ->orderBy('id_leasing', 'ASC')
       ->get();
 
     $data = array(
@@ -273,11 +275,11 @@ class DetailMotorControllerUser extends Controller
       }
 
       $data['cicilan_motor'][] = array(
-        'nama_leasing' => $cicilan->leasingMotor->nama,
+        'nama_leasing' => $cicilan->nama,
         'dp' => $cicilan->dp,
         'diskon' => $diskon,
         'dp_bayar' => $dpBayar,
-        'gambar' => $cicilan->leasingMotor->gambar,
+        'gambar' => $cicilan->gambar,
         'angsuran' => $cicilan->cicilan,
         'tenor' => $cicilan->tenor,
         'potongan_tenor' => $cicilan->potongan_tenor,
@@ -285,6 +287,8 @@ class DetailMotorControllerUser extends Controller
         'total_bayar' => ($cicilan->tenor - $cicilan->potongan_tenor) * $cicilan->cicilan + $dpBayar,
       );
     }
+
+    // return response()->json($data);
 
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
     $cicilanRange = $averageAngsuran * 0.2;

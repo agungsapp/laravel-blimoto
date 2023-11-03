@@ -233,19 +233,40 @@ class CicilanMotorController extends Controller
     //   ->get();
 
 
-    $subQuery = DB::table('cicilan_motor')
-      ->where('id_motor', $id_motor)
-      ->where('tenor', $tenor)
-      ->where('id_lokasi', $id_lokasi)
-      ->selectRaw('MIN(dp) as dp')
-      ->groupBy('id_leasing')
-      ->pluck('dp');
+    // $subQuery = DB::table('cicilan_motor')
+    //   ->where('id_motor', $id_motor)
+    //   ->where('tenor', $tenor)
+    //   ->where('id_lokasi', $id_lokasi)
+    //   ->selectRaw('MIN(dp) as dp')
+    //   ->groupBy('id_leasing')
+    //   ->pluck('dp');
 
-    $cicilan_motor = CicilanMotor::with('leasingMotor')
+
+    // $subquery = CicilanMotor::select('id_leasing')
+    //   ->distinct()
+    //   ->where('id_motor', $id_motor)
+    //   ->where('id_lokasi', $id_lokasi)
+    //   ->where('tenor', $tenor)
+    //   ->groupBy('id_leasing');
+
+    // $leasings = $subquery->get()->pluck('id_leasing');
+
+    // $results = CicilanMotor::with('leasingMotor')
+    //   ->whereIn('id_leasing', $leasings)
+    //   ->where('id_motor', $id_motor)
+    //   ->where('id_lokasi', $id_lokasi)
+    //   ->where('tenor', $tenor)
+    //   ->groupBy('id_leasing')
+    //   ->get();
+
+
+    $cicilan_motor = DB::table('cicilan_motor')
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
       ->where('id_motor', $id_motor)
-      ->where('tenor', $tenor)
       ->where('id_lokasi', $id_lokasi)
-      ->whereIn('dp', $subQuery)
+      ->where('tenor', $tenor)
+      ->groupBy('id_leasing')
+      ->orderBy('id_leasing', 'ASC')
       ->get();
 
     if ($cicilan_motor->isEmpty()) {
@@ -269,8 +290,8 @@ class CicilanMotorController extends Controller
       ->where('tenor', $tenor)
       ->get();
 
-
     $averageAngsuran = array();
+
     foreach ($cicilan_motor as $cicilan) {
       $dpBayar = $cicilan->dp;
       $averageAngsuran[] = $cicilan->cicilan;
@@ -287,11 +308,11 @@ class CicilanMotorController extends Controller
       }
 
       $data['cicilan_motor'][] = array(
-        'nama_leasing' => $cicilan->leasingMotor->nama,
+        'nama_leasing' => $cicilan->nama,
         'dp' => $cicilan->dp,
         'diskon' => $diskon,
         'dp_bayar' => $dpBayar,
-        'gambar' => $cicilan->leasingMotor->gambar,
+        'gambar' => $cicilan->gambar,
         'angsuran' => $cicilan->cicilan,
         'tenor' => $cicilan->tenor,
         'potongan_tenor' => $cicilan->potongan_tenor,
@@ -300,8 +321,8 @@ class CicilanMotorController extends Controller
       );
     }
 
+
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
-    // dd($data);
     // $dpRange = $dp * 0.2;
     $cicilanRange = $averageAngsuran * 0.2;
 
