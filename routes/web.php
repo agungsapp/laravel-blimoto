@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
+use App\Http\Controllers\Botman\BotManController;
 use App\Http\Controllers\User\AboutUsController;
 // user
 use App\Http\Controllers\User\BandingkanController;
@@ -70,7 +71,8 @@ Route::get('/login', [UserLoginController::class, 'index'])->name('login');
 Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 
-// try 
+// chatbot
+Route::match(['get', 'post'], '/chat', [BotManController::class, 'handle']);
 
 // User Area
 Route::resource('/home', HomeController::class);
