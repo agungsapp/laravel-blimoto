@@ -53,6 +53,9 @@
 		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.theme.default.min.css" />
 
 		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
+
+
+
 		<script src="{{ asset('assets') }}/js/countDown.js"></script>
 
 
@@ -184,6 +187,24 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
+
+		{{-- botman css --}}
+		<link rel="stylesheet" type="text/css"
+				href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+
+		{{-- botman js --}}
+		<script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
+
+		<script>
+				var botmanWidget = {
+						// frameEndpoint: '/botman',
+						// chatServer: '/botman'
+						aboutText: "Selammat Datang tol kontol",
+						introMessage: "Selammat tolol",
+						title: "Chat kami"
+				};
+		</script>
+		<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
 		<script>
 				console.log("aman running")
