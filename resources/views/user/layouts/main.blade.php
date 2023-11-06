@@ -55,6 +55,10 @@
 		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
 
 
+		<!-- botman -->
+		<link rel="stylesheet" type="text/css"
+				href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+
 
 		<script src="{{ asset('assets') }}/js/countDown.js"></script>
 
@@ -192,18 +196,17 @@
 		<link rel="stylesheet" type="text/css"
 				href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
 
-		{{-- botman js --}}
-		<script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
-
+		<!-- botman -->
 		<script>
 				var botmanWidget = {
-						// frameEndpoint: '/botman',
-						// chatServer: '/botman'
-						aboutText: "Selammat Datang tol kontol",
-						introMessage: "Selammat tolol",
-						title: "Chat kami"
+						chatServer: '/botman',
+						aboutText: 'BliMoto',
+						introMessage: 'Ketikan "mulai" untuk melakukan pembelian motor',
+						title: 'ChatBot BliMoto',
+
 				};
 		</script>
+
 		<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
 		<script>
