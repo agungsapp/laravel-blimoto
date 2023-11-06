@@ -199,10 +199,12 @@
 			currentLocationId = defaultLocationId;
 			sessionStorage.setItem('lokasiUser', defaultLocationId);
 		}
-
 		// Set nilai lokasi ke dalam input field dan teks menu saat halaman dimuat
 		setLokasiToInput();
 		setTeksMenuLokasi();
+		<script>
+				console.log("aman running")
+				var lokasiNow = 1;
 
 		for (var i = 0; i < locationLinks.length; i++) {
 			locationLinks[i].addEventListener('click', function(e) {
