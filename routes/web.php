@@ -72,7 +72,7 @@ Route::post('/login', [UserLoginController::class, 'store'])->name('login.store'
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 
 // chatbot
-Route::match(['get', 'post'], '/chat', [BotManController::class, 'handle']);
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 // User Area
 Route::resource('/home', HomeController::class);

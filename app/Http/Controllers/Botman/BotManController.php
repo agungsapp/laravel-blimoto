@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use BotMan\BotMan\BotMan;
 use App\Botman\ChatbotDialog;
 use App\Http\Controllers\Controller;
+use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Cache\LaravelCache;
 
 class BotManController extends Controller
 {
   public function handle(Request $request)
   {
+    $config = config('botman.web');
+    $botman = BotManFactory::create($config, new LaravelCache());
     $botman = app('botman');
 
     $dialog = new ChatbotDialog($botman);
