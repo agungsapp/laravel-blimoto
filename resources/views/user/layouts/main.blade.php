@@ -18,6 +18,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+	<!-- botman -->
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> -->
 	<!--icon css-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/font-awesome.css" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/themify.css" />
@@ -52,8 +54,6 @@
 	{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> --}}
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-	<!-- botman -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
 	<style>
 		/* CSS untuk latar belakang hitam */
 		.black-overlay {
@@ -175,16 +175,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 	<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
-	<!-- botman -->
-	<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-	<script>
-		var botmanWidget = {
-			aboutText: 'BliMoto',
-			introMessage: 'Ketikan "mulai" untuk melakukan pembelian motor',
-			title: 'ChatBot BliMoto',
-
-		};
-	</script>
 
 
 	<script>
@@ -277,3 +267,13 @@
 </body>
 
 </html>
+<!-- botman -->
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+<script>
+	var botmanWidget = {
+		aboutText: 'BliMoto',
+		introMessage: 'Ketikan "mulai" untuk melakukan pembelian motor',
+		title: 'ChatBot BliMoto',
+
+	};
+</script>
