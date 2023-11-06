@@ -15,7 +15,7 @@ class ChatbotConvertation extends Conversation
 
     $this->ask('Mohon beritahu kami alamat domisili Anda', function ($ans) {
       $this->update(['lokasi' => $ans]);
-      $this->reply('Silakan pilih merk motor yang anda inginkan.');
+      $this->say('Alamat domisili Anda?');
     });
   }
 
@@ -102,6 +102,6 @@ class ChatbotConvertation extends Conversation
   public function run()
   {
     // This will be called immediately
-    $this->askName();
+    $this->start();
   }
 }
