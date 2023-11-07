@@ -286,8 +286,11 @@
 				// chatServer: '/botman',
 				// frameEndpoint: '/botman',
 				aboutText: 'BliMoto',
-				introMessage: 'Ketikan "mulai" untuk melakukan pembelian motor',
-				title: 'ChatBot BliMoto',
+				introMessage: 'Selamat Datang !, Silahkan ketik "mulai" untuk memulai percakapan.',
+				title: 'Customer Service BliMoto',
+				headerTextColor: '#fff',
+				mainColor: '#DD0202',
+				bubbleBackground: '#DD0202',
 
 		};
 </script>

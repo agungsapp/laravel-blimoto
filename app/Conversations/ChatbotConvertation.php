@@ -4,10 +4,22 @@ namespace App\Conversations;
 
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
+use BotMan\BotMan\Messages\Incoming\Answer;
 
 class ChatbotConvertation extends Conversation
 {
 
+  protected $name;
+
+  public function askName()
+  {
+    $this->ask('Silahkan ketikan nama Anda .', function (Answer $answer) {
+      $this->name = $answer->getText();
+      $this->say("Hallo, $this->name");
+      // $this->askLocation();
+      $this->start();
+    });
+  }
 
   public function start()
   {
@@ -102,6 +114,6 @@ class ChatbotConvertation extends Conversation
   public function run()
   {
     // This will be called immediately
-    $this->start();
+    $this->askName();
   }
 }
