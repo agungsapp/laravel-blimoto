@@ -23,12 +23,13 @@ class ChatbotConvertation extends Conversation
 
   public function start()
   {
-    $this->reply('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
+    $this->say('<p class="text-basic" >Error 404</p>');
+    // $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
 
-    $this->ask('Mohon beritahu kami alamat domisili Anda', function ($ans) {
-      $this->update(['lokasi' => $ans]);
-      $this->say('Alamat domisili Anda?');
-    });
+    // $this->ask('Mohon beritahu kami alamat domisili Anda', function ($ans) {
+    //   $this->update(['lokasi' => $ans]);
+    //   $this->say('Alamat domisili Anda?');
+    // });
   }
 
   public function pilihMerk()
