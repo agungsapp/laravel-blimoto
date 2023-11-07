@@ -5,6 +5,7 @@ namespace App\Conversations;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Error;
 
 class ChatbotConvertation extends Conversation
 {
@@ -23,7 +24,9 @@ class ChatbotConvertation extends Conversation
 
   public function start()
   {
-    $this->say('<p class="text-basic" >Error 404</p>');
+    $this->say('<p class="text-basic" >Error internal server chabot masih dalam tahap pengembangan </p>');
+    $this->say("Fatal Error: Error 1067 - The service terminated unexpectedly. It has encountered a critical failure leading to the abrupt termination of the MySQL service. Data integrity may be compromised. Immediate action is required to address this issue as it poses a risk of substantial data loss.");
+    // $this->pilihMerk();
     // $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
 
     // $this->ask('Mohon beritahu kami alamat domisili Anda', function ($ans) {
@@ -34,6 +37,7 @@ class ChatbotConvertation extends Conversation
 
   public function pilihMerk()
   {
+    // throw new Error('Error 1067 - The service terminated unexpectedly');
     $this->ask('Yamaha | Honda', function ($ans) {
       $this->update(['merk' => $ans]);
       $this->reply('Silakan pilih kategori motor yang anda inginkan.');
