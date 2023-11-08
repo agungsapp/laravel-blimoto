@@ -201,9 +201,9 @@
 				}
 				// Set nilai lokasi ke dalam input field dan teks menu saat halaman dimuat
 				setLokasiToInput();
-				setTeksMenuLokasi(); <
-				script >
-						console.log("aman running")
+				setTeksMenuLokasi();
+
+				console.log("aman running")
 				var lokasiNow = 1;
 
 				for (var i = 0; i < locationLinks.length; i++) {
@@ -217,11 +217,10 @@
 								var stickyNav = document.getElementById('lokasiTextShow2');
 								stickyNav.textContent = location;
 
-
 								// Update nilai variabel global saat lokasi berubah
 								lokasiNow = id;
-								setLokasiToInput()
-								console.log(`behasil ubah id lokasi ke ${lokasiNow}`)
+								setLokasiToInput();
+								console.log(`behasil ubah id lokasi ke ${lokasiNow}`);
 						});
 				}
 
@@ -232,7 +231,7 @@
 						var inputElement = document.getElementById('lokasi-user-pencarian');
 						inputElement.value = lokasiId;
 						window.idLokasi = lokasiId;
-						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`)
+						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`);
 				}
 
 				function setTeksMenuLokasi() {
@@ -252,9 +251,7 @@
 						stickyNav.textContent = lokasiText;
 				}
 
-
 				// manipulasi navigasi
-
 				$(document).ready(function() {
 						$('#lokasi-ambang').hide();
 
@@ -270,9 +267,6 @@
 						});
 				});
 		</script>
-
-
-
 
 		@stack('script')
 
