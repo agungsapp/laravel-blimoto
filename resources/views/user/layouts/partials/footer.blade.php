@@ -11,7 +11,7 @@
 														</div>
 														<div class="footer-contant">
 																<div class="footer-logo">
-																		<a href="index.html">
+																		<a href="/home">
 																				<img src="assets/images/logo/Logo-blimoto.webp" class="img-fluid" alt="logo" />
 																		</a>
 																</div>

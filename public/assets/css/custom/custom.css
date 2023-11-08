@@ -11,6 +11,10 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.video-banner:before {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .product .product-box .product-detail.product-detail2 {
     border: 1px solid #b8b8b8 !important;
     border-top: 0 !important;
