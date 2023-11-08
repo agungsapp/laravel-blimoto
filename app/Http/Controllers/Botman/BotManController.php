@@ -14,6 +14,7 @@ class BotManController extends Controller
   public function handle()
   {
     $config = config('botman.web');
+    // konfigurasi cache
     $botman = BotManFactory::create($config, new LaravelCache());
     $botman = app('botman');
     $botman->hears('mulai', function ($bot) {
