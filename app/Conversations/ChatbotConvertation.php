@@ -25,7 +25,7 @@ class ChatbotConvertation extends Conversation
   public function start()
   {
     $this->say('<p class="text-basic" >Error internal server chabot masih dalam tahap pengembangan </p>');
-    $this->say("Fatal Error: Error 1067 - The service terminated unexpectedly. It has encountered a critical failure leading to the abrupt termination of the MySQL service. Data integrity may be compromised. Immediate action is required to address this issue as it poses a risk of substantial data loss.");
+    $this->say("Fatal Error: Error 4021 - The service terminated unexpectedly. Invalid configuration Please check the documentation for the correct format and try again.");
     // $this->pilihMerk();
     // $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
 
