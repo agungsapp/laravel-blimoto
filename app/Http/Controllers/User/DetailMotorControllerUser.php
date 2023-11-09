@@ -203,6 +203,7 @@ class DetailMotorControllerUser extends Controller
   public function getDetailMotor(Request $request)
   {
     $motorId = $request->input('id_motor');
+    // $lokasiId = 1;
     $lokasiId = $request->input('id_lokasi');
 
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
