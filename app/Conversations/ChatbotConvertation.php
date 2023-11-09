@@ -5,34 +5,46 @@ namespace App\Conversations;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Outgoing\Question;
 use Error;
 
 class ChatbotConvertation extends Conversation
 {
 
   protected $name;
+  protected $lokasi;
 
   public function askName()
   {
     $this->ask('Silahkan ketikan nama Anda .', function (Answer $answer) {
       $this->name = $answer->getText();
       $this->say("Hallo, $this->name");
-      // $this->askLocation();
       $this->start();
     });
   }
 
   public function start()
   {
-    $this->say('<p class="text-basic" >Error internal server chabot masih dalam tahap pengembangan </p>');
-    $this->say("Fatal Error: Error 4021 - The service terminated unexpectedly. Invalid configuration Please check the documentation for the correct format and try again.");
-    // $this->pilihMerk();
-    // $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
+    $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
 
-    // $this->ask('Mohon beritahu kami alamat domisili Anda', function ($ans) {
-    //   $this->update(['lokasi' => $ans]);
-    //   $this->say('Alamat domisili Anda?');
-    // });
+    $question = Question::create('Mohon beritahu kami domisili Anda.')
+      ->addButtons([
+        Button::create('Jakarta Selatan')->value('Jakarta Selatan'),
+        Button::create('Bogor')->value('Bogor'),
+        Button::create('Depok')->value('Depok'),
+        Button::create('Tanggerang')->value('Tanggerang'),
+        Button::create('Bekasi')->value('Bekasi'),
+      ]);
+
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        $this->lokasi = $answer->getValue();
+        $this->say("Lokasi yang Anda pilih adalah: $this->lokasi");
+        $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+        // $this->askBrand();
+      }
+    });
   }
 
   public function pilihMerk()
