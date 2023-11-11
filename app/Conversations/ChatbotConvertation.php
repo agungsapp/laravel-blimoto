@@ -14,6 +14,7 @@ class ChatbotConvertation extends Conversation
 
   protected $name;
   protected $lokasi;
+  protected $brand;
 
   public function askName()
   {
@@ -41,69 +42,28 @@ class ChatbotConvertation extends Conversation
       if ($answer->isInteractiveMessageReply()) {
         $this->lokasi = $answer->getValue();
         $this->say("Lokasi yang Anda pilih adalah: $this->lokasi");
-        $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
-        // $this->askBrand();
+        $this->askBrand();
       }
     });
   }
 
-  public function pilihMerk()
+  public function askBrand()
   {
-    // throw new Error('Error 1067 - The service terminated unexpectedly');
-    $this->ask('Yamaha | Honda', function ($ans) {
-      $this->update(['merk' => $ans]);
-      $this->reply('Silakan pilih kategori motor yang anda inginkan.');
-    });
-  }
+    $question = Question::create('Silakan pilih merk motor yang anda inginkan.')
+      ->addButtons([
+        Button::create('Honda')->value('Honda'),
+        Button::create('Yamaha')->value('Yamaha'),
+        Button::create('Suzuki')->value('Suzuki'),
+        Button::create('Kawasaki')->value('Kawasaki'),
+      ]);
 
-  public function pilihKategori()
-  {
-    $this->ask('Matic | Bebek | Sport | Big bike', function ($ans) {
-      $this->update(['kategori' => $ans]);
-      $this->reply('Silahkan pilih type motor yang anda inginkan.');
-    });
-  }
-
-  public function pilihType()
-  {
-    $this->ask('Beat | Vario | …', function ($ans) {
-      $this->update(['type' => $ans]);
-      $this->reply('Silahkan pilih metode pembayaran yang anda inginkan.');
-    });
-  }
-
-  public function pilihMetodePembayaran()
-  {
-    $this->ask('Kredit | Cash', function ($ans) {
-      $this->update(['metode_pembayaran' => $ans]);
-      $this->reply('Silahkan pilih leasing yang anda inginkan.');
-    });
-  }
-
-  public function pilihLeasing()
-  {
-    $this->ask('FIF | MCF | Adira', function ($ans) {
-      $this->update(['leasing' => $ans]);
-      $this->reply('Silahkan pilih tenor yang anda inginkan.');
-    });
-  }
-
-  public function pilihTenor()
-  {
-    $this->ask('11 |  17 | 23 | 29 | 35 ', function ($ans) {
-      $this->update(['tenor' => $ans]);
-      $this->reply('Anda kan terhubung dengan sales dengan detail data berikut : 
-      Domisili anda : ' . $this->get('lokasi') . '
-      Merk : ' . $this->get('merk') . '
-      Kategori : ' . $this->get('kategori') . '
-      Type : ' . $this->get('type') . '
-      Metode pembayaran : ' . $this->get('metode_pembayaran') . '
-      Leasing : ' . $this->get('leasing') . '
-      Tenor : ' . $this->get('tenor') . '
-
-      Apakah data tersebut sudah sesuai ?
-      Y | N
-      ');
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        $this->brand = $answer->getValue();
+        $this->say("Merk motor yang Anda pilih adalah: $this->brand");
+        $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+        // $this->askCategory();
+      }
     });
   }
 
@@ -130,7 +90,6 @@ class ChatbotConvertation extends Conversation
 
   public function run()
   {
-    // This will be called immediately
     $this->askName();
   }
 }
