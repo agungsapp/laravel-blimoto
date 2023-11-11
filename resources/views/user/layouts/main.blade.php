@@ -114,6 +114,8 @@
 				}
 		</style>
 
+		@stack('css')
+
 
 </head>
 

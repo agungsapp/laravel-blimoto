@@ -11,6 +11,10 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.rounded-lg {
+    border-radius: 20px;
+}
+
 .review-text {
     border: 1px solid #d22232;
     border-radius: 10px;
