@@ -1,6 +1,17 @@
 /* css khusus home page */
+
+/* testing tools */
+.tesbor {
+    border: 1px solid black;
+}
+
 .rounded-lg {
     border-radius: 20px;
+}
+
+/* primary */
+.padding-primary {
+    padding: 0 18rem 0 18rem;
 }
 
 /* area hot promo diskon terbaik */
