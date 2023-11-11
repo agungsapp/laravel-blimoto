@@ -119,7 +119,7 @@
 
 </head>
 
-<body class="bg-light">
+<body class="bg-light" style="max-width: 2000px;">
 
 		@include('user.layouts.partials.header')
 
