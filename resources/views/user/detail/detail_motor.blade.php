@@ -132,7 +132,7 @@
 																</li>
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>Diskon</p>
-																		<p>{{ Str::rupiah($a['diskon']) }}</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['diskon']) }}</p>
 																</li>
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP Bayar</p>
