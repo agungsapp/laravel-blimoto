@@ -223,7 +223,7 @@ class DetailMotorControllerUser extends Controller
 
     $minTenor = CicilanMotor::where('id_motor', $motorId)
       ->where('id_lokasi', $lokasiId)
-      ->selectRaw('MIN(tenor) as tenor')
+      ->selectRaw('MAX(tenor) as tenor')
       ->pluck('tenor')
       ->first();
 
