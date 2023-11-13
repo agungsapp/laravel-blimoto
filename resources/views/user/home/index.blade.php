@@ -995,7 +995,7 @@
 																		</div>
 																</div>
 																<div class="card-footer">
-																		<a href="#" class="btn-basic mt-3 rounded-lg px-3 py-1">Lihat Angsuran</a>
+																		<a href="#" class="btn-basic mt-3 rounded-lg px-3 py-1">Lihat Detail</a>
 																</div>
 														</div>
 												</div>
