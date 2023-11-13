@@ -18,11 +18,14 @@ return new class extends Migration
             $table->integer('diskon');
             $table->integer('diskon_promo');
             $table->integer('tenor');
+            $table->integer('potongan_tenor');
             $table->unsignedBigInteger('id_leasing');
             $table->unsignedBigInteger('id_motor');
+            $table->unsignedBigInteger('id_lokasi');
 
             $table->foreign('id_leasing')->references('id')->on('leasing_motor');
             $table->foreign('id_motor')->references('id')->on('motor');
+            $table->foreign('id_lokasi')->references('id')->on('kota');
         });
     }
 
