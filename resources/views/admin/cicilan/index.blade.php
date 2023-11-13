@@ -16,9 +16,9 @@
 		<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalUpdate">
 			<i class="fas fa-sync-alt"></i><span class="ml-2">Update data cicilan</span>
 		</button>
-		<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalEditPotongan">
+		<!-- <button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalEditPotongan">
 			<i class="fas fa-sync-alt"></i><span class="ml-2">Update potongan tenor</span>
-		</button>
+		</button> -->
 
 		<!-- Modal import -->
 		<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="modalImportLabel" aria-hidden="true">
@@ -78,7 +78,7 @@
 		</div>
 	</div>
 	<!-- Modal edit potongan -->
-	<div class="modal fade" id="modalEditPotongan" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="modalEditPotongan" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
@@ -87,7 +87,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="{{ route('admin.cicilan.potongan-tenor.update') }}" method="POST" enctype="multipart/form-data">
+				<form action="" method="POST" enctype="multipart/form-data">
 					<div class="modal-body">
 						@csrf
 						@method('PUT')
@@ -155,7 +155,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <div class="col-12">
@@ -174,7 +174,6 @@
 						<th>Kota Name</th>
 						<th>DP</th>
 						<th>Tenor</th>
-						<th>Potongan Tenor</th>
 						<th>Cicilan</th>
 					</tr>
 				</thead>
@@ -221,10 +220,6 @@
 			{
 				data: 'tenor',
 				name: 'tenor'
-			},
-			{
-				data: 'potongan_tenor',
-				name: 'potongan_tenor'
 			},
 			{
 				data: 'cicilan',
