@@ -11,6 +11,15 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.slick-card-home div .item .card {
+    width: 16rem;
+}
+
+/* primary */
+.padding-primary {
+    padding: 0 18rem 0 18rem;
+}
+
 .rounded-lg {
     border-radius: 20px;
 }
@@ -530,6 +539,10 @@ section .simulasi-container .simulasi-wrapper .card {
 /* ======================== RESPONSIVE AREA START ===================== */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    .padding-primary {
+        padding: 0 1rem 0 1rem !important;
+    }
+
     .style-border-home-promo {
         top: 0rem;
         border-radius: 20px !important;
@@ -596,6 +609,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+    .padding-primary {
+        padding: 0 2rem 0 2rem !important;
+    }
+
     .style-border-home-promo {
         top: 0rem !important;
         border-radius: 20px !important;
@@ -640,6 +657,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    .padding-primary {
+        padding: 0 4rem 0 4rem !important;
+    }
+
     .style-border-home-promo {
         top: 0rem !important;
         border-radius: 20px !important;
@@ -684,6 +705,14 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .slick-card-home div .item .card {
+        width: 13rem !important;
+    }
+
+    .padding-primary {
+        padding: 0 7rem 0 7rem !important;
+    }
+
     .container-home-promo {
         padding: 0 7rem;
     }
@@ -748,6 +777,14 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .slick-card-home div .item .card {
+        width: 16rem;
+    }
+    /* primary */
+    .padding-primary {
+        padding: 0 10rem 0 10rem !important;
+    }
+
     .container-home-promo {
         padding: 0 15rem;
     }
@@ -800,6 +837,15 @@ section .simulasi-container .simulasi-wrapper .card {
 
     .nama-motor {
         font-size: 12px !important;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .padding-primary {
+        padding: 0 18rem 0 18rem !important;
+    }
+    .slick-card-home div .item .card {
+        width: 18rem;
     }
 }
 /* ======================== RESPONSIVE AREA END ===================== */
