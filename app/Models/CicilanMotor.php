@@ -12,7 +12,6 @@ class CicilanMotor extends Model
   protected $fillable = [
     'dp',
     'tenor',
-    'potongan_tenor',
     'cicilan',
     'id_leasing',
     'id_lokasi',
@@ -28,8 +27,7 @@ class CicilanMotor extends Model
         kota.nama AS lokasi_name,
         leasing_motor.nama AS leasing_name, 
         cicilan_motor.dp, 
-        cicilan_motor.tenor, 
-        cicilan_motor.potongan_tenor, 
+        cicilan_motor.tenor,
         cicilan_motor.cicilan
     FROM 
         cicilan_motor

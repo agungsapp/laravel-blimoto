@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
 use App\Models\DiskonMotor;
+use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Merk;
 use App\Models\Motor;
@@ -25,11 +26,13 @@ class AdminDiskonMotorController extends Controller
   {
     $motor = Motor::select('id', 'nama')->get();
     $leasing = LeasingMotor::select('id', 'nama')->get();
-    $diskonMotor = DiskonMotor::with('motor', 'leasing')->get();
+    $lokasi = Kota::select('id', 'nama')->get();
+    $diskonMotor = DiskonMotor::with('motor', 'leasing', 'lokasi')->get();
 
     return view('admin.diskon-motor.index', [
       'motor' => $motor,
       'leasing' => $leasing,
+      'lokasi' => $lokasi,
       'diskon_motor' => $diskonMotor,
     ]);
   }
@@ -55,7 +58,9 @@ class AdminDiskonMotorController extends Controller
     $validator = Validator::make($request->all(), [
       'nama_motor' => 'required',
       'leasing_motor' => 'required',
+      'lokasi_motor' => 'required',
       'tenor' => 'required',
+      'potongan_tenor' => 'required',
       'diskon' => 'required',
       'diskon_promo' => 'required',
     ]);
@@ -69,15 +74,17 @@ class AdminDiskonMotorController extends Controller
       DiskonMotor::create([
         'id_motor' => $request->input('nama_motor'),
         'id_leasing' => $request->input('leasing_motor'),
+        'id_lokasi' => $request->input('lokasi_motor'),
         'diskon' => $request->input('diskon'),
         'diskon_promo' => $request->input('diskon_promo'),
         'tenor' => $request->input('tenor'),
+        'potongan_tenor' => $request->input('potongan_tenor'),
       ]);
       flash()->addSuccess("Diskon motor berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
       throw $th;
-      flash()->addError("Gagal membuat data pastikan sudah benar!");
+      flash()->addError("Gagal membuat data pastika n sudah benar!");
       return redirect()->back();
     }
   }
@@ -116,7 +123,9 @@ class AdminDiskonMotorController extends Controller
     $validator = Validator::make($request->all(), [
       'nama_motor' => 'required',
       'leasing_motor' => 'required',
+      'lokasi_motor' => 'required',
       'tenor' => 'required',
+      'potongan_tenor' => 'required',
       'diskon' => 'required',
       'diskon_promo' => 'required',
     ]);
@@ -129,9 +138,11 @@ class AdminDiskonMotorController extends Controller
     $diskonMotor = DiskonMotor::findOrFail($id);
     $diskonMotor->id_motor = $request->input('nama_motor');
     $diskonMotor->id_leasing = $request->input('leasing_motor');
+    $diskonMotor->id_lokasi = $request->input('lokasi_motor');
+    $diskonMotor->tenor = $request->input('tenor');
+    $diskonMotor->potongan_tenor = $request->input('potongan_tenor');
     $diskonMotor->diskon = $request->input('diskon');
     $diskonMotor->diskon_promo = $request->input('diskon_promo');
-    $diskonMotor->tenor = $request->input('tenor');
 
     $diskonMotor->save();
     flash()->addSuccess("Berhasil merubah diskon motor!");

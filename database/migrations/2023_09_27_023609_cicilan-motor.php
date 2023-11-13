@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('dp')->index();
             $table->integer('tenor')->index();
             $table->integer('cicilan');
-            $table->integer('potongan_tenor');
             $table->unsignedBigInteger('id_leasing');
             $table->unsignedBigInteger('id_lokasi');
             $table->unsignedBigInteger('id_motor');

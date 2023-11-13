@@ -11,9 +11,11 @@ class DiskonMotor extends Model
   protected $fillable = [
     'id_motor',
     'id_leasing',
+    'id_lokasi',
     'diskon',
-    'tenor',
     'diskon_promo',
+    'tenor',
+    'potongan_tenor',
   ];
 
   public function motor()
@@ -24,5 +26,10 @@ class DiskonMotor extends Model
   public function leasing()
   {
     return $this->belongsTo(LeasingMotor::class, 'id_leasing', 'id');
+  }
+
+  public function lokasi()
+  {
+    return $this->belongsTo(Kota::class, 'id_lokasi', 'id');
   }
 }

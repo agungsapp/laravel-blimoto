@@ -118,11 +118,10 @@ class AdminCicilanMotorController extends Controller
         DB::table('cicilan_motor')->insert([
           'dp' => $data[0],
           'tenor' => $data[1],
-          'potongan_tenor' => $data[2],
-          'cicilan' => $data[3],
-          'id_leasing' => $data[4],
-          'id_lokasi' => $data[5],
-          'id_motor' => $data[6],
+          'cicilan' => $data[2],
+          'id_leasing' => $data[3],
+          'id_lokasi' => $data[4],
+          'id_motor' => $data[5],
         ]);
       }
       fclose($handle);
@@ -153,11 +152,10 @@ class AdminCicilanMotorController extends Controller
         DB::table('cicilan_motor')->insert([
           'dp' => $data[0],
           'tenor' => $data[1],
-          'potongan_tenor' => $data[2],
-          'cicilan' => $data[3],
-          'id_leasing' => $data[4],
-          'id_lokasi' => $data[5],
-          'id_motor' => $data[6],
+          'cicilan' => $data[2],
+          'id_leasing' => $data[3],
+          'id_lokasi' => $data[4],
+          'id_motor' => $data[5],
         ]);
       }
 
@@ -168,35 +166,35 @@ class AdminCicilanMotorController extends Controller
     return redirect()->back();
   }
 
-  public function updatePotonganTenor(Request $request)
-  {
-    $validator = Validator::make($request->all(), [
-      'motor' => 'required',
-      'tenor' => 'required',
-      'leasing' => 'required',
-      'lokasi' => 'required',
-      'potongan_tenor' => 'required',
-    ]);
+  // public function updatePotonganTenor(Request $request)
+  // {
+  //   $validator = Validator::make($request->all(), [
+  //     'motor' => 'required',
+  //     'tenor' => 'required',
+  //     'leasing' => 'required',
+  //     'lokasi' => 'required',
+  //     'potongan_tenor' => 'required',
+  //   ]);
 
-    if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back()->withErrors($validator)->withInput();
-    }
+  //   if ($validator->fails()) {
+  //     flash()->addError("Inputkan semua data dengan benar!");
+  //     return redirect()->back()->withErrors($validator)->withInput();
+  //   }
 
-    $affectedRows = CicilanMotor::where('id_motor', $request->motor)
-      ->where('id_leasing', $request->leasing)
-      ->where('tenor', $request->tenor)
-      ->where('id_lokasi', $request->lokasi)
-      ->update(['potongan_tenor' => $request->potongan_tenor]);
+  //   $affectedRows = CicilanMotor::where('id_motor', $request->motor)
+  //     ->where('id_leasing', $request->leasing)
+  //     ->where('tenor', $request->tenor)
+  //     ->where('id_lokasi', $request->lokasi)
+  //     ->update(['potongan_tenor' => $request->potongan_tenor]);
 
-    if ($affectedRows > 0) {
-      flash()->addSuccess("Data berhasil dirubah!");
-    } else {
-      flash()->addError("Data tidak ditemukan isikan input dengan benar!");
-    }
+  //   if ($affectedRows > 0) {
+  //     flash()->addSuccess("Data berhasil dirubah!");
+  //   } else {
+  //     flash()->addError("Data tidak ditemukan isikan input dengan benar!");
+  //   }
 
-    return redirect()->back();
-  }
+  //   return redirect()->back();
+  // }
 
   public function dataTable()
   {
