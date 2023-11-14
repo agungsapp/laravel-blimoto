@@ -302,9 +302,11 @@ class CicilanMotorController extends Controller
       if ($foundDiscount) {
         $diskon = $foundDiscount->diskon_promo;
         $dpBayar = $cicilan->dp - $diskon;
+        $potonganTenor = $diskonMotor[0]->potongan_tenor;
       } else {
         $diskon = 0;
         $dpBayar = $cicilan->dp;
+        $potonganTenor = 0;
       }
 
       $data['cicilan_motor'][] = array(
@@ -315,9 +317,9 @@ class CicilanMotorController extends Controller
         'gambar' => $cicilan->gambar,
         'angsuran' => $cicilan->cicilan,
         'tenor' => $cicilan->tenor,
-        'potongan_tenor' => $cicilan->potongan_tenor,
-        'total_tenor' => $cicilan->tenor - $cicilan->potongan_tenor,
-        'total_bayar' => ($cicilan->tenor - $cicilan->potongan_tenor) * $cicilan->cicilan + $dpBayar,
+        'potongan_tenor' => $potonganTenor,
+        'total_tenor' => $cicilan->tenor - $potonganTenor,
+        'total_bayar' => ($cicilan->tenor - $potonganTenor) * $cicilan->cicilan + $dpBayar,
       );
     }
 
@@ -327,7 +329,7 @@ class CicilanMotorController extends Controller
     $cicilanRange = $averageAngsuran * 0.2;
 
     // $recommendationCicilan = CicilanMotor
-    $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor')
+    $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'id_leasing', 'id_motor')
       ->with([
         'motor' => function ($query) {
           $query->select('id', 'id_merk', 'id_type', 'nama', 'harga')
@@ -369,8 +371,8 @@ class CicilanMotorController extends Controller
       });
 
       $diskon = $foundDiscount ? $foundDiscount->diskon_promo : 0;
+      $potonganTenor = $foundDiscount ? $diskonMotor[0]->potongan_tenor : 0;
       $dpBayar = $recommendation->dp - $diskon;
-
       $motorId = $recommendation->motor->id;
 
       $cicilanMotor = [
@@ -381,9 +383,9 @@ class CicilanMotorController extends Controller
         'gambar' => $recommendation->leasingMotor->gambar,
         'angsuran' => $recommendation->cicilan,
         'tenor' => $recommendation->tenor,
-        'potongan_tenor' => $recommendation->potongan_tenor,
-        'total_tenor' => $recommendation->tenor - $recommendation->potongan_tenor,
-        'total_bayar' => ($recommendation->tenor - $recommendation->potongan_tenor) * $recommendation->cicilan + $dpBayar,
+        'potongan_tenor' => $potonganTenor,
+        'total_tenor' => $recommendation->tenor - $potonganTenor,
+        'total_bayar' => ($recommendation->tenor - $potonganTenor) * $recommendation->cicilan + $dpBayar,
       ];
 
       if (isset($rekomendasiMotor[$motorId])) {
