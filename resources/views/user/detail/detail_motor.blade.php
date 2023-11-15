@@ -166,7 +166,6 @@
 														</div>
 												</div>
 										@endforeach
-
 								</div>
 								<div class="row mt-4 px-2">
 										<div class="pro-group">
