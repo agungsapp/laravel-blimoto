@@ -25,24 +25,152 @@
 		</div>
 		<!-- breadcrumb End -->
 
-		<section>
-				<div class="container-fluid p-5 pt-5">
-						<div id="detail-motor-baru " class="row">
-								<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
-										style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-										<img src="{{ asset('assets') }}/images/detail-motor/{{ $data['motor']['detail_motor'][0]['gambar'] }}"
-												class="img-fluid" alt="{{ $data['motor']['detail_motor'][0]['gambar'] }}" srcset=""
-												style="max-width: 100%; height: auto;">
-										<div class="product-right py-5">
+		{{-- =============================NEW=========================== --}}
+
+		<div class="container-fluid mt-5">
+				<div class="row px-4">
+						<div class="col-12 col-md-4 col-lg-4 col-xl-3">
+								<div class="row bg-white px-2 py-3" style="max-width: 450px">
+										<div class="d-flex justify-content-between">
+												<h3 class="fw-bold text-black">{{ $data['motor']['nama'] }}</h3>
+												<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
+														<span class="ms-2">{{ $lokasi }}</span>
+												</div>
+										</div>
+										<div class="d-flex justify-content-between mt-2">
+												<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
+												<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($data['motor']['otr']) }}</p>
+										</div>
+										<div class="d-flex justify-content-between mt-2">
+												<h6 class="product-title nama-motor">Metode Pembayaran</h6>
+												<span class="badge bg-success nama-motor">Kredit</span>
+										</div>
+										<div class="d-flex justify-content-between mt-2">
+												<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
+												<p class="nama-motor">{{ $data['motor']['type'] }}</p>
+										</div>
+										<div class="d-flex justify-content-between mt-2">
+												<h6 class="fw-bold text-doff nama-motor">Merk</h6>
+												<p class="nama-motor">{{ $data['motor']['merk'] }}</p>
+										</div>
+										<div class="d-flex justify-content-between mt-2">
+												<h6 class="fw-bold text-doff nama-motor">Stock</h6>
+												<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
+										</div>
+								</div>
+								<div class="product-slick">
+										@foreach ($data['motor']['detail_motor'] as $dm)
+												<div>
+														<img src="/assets/images/detail-motor/{{ $dm['gambar'] }}" alt="{{ $dm['gambar'] }}"
+																class="img-fluid image_zoom_cls-0">
+												</div>
+										@endforeach
+								</div>
+								<div class="row">
+										<div class="col-12 p-0">
+												<div class="p-3">
+														<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
+												</div>
+												<div class="slider-nav">
+														@foreach ($data['motor']['detail_motor'] as $dm)
+																<div>
+																		<img src="/assets/images/detail-motor/{{ $dm['gambar'] }}" alt="{{ $dm['gambar'] }}"
+																				class="img-fluid image_zoom_cls-0">
+																</div>
+														@endforeach
+														{{-- <div><img src="/assets/images/detail-color/1.webp" alt="1.webp" class="img-fluid">
+																								</div> --}}
+												</div>
+										</div>
+								</div>
+						</div>
+						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0">
+								<div class="owl-carousel-leasing d-flex align-items-center row mt-3 overflow-hidden">
+
+										@foreach ($data['cicilan_motor'] as $a)
+												<div class="card" style=" margin-left: 10px;">
+														<img
+																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
+																src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}" class="card-img-top"
+																alt="{{ $a['gambar'] }}">
+														<ul class="list-group list-group-flush">
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>DP</p>
+																		<p>{{ Str::rupiah($a['dp']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Diskon</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['diskon']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>DP Bayar</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['dp_bayar']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Angsuran</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['angsuran']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Tenor</p>
+																		<p>{{ $a['tenor'] }} Bulan</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Total Bayar</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['total_bayar']) }}</p>
+																</li>
+														</ul>
+														<div class="card-body d-flex justify-content-center">
+																<a href="https://wa.me/6285839023590?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $data['motor']['merk'] }}%0AKategori%20:%20{{ $data['motor']['type'] }}%0AType%20:%20{{ $data['motor']['nama'] }}%0Aleasing%20:%20{{ $a['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $a['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($a['dp']) }}."
+																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
+																				class="ms-2">Ajukan Sekarang</span></a>
+														</div>
+												</div>
+										@endforeach
+								</div>
+								{{-- <div class="row mt-4 px-2">
+										<div class="pro-group">
+												<div class="d-flex align-items-baseline gap-5">
+														<h6 class="product-title">Promo berlaku sampai dengan :</h6>
+														<p style="border-radius: 10px;" class="btn btn-sm bg-doff text-white">{{ date('d F Y') }}</p>
+												</div>
+												<div class="simply-countdown" id="timer">
+												</div>
+										</div>
+								</div> --}}
+						</div>
+				</div>
+		</div>
+
+		<hr>
+
+		{{-- banner rekomendasi  --}}
+		<section class="container-fluid">
+				<div class="row">
+						<div class="col-12 d-flex justify-content-center">
+								<img class="img-fluid" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp"
+										alt="banner-Rekomendasi.webp" srcset="">
+						</div>
+				</div>
+		</section>
+		<hr>
+
+		@foreach ($rekomendasi as $r)
+				@php
+						$rm = $r['motor'];
+				@endphp
+				<div class="container-fluid mb-5 mt-5">
+						<div class="row px-4">
+								<div class="col-12 col-md-4 col-lg-4 col-xl-3">
+										<div class="row bg-white px-2 py-3" style="max-width: 450px">
 												<div class="d-flex justify-content-between">
-														<p class="text-dark nama-motor fs-lg-4 fw-bold">{{ $data['motor']['nama'] }}</h>
+														<h3 class="fw-bold text-black">{{ $data['motor']['nama'] }}</h3>
 														<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
 																<span class="ms-2">{{ $lokasi }}</span>
 														</div>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-														<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($data['motor']['otr']) }}</p>
+														<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($rm['otr']) }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="product-title nama-motor">Metode Pembayaran</h6>
@@ -50,243 +178,188 @@
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-														<p class="nama-motor">{{ $data['motor']['type'] }}</p>
+														<p class="nama-motor">{{ $rm['type'] }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-														<p class="nama-motor">{{ $data['motor']['merk'] }}</p>
+														<p class="nama-motor">{{ $rm['merk'] }}</p>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Stock</h6>
 														<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
 												</div>
 										</div>
-								</div>
-								<div id="slick-cari-diskon"
-										class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
-										@foreach ($data['cicilan_motor'] as $les1)
-												<div class="p-1">
-														<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																<img
-																		style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																		src="{{ asset('assets') }}/images/custom/leasing/{{ $les1['gambar'] }}" class="card-img-top"
-																		alt="{{ $les1['gambar'] }}">
-																<ul class="list-group list-group-flush">
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>DP</p>
+										<div class="product-slick">
 
-																				<p>{{ Str::rupiah($les1['dp']) }} </p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Diskon</p>
-																				<p>{{ Str::rupiah($les1['diskon']) }}</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>DP Bayar</p>
-																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['dp_bayar']) }}</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Angsuran</p>
-																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['angsuran']) }}</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Tenor</p>
-																				<p>{{ $les1['tenor'] }} Bulan</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Potongan Tenor</p>
-																				<p>{{ $les1['potongan_tenor'] }} Bulan</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Total Tenor</p>
-																				<p>{{ $les1['total_tenor'] }} Bulan</p>
-																		</li>
-																		<li class="list-group-item d-flex justify-content-between">
-																				<p>Total Bayar</p>
-																				<p style="font-weight: bold; color: red;">{{ Str::rupiah($les1['total_bayar']) }}</p>
-																		</li>
-																</ul>
-																<div class="card-body d-flex justify-content-center">
-																		<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $data['motor']['merk'] . ' ' . $data['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $les1['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($les1['angsuran']) }}%20tenor%20{{ $les1['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
-																				target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
-																						class="ms-2">Ajukan Sekarang</span></a>
-																</div>
+												@foreach ($rm['detail_motor'] as $dm)
+														<div>
+																<img src="/assets/images/detail-motor/{{ $dm['gambar'] }}" alt="{{ $dm['gambar'] }}"
+																		class="img-fluid image_zoom_cls-0">
+														</div>
+												@endforeach
+
+										</div>27040
+										<div class="row">
+												<div class="col-12 p-0">
+														<div class="p-3">
+																<h4 class="fw-bold bg-basic p-3 text-center text-white">Pilih warna favorit kamu disini</h4>
+														</div>
+														<div class="slider-nav">
+																@foreach ($rm['detail_motor'] as $dm)
+																		<div>
+																				<img src="/assets/images/detail-motor/{{ $dm['gambar'] }}" alt="{{ $dm['gambar'] }}"
+																						class="img-fluid image_zoom_cls-0">
+																		</div>
+																@endforeach
+														</div>
+												</div>
+										</div>
+								</div>
+								<div
+										class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex align-items-center mt-3 overflow-hidden">
+
+										@foreach ($r['cicilan_motor'] as $rc)
+												<div class="card" style=" margin-left: 10px;">
+														<img
+																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
+																src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}" class="card-img-top"
+																alt="{{ $rc['gambar'] }}">
+														<ul class="list-group list-group-flush">
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>DP</p>
+																		<p>{{ Str::rupiah($rc['dp']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Diskon</p>
+																		<p>{{ Str::rupiah($rc['diskon']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>DP Bayar</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($rc['dp_bayar']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Angsuran</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($rc['angsuran']) }}</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Tenor</p>
+																		<p>{{ $rc['tenor'] }} Bulan</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Potongan Tenor</p>
+																		<p>{{ $rc['potongan_tenor'] }} Bulan</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Total Tenor</p>
+																		<p>{{ $rc['total_tenor'] }} Bulan</p>
+																</li>
+																<li class="list-group-item d-flex justify-content-between">
+																		<p>Total Bayar</p>
+																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($rc['total_bayar']) }}</p>
+																</li>
+														</ul>
+														<div class="card-body d-flex justify-content-center">
+																<a href="https://wa.me/6285839023590?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $rm['merk'] }}%0AKategori%20:%20{{ $rm['type'] }}%0AType%20:%20{{ $rm['nama'] }}%0Aleasing%20:%20{{ $rc['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $rc['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($rc['dp']) }}."
+																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
+																				class="ms-2">Ajukan Sekarang</span></a>
 														</div>
 												</div>
 										@endforeach
 
-										@for ($i = count($data['cicilan_motor']); $i < 7; $i++)
-												<div class="p-1"></div>
-										@endfor
-
 								</div>
-
-
-								{{-- navigasi custom --}}
-
-								{{-- <div class="d-flex justify-content-around text-basic position-relative"
-										style="width: 100%; margin-top: 3rem; top: -37vh;">
-										<div class="prev arrow_prev">
-												<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Prev
-										</div>
-										<div class="next arrow_next">
-												<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-										</div>
-								</div> --}}
-
-								{{-- <div>
-										<div id="prev" class="arrow_prev">
-												<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-										</div>
-										<div id="next" class="arrow_next">
-												<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-										</div>
-								</div> --}}
-
-								{{-- <div id="leasing-baru"
-										class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex justify-content-center slick-result-modal mt-lg-0 mt-3 flex-row"
-										style="flex-direction: row;"></div> --}}
-								{{-- nav slick slider custom --}}
-								{{-- <div class="d-flex justify-content-between nav-wrapper">
-										<div id="next" class="next">
-												<span>
-														<i class="fa fa-1x fa-arrow-circle-right" aria-hidden="true"></i>
-												</span>
-										</div>
-										<div id="prev" class="prev d-none">
-												<span>
-														<i class="fa fa-2x fa-arrow-circle-left" aria-hidden="true"></i>
-												</span>
-										</div>
-								</div> --}}
-								{{-- nav slick slider end --}}
 						</div>
-						<div class="collection-img">
-								<img class="w-100 mx-auto mt-5" src="{{ asset('assets') }}/images/custom/banner-Rekomendasi.webp" class="w-100"
-										alt="banner">
-						</div>
-						{{-- {{ count($rekomendasi[0]['cicilan_motor']) }} --}}
-						{{-- loop rekomendasi motor --}}
-						@foreach ($rekomendasi as $rek)
-								<div id="rekomendasi-motor" class="row mt-5">
-										<div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
-												style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-												<img src="{{ asset('assets') }}/images/detail-motor/{{ $rek['motor']['detail_motor'][0]['gambar'] }}"
-														class="img-fluid" alt="{{ $rek['motor']['detail_motor'][0]['gambar'] }}" srcset=""
-														style="max-width: 100%; height: auto;">
-												<div class="product-right py-5">
-														<div class="d-flex justify-content-between">
-																<p class="text-dark nama-motor fs-lg-4 fw-bold">{{ $rek['motor']['nama'] }}</h>
-																<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
-																		<span class="ms-2">{{ $lokasi }}</span>
-																</div>
-														</div>
-														<div class="d-flex justify-content-between mt-2">
-																<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-																<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($rek['motor']['otr']) }}
-																</p>
-														</div>
-														<div class="d-flex justify-content-between mt-2">
-																<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-																<span class="badge bg-success nama-motor">Kredit</span>
-														</div>
-														<div class="d-flex justify-content-between mt-2">
-																<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-																<p class="nama-motor">{{ $rek['motor']['type'] }}</p>
-														</div>
-														<div class="d-flex justify-content-between mt-2">
-																<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-																<p class="nama-motor">{{ $rek['motor']['merk'] }}</p>
-														</div>
-														<div class="d-flex justify-content-between mt-2">
-																<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-																<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
-														</div>
-												</div>
-										</div>
-										<div class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex mt-lg-0 justify-content-center slick-cari-diskon mt-5">
-												{{-- @dd($rek) --}}
-												@foreach ($rek['cicilan_motor'] as $reles)
-														<div class="p-1">
-																<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-																		<img
-																				style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																				src="{{ asset('assets') }}/images/custom/leasing/{{ $reles['gambar'] }}" class="card-img-top"
-																				alt="{{ $reles['gambar'] }}">
-																		<ul class="list-group list-group-flush">
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>DP</p>
-																						<p>{{ Str::rupiah($reles['dp']) }}</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Diskon</p>
-																						<p>{{ Str::rupiah($reles['diskon']) }}</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>DP Bayar</p>
-																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['dp_bayar']) }}</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Angsuran</p>
-																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['angsuran']) }}</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Tenor</p>
-																						<p>{{ Str::rupiah($reles['tenor']) }} Bulan</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Potongan Tenor</p>
-																						<p>{{ Str::rupiah($reles['potongan_tenor']) }} Bulan</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Total Tenor</p>
-																						<p>{{ Str::rupiah($reles['total_tenor']) }} Bulan</p>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between">
-																						<p>Total Bayar</p>
-																						<p style="font-weight: bold; color: red;">{{ Str::rupiah($reles['total_bayar']) }} </p>
-																				</li>
-																		</ul>
-																		<div class="card-body d-flex justify-content-center">
-																				<a href="https://wa.me/6281373939116?text=Hallo%20Admin.%20%0Asaya%20ingin%20bertanya%20terkait%20dengan%20unit%20{{ $rek['motor']['merk'] . ' ' . $rek['motor']['nama'] }}%20untuk%20kredit%20dengan%20leasing%20%20{{ $reles['nama_leasing'] }}%20angsuran%20{{ Str::rupiah($reles['angsuran']) }}%20tenor%20{{ $reles['tenor'] }}.%20syarat%20pengajuan%20nya%20apa%20saja%20ya%20?%20"
-																						target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp"
-																								aria-hidden="true"></i><span class="ms-2">Ajukan Sekarang</span></a>
-																		</div>
-																</div>
-														</div>
-												@endforeach
-
-												@for ($i = count($rek['cicilan_motor']); $i < 7; $i++)
-														<div class="p-1"></div>
-												@endfor
-										</div>
-										{{-- <div id="leasing-baru"
-										class="col-12 col-md-6 col-lg-8 col-xl-9 d-flex justify-content-center slick-result-modal mt-lg-0 mt-3 flex-row"
-										style="flex-direction: row;"></div> --}}
-										{{-- nav slick slider custom --}}
-										{{-- <div class="d-flex justify-content-between nav-wrapper">
-										<div id="next" class="next">
-												<span>
-														<i class="fa fa-1x fa-arrow-circle-right" aria-hidden="true"></i>
-												</span>
-										</div>
-										<div id="prev" class="prev d-none">
-												<span>
-														<i class="fa fa-2x fa-arrow-circle-left" aria-hidden="true"></i>
-												</span>
-										</div>
-								</div> --}}
-										{{-- nav slick slider end --}}
-								</div>
-								<hr>
-						@endforeach
 				</div>
-		</section>
+
+				<hr>
+		@endforeach
+
+		{{-- ====================== OLD DELETED ============================== --}}
 @endsection
 
 
 @push('script')
 		<script>
+				$('#id_lokasi').val(window.idLokasi)
+
+
+				// get current date
+				let now = new Date();
+				let year = now.getFullYear();
+				let month = now.getMonth() + 1; // JavaScript months are 0-11
+				let day = now.getDate();
+
+
+
+				// count down :
+				simplyCountdown('#timer', {
+						year: year, // required
+						month: month, // required
+						day: day, // required
+						hours: 23, // Default is 0 [0-23] integer
+						minutes: 0, // Default is 0 [0-59] integer
+						seconds: 0, // Default is 0 [0-59] integer
+						words: { //words displayed into the countdown
+								days: {
+										singular: 'Hari',
+										plural: 'Hari'
+								},
+								hours: {
+										singular: 'Jam',
+										plural: 'Jam'
+								},
+								minutes: {
+										singular: 'Menit',
+										plural: 'Menit'
+								},
+								seconds: {
+										singular: 'Detik',
+										plural: 'Detik'
+								}
+						},
+				})
+
+				$(document).ready(function() {
+						$(".owl-carousel-leasing").owlCarousel({
+								nav: false,
+								navText: ['prev', 'next'],
+								// margin: 10,
+								autoplay: true,
+								autoplayTimeout: 2000,
+								autoplayHoverPause: false,
+								loop: false,
+								items: 5,
+								merge: true,
+								// stagePadding: 1,
+								responsive: {
+										0: {
+												items: 1,
+												nav: true
+										},
+										600: {
+												items: 2,
+												nav: false
+										},
+										1000: {
+												items: 3,
+												nav: true,
+												loop: false
+										},
+										1500: {
+												items: 4,
+												nav: true,
+												loop: false
+										},
+										1700: {
+												items: 5,
+												nav: true,
+												loop: false
+										}
+								},
+
+						});
+				});
+
+
 				var owl = $('.leasing-owl-carousel');
 				owl.owlCarousel({
 						items: 4,
