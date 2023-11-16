@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
 use Illuminate\Http\Request;
 
-class UserBlogController extends Controller
+class UserPromosiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class UserBlogController extends Controller
      */
     public function index()
     {
-        return view('user.blog.index');
+        //
+        return view('user.promosi.index');
     }
 
     /**
@@ -47,11 +47,7 @@ class UserBlogController extends Controller
      */
     public function show($id)
     {
-        $data = [
-            'blog' => Blog::where('id', $id)->first(),
-        ];
-
-        return view('user.detail_blog.index', $data);
+        //
     }
 
     /**

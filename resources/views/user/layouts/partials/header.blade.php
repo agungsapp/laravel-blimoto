@@ -157,9 +157,10 @@
 																								{{-- <li>
 																										<a href="{{ route('bandingkan.index') }}">Bandingkan Motor</a>
 																								</li> --}}
-																								<li>
+																								{{-- <li>
 																										<a href="motor-termurah.html">Tukar Motor</a>
 																								</li>
+																								--}}
 																								<li>
 																										<a href="{{ route('brosur.index') }}">Brosur Motor</a>
 																								</li>
@@ -185,19 +186,19 @@
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="promo.html">Promosi</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}" >Promosi</a>
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="cek-bi.html">Cek Slik
+																						<a class="dark-menu-item text-dark" href="{{ route('cek-slik.index') }}">Cek Slik
 																						</a>
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="blog.html">Berita</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('blog.index') }}">Berita</a>
 																				</li>
 																				<li>
-																						<a class="dark-menu-item text-dark" href="blog.html">Event</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('event.index') }}">Event</a>
 																				</li>
 																				{{-- lokasi navbar kedua  --}}
 																				<li id="lokasi-ambang">
