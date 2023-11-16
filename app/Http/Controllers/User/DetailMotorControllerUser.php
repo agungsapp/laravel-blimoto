@@ -322,6 +322,7 @@ class DetailMotorControllerUser extends Controller
       ->where('id_lokasi', $lokasiId)
       ->whereBetween('cicilan', [$cicilan_motor[0]->cicilan - $cicilanRange, $cicilan_motor[0]->cicilan + $cicilanRange])
       ->orderBy('cicilan', 'asc')
+      ->limit(3)
       ->get();
 
     $rekomendasiMotor = [];
