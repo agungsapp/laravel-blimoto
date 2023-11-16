@@ -14,11 +14,43 @@ $(document).ready(function () {
   $('.selectpicker').selectpicker();
 
 
+
+  // new owl style home page
+  $('.owl-home-slider').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: false,
+    navText: [
+      '<i class="fa fa-arrow-left text-black" aria-hidden="true"></i>',
+      '<i class="fa fa-arrow-right text-black" aria-hidden="true"></i>'
+    ],
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 4
+      },
+      1500: {
+        items: 4
+      },
+      1700: {
+        items: 5
+      }
+    }
+  })
+
+
+
   var owl3 = $('.owl-carousel-3');
   owl3.owlCarousel({
     items: 5,
     loop: true,
-    margin: 20,
+    margin: 10,
     autoplay: true,
     autoplayTimeout: 2500,
     autoplayHoverPause: true,

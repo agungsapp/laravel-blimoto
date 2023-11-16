@@ -121,10 +121,9 @@
 
 										@foreach ($data['cicilan_motor'] as $a)
 												<div class="card" style=" margin-left: 10px;">
-														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
-																src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}" class="card-img-top"
-																alt="{{ $a['gambar'] }}">
+														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
+														<img style="min-height: 130px; " src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
+																class="card-img-top" alt="{{ $a['gambar'] }}">
 														<ul class="list-group list-group-flush">
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
@@ -291,8 +290,9 @@
 
 										@foreach ($r['cicilan_motor'] as $rc)
 												<div class="card" style=" margin-left: 10px;">
+													{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img
-																style="min-height: 130px; background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp');"
+																style="min-height: 130px; "
 																src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}" class="card-img-top"
 																alt="{{ $rc['gambar'] }}">
 														<ul class="list-group list-group-flush">
