@@ -49,8 +49,11 @@ use App\Http\Controllers\User\MotorTerbaruController;
 use App\Http\Controllers\User\SimulasiKreditController;
 use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserBlogController;
+use App\Http\Controllers\User\UserCekSlikController;
+use App\Http\Controllers\User\UserEventController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserMotorController;
+use App\Http\Controllers\User\UserPromosiController;
 use App\Http\Controllers\User\UserRegisterController;
 // lain lain
 use Illuminate\Support\Facades\Route;
@@ -96,6 +99,12 @@ Route::resource('/brosur_kredit', BrosurKreditController::class);
 Route::resource('/syarat_kredit', SyaratKreditController::class);
 Route::resource('/info_leasing', InfoLeasingController::class);
 Route::resource('/blog', UserBlogController::class);
+// promosi menu
+Route::resource('/promosi', UserPromosiController::class);
+// cek slik menu
+Route::resource('/cek-slik', UserCekSlikController::class);
+// event menu
+Route::resource('/event', UserEventController::class);
 
 // ajax route
 Route::get('/get-model-options', [HomeController::class, 'getModelOptions'])->name('getModelOptions');
