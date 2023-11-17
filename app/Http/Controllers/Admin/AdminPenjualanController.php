@@ -191,18 +191,4 @@ class AdminPenjualanController extends Controller
       return redirect()->back();
     }
   }
-
-  public function searchByDate(Request $request)
-  {
-    $startDate = $request->input('start_date');
-    $endDate = $request->input('end_date');
-
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
-      ->whereBetween('tanggal_dibuat', [$startDate, $endDate])
-      ->get();
-
-    return response()->json([
-      'pejualan' => $data
-    ]);
-  }
 }
