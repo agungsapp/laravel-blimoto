@@ -135,11 +135,11 @@
           <table border="0" cellspacing="5" cellpadding="5" class="mb-4">
             <tbody>
               <tr>
-                <td>Minimum date:</td>
+                <td>Dari Tanggal:</td>
                 <td><input type="text" id="min" name="min"></td>
               </tr>
               <tr>
-                <td>Maximum date:</td>
+                <td>Sampai Tanggal:</td>
                 <td><input type="text" id="max" name="max"></td>
               </tr>
             </tbody>
