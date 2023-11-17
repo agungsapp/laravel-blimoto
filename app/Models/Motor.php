@@ -50,4 +50,10 @@ class Motor extends Model
     {
         return $this->belongsTo(Type::class, 'id_type', 'id');
     }
+
+    // Di dalam model Motor
+    public function diskonMotor()
+    {
+        return $this->hasOne(DiskonMotor::class, 'id_motor', 'id');
+    }
 }
