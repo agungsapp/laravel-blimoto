@@ -13,10 +13,12 @@ class PenjualanSeeder extends Seeder
     $data = [
       [
         'nama_konsumen' => 'Konsumen 1',
-        'nama_sales' => 'Sales 1',
         'jumlah' => 12,
+        'tenor' => 11,
+        'pembayaran' => 'cash',
         'catatan' => 'Ini catatan penjualan motor',
         'tanggal_dibuat' => now(),
+        'id_sales' => 1,
         'id_lising' => 1,
         'id_motor' => 1,
         'id_kota' => 1,

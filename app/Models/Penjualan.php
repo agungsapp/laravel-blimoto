@@ -10,17 +10,23 @@ class Penjualan extends Model
   protected $table = 'penjualan';
   protected $fillable = [
     'nama_konsumen',
-    'nama_sales',
     'jumlah',
     'catatan',
+    'tenor',
+    'pembayaran',
     'tanggal_dibuat',
     'tanggal_hasil',
+    'id_sales',
     'id_lising',
     'id_motor',
     'id_kota',
     'id_hasil',
   ];
 
+  public function sales()
+  {
+    return $this->belongsTo(Sales::class, 'id_sales');
+  }
   public function motor()
   {
     return $this->belongsTo(Motor::class, 'id_motor');
