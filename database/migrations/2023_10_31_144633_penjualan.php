@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_konsumen');
-            $table->string('nama_sales');
+            $table->integer('tenor');
+            $table->string('pembayaran');
             $table->integer('jumlah');
             $table->longText('catatan');
-            $table->date('tanggal_dibuat')->default(now());
+            $table->date('tanggal_dibuat');
             $table->date('tanggal_hasil')->nullable();
+            $table->unsignedBigInteger('id_sales');
             $table->unsignedBigInteger('id_motor');
             $table->unsignedBigInteger('id_lising');
             $table->unsignedBigInteger('id_kota');
@@ -29,6 +31,9 @@ return new class extends Migration
             $table->foreign('id_motor')
                 ->references('id')
                 ->on('motor');
+            $table->foreign('id_sales')
+                ->references('id')
+                ->on('sales');
             $table->foreign('id_lising')
                 ->references('id')
                 ->on('leasing_motor');

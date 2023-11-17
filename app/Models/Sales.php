@@ -20,4 +20,9 @@ class Sales extends Model implements AuthenticatableContract
     'password',
     'status_online'
   ];
+
+  public function penjualan()
+  {
+    return $this->hasMany(Penjualan::class, 'id_motor');
+  }
 }
