@@ -103,7 +103,7 @@
         <p>Jangka Waktu: {{$jangka_waktu}}</p>
       </div>
     </div>
-    <div class="row text-center mt-4">
+    <div class="row text-center" style="margin-top: 100px;">
       <div class="col">
         <p>Disetujui Oleh</p>
       </div>

@@ -7,6 +7,7 @@ use App\Models\Kota;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class AdminSPKController extends Controller
 {
@@ -133,13 +134,6 @@ class AdminSPKController extends Controller
   public function cetakPDF(Request $request)
   {
     $data = $request->all();
-    $namaPemohon = $request->input('nama_pemohon');
-    // return view('admin.spk.spk', $data);
-    $html = view('admin.spk.spk', $data)->render();
-
-    $mpdf = new \Mpdf\Mpdf();
-    // dd($html);
-    $mpdf->WriteHTML($html);
-    $mpdf->Output("spk_" . $namaPemohon . ".pdf", 'D');
+    return view('admin.spk.spk', $data);
   }
 }

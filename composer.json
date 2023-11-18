@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "botman/botman": "^2.8",
         "botman/driver-web": "^1.5",
         "guzzlehttp/guzzle": "^7.2",
@@ -13,7 +14,6 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "mpdf/mpdf": "^8.2",
         "php-flasher/flasher-laravel": "^1.15",
         "yajra/laravel-datatables": "^9.0"
     },
