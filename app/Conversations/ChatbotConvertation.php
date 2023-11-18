@@ -15,6 +15,8 @@ class ChatbotConvertation extends Conversation
   protected $brand;
   protected $category;
   protected $type;
+  protected $paymentMethod;
+  protected $leasing;
 
   public function askName()
   {
@@ -69,14 +71,14 @@ class ChatbotConvertation extends Conversation
   public function askCategory()
   {
     $question = Question::create('Silakan pilih kategori motor yang anda inginkan.')
-    ->addButtons([
+      ->addButtons([
         Button::create('Matic')->value('Matic'),
         Button::create('Bebek')->value('Bebek'),
         Button::create('Sport')->value('Sport'),
         Button::create('EV')->value('EV'),
         Button::create('Big Bike')->value('Big Bike'),
       ]);
-      
+
     $this->ask($question, function (Answer $answer) {
       if ($answer->isInteractiveMessageReply()) {
         $this->category = $answer->getValue();
@@ -85,35 +87,55 @@ class ChatbotConvertation extends Conversation
       }
     });
   }
-  
+
   public function askType()
   {
     $this->ask('Silahkan ketikan type nama motor yang anda inginkan.', function (Answer $answer) {
       $this->type = $answer->getText();
       $this->say("Tipe motor yang Anda pilih adalah: $this->type");
-      $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+      $this->askPaymentMethod();
     });
   }
 
-  public function konfirmasiData()
+  public function askPaymentMethod()
   {
-    $ans = $this->getMessage();
-    if ($ans === 'Y') {
-      $this->reply('Data Anda telah berhasil dicatat.');
-      $this->reply('Sekarang Anda akan terhubung dengan sales.');
-      $this->sendMessage('sales@motor.com', 'Ada calon pembeli baru dengan detail data berikut:
-      Domisili: ' . $this->get('lokasi') . '
-      Merk: ' . $this->get('merk') . '
-      Kategori: ' . $this->get('kategori') . '
-      Type: ' . $this->get('type') . '
-      Metode pembayaran: ' . $this->get('metode_pembayaran') . '
-      Leasing: ' . $this->get('leasing') . '
-      Tenor: ' . $this->get('tenor') . '
-      Silakan segera hubungi calon pembeli ini.');
-    } else {
-      $this->reply('Mohon maaf, data yang Anda berikan tidak sesuai.');
-      $this->reply('Silahkan ulangi kembali.');
-    }
+    $question = Question::create('Silahkan pilih metode pembayaran yang anda inginkan.')
+      ->addButtons([
+        Button::create('Kredit')->value('Kredit'),
+        Button::create('Cash')->value('Cash'),
+      ]);
+
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        $this->paymentMethod = $answer->getValue();
+        $this->say("Metode pembayaran yang Anda pilih adalah: $this->paymentMethod");
+        if ($this->paymentMethod === 'Cash') {
+          $this->confirmDetails();
+          $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+        } else {
+          $this->askLeasing();
+        }
+      }
+    });
+  }
+
+  public function askLeasing()
+  {
+    $question = Question::create('Silahkan pilih leasing yang anda inginkan.')
+      ->addButtons([
+        Button::create('Adira')->value('Adira'),
+        Button::create('FIF')->value('FIF'),
+        Button::create('MCF')->value('MCF'),
+        Button::create('OTO')->value('OTO'),
+      ]);
+
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        $this->leasing = $answer->getValue();
+        $this->say("Leasing motor yang Anda pilih adalah: $this->leasing");
+        $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+      }
+    });
   }
 
   public function run()
