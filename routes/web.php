@@ -181,3 +181,6 @@ Route::get('testingform', [CicilanMotorController::class, 'handleForm']);
 Route::get('/kemem', function () {
     return view('kemem');
 });
+
+
+// done repo pindah

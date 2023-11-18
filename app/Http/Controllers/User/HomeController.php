@@ -220,11 +220,16 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::where('id_best_motor', $bestMotorId)->get();
+        $motors = Motor::with(['diskonMotor'])
+            ->where('id_best_motor', $bestMotorId)
+            ->get();
 
         foreach ($motors as $motor) {
-            $motor->image = DetailMotor::where('id_motor', $motor->id)->pluck('gambar')->first();
+            $motor->image = DetailMotor::where('id_motor', $motor->id)
+                ->pluck('gambar')->first();
         }
+
+        // dd($motors);
 
         return $motors;
     }
