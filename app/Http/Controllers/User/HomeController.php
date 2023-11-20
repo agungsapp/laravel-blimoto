@@ -220,12 +220,10 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::with([
-            'diskonMotor',
-            'mtrBestMotor' => function ($query) use ($bestMotorId) {
+        $motors = Motor::with('diskonMotor')
+            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
                 $query->where('id_best_motor', $bestMotorId);
-            }
-        ])
+            })
             ->get();
 
         foreach ($motors as $motor) {
