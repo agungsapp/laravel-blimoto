@@ -180,9 +180,4 @@ Route::get('testingform', [CicilanMotorController::class, 'handleForm']);
 //sss
 
 
-Route::get('/kemem', function () {
-    return view('kemem');
-});
-
-
 // done repo pindah
