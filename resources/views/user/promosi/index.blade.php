@@ -31,27 +31,45 @@
 				<div class="container">
 						<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 								@php
-										$img = ['PROMO GENIO.webp', 'PROMO PCX.webp', 'PROMO VARIO 160.webp'];
+										$promo = collect([
+										    [
+										        'judul' => 'Honda Genio - Style yang Autentik',
+										        'deskripsi' => 'Bawa pulang kenyamanan dan gaya dengan Honda Genio. Nikmati diskon istimewa hingga jutaan Rupiah selama periode September-Desember 2023. Promo spesial ini hanya berlaku bulan ini, jangan lewatkan!',
+										        'gambar' => 'PROMO GENIO.webp',
+										    ],
+										    [
+										        'judul' => 'Honda PCX - Tampil Terbaik, Hanya PCX',
+										        'deskripsi' => 'Bersiaplah untuk menguasai jalan raya dengan Honda PCX dan nikmati diskon hingga Rp 1.500.000! Periode promo dari September-Desember 2023. Ingat, kesempatan ini hanya datang sekali, eksklusif hanya untuk bulan ini!',
+										        'gambar' => 'PROMO PCX.webp',
+										    ],
+										    [
+										        'judul' => 'Honda Vario - Urban Ride, Gaya Hidup Bebas',
+										        'deskripsi' => 'Upgrade gaya urban Anda dengan Honda Vario dan rebut diskon menarik hingga Rp 1.600.000. Penawaran ini berlangsung dari September hingga Desember 2023. Jangan lewatkan, diskon spesial hanya tersedia di bulan ini!',
+										        'gambar' => 'PROMO VARIO 160.webp',
+										    ],
+										])->map(function ($item) {
+										    return (object) $item;
+										});
+
 								@endphp
 
-								@for ($i = 0; $i < 3; $i++)
+								@foreach ($promo as $p)
 										<div class="col">
 												<div class="card">
-														<img src="{{ asset('assets') }}/images/custom/promo/{{ $img[$i] }}" alt="..." />
+														<img src="{{ asset('assets') }}/images/custom/promo/{{ $p->gambar }}" alt="..." />
 														<div class="card-body">
 																<div class="row">
 																		<h5 class="card-title">
-																				Program Sales Honda CBR150R September - Desember 2023
+																				{{ $p->judul }}
 																		</h5>
 																</div>
 																<p class="card-text">
-																		Diskon mulai dari Rp 1.000.000 untuk setiap pembelian Honda
-																		CBR150R*
+																		{{ $p->deskripsi }}
 																</p>
 														</div>
 												</div>
 										</div>
-								@endfor
+								@endforeach
 
 
 						</div>
