@@ -402,14 +402,14 @@
 <script>
   let minDate, maxDate;
   var table = $('#data-sale').DataTable({
-    // dom: 'Bfrtip', // 'B' for buttons
-    // buttons: [{
-    //   extend: 'excelHtml5',
-    //   title: 'Penjualan BliMoto', // Excel export button
-    //   exportOptions: {
-    //     columns: ':not(.no-export)' // Exclude columns with the class 'no-export'
-    //   }
-    // }]
+    dom: 'Bfrtip', // 'B' for buttons
+    buttons: [{
+      extend: 'excelHtml5',
+      title: 'Penjualan BliMoto', // Excel export button
+      exportOptions: {
+        columns: ':not(.no-export)' // Exclude columns with the class 'no-export'
+      }
+    }]
   });
   // Custom filtering function which will search data in column four between two values
   $.fn.dataTable.ext.search.push(

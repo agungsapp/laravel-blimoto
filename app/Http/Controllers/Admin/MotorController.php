@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
 use App\Models\Merk;
 use App\Models\Motor;
+use App\Models\MtrBestMotor;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,8 @@ class MotorController extends Controller
             $motors = DB::table('motor')
                 ->join('merk', 'motor.id_merk', '=', 'merk.id')
                 ->join('type', 'motor.id_type', '=', 'type.id')
-                ->leftJoin('best_motor', 'motor.id_best_motor', '=', 'best_motor.id')
+                ->leftJoin('mtr_motor_best', 'motor.id', '=', 'mtr_motor_best.id_motor')
+                ->leftJoin('best_motor', 'best_motor.id', '=', 'mtr_motor_best.id_best_motor')
                 ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name')
                 ->get();
 
@@ -99,9 +101,14 @@ class MotorController extends Controller
                 'bonus' => $request->input('bonus-motor'),
                 'id_merk' => $request->input('merk-motor'),
                 'id_type' => $request->input('tipe-motor'),
-                'id_best_motor' => $kategori_best_motor,
                 'stock' => $stock,
             ]);
+
+            MtrBestMotor::create([
+                'id_motor' => $motor->id,
+                'id_best_motor' => $kategori_best_motor,
+            ]);
+
             flash()->addSuccess("Motor $motor->nama berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -173,6 +180,9 @@ class MotorController extends Controller
         $stock = $request->input('stock-motor') ?? 1;
 
         $motor = Motor::findOrFail($id);
+        $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
+
+
         $motor->nama = $request->nama;
         $motor->harga = $request->harga;
         $motor->deskripsi = $request->deskripsi_motor;
@@ -181,7 +191,7 @@ class MotorController extends Controller
         $motor->id_merk = $request->merk_motor;
         $motor->id_type = $request->tipe_motor;
         $motor->stock = $stock;
-        $motor->id_best_motor = $kategori_best_motor;
+        $kategoriBestMotor->id_best_motor = $kategori_best_motor;
 
         $motor->save();
         flash()->addSuccess("Berhasil merubah motor!");
@@ -197,6 +207,8 @@ class MotorController extends Controller
     public function destroy($id)
     {
         try {
+            $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
+            $kategoriBestMotor->delete();
             $motor = Motor::findOrFail($id);
             $motor->delete();
             flash()->addSuccess("Berhasil menghapus motor!");
