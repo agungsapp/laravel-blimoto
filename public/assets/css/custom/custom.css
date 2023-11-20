@@ -11,6 +11,10 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.size-lihat-info {
+    font-size: 0.5em;
+}
+
 .slick-card-home .div .item .card {
     width: 16rem;
 }
@@ -657,6 +661,9 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    .size-lihat-info {
+        font-size: 1em;
+    }
     .padding-primary {
         padding: 0 4rem 0 4rem !important;
     }
@@ -705,6 +712,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
+
     .slick-card-home .div .item .card {
         width: 13rem !important;
     }
@@ -777,6 +788,9 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
     .slick-card-home .div .item .card {
         width: 16rem;
     }
@@ -841,6 +855,9 @@ section .simulasi-container .simulasi-wrapper .card {
 }
 
 @media only screen and (min-width: 1400px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
     .padding-primary {
         padding: 0 18rem 0 18rem !important;
     }
