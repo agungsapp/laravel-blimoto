@@ -16,7 +16,6 @@ class Motor extends Model
         'fitur_utama',
         'id_merk',
         'id_type',
-        'id_best_motor',
         'stock',
         'bonus'
     ];
@@ -51,9 +50,13 @@ class Motor extends Model
         return $this->belongsTo(Type::class, 'id_type', 'id');
     }
 
-    // Di dalam model Motor
     public function diskonMotor()
     {
         return $this->hasOne(DiskonMotor::class, 'id_motor', 'id');
+    }
+
+    public function mtrBestMotor()
+    {
+        return $this->belongsTo(MtrBestMotor::class, 'id', 'id_motor');
     }
 }

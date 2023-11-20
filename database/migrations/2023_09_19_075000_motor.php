@@ -23,10 +23,6 @@ return new class extends Migration
             $table->longText('bonus');
             $table->unsignedBigInteger('id_merk');
             $table->unsignedBigInteger('id_type');
-            $table->unsignedBigInteger('id_best_motor')->nullable()->default(1);
-            $table->foreign('id_best_motor')
-                ->references('id')
-                ->on('best_motor');
             $table->foreign('id_merk')
                 ->references('id')
                 ->on('merk');

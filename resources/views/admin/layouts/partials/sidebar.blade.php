@@ -64,6 +64,12 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="{{ route('admin.mtr-best-motor.index') }}" class="nav-link {{ \Route::is('admin.mtr-best-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Kategori Best Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="{{ route('admin.type-motor.index') }}" class="nav-link {{ \Route::is('admin.type-motor.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Data Type Motor</p>

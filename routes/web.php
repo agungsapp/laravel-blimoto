@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminHasilController;
+use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSPKController;
@@ -152,6 +153,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('dealer-motor', AdminDealerController::class);
         Route::resource('mitra', MitraKamiController::class);
         Route::resource('diskon-motor', AdminDiskonMotorController::class);
+        Route::resource('mtr-best-motor', AdminMtrBestMotorController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
