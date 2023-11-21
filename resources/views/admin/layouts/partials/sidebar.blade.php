@@ -211,6 +211,14 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="{{ route('admin.event.index') }}" class="nav-link {{ \Route::is('admin.event.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-bullseye"></i>
+						<p>
+							Data Event
+						</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="{{ route('admin.logout') }}" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p>
