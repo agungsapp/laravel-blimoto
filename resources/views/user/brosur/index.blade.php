@@ -33,7 +33,20 @@
 										<h4 class="text-black">Download Brosur Motor</h4>
 								</div>
 						</div>
+
 						<div class="row">
+								<div class="col-5">
+										<div class="input-group mb-3">
+												<input type="text" class="form-control" placeholder="Cari brosur motor impian !"
+														aria-label="Recipient's username" aria-describedby="button-addon2">
+												<button class="btn btn-basic" type="button" id="button-addon2">Cari</button>
+										</div>
+								</div>
+						</div>
+
+
+						{{-- display none --}}
+						<div class="row d-none">
 								<div class="col-5 col-md-3">
 										<div class="card border-0 p-5 py-3"
 												style="
@@ -56,18 +69,14 @@
 										</div>
 								</div>
 								<div class="col-7 col-md-3">
+										{{-- ======== select ============ --}}
 										<div class="form-group">
-												<label for="SelectKota" class="mb-0" style="font-size: 12px">Pilih  Merek</label>
-												<select id="SelectKota" class="js-example-basic-single form-select form-select-sm" style="width: 100%"
-														name="merk">
-														<option value="AL">Alabama</option>
-														<option value="WY">Wyoming</option>
-														<option value="WY">Wyoming</option>
-														<option value="WY">Wyoming</option>
-														<option value="WY">Wyoming</option>
-														<option value="WY">Wyoming</option>
+												<label for="selections" class="mb-0" style="font-size: 12px">Pilih Merek</label>
+												<select id="selections" class="js-example-basic-single form-select form-select-sm" multiple="multiple"
+														style="width: 100%" name="merk">
 												</select>
 										</div>
+										{{-- ========== select ============ --}}
 										<button class="btn bg-basic w-100 text-white">
 												Download Brosur <i class="fa fa-download" aria-hidden="true"></i>
 										</button>
@@ -99,90 +108,21 @@
 				<div class="container">
 						<div class="row">
 								<div class="col-12 slide-download-populer">
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
+
+										@foreach ($terbaru as $t)
+												<div class="d-flex justify-content-center align-items-center">
+														<div class="card border-0">
+																<img src="{{ asset('assets') }}/images/detail-motor/{{ $t->image }}" class="card-img-top"
+																		alt="..." />
+																<div class="card-body">
+																		<h5 class="card-title">{{ $t->nama }}</h5>
+																		<p class="card-text">{{ Str::rupiah($t->harga) }}</p>
+																		<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
+																</div>
 														</div>
 												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/ahm-gaul-sideview-deluxe-black-7-01022023-085330.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text">Rp 30,04 - 32,62 Juta</p>
-																<a href="#" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
-														</div>
-												</div>
-										</div>
+										@endforeach
+
 								</div>
 						</div>
 				</div>
@@ -407,3 +347,55 @@
 		</section>
 		<!-- mitra kami slider end -->
 @endsection
+
+
+@push('script')
+		<script>
+				$(document).ready(function() {
+						var merkLoaded = false;
+
+						// Initialize Select2 for selections
+						$("#selections").select2({
+								tags: true,
+								tokenSeparators: [',', ' ']
+						});
+
+						// Load initial merk data
+						loadMerkData();
+
+						// Function to load merk data
+						function loadMerkData() {
+								$.ajax({
+										url: 'http://localhost:8000/get-merk',
+										type: 'GET',
+										success: function(response) {
+												response.merk_motor.forEach(function(merk) {
+														var newOption = new Option(merk.nama, merk.id, false, false);
+														$('#selections').append(newOption);
+												});
+												merkLoaded = true;
+										}
+								});
+						}
+
+						// Event listener for change on selections
+						$("#selections").on("change", function() {
+								if (merkLoaded) {
+										// Load type data
+										$.ajax({
+												url: 'http://localhost:8000/get-type',
+												type: 'GET',
+												success: function(response) {
+														// Add type options without clearing the current options
+														response.type_motor.forEach(function(type) {
+																var newOption = new Option(type.nama, type.id, false, false);
+																$('#selections').append(newOption);
+														});
+														merkLoaded = false;
+												}
+										});
+								}
+						});
+				});
+		</script>
+@endpush
