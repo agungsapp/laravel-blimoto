@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailMotor;
+use App\Models\Motor;
 use Illuminate\Http\Request;
 
 class BrosurController extends Controller
@@ -14,7 +16,14 @@ class BrosurController extends Controller
      */
     public function index()
     {
-        return view('user.brosur.index');
+
+        $data = [
+            'terbaru' => $this->getMotorData(7),
+        ];
+
+        // dd($data['terbaru']);
+
+        return view('user.brosur.index', $data);
     }
 
     /**
@@ -81,5 +90,23 @@ class BrosurController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getMotorData($bestMotorId)
+    {
+        $motors = Motor::with('diskonMotor')
+            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+                $query->where('id_best_motor', $bestMotorId);
+            })
+            ->get();
+
+        foreach ($motors as $motor) {
+            $motor->image = DetailMotor::where('id_motor', $motor->id)
+                ->pluck('gambar')->first();
+        }
+
+        // dd($motors);
+
+        return $motors;
     }
 }
