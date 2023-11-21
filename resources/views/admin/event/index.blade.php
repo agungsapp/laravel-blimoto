@@ -71,7 +71,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $e->judul }}</td>
               <td>{{ $e->tanggal_event }}</td>
-              <td>{{ $e->deskripsi }}</td>
+              <td>{!! $e->deskripsi !!}</td>
               <td>
                 <img width="150px" src="/assets/images/event/{{ $e->thumbnail }}" alt="{{ $e->thumbnail }}" srcset="">
               </td>
