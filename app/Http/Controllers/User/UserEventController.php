@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Hook;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,13 @@ class UserEventController extends Controller
    */
   public function index()
   {
-    // $data = [
-    //   'hooks' => Hook::where('status', 1)
-    //     ->orderBy('order', 'asc')->get(),
-    // ];
+    $data = [
+      'events' => Event::all(),
+    ];
 
-    return view('user.event.index');
+    // dd($data['events']);
+
+    return view('user.event.index', $data);
   }
 
   /**
