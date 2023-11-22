@@ -176,16 +176,38 @@
 <script>
   $(document).ready(function() {
 
+    function limitCharacterCount(editor, limit) {
+      editor.on('summernote.keyup', function(we, e) {
+        var content = $(this).summernote('code');
+        var text = $('<div>').html(content).text();
+
+        if (text.length > limit) {
+          var modifiedText = text.substring(0, limit);
+          $(this).summernote('code', modifiedText);
+        }
+      });
+    }
+
     $('#deskripsi-event').summernote({
-      placeholder: 'buat isi deskripsi motor ...',
+      placeholder: 'buat isi deskripsi motor maksimal 400 karakter ...',
       tabsize: 2,
-      height: 300
+      height: 100,
+      callbacks: {
+        onInit: function() {
+          limitCharacterCount($(this), 400); // Batasi hingga 400 karakter
+        }
+      }
     })
 
     $('#deskripsi-event-edit').summernote({
-      placeholder: 'buat isi deskripsi motor ...',
+      placeholder: 'buat isi deskripsi motor maksimal 400 karakter ...',
       tabsize: 2,
-      height: 300
+      height: 100,
+      callbacks: {
+        onInit: function() {
+          limitCharacterCount($(this), 400); // Batasi hingga 400 karakter
+        }
+      }
     })
 
     $("#dataDetail").DataTable({
