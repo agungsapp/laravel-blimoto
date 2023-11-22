@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->text('deskripsi');
-            $table->string('thumbnail_berita');
-            // Add other columns as needed
+            $table->string('thumbnail');
+            $table->string('tanggal_event');
             $table->timestamps();
         });
     }

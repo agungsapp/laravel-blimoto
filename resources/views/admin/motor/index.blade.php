@@ -198,7 +198,10 @@
 				},
 				{
 					data: 'best_motor_name',
-					name: 'best_motor_name'
+					name: 'best_motor_name',
+					render: function(data, type, row) {
+						return data ? data : 'No Kategori';
+					}
 				},
 				{
 					data: 'merk_nama',
@@ -217,7 +220,10 @@
 				},
 				{
 					data: 'stock',
-					name: 'stock'
+					name: 'stock',
+					render: function(data, type, row) {
+						return data === 1 ? 'Ada' : 'Kosong';
+					}
 				},
 				{
 					data: 'action',

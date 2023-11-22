@@ -64,6 +64,12 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="{{ route('admin.mtr-best-motor.index') }}" class="nav-link {{ \Route::is('admin.mtr-best-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Kategori Best Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="{{ route('admin.type-motor.index') }}" class="nav-link {{ \Route::is('admin.type-motor.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Data Type Motor</p>
@@ -145,6 +151,12 @@
 								<p>Master Hasil</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.penjualan.spk.index') }}" class="nav-link {{ \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>SPK</p>
+							</a>
+						</li>
 					</ul>
 				</li>
 
@@ -195,6 +207,14 @@
 						<i class="nav-icon fas fa-users"></i>
 						<p>
 							Data Mitra
+						</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{ route('admin.event.index') }}" class="nav-link {{ \Route::is('admin.event.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-bullseye"></i>
+						<p>
+							Data Event
 						</p>
 					</a>
 				</li>

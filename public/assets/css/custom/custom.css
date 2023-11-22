@@ -11,6 +11,47 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+/* botman style add */
+.mobile-closed-message-avatar {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+#botmanWidgetRoot {
+    margin-right: 2rem;
+    padding: 0;
+}
+
+ol.chat {
+    height: 100vh !important;
+}
+
+#messageArea .chat {
+    height: 100% !important;
+}
+
+/* card home */
+.shadow-home-card {
+    width: 22rem;
+    /* width: 16rem; */
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+}
+
+.card-berita-blog {
+    width: 22rem;
+    /* width: 15rem; */
+}
+
+.card-video-blimotot {
+    width: 22rem;
+    /* width: 15rem; */
+}
+
+.size-lihat-info {
+    font-size: 0.5em;
+}
+
 .slick-card-home .div .item .card {
     width: 16rem;
 }
@@ -657,6 +698,9 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    .size-lihat-info {
+        font-size: 1em;
+    }
     .padding-primary {
         padding: 0 4rem 0 4rem !important;
     }
@@ -705,6 +749,10 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
+
     .slick-card-home .div .item .card {
         width: 13rem !important;
     }
@@ -777,6 +825,9 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
     .slick-card-home .div .item .card {
         width: 16rem;
     }
@@ -841,6 +892,9 @@ section .simulasi-container .simulasi-wrapper .card {
 }
 
 @media only screen and (min-width: 1400px) {
+    .size-lihat-info {
+        font-size: 1.2em;
+    }
     .padding-primary {
         padding: 0 18rem 0 18rem !important;
     }

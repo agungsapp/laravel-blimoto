@@ -16,8 +16,32 @@
                 <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen">
               </div>
               <div class="form-group col-md-6">
-                <label for="input-hasil">Nama Sales</label>
-                <input name="sales" type="text" class="form-control" placeholder="Masukan nama sales">
+                <label>Sales</label>
+                @if ($sales == null)
+                <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
+                @else
+                <select id="sales-input" name="sales" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih sales --</option>
+                  @foreach ($sales as $s)
+                  <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                  @endforeach
+                </select>
+                @endif
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="input-tenor">Tenor</label>
+                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Metode Pembayaran</label>
+                <select id="pembayaran-input" name="pembayaran" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih pembayaran --</option>
+                  <option value="cash">Cash</option>
+                  <option value="kredit">Kredit</option>
+                </select>
               </div>
             </div>
 
@@ -27,7 +51,7 @@
                 @if ($kota == null)
                 <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
                 @else
-                <select id="kabupaten" name="kabupaten" class="form-control select2 @error('kabupaten') is-invalid @enderror" style="width: 100%;">
+                <select id="kabupaten-input" name="kabupaten" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih kabupaten --</option>
                   @foreach ($kota as $k)
                   <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -40,7 +64,7 @@
                 @if ($hasil == null)
                 <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
                 @else
-                <select id="hasil" name="hasil" class="form-control select2 @error('hasil') is-invalid @enderror" style="width: 100%;">
+                <select id="hasil-input" name="hasil" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih hasil --</option>
                   @foreach ($hasil as $h)
                   <option value="{{ $h->id }}">{{ $h->hasil }}</option>
@@ -56,7 +80,7 @@
                 @if ($motor == null)
                 <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
                 @else
-                <select id="motor" name="motor" class="form-control select2 @error('motor') is-invalid @enderror" style="width: 100%;">
+                <select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih motor --</option>
                   @foreach ($motor as $m)
                   <option value="{{ $m->id }}">{{ $m->nama }}</option>
@@ -76,7 +100,7 @@
                 @if ($leasing == null)
                 <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
                 @else
-                <select id="leasing" name="leasing" class="form-control select2 @error('leasing') is-invalid @enderror" style="width: 100%;">
+                <select id="leasing-input" name="leasing" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih leasing --</option>
                   @foreach ($leasing as $l)
                   <option value="{{ $l->id }}">{{ $l->nama }}</option>
@@ -101,19 +125,33 @@
 <section class="content">
   <div class="row">
     <div class="col-12">
+
       <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title">Data Penjualan</h3>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
 
+        <div class="card-body">
+          <table border="0" cellspacing="5" cellpadding="5" class="mb-4">
+            <tbody>
+              <tr>
+                <td>Dari Tanggal:</td>
+                <td><input type="text" id="min" name="min"></td>
+              </tr>
+              <tr>
+                <td>Sampai Tanggal:</td>
+                <td><input type="text" id="max" name="max"></td>
+              </tr>
+            </tbody>
+          </table>
           <table id="data-sale" class="table table-bordered table-striped">
             <thead>
               <tr role="row">
                 <th>NO</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
+                <th>Pembayaran</th>
+                <th>Tenor</th>
                 <th>Motor</th>
                 <th>Jumlah</th>
                 <th>Kota</th>
@@ -121,7 +159,7 @@
                 <th>Catatan</th>
                 <th>Tanggal Dibuat</th>
                 <th>Tanggal Hasil</th>
-                <th width="170px">Action</th>
+                <th width="170px" class="no-export">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -129,7 +167,9 @@
               <tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$p->nama_konsumen}}</td>
-                <td>{{$p->nama_sales}}</td>
+                <td>{{$p->sales->nama}}</td>
+                <td>{{$p->pembayaran}}</td>
+                <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
                 <td>{{$p->jumlah}}</td>
                 <td>{{$p->kota->nama}}</td>
@@ -137,7 +177,7 @@
                 <td>{{$p->catatan}}</td>
                 <td>{{$p->tanggal_dibuat}}</td>
                 <td>{{$p->tanggal_hasil}}</td>
-                <td>
+                <td class="no-export">
                   <div class="btn-group">
                     <form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
                       @csrf
@@ -150,7 +190,7 @@
                     </form>
                   </div>
                   <!-- Modal update -->
-                  <div class="modal fade" id="modalEdit{{$p->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal fade" id="modalEdit{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -173,8 +213,30 @@
                                       <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen" value="{{$p->nama_konsumen}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                      <label for="input-hasil">Nama Sales</label>
-                                      <input name="sales" type="text" class="form-control" placeholder="Masukan nama sales" value="{{$p->nama_sales}}">
+                                      <label>Sales</label>
+                                      @if ($sales == null)
+                                      <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
+                                      @else
+                                      <select id="sales" name="sales" class="form-control select2" style="width: 100%;">
+                                        @foreach ($sales as $s)
+                                        <option value="{{ $s->id }}" @if($p->id_sales === $s->id) selected @endif>{{ $s->nama }}</option>
+                                        @endforeach
+                                      </select>
+                                      @endif
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Tenor</label>
+                                      <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" value="{{$p->tenor}}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label>Metode Pembayaran</label>
+                                      <select id="pembayaran" name="pembayaran" class="form-control select2" style="width: 100%;">
+                                        <option value="cash" {{ $p->pembayaran === 'cash' ? 'selected' : '' }}>Cash</option>
+                                        <option value="kredit" {{ $p->pembayaran === 'kredit' ? 'selected' : '' }}>Kredit</option>
+                                      </select>
                                     </div>
                                   </div>
 
@@ -184,7 +246,7 @@
                                       @if ($kota == null)
                                       <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
                                       @else
-                                      <select id="kabupaten" name="kabupaten" class="form-control select2 @error('kabupaten') is-invalid @enderror" style="width: 100%;">
+                                      <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
                                         <option value="" selected>-- Pilih kabupaten --</option>
                                         @foreach ($kota as $k)
                                         <option value="{{ $k->id }}" @if($p->id_kota === $k->id) selected @endif>{{ $k->nama }}</option>
@@ -197,7 +259,7 @@
                                       @if ($hasil == null)
                                       <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
                                       @else
-                                      <select id="hasil" name="hasil" class="form-control select2 @error('hasil') is-invalid @enderror" style="width: 100%;">
+                                      <select id="hasil" name="hasil" class="form-control select2" style="width: 100%;">
                                         <option value="" selected>-- Pilih hasil --</option>
                                         @foreach ($hasil as $h)
                                         <option value="{{ $h->id }}" @if($p->id_hasil === $h->id) selected @endif>{{ $h->hasil }}</option>
@@ -213,7 +275,7 @@
                                       @if ($motor == null)
                                       <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
                                       @else
-                                      <select id="motor" name="motor" class="form-control select2 @error('motor') is-invalid @enderror" style="width: 100%;">
+                                      <select id="motor" name="motor" class="form-control select2" style="width: 100%;">
                                         <option value="" selected>-- Pilih motor --</option>
                                         @foreach ($motor as $m)
                                         <option value="{{ $m->id }}" @if($p->id_motor === $m->id) selected @endif>{{ $m->nama }}</option>
@@ -233,7 +295,7 @@
                                       @if ($leasing == null)
                                       <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
                                       @else
-                                      <select id="leasing" name="leasing" class="form-control select2 @error('leasing') is-invalid @enderror" style="width: 100%;">
+                                      <select id="leasing" name="leasing" class="form-control select2" style="width: 100%;">
                                         <option value="" selected>-- Pilih leasing --</option>
                                         @foreach ($leasing as $l)
                                         <option value="{{ $l->id }}" @if($p->id_lising === $l->id) selected @endif>{{ $l->nama }}</option>
@@ -284,12 +346,98 @@
           </table>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 @endsection
 @push('script')
+<!-- <script>
+  $(document).ready(function() {
+    // DataTable initialization
+    var table = $('#data-sale').DataTable();
+
+    // Append input fields for date range pickers to the DataTables filter row
+    $(`<input type="text" id="min-date" placeholder="Min Date"/>`).appendTo('#data-sale_filter');
+    $('<input type="text" id="max-date" placeholder="Max Date"/>').appendTo('#data-sale_filter');
+
+    // Initialize datepickers
+    $('#min_date, #max-date').on('select', function() {
+      datetimepicker({
+        dateFormat: 'yy-mm-dd', // Set the desired date format
+        onSelect: function() {
+          table.draw();
+        }
+      });
+    });
+
+
+    // Add date range filter for Tanggal Dibuat column
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+        var minDate = $('#min-date').val();
+        var maxDate = $('#max-date').val();
+        var date = moment(data[10]);
+
+        if (
+          (minDate === '' || date.isSameOrAfter(minDate)) &&
+          (maxDate === '' || date.isSameOrBefore(maxDate))
+        ) {
+          return true;
+        }
+
+        return false;
+      }
+    );
+
+    // Apply the filter on input change
+    $('#min-date, #max-date').on('change', function() {
+      table.draw();
+    });
+
+  });
+</script> -->
+<script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+<script>
+  let minDate, maxDate;
+  var table = $('#data-sale').DataTable({
+    dom: 'Bfrtip', // 'B' for buttons
+    buttons: [{
+      extend: 'excelHtml5',
+      title: 'Penjualan BliMoto', // Excel export button
+      exportOptions: {
+        columns: ':not(.no-export)' // Exclude columns with the class 'no-export'
+      }
+    }]
+  });
+  // Custom filtering function which will search data in column four between two values
+  $.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+      var minDate = $('#min').val();
+      var maxDate = $('#max').val();
+      var date = moment(data[10]);
+      if (
+        (minDate === '' || date.isSameOrAfter(minDate)) &&
+        (maxDate === '' || date.isSameOrBefore(maxDate))
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+  );
+
+  // Apply the filter on input change
+  $('#min, #max').on('change', function() {
+    table.draw();
+  });
+
+  // Create date inputs
+  minDate = new DateTime('#min', {});
+  maxDate = new DateTime('#max', {});
+</script>
+
 <script>
   function initDatePickers() {
     $('.tanggal_dibuat').datetimepicker({
@@ -300,18 +448,13 @@
       format: 'L'
     });
   }
+
   $(function() {
+    $('.select2').select2()
     initDatePickers();
     $('button[data-toggle="modal"]').on('click', function() {
       initDatePickers();
     });
-    $('.select2').select2()
-    $("#data-sale").DataTable({
-      "responsive": true,
-      "lengthChange": false,
-      "autoWidth": false,
-      //"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
-    }).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
   });
 </script>
 @endpush
