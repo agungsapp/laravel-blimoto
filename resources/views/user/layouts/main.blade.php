@@ -55,7 +55,8 @@
 		<link rel="stylesheet" href="{{ asset('assets') }}/owl/owl.theme.default.min.css" />
 
 		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
-		<script src="{{ asset('assets') }}/js/countDown.js"></script>
+
+		<link rel="stylesheet" type="text/css" {{-- href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}} <script src="{{ asset('assets') }}/js/countDown.js"></script>
 
 
 		<!-- sweat alert -->
@@ -143,7 +144,7 @@
 
 
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPM1N2C8RC"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-K73QGFKNRE"></script>
 		<script>
 				window.dataLayer = window.dataLayer || [];
 
@@ -152,7 +153,7 @@
 				}
 				gtag('js', new Date());
 
-				gtag('config', 'G-JPM1N2C8RC');
+				gtag('config', 'G-K73QGFKNRE');
 		</script>
 
 		<!-- add to  setting bar  end-->
