@@ -50,7 +50,7 @@
     <div class="card card-primary">
       <div class="card-header">
         <div class="card-title">
-          Data Detail Motor
+          Data Event
         </div>
       </div>
       <div class="card-body">
@@ -176,16 +176,38 @@
 <script>
   $(document).ready(function() {
 
+    function limitCharacterCount(editor, limit) {
+      editor.on('summernote.keyup', function(we, e) {
+        var content = $(this).summernote('code');
+        var text = $('<div>').html(content).text();
+
+        if (text.length > limit) {
+          var modifiedText = text.substring(0, limit);
+          $(this).summernote('code', modifiedText);
+        }
+      });
+    }
+
     $('#deskripsi-event').summernote({
-      placeholder: 'buat isi deskripsi motor ...',
+      placeholder: 'buat isi deskripsi event maksimal 400 karakter ...',
       tabsize: 2,
-      height: 300
+      height: 100,
+      callbacks: {
+        onInit: function() {
+          limitCharacterCount($(this), 400); // Batasi hingga 400 karakter
+        }
+      }
     })
 
     $('#deskripsi-event-edit').summernote({
-      placeholder: 'buat isi deskripsi motor ...',
+      placeholder: 'buat isi deskripsi event maksimal 400 karakter ...',
       tabsize: 2,
-      height: 300
+      height: 300,
+      callbacks: {
+        onInit: function() {
+          limitCharacterCount($(this), 400); // Batasi hingga 400 karakter
+        }
+      }
     })
 
     $("#dataDetail").DataTable({
@@ -193,45 +215,18 @@
       "lengthChange": false,
       "autoWidth": false,
       //"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
-    }).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
-
+    }).buttons().container().appendTo('#dataDetail .col-md-6:eq(0)');
 
 
     //Initialize Select2 Elements
     $('.select2').select2()
-
-    $('#tipe-motor').change(function() {
-      console.log("area select logic running...");
-      var merkId = $('#merk-motor').val();
-      var tipeId = $(this).val();
-      var modelSelect = $('#model');
-      // console.log(merkId + tipeId);
-      modelSelect.empty();
-      modelSelect.append('<option value="0" selected>-- Pilih Model --</option>');
-      // console.log("sebelum if");
-      if (merkId !== '0' && tipeId !== '0') {
-        // console.log("get jalan!");
-        $.get('/get-model-options', {
-          merk_id: merkId,
-          tipe_id: tipeId
-        }, function(data) {
-          // console.log(data);
-          console.log("done bang!")
-          $.each(data, function(key, value) {
-            // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
-            modelSelect.append('<option value="' + value.id + '">' + value.nama + '</option>');
-          });
-
-        });
-      }
-    });
 
     $('.show_confirm').click(function(event) {
       var form = $(this).closest("form");
       var name = $(this).data("name");
       event.preventDefault();
       swal({
-          title: `Delete Data Detail Motor ?`,
+          title: `Delete Data Detail ?`,
           text: "data yang di hapus tidak dapat dipulihkan!",
           icon: "warning",
           buttons: true,
