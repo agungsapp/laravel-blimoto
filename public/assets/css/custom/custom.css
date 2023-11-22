@@ -11,6 +11,26 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+/* botman style add */
+.mobile-closed-message-avatar {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+#botmanWidgetRoot {
+    margin-right: 2rem;
+    padding: 0;
+}
+
+ol.chat {
+    height: 100vh !important;
+}
+
+#messageArea .chat {
+    height: 100% !important;
+}
+
 /* card home */
 .shadow-home-card {
     width: 22rem;
