@@ -88,7 +88,7 @@
 								<div class="owl-carousel-leasing d-flex align-items-center row mt-3 overflow-hidden">
 
 										@foreach ($data['cicilan_motor'] as $a)
-												<div class="card" style=" margin-left: 10px;">
+												<div class="card item" style=" margin-left: 10px;">
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img style="min-height: 130px;" src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
 																class="card-img-top" alt="{{ $a['gambar'] }}">
@@ -218,7 +218,7 @@
 										class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0 owl-carousel-leasing d-flex align-items-center mt-3 overflow-hidden">
 
 										@foreach ($r['cicilan_motor'] as $rc)
-												<div class="card" style=" margin-left: 10px;">
+												<div class="card item" style=" margin-left: 10px; ">
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img style="min-height: 130px;" src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}"
 																class="card-img-top" alt="{{ $rc['gambar'] }}">
@@ -315,46 +315,10 @@
 								}
 						},
 				})
+				console.log("running owl-carousel-leasing")
 
 				$(document).ready(function() {
-						$(".owl-carousel-leasing").owlCarousel({
-								nav: false,
-								navText: ['prev', 'next'],
-								// margin: 10,
-								autoplay: true,
-								autoplayTimeout: 2000,
-								autoplayHoverPause: false,
-								loop: false,
-								items: 5,
-								merge: true,
-								// stagePadding: 1,
-								responsive: {
-										0: {
-												items: 1,
-												nav: true
-										},
-										600: {
-												items: 2,
-												nav: false
-										},
-										1000: {
-												items: 3,
-												nav: true,
-												loop: false
-										},
-										1500: {
-												items: 4,
-												nav: true,
-												loop: false
-										},
-										1700: {
-												items: 5,
-												nav: true,
-												loop: false
-										}
-								},
 
-						});
 				});
 
 
