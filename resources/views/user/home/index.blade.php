@@ -857,7 +857,7 @@
 																		<div class="mt-2">
 																				<div class="d-flex justify-content-between">
 																						<p class="text-doff">Diskon promo </p>
-																						<p class="text-basic fw-bold">{{ Str::rupiah($pop->diskonMotor->diskon ?? '0') }}</p>
+																						<p class="text-basic fw-bold">{{ Str::rupiah($pop->diskonMotor->diskon_promo ?? '0') }}</p>
 																				</div>
 																				<p class="mb-3">Cicilan. 979.000 x 35 Bulan</p>
 																		</div>
@@ -906,7 +906,7 @@
 																		<div class="mt-2">
 																				<div class="d-flex justify-content-between">
 																						<p class="text-doff">Diskon promo </p>
-																						<p class="text-basic fw-bold">{{ Str::rupiah($baru->diskonMotor->diskon ?? '0') }}</p>
+																						<p class="text-basic fw-bold">{{ Str::rupiah($baru->diskonMotor->diskon_promo ?? '0') }}</p>
 																				</div>
 																				<p class="mb-3">Cicilan. 979.000 x 35 Bulan</p>
 																		</div>
