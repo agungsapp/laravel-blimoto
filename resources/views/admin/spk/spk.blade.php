@@ -31,6 +31,11 @@
     </div>
     <hr style="border: 3px solid black;">
     <div class="row">
+      <div class="col text-center">
+        <h3>Surat Pesanan Kendaraan (SPK)</h3>
+      </div>
+    </div>
+    <div class="row">
       <div class="col">
         <p>Nomor SPK: {{$nomor_spk}}</p>
         <p>Tanggal Pesanan: {{$tanggal_pesan}}</p>
