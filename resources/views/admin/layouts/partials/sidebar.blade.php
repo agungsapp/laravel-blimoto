@@ -36,8 +36,8 @@
 					</a>
 				</li>
 				{{-- master motor --}}
-				<li class="nav-item">
-					<a href="" class="nav-link">
+				<li class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
 						<i class="nav-icon fas fa-motorcycle"></i>
 						<p>
 							Master Motor
@@ -96,8 +96,8 @@
 					</ul>
 				</li>
 				{{-- master kota --}}
-				<li class="nav-item">
-					<a href="" class="nav-link">
+				<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
 						<i class="nav-icon fas fa-city"></i>
 						<p>
 							Master Kota
@@ -120,8 +120,8 @@
 					</ul>
 				</li>
 				{{-- master sales --}}
-				<li class="nav-item">
-					<a href="" class="nav-link">
+				<li class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
 						<i class="nav-icon fas fa-city"></i>
 						<p>
 							Master Sales
@@ -218,6 +218,15 @@
 						</p>
 					</a>
 				</li>
+
+				{{-- <li class="nav-item">
+					<a href="{{ route('admin.promo.index') }}" class="nav-link {{ \Route::is('admin.promo.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-bell"></i>
+						<p>
+							Data Promo
+						</p>
+					</a>
+				</li> --}}
 				<li class="nav-item">
 					<a href="{{ route('admin.logout') }}" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>
