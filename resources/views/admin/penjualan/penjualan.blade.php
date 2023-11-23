@@ -159,7 +159,7 @@
                 <th>Catatan</th>
                 <th>Tanggal Dibuat</th>
                 <th>Tanggal Hasil</th>
-                <th width="170px" class="no-export">Action</th>
+                <th width="200px" class="no-export">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -183,11 +183,123 @@
                       @csrf
                       @method('DELETE')
                       <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
+                        Cetak
+                      </button>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$p->id}}">
                         Edit
                       </button>
                       <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+                  </div>
+                  <!-- Modal cetak -->
+                  <div class="modal fade" id="modalCetak{{$p->id}}" role="dialog" aria-labelledby="modalCetak">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modalCetak">Cetak data: {{$p->nama_konsumen}}</h4>
+                        </div>
+                        <form action="{{ route('admin.cetakPDF') }}" method="GET" target="_blank">
+                          <input type="hidden" value="{{ date('m/d/Y', strtotime($p->tanggal_dibuat)) }}" name="tanggal_dibuat" id="tanggal_dibuat">
+                          <input type="hidden" value="{{$p->nama_konsumen}}" name="nama_pemohon">
+                          <input type="hidden" value="{{$p->kota->nama}}" name="kabupaten">
+                          <input type="hidden" value="{{$p->id_motor}}" name="motor">
+                          <input type="hidden" value="{{$p->id}}" name="id_penjualan">
+                          <div class="modal-body">
+                            <div class="card card-primary">
+                              <div class="card-body">
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-hasil">Nomor SPK</label>
+                                      <input name="nomor_spk" type="text" class="form-control" placeholder="Masukan nomor SPK">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="input-hasil">Nomor KTP</label>
+                                      <input name="no_ktp" type="text" class="form-control" placeholder="Masukan nomor SPK">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">BPKB/STNK a.n</label>
+                                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Nomor HP</label>
+                                      <input name="nomor_hp" type="text" class="form-control" placeholder="Masukan Nomor HP">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Keterangan Program</label>
+                                      <input name="ket_program" type="text" class="form-control" placeholder="Masukan keterngan program">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Nama Diskon</label>
+                                      <input name="nama_diskon" type="text" class="form-control" placeholder="Masukan nama diskon">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">DP</label>
+                                      <input name="dp" type="text" class="form-control" placeholder="Masukan DP">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Total Diskon</label>
+                                      <input name="total_diskon" type="text" class="form-control" placeholder="Masukan total diskon">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-6">
+                                      <label for="input-tenor">Kelengkapan</label>
+                                      <input name="kelengkapan" type="text" class="form-control" placeholder="Masukan kelengkapan">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label>Metode Pembayaran</label>
+                                      <select id="metodePembayaran" name="metode_pembayaran" class="form-control select2" style="width: 100%;">
+                                        <option value="tunai">Tunai</option>
+                                        <option value="cek">Cek/Bilyet Giro</option>
+                                        <option value="">Kredit</option>
+                                      </select>
+                                      <div class="form-check my-3" id="metodeHide">
+                                        <input type="text" class="form-control" placeholder="Masukan nama leasing" name="metode_lainnya">
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-12">
+                                      <label for="input-tenor">Warna Motor</label>
+                                      <input name="warna" type="text" class="form-control" placeholder="Masukan warna motor">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-12">
+                                      <label>Jangka Waktu</label>
+                                      <input type="hidden" class="jangka_send" name="jangka_waktu">
+                                      <div class="input-group date jangka_waktu" id="reservationdate_jangka" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate_jangka" />
+                                        <div class="input-group-append" data-target="#reservationdate_jangka" data-toggle="datetimepicker">
+                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Cetak</button>
+                              </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                   <!-- Modal update -->
                   <div class="modal fade" id="modalEdit{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
@@ -456,5 +568,34 @@
       initDatePickers();
     });
   });
+
+  $('#metodeHide').hide();
+  $('#metodePembayaran').on('change', function() {
+    if ($(this).val() === '') {
+      $('#metodeHide').show();
+    } else {
+      $('#metodeHide').hide();
+    }
+  });
+
+
+  function formatTanggal(tanggal) {
+    return moment(tanggal, 'MM/DD/YYYY').format('DD MMMM YYYY');
+  }
+
+  $('.jangka_waktu').datetimepicker({
+    format: 'L',
+    locale: 'id',
+  });
+
+  $('.jangka_waktu').on('change.datetimepicker', function(e) {
+    var tanggalDiformat = formatTanggal(e.date);
+    $('.jangka_send').val(tanggalDiformat);
+  });
+
+  var tanggalInput = $('#tanggal_dibuat');
+  var tanggalLama = tanggalInput.val();
+  var tanggalBaru = formatTanggal(tanggalLama);
+  tanggalInput.val(tanggalBaru);
 </script>
 @endpush
