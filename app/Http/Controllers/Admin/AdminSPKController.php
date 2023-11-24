@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Console\Input\Input;
 
 use function React\Promise\all;
 
@@ -140,7 +141,6 @@ class AdminSPKController extends Controller
       'motor' => 'required',
       'dp' => 'required',
       'total_diskon' => 'required',
-      'nomor_spk' => 'required',
       'tanggal_dibuat' => 'required',
       'no_ktp' => 'required',
       'nama_pemohon' => 'required',
@@ -154,6 +154,7 @@ class AdminSPKController extends Controller
       'metode_pembayaran' => 'required_without:metode_lainnya',
       'metode_lainnya' => 'required_without:metode_pembayaran',
       'jangka_waktu' => 'required',
+      'id_penjualan' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -165,6 +166,12 @@ class AdminSPKController extends Controller
       ->where('id', $request->input('motor'))
       ->first();
 
+    $idPenjualan = $request->input('id_penjualan');
+    $nomorUrut = sprintf('%03d', $idPenjualan);
+    $bulanRomawi = $this->toRoman(date('n'));
+    $tahun = date('Y');
+    $nomorSPK = $nomorUrut . '/SPK/' . $bulanRomawi . '/' . $tahun;
+
     $dp = $request->input('dp');
     $totalDiskon = $request->input('total_diskon');
     $totalBayar =  $dp - $totalDiskon;
@@ -175,7 +182,7 @@ class AdminSPKController extends Controller
     $totalDiskon = $this->formatRupiah($totalDiskon);
 
     $data = [
-      'nomor_spk' => $request->input('nomor_spk'),
+      'nomor_spk' => $nomorSPK,
       'tanggal_pesan' => $request->input('tanggal_dibuat'),
       'no_ktp' => $request->input('no_ktp'),
       'nama_pemohon' => $request->input('nama_pemohon'),
@@ -203,5 +210,25 @@ class AdminSPKController extends Controller
   private function formatRupiah($angka)
   {
     return "Rp " . number_format($angka, 0, ',', '.');
+  }
+
+  function toRoman($number)
+  {
+    $map = [
+      'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400,
+      'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40,
+      'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1
+    ];
+    $returnValue = '';
+    while ($number > 0) {
+      foreach ($map as $roman => $int) {
+        if ($number >= $int) {
+          $number -= $int;
+          $returnValue .= $roman;
+          break;
+        }
+      }
+    }
+    return $returnValue;
   }
 }

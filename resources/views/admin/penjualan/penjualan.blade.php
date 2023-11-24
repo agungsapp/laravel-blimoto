@@ -210,13 +210,9 @@
                               <div class="card-body">
                                 <div class="form-group">
                                   <div class="row">
-                                    <div class="form-group col-md-6">
-                                      <label for="input-hasil">Nomor SPK</label>
-                                      <input name="nomor_spk" type="text" class="form-control" placeholder="Masukan nomor SPK">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
                                       <label for="input-hasil">Nomor KTP</label>
-                                      <input name="no_ktp" type="text" class="form-control" placeholder="Masukan nomor SPK">
+                                      <input name="no_ktp" type="number" class="form-control" placeholder="Masukan nomor KTP">
                                     </div>
                                   </div>
 
@@ -245,11 +241,11 @@
                                   <div class="row">
                                     <div class="form-group col-md-6">
                                       <label for="input-tenor">DP</label>
-                                      <input name="dp" type="text" class="form-control" placeholder="Masukan DP">
+                                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP">
                                     </div>
                                     <div class="form-group col-md-6">
                                       <label for="input-tenor">Total Diskon</label>
-                                      <input name="total_diskon" type="text" class="form-control" placeholder="Masukan total diskon">
+                                      <input name="total_diskon" type="number" class="form-control" placeholder="Masukan total diskon">
                                     </div>
                                   </div>
 

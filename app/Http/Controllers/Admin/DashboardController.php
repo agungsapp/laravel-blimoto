@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Motor;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,10 @@ class DashboardController extends Controller
         $data = [
             'motor' => Motor::all()->count(),
             'blog' => Blog::all()->count(),
+            'proses' => Penjualan::where('id_hasil', 1)->count(),
+            'acc' => Penjualan::where('id_hasil', 2)->count(),
+            'riject' => Penjualan::where('id_hasil', 3)->count(),
+            'do' => Penjualan::where('id_hasil', 4)->count(),
         ];
 
         // dd($data['motor']);

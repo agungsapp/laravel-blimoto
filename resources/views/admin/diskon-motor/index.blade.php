@@ -120,8 +120,8 @@
               <td>{{ $d->motor->nama }}</td>
               <td>{{ $d->leasing->nama }}</td>
               <td>{{ $d->lokasi->nama }}</td>
-              <td>{{ $d->diskon }}</td>
-              <td>{{ $d->diskon_promo }}</td>
+              <td>{{ Str::rupiah($d->diskon) }}</td>
+              <td>{{ Str::rupiah($d->diskon_promo) }}</td>
               <td>{{ $d->tenor }}</td>
               <td>{{ $d->potongan_tenor }}</td>
               <td>
