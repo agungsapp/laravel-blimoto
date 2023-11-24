@@ -89,10 +89,12 @@
 																<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
 														</li>
 														<li>
-																<a href="https://www.instagram.com/blimotoindonesia/"><i class="fa fa-instagram"></i></a>
+																<a href="https://www.instagram.com/blimotoindonesia/" target="_blank"><i
+																				class="fa fa-instagram"></i></a>
 														</li>
 														<li>
-																<a href="https://www.youtube.com/@Blimoto"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+																<a href="https://www.youtube.com/@Blimoto" target="_blank"><i class="fa fa-youtube-play"
+																				aria-hidden="true"></i></a>
 														</li>
 												</ul>
 										</div>
