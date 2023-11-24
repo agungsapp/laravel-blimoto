@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
 use App\Http\Controllers\Botman\BotManController;
+use App\Http\Controllers\Twilio\SendWhatsappOtpController;
 use App\Http\Controllers\User\AboutUsController;
 // user
 use App\Http\Controllers\User\BandingkanController;
@@ -180,6 +181,11 @@ Route::prefix('app')->name('admin.')->group(function () {
 // testing
 Route::get('testingform', [CicilanMotorController::class, 'handleForm']);
 //sss
+
+
+// TWILIO WHATSAPP ROUTE
+Route::get('/send-whatsapp', [SendWhatsappOtpController::class, 'send']);
+
 
 
 // done repo pindah
