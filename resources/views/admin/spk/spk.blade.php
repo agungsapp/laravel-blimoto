@@ -31,9 +31,11 @@
     </div>
     <hr style="border: 3px solid black;">
     <div class="row">
+      <div class="col"></div>
       <div class="col text-center">
-        <h3>Surat Pesanan Kendaraan (SPK)</h3>
+        <h4>Surat Pesanan Kendaraan (SPK)</h4>
       </div>
+      <div class="col text-right">133</div>
     </div>
     <div class="row">
       <div class="col">
@@ -140,3 +142,9 @@
 </body>
 
 </html>
+
+<script>
+  window.addEventListener('load', function() {
+    window.print();
+  });
+</script>
