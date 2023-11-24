@@ -184,7 +184,7 @@ Route::get('testingform', [CicilanMotorController::class, 'handleForm']);
 
 
 // TWILIO WHATSAPP ROUTE
-Route::get('/send-whatsapp', [SendWhatsappOtpController::class, 'index']);
+Route::get('/send-whatsapp', [SendWhatsappOtpController::class, 'send']);
 
 
 
