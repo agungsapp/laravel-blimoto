@@ -39,7 +39,7 @@ class HomeController extends Controller
             'mitras' => Mitra::all(),
         ];
 
-        // dd($data['populer']);
+        // dd($data['terbaru']);
 
         // dd($data['hooks']);
         return view('user.home.index', $data);
