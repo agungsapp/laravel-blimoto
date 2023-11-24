@@ -17,20 +17,24 @@ class SendWhatsappOtpController extends Controller
     {
 
 
-        $sid    = "AC1e8bc43b3a6d2f150838c4b4fc99bff1";
-        $token  = "e6aac3eb6080f15fb93105ece24b72eb";
-        $twilio = new Client($sid, $token);
-        $message = $twilio->messages
-            ->create(
-                "whatsapp:+6282182662724", // to
-                array(
-                    "from" => "whatsapp:+14155238886",
-                    "body" => 'Your Twilio code is 1238432'
-                )
-            );
+        // $sid    = "AC1e8bc43b3a6d2f150838c4b4fc99bff1";
+        // $token  = "e6aac3eb6080f15fb93105ece24b72eb";
 
-        print($message->sid);
+        $recipient = '+6285839023590';
+
+        $twilio_whatsapp_number = getenv("TWILIO_WHATSAPP_NUMBER");
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+
+        // dd($account_sid);
+
+        $client = new Client($account_sid, $auth_token);
+        $message = "Your registration pin code is 1212";
+        return $client->messages->create("whatsapp:$recipient", array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
