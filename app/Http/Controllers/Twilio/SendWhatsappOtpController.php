@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Twilio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Twilio\Rest\Client;
 
 class SendWhatsappOtpController extends Controller
 {
@@ -15,22 +14,6 @@ class SendWhatsappOtpController extends Controller
      */
     public function index()
     {
-
-
-        // $sid    = "AC1e8bc43b3a6d2f150838c4b4fc99bff1";
-        // $token  = "e6aac3eb6080f15fb93105ece24b72eb";
-
-        $recipient = '+6285839023590';
-
-        $twilio_whatsapp_number = getenv("TWILIO_WHATSAPP_NUMBER");
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-
-        // dd($account_sid);
-
-        $client = new Client($account_sid, $auth_token);
-        $message = "Your registration pin code is 1212";
-        return $client->messages->create("whatsapp:$recipient", array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
     }
 
 
@@ -100,5 +83,34 @@ class SendWhatsappOtpController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function send()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'target' => '08984287381',
+                'message' => 'test message',
+                'countryCode' => '62', //optional
+            ),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: orCkWZxosABxM4-hZnPX' //change TOKEN to your actual token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
     }
 }

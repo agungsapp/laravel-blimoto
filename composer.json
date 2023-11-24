@@ -15,7 +15,6 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "php-flasher/flasher-laravel": "^1.15",
-        "twilio/sdk": "^7.12",
         "yajra/laravel-datatables": "^9.0"
     },
     "require-dev": {
