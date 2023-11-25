@@ -52,7 +52,7 @@ class Motor extends Model
 
     public function diskonMotor()
     {
-        return $this->hasOne(DiskonMotor::class, 'id_motor', 'id');
+        return $this->hasMany(DiskonMotor::class, 'id_motor', 'id');
     }
 
     public function mtrBestMotor()
