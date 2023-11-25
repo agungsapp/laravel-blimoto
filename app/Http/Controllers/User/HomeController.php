@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\CicilanMotor;
 use App\Models\DetailMotor;
+use App\Models\DiskonMotor;
 use App\Models\Hook;
 use App\Models\Kota;
 use App\Models\Merk;
@@ -222,15 +223,24 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::with('diskonMotor')
-            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
-                $query->where('id_best_motor', $bestMotorId);
-            })
+        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+            $query->where('id_best_motor', $bestMotorId);
+        })
             ->get();
 
         foreach ($motors as $motor) {
+            // Mengambil gambar motor
             $motor->image = DetailMotor::where('id_motor', $motor->id)
                 ->pluck('gambar')->first();
+
+            // Mengambil diskon motor tertinggi
+            $maxDiskonPromo = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon_promo');
+
+            $maxDiskon = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon');
+            $motor->diskon_promo = $maxDiskonPromo;
+            $motor->diskon = $maxDiskon;
         }
 
         // dd($motors);
