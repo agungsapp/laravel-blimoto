@@ -40,6 +40,16 @@ class CicilanMotor extends Model
     ');
   }
 
+  public static function deleteData($idMotor, $idLeasing, $tenor, $idKota)
+  {
+    return DB::table('cicilan_motor')
+      ->where('id_motor', $idMotor)
+      ->where('id_leasing', $idLeasing)
+      ->where('tenor', $tenor)
+      ->where('id_lokasi', $idKota)
+      ->delete();
+  }
+
   public static function getDpminLeasing($idMotor, $idLokasi, $tenor)
   {
     return DB::table('cicilan_motor')

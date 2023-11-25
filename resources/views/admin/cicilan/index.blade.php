@@ -16,9 +16,9 @@
 		<button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalUpdate">
 			<i class="fas fa-sync-alt"></i><span class="ml-2">Update data cicilan</span>
 		</button>
-		<!-- <button type="button" class="btn btn-warning btn-lg ml-3" data-toggle="modal" data-target="#modalEditPotongan">
-			<i class="fas fa-sync-alt"></i><span class="ml-2">Update potongan tenor</span>
-		</button> -->
+		<button type="button" class="btn btn-danger btn-lg ml-3" data-toggle="modal" data-target="#modalEditPotongan">
+			<span class="ml-2">Hapus data cicilan</span>
+		</button>
 
 		<!-- Modal import -->
 		<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="modalImportLabel" aria-hidden="true">
@@ -78,19 +78,19 @@
 		</div>
 	</div>
 	<!-- Modal edit potongan -->
-	<!-- <div class="modal fade" id="modalEditPotongan" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
+	<div class="modal fade" id="modalEditPotongan" role="dialog" aria-labelledby="modalUpdateLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
-					<h5 class="modal-title" id="modalUpdateLabel">Update Data Potongan Tenor</h5>
+					<h5 class="modal-title" id="modalUpdateLabel">Hapus data cicilan</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="" method="POST" enctype="multipart/form-data">
+				<form action="{{ route('admin.cicilan.delete') }}" method="POST" enctype="multipart/form-data">
+					@csrf
+					@method('DELETE')
 					<div class="modal-body">
-						@csrf
-						@method('PUT')
 						<div class="form-group">
 							<label>Pilih Motor</label>
 							@if ($motor == null)
@@ -100,19 +100,6 @@
 								<option value="" selected>-- Pilih motor --</option>
 								@foreach ($motor as $motor)
 								<option value="{{ $motor->id }}">{{ $motor->nama }}</option>
-								@endforeach
-							</select>
-							@endif
-						</div>
-						<div class="form-group">
-							<label>Pilih Tenor</label>
-							@if ($tenor == null)
-							<p>Tidak ada data buat terlebih dahulu !</p>
-							@else
-							<select name="tenor" class="form-control select2">
-								<option value="" selected>-- Pilih tenor --</option>
-								@foreach ($tenor as $tenor)
-								<option value="{{ $tenor->tenor }}">{{ $tenor->tenor }}</option>
 								@endforeach
 							</select>
 							@endif
@@ -144,18 +131,18 @@
 							@endif
 						</div>
 						<div class="form-group">
-							<label for="potongan-tenor">Potongan Tenor</label>
-							<input name="potongan_tenor" type="text" class="form-control @error('nama') is-invalid @enderror" id="potongan-tenor" placeholder="Masukan data update potongan">
+							<label for="tenor">Masukan Tenor</label>
+							<input name="tenor" type="number" class="form-control" id="tenor" placeholder="Masukan tenor">
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-primary">Hapus</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </div>
 
 <div class="col-12">
