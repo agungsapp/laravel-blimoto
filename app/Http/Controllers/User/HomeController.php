@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\CicilanMotor;
 use App\Models\DetailMotor;
+use App\Models\DiskonMotor;
 use App\Models\Hook;
 use App\Models\Kota;
 use App\Models\Merk;
@@ -28,9 +29,9 @@ class HomeController extends Controller
 
         $data = [
             'best1' => $this->getMotorData(2),
-            'best2' => $this->getMotorData(3),
+            'best2' => $this->getDpTermurah(3),
             'best3' => $this->getMotorData(4),
-            'best4' => $this->getMotorData(5),
+            'best4' => $this->getDpTermurah(5),
             'populer' => $this->getMotorData(6),
             'terbaru' => $this->getMotorData(7),
             'blogs' => Blog::orderBy('id', 'DESC')->get(),
@@ -39,7 +40,7 @@ class HomeController extends Controller
             'mitras' => Mitra::all(),
         ];
 
-        // dd($data['terbaru']);
+        // dd($data['best2']);
 
         // dd($data['hooks']);
         return view('user.home.index', $data);
@@ -222,15 +223,24 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::with('diskonMotor')
-            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
-                $query->where('id_best_motor', $bestMotorId);
-            })
+        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+            $query->where('id_best_motor', $bestMotorId);
+        })
             ->get();
 
         foreach ($motors as $motor) {
+            // Mengambil gambar motor
             $motor->image = DetailMotor::where('id_motor', $motor->id)
                 ->pluck('gambar')->first();
+
+            // Mengambil diskon motor tertinggi
+            $maxDiskonPromo = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon_promo');
+
+            $maxDiskon = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon');
+            $motor->diskon_promo = $maxDiskonPromo;
+            $motor->diskon = $maxDiskon;
         }
 
         // dd($motors);
@@ -248,5 +258,46 @@ class HomeController extends Controller
     private function getBandingkanMotor()
     {
         // $motor = Motor
+    }
+
+
+    private function getDpTermurah($bestMotorId)
+    {
+        // Subquery untuk menemukan tenor maksimal per motor
+        $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
+            ->groupBy('id_motor');
+
+        // Query utama untuk mendapatkan motor bersama dengan tenor maksimal dan DP terendah
+        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+            $query->where('id_best_motor', $bestMotorId);
+        })
+            ->leftJoinSub($maxTenorSubquery, 'max_tenors', function ($join) {
+                $join->on('motor.id', '=', 'max_tenors.id_motor');
+            })
+            ->leftJoin('cicilan_motor', function ($join) {
+                $join->on('motor.id', '=', 'cicilan_motor.id_motor')
+                    ->on('cicilan_motor.tenor', '=', 'max_tenors.max_tenor');
+            })
+            ->select('motor.*', 'cicilan_motor.dp', 'cicilan_motor.cicilan', 'cicilan_motor.tenor', 'cicilan_motor.id_leasing', 'cicilan_motor.id_lokasi')
+            ->groupBy('motor.id')
+            ->orderBy('cicilan_motor.dp', 'asc')
+            ->get();
+
+        // Menambahkan informasi gambar dan diskon ke setiap motor
+        foreach ($motors as $motor) {
+            // Mengambil gambar motor
+            $motor->image = DetailMotor::where('id_motor', $motor->id)
+                ->pluck('gambar')->first();
+
+            // Mengambil diskon motor tertinggi
+            $maxDiskonPromo = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon_promo');
+            $maxDiskon = DiskonMotor::where('id_motor', $motor->id)
+                ->max('diskon');
+            $motor->diskon_promo = $maxDiskonPromo;
+            $motor->diskon = $maxDiskon;
+        }
+
+        return $motors;
     }
 }

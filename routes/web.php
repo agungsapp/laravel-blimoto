@@ -165,6 +165,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
         Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
         Route::post('cicilan-motor/csv/update', [AdminCicilanMotorController::class, 'updateCsv'])->name('cicilan.csv.update');
+        Route::delete('cicilan-motor/cicilan/delete', [AdminCicilanMotorController::class, 'deleteCicilan'])->name('cicilan.delete');
         // Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
 
         Route::middleware(['auth.admin:admin'])->group(function () {

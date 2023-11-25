@@ -27,7 +27,9 @@ class AdminDiskonMotorController extends Controller
     $motor = Motor::select('id', 'nama')->get();
     $leasing = LeasingMotor::select('id', 'nama')->get();
     $lokasi = Kota::select('id', 'nama')->get();
-    $diskonMotor = DiskonMotor::with('motor', 'leasing', 'lokasi')->get();
+    $diskonMotor = DiskonMotor::with('motor', 'leasing', 'lokasi')
+      ->orderBy('id', 'desc')
+      ->get();;
 
     return view('admin.diskon-motor.index', [
       'motor' => $motor,
@@ -60,7 +62,6 @@ class AdminDiskonMotorController extends Controller
       'leasing_motor' => 'required',
       'lokasi_motor' => 'required',
       'tenor' => 'required',
-      'potongan_tenor' => 'required',
       'diskon' => 'required',
       'diskon_promo' => 'required',
     ]);
@@ -70,16 +71,30 @@ class AdminDiskonMotorController extends Controller
       return redirect()->back()->withErrors($validator)->withInput();
     }
 
+    $potonganTenor = $request->input('potongan_tenor') ?? 0;
+
     try {
-      DiskonMotor::create([
+      $diskonMotor = DiskonMotor::firstOrNew([
         'id_motor' => $request->input('nama_motor'),
         'id_leasing' => $request->input('leasing_motor'),
         'id_lokasi' => $request->input('lokasi_motor'),
-        'diskon' => $request->input('diskon'),
-        'diskon_promo' => $request->input('diskon_promo'),
         'tenor' => $request->input('tenor'),
-        'potongan_tenor' => $request->input('potongan_tenor'),
       ]);
+
+      if ($diskonMotor->exists) {
+        flash()->addError("Data diskon sudah ada.");
+        return redirect()->back();
+      } else {
+        $diskonMotor->fill([
+          'diskon' => $request->input('diskon'),
+          'diskon_promo' => $request->input('diskon_promo'),
+          'potongan_tenor' => $potonganTenor,
+        ])->save();
+
+        flash()->addSuccess("Diskon motor berhasil dibuat");
+        return redirect()->back();
+      }
+
       flash()->addSuccess("Diskon motor berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {

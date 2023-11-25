@@ -78,7 +78,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="model">Potongan Tenor</label>
-              <input name="potongan_tenor" type="text" class="form-control @error('potongan_tenor') is-invalid @enderror" id="potongan_tenor" placeholder="Masukan potongan tenor">
+              <input name="potongan_tenor" type="text" class="form-control @error('potongan_tenor') is-invalid @enderror" id="potongan_tenor" placeholder="Masukan potongan tenor (Kosongkan jika tidak ada)">
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
         <table id="dataDiskon" class="table-bordered table-striped table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Nomor</th>
               <th>Nama Motor</th>
               <th>Leasing</th>
               <th>Lokasi</th>
@@ -224,7 +224,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <th>ID</th>
+              <th>Nomor</th>
               <th>Nama Motor</th>
               <th>Leasing</th>
               <th>Lokasi</th>
