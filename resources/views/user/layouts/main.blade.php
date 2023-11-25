@@ -247,6 +247,7 @@
 						inputElement.value = lokasiId;
 						window.idLokasi = lokasiId;
 						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`);
+						$('input[name="id_lokasi"]').val(lokasiId);
 				}
 
 				function setTeksMenuLokasi() {

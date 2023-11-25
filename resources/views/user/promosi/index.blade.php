@@ -24,7 +24,7 @@
 				</div>
 		</div>
 		<!-- breadcrumb End -->
-		<section class="section-py-space my-3">
+		<section class="section-py-space my-3" style="height: 1000px">
 				<div class="title8 mt-5">
 						<h4>Daftar Promo</h4>
 				</div>
