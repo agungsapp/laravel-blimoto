@@ -196,6 +196,37 @@ class AdminCicilanMotorController extends Controller
   //   return redirect()->back();
   // }
 
+  public function deleteCicilan(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'motor' => 'required',
+      'tenor' => 'required',
+      'leasing' => 'required',
+      'lokasi' => 'required'
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $idMotor = $request->input('motor');
+    $idLeasing = $request->input('leasing');
+    $tenor = $request->input('tenor');
+    $idKota = $request->input('lokasi');
+
+    $deletedRows = CicilanMotor::deleteData($idMotor, $idLeasing, $tenor, $idKota);
+
+
+    if ($deletedRows > 0) {
+      flash()->addSuccess("Berhasil hapus data");
+    } else {
+      flash()->addError("Gagal hapus data");
+    }
+
+    return redirect()->back();
+  }
+
   public function dataTable()
   {
     $cicilan = CicilanMotor::getCicilanTable();
