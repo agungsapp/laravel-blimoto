@@ -74,12 +74,12 @@
 																														<div class="mt-2">
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item1->diskonMotor->diskon ?? '0') }}</p>
+																																		<p class="text-basic fw-bold">{{ Str::rupiah($item1->diskon ?? '0') }}</p>
 																																</div>
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon normal </p>
 																																		<del
-																																				class="text-basic">{{ Str::rupiah($item1->diskonMotor->diskon_promo ?? '0') }}</del>
+																																				class="text-basic">{{ Str::rupiah($item1->diskon_promo ?? '0') }}</del>
 																																</div>
 																														</div>
 																														<form action="{{ route('detail-motor') }}" method="GET">
@@ -126,12 +126,12 @@
 																														<div class="mt-2">
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item2->diskonMotor->diskon ?? '0') }}</p>
+																																		<p class="text-basic fw-bold">{{ Str::rupiah($item2->diskon ?? '0') }}</p>
 																																</div>
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon normal </p>
 																																		<del
-																																				class="text-basic">{{ Str::rupiah($item2->diskonMotor->diskon_promo ?? '0') }}</del>
+																																				class="text-basic">{{ Str::rupiah($item2->diskon_promo ?? '0') }}</del>
 																																</div>
 																														</div>
 																														<form action="{{ route('detail-motor') }}" method="GET">
@@ -177,13 +177,13 @@
 																														<div class="mt-2">
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item3->diskonMotor->diskon ?? '0') }}
+																																		<p class="text-basic fw-bold">{{ Str::rupiah($item3->diskon ?? '0') }}
 																																		</p>
 																																</div>
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon normal </p>
 																																		<del
-																																				class="text-basic">{{ Str::rupiah($item3->diskonMotor->diskon_promo ?? '0') }}</del>
+																																				class="text-basic">{{ Str::rupiah($item3->diskon_promo ?? '0') }}</del>
 																																</div>
 																														</div>
 																														<form action="{{ route('detail-motor') }}" method="GET">
@@ -229,13 +229,13 @@
 																														<div class="mt-2">
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item4->diskonMotor->diskon ?? '0') }}
+																																		<p class="text-basic fw-bold">{{ Str::rupiah($item4->diskon ?? '0') }}
 																																		</p>
 																																</div>
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Diskon normal </p>
 																																		<del
-																																				class="text-basic">{{ Str::rupiah($item4->diskonMotor->diskon_promo ?? '0') }}</del>
+																																				class="text-basic">{{ Str::rupiah($item4->diskon_promo ?? '0') }}</del>
 																																</div>
 																														</div>
 																														<form action="{{ route('detail-motor') }}" method="GET">
@@ -857,7 +857,7 @@
 																		<div class="mt-2">
 																				<div class="d-flex justify-content-between">
 																						<p class="text-doff">Diskon promo </p>
-																						<p class="text-basic fw-bold">{{ Str::rupiah($pop->diskonMotor->diskon_promo ?? '0') }}</p>
+																						<p class="text-basic fw-bold">{{ Str::rupiah($pop->diskon_promo ?? '0') }}</p>
 																				</div>
 																				<p class="mb-3">Cicilan. 979.000 x 35 Bulan</p>
 																		</div>
@@ -906,7 +906,7 @@
 																		<div class="mt-2">
 																				<div class="d-flex justify-content-between">
 																						<p class="text-doff">Diskon promo </p>
-																						<p class="text-basic fw-bold">{{ Str::rupiah($baru->diskonMotor->diskon_promo ?? '0') }}</p>
+																						<p class="text-basic fw-bold">{{ Str::rupiah($baru->diskon_promo ?? '0') }}</p>
 																				</div>
 																				<p class="mb-3">Cicilan. 979.000 x 35 Bulan</p>
 																		</div>
