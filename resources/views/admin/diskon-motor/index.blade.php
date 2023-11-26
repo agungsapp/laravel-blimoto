@@ -17,12 +17,12 @@
             <div class="form-group col-md-4">
               <label>Nama Motor</label>
               @if ($motor == null)
-              <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
+              <p class="text-danger">Tidak ada data motor, silakan buat terlebih dahulu!</p>
               @else
-              <select id="tambah-nama-motor" name="nama_motor" class="form-control select2 @error('nama-motor') is-invalid @enderror" style="width: 100%;">
-                <option value="" selected>-- Pilih nama motor --</option>
+              <select id="tambah-nama-motor" name="nama_motor" class="form-control select2 @error('nama_motor') is-invalid @enderror" style="width: 100%;">
+                <option value="">-- Pilih nama motor --</option>
                 @foreach ($motor as $m)
-                <option value="{{ $m->id }}">{{ $m->nama }}</option>
+                <option value="{{ $m->id }}" {{ old('nama_motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
                 @endforeach
               </select>
               @endif
@@ -30,12 +30,12 @@
             <div class="form-group col-md-4">
               <label>Leasing</label>
               @if ($leasing == null)
-              <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
+              <p class="text-danger">Tidak ada data leasing, silakan buat terlebih dahulu!</p>
               @else
-              <select id="tambah-leasing-motor" name="leasing_motor" class="form-control @error('leasing-motor') is-invalid @enderror select2" style="width: 100%;">
-                <option value="" selected>-- Pilih leasing --</option>
+              <select id="tambah-leasing-motor" name="leasing_motor" class="form-control @error('leasing_motor') is-invalid @enderror select2" style="width: 100%;">
+                <option value="">-- Pilih leasing --</option>
                 @foreach ($leasing as $l)
-                <option value="{{ $l->id }}">{{ $l->nama }}</option>
+                <option value="{{ $l->id }}" {{ old('leasing_motor') == $l->id ? 'selected' : '' }}>{{ $l->nama }}</option>
                 @endforeach
               </select>
               @endif
@@ -43,42 +43,42 @@
             <div class="form-group col-md-4">
               <label>Lokasi</label>
               @if ($lokasi == null)
-              <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
+              <p class="text-danger">Tidak ada data lokasi, silakan buat terlebih dahulu!</p>
               @else
-              <select id="tambah-lokasi-motor" name="lokasi_motor" class="form-control @error('lokasi-motor') is-invalid @enderror select2" style="width: 100%;">
-                <option value="" selected>-- Pilih lokasi --</option>
+              <select id="tambah-lokasi-motor" name="lokasi_motor" class="form-control @error('lokasi_motor') is-invalid @enderror select2" style="width: 100%;">
+                <option value="">-- Pilih lokasi --</option>
                 @foreach ($lokasi as $l)
-                <option value="{{ $l->id }}">{{ $l->nama }}</option>
+                <option value="{{ $l->id }}" {{ old('lokasi_motor') == $l->id ? 'selected' : '' }}>{{ $l->nama }}</option>
                 @endforeach
               </select>
               @endif
             </div>
           </div>
+
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="model">Diskon</label>
-              <input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror" id="diskon" placeholder="Masukan diskon">
+              <label for="diskon">Diskon</label>
+              <input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror" id="diskon" placeholder="Masukan diskon" value="{{ old('diskon') }}">
             </div>
             <div class="form-group col-md-6">
-              <label for="model">Diskon Promo</label>
-              <input name="diskon_promo" type="text" class="form-control @error('diskon_promo') is-invalid @enderror" id="diskon_promo" placeholder="Masukan diskon Promo">
+              <label for="diskon_promo">Diskon Promo</label>
+              <input name="diskon_promo" type="text" class="form-control @error('diskon_promo') is-invalid @enderror" id="diskon_promo" placeholder="Masukan diskon Promo" value="{{ old('diskon_promo') }}">
             </div>
           </div>
+
           <div class="row">
             <div class="form-group col-md-6">
               <label>Tenor</label>
-              <select id="tambah-tenor-motor" name="tenor" class="form-control @error('lokasi-motor') is-invalid @enderror select2" style="width: 100%;">
-                <option value="" selected>-- Pilih tenor --</option>
-                <option value="11">11</option>
-                <option value="17">17</option>
-                <option value="23">23</option>
-                <option value="29">29</option>
-                <option value="35">35</option>
+              <select id="tambah-tenor-motor" name="tenor" class="form-control @error('tenor') is-invalid @enderror select2" style="width: 100%;">
+                <option value="">-- Pilih tenor --</option>
+                @foreach(['11', '17', '23', '29', '35'] as $tenor)
+                <option value="{{ $tenor }}" {{ old('tenor') == $tenor ? 'selected' : '' }}>{{ $tenor }}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="model">Potongan Tenor</label>
-              <input name="potongan_tenor" type="text" class="form-control @error('potongan_tenor') is-invalid @enderror" id="potongan_tenor" placeholder="Masukan potongan tenor (Kosongkan jika tidak ada)">
+              <label for="potongan_tenor">Potongan Tenor</label>
+              <input name="potongan_tenor" type="text" class="form-control @error('potongan_tenor') is-invalid @enderror" id="potongan_tenor" placeholder="Masukan potongan tenor (Kosongkan jika tidak ada)" value="{{ old('potongan_tenor') }}">
             </div>
           </div>
         </div>
