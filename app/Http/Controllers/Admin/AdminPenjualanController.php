@@ -66,7 +66,6 @@ class AdminPenjualanController extends Controller
       'hasil' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
-      'leasing' => 'required',
       'catatan' => 'required',
     ]);
 
@@ -86,13 +85,14 @@ class AdminPenjualanController extends Controller
         'id_hasil' => $request->input('hasil'),
         'id_motor' => $request->input('motor'),
         'jumlah' => $request->input('jumlah'),
-        'id_lising' => $request->input('leasing'),
+        'id_lising' => $request->input('leasing') ?? null,
         'catatan' => $request->input('catatan'),
         'tanggal_dibuat' => $tanggal_dibuat,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
+      throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");
       return redirect()->back();
     }
@@ -138,7 +138,6 @@ class AdminPenjualanController extends Controller
       'hasil' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
-      'leasing' => 'required',
       'catatan' => 'required',
       'tanggal_dibuat' => 'required',
     ]);
@@ -161,7 +160,7 @@ class AdminPenjualanController extends Controller
     $penjualan->catatan = $request->input('catatan');
     $penjualan->tanggal_dibuat = $tanggal_dibuat;
     $penjualan->tanggal_hasil = $tanggal_hasil;
-    $penjualan->id_lising = $request->input('leasing');
+    $penjualan->id_lising = $request->input('leasing') ?? null;
     $penjualan->id_motor = $request->input('motor');
     $penjualan->id_kota = $request->input('kabupaten');
     $penjualan->id_hasil = $request->input('hasil');
