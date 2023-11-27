@@ -83,7 +83,7 @@ class AdminDiskonMotorController extends Controller
 
       if ($diskonMotor->exists) {
         flash()->addError("Data diskon sudah ada.");
-        return redirect()->back();
+        return redirect()->back()->withErrors($validator)->withInput();
       } else {
         $diskonMotor->fill([
           'diskon' => $request->input('diskon'),

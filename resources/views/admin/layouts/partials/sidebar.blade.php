@@ -35,6 +35,16 @@
 						</p>
 					</a>
 				</li>
+
+				<li class="nav-item">
+					<a href="{{ route('admin.company-profile.index') }}" class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-user-md"></i>
+						<p>
+							Company Profile
+						</p>
+					</a>
+				</li>
+
 				{{-- master motor --}}
 				<li class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
@@ -221,11 +231,11 @@
 
 				{{-- <li class="nav-item">
 					<a href="{{ route('admin.promo.index') }}" class="nav-link {{ \Route::is('admin.promo.*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-bell"></i>
-						<p>
-							Data Promo
-						</p>
-					</a>
+				<i class="nav-icon fa fa-bell"></i>
+				<p>
+					Data Promo
+				</p>
+				</a>
 				</li> --}}
 				<li class="nav-item">
 					<a href="{{ route('admin.logout') }}" class="nav-link">
