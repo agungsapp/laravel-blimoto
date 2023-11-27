@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal_hasil')->nullable();
             $table->unsignedBigInteger('id_sales');
             $table->unsignedBigInteger('id_motor');
-            $table->unsignedBigInteger('id_lising');
+            $table->unsignedBigInteger('id_lising')->nullable();
             $table->unsignedBigInteger('id_kota');
             $table->unsignedBigInteger('id_hasil');
 
