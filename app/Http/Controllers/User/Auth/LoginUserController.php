@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Twilio;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SendWhatsappOtpController extends Controller
+class LoginUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,8 @@ class SendWhatsappOtpController extends Controller
      */
     public function index()
     {
+        //
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -83,40 +81,5 @@ class SendWhatsappOtpController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function send(Request $request)
-    {
-
-        $nomor = $request->input('nomor');
-        $otp = $request->input('otp');
-        $message = 'Kode OTP Anda Adalah : ' . $otp;
-
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.fonnte.com/send',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array(
-                'target' => $nomor,
-                'message' => $message,
-                'countryCode' => '62', //optional
-            ),
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: orCkWZxosABxM4-hZnPX' //change TOKEN to your actual token
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        echo $response;
     }
 }
