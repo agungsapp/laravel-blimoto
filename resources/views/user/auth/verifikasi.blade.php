@@ -3,6 +3,8 @@
 
 <head>
 		<title>BliMoto</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -68,27 +70,35 @@
 						<div class="row">
 								<div class="col-lg-4 offset-lg-4">
 										<div class="theme-card">
-												<h3 class="mb-1 text-center">Daftar</h3>
-												<p class="mb-4 text-center">daftar dan temukan motor impian yang sesuai dengan anda</p>
-												<form class="theme-form" action="{{ route('register.store') }}" method="POST">
+												<h3 class="mb-1 text-center">Verifikasi Nomor HP</h3>
+												<p class="mb-4 text-center">Hore, tinggal selangkah lagi untuk mengaktifkan akun anda.</p>
+												<form class="theme-form" action="{{ route('register.verif') }}" method="POST">
 														@csrf
+
+														<input type="hidden" id="nomor" name="nomor" value="{{ $nomor }}">
+														<input type="hidden" id="otp" name="otp" value="{{ $otp }}">
 														<div class="row g-3">
+																@error('otp')
+																		<div class="col-md-12 form-group">
+																				<div class="alert alert-danger">{{ $message }}</div>
+																		</div>
+																@enderror
 																<div class="col-md-12 form-group">
-																		<label for="nama">Nama lengkap</label>
-																		<input type="text" class="form-control" id="nama" name="nama"
-																				placeholder="masukan nama lengkap anda" required>
+																		<label for="otp">Masukan Kode OTP</label>
+																		<input type="text" class="form-control" id="otp" name="otp" value="{{ old('otp') }}"
+																				placeholder="Masukan 4 Digit Kode OTP" required>
 																</div>
-																<label for="nohp">Nomor Hp</label>
-																<div class="col-md-12 input-group mb-4">
-																		<span class="input-group-text" id="nohp">+62</span>
-																		<input type="text" class="form-control" name="nohp" placeholder="08xxxxxxxxxx"
-																				aria-describedby="nohp">
+																<div class="col-md-12 form-group d-flex justify-content-between">
+																		<button class="btn btn-warning btn-block rounded-lg py-1" id="kirim" type="button">KIRIM
+																				KODE
+																				OTP</button>
 																</div>
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12 form-group">
+
 																		<button type="submit" class="btn btn-rounded">
-																				Daftar
+																				Verifikasi
 																		</button>
 																</div>
 														</div>
@@ -139,11 +149,6 @@
 		<!-- menu js-->
 		<script src="assets/js/menu.js"></script>
 
-		<!-- ajax search js -->
-		<script src="assets/js/typeahead.bundle.min.js"></script>
-		<script src="assets/js/typeahead.jquery.min.js"></script>
-		<script src="assets/js/ajax-custom.js"></script>
-
 		<!-- father icon -->
 		<script src="assets/js/feather.min.js"></script>
 		<script src="assets/js/feather-icon.js"></script>
@@ -166,7 +171,46 @@
 
 		<script src="assets/owl/owl.carousel.min.js"></script>
 
-		@stack('script')
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+				$(document).ready(function() {
+						$.ajaxSetup({
+								headers: {
+										'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+								}
+						});
+
+						function sendOtp() {
+								const nomor = $('#nomor').val();
+								const otp = $('#otp').val();
+								console.log(nomor);
+								console.log(otp);
+
+								$.ajax({
+										url: '/send-whatsapp',
+										type: 'POST',
+										data: {
+												nomor: nomor,
+												otp: otp
+										},
+										success: function(response) {
+												console.log(response);
+										},
+										error: function(error) {
+												console.error(error);
+										}
+								});
+						}
+
+						$('#kirim').on('click', sendOtp)
+
+
+						// Jika Anda memiliki tombol atau elemen pemicu, tambahkan event listener disini
+						// Contoh: $('#tombolKirim').on('click', sendOtp);
+				});
+		</script>
+
+
 
 </body>
 

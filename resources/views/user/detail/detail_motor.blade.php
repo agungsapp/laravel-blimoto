@@ -158,7 +158,7 @@
 												</div>
 										@endforeach
 								</div>
-								<div class="row mt-4 px-2">
+								{{-- <div class="row mt-4 px-2 d-none">
 										<div class="pro-group">
 												<div class="d-flex align-items-baseline gap-5">
 														<h6 class="product-title">Promo berlaku sampai dengan :</h6>
@@ -167,7 +167,7 @@
 												<div class="simply-countdown" id="timer">
 												</div>
 										</div>
-								</div>
+								</div> --}}
 						</div>
 				</div>
 		</div>

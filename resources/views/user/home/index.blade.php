@@ -229,6 +229,12 @@
 																																<h3>{{ $item4->nama }}</h3>
 																														</a>
 																														<div class="mt-2">
+																															<div class="d-flex justify-content-between">
+																																		<p class="text-doff">Harga OTR </p>
+																																		<p class="text-basic fw-bold">
+																																				{{ Str::rupiah($item4->otr) }}
+																																		</p>
+																																</div>
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">DP normal </p>
 																																		<del class="text-basic">{{ Str::rupiah($item4->dp) }}</del>
@@ -239,6 +245,7 @@
 																																				{{ Str::rupiah($item4->diskon ?? '0') }}
 																																		</p>
 																																</div>
+																																
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">DP Bayar </p>
 																																		<p class="text-basic fw-bold">
@@ -290,7 +297,8 @@
 								<div class="col-11 col-md-10 px-3 py-3">
 										<p class="fs-4 fw-bold mb-1 text-start text-black">Cari Diskon Terbaik Disini</h>
 								</div>
-								<div class="col-11 col-md-10 card-diskon-terbaik py-lg-0 pt-lg-4 pe-lg-0 overflow-hidden py-5 pe-5 ps-5">
+								{{-- py-lg-0 pt-lg-4 pe-lg-0 py-5 pe-5 ps-5 --}}
+								<div class="col-11 col-md-10 card-diskon-terbaik  overflow-hidden p-4 ">
 										{{-- <h3 class="title8 mb-3 text-center">Cari Diskon Terbaik</h3> --}}
 
 										<div class="row">

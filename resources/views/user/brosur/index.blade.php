@@ -129,124 +129,6 @@
 		</section>
 		<!-- brosur motor populer slider -->
 
-		<div class="title8 mb-4">
-				<h4 style="text-transform: capitalize">Rekomendasi Kendaraan</h4>
-		</div>
-		<!-- rekomendasi kendaraan slider -->
-		<section class="ratio_asos product b-g-light mb-5 pb-5 pt-3">
-				<div class="container">
-						<div class="row">
-								<div class="col-12 slide-download-populer">
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0 shadow-sm">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-										<div class="d-flex justify-content-center align-items-center">
-												<div class="card border-0">
-														<img
-																src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png"
-																class="card-img-top" alt="..." />
-														<div class="card-body">
-																<h5 class="card-title">Honda Vario 125</h5>
-																<p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-																<p class="mb-3" style="font-size: 12px">
-																		Angsuran: Rp. 532.326 X 36
-																</p>
-																<a href="#" class="text-basic">Lihat promo</a>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-				</div>
-		</section>
-		<!-- rekomendasi kendaraan slider -->
 
 		<div class="title8 mb-4">
 				<h4 style="text-transform: capitalize">Mitra Kami</h4>
@@ -259,15 +141,13 @@
 										<div class="d-flex justify-content-center align-items-center">
 												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
 														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/honda-1652082402.png" alt=""
-																class="img-mitra" />
+														<img src="https://imgcdn.oto.com/brandlogo/motor/honda-1652082402.png" alt="" class="img-mitra" />
 												</div>
 										</div>
 										<div class="d-flex justify-content-center align-items-center">
 												<div class="card d-flex justify-content-center align-items-center px-3 py-2"
 														style="width: 100px; height: 80px; padding: 2rem">
-														<img src="https://imgcdn.oto.com/brandlogo/motor/yamaha-1651737896.png" alt=""
-																class="img-mitra" />
+														<img src="https://imgcdn.oto.com/brandlogo/motor/yamaha-1651737896.png" alt="" class="img-mitra" />
 												</div>
 										</div>
 										<div class="d-flex justify-content-center align-items-center">
