@@ -18,7 +18,7 @@ class CompanyProfileSeeder extends Seeder
       [
         'nama_perusahaan' => 'BliMoto',
         'alamat' => 'Jakarta - 3654123',
-        'no_wa' => '+6285839023590',
+        'no_wa' => '+6282182662724',
         'logo' => 'Logo-blimoto.webp',
       ],
     ];
