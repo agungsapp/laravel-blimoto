@@ -14,7 +14,7 @@ class SalesSeeder extends Seeder
     $data = [
       [
         'nama' => 'Sales 1',
-        'kode' => 12,
+        'nip' => 12,
         'username' => 'sales',
         'password' => Hash::make('sales123'),
       ],

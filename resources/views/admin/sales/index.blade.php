@@ -16,8 +16,8 @@
                 <input name="nama" type="text" class="form-control" placeholder="Masukan nama sales">
               </div>
               <div class="form-group col-md-6">
-                <label for="input-kode">Kode</label>
-                <input name="kode" type="number" class="form-control" placeholder="Masukan kode sales">
+                <label for="input-kode">NIP Sales</label>
+                <input name="kode" type="text" class="form-control" placeholder="Masukan NIP sales">
               </div>
             </div>
             <div class="row">
@@ -69,7 +69,7 @@
                 <td>{{$sale->nama}}</td>
                 <td>{{$sale->username}}</td>
                 <td>{{$sale->status_online ? 'Online' : 'Offline'}}</td>
-                <td>{{$sale->kode}}</td>
+                <td>{{$sale->nip}}</td>
                 <td>
                   <div class="btn-group">
                     <form action="{{ route('admin.sales.destroy', $sale->id) }}" method="post">
@@ -104,8 +104,8 @@
                                   <input name="nama" type="text" class="form-control" placeholder="Masukan nama sales" value="{{$sale->nama}}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="input-kode">Kode</label>
-                                  <input name="kode" type="number" class="form-control" placeholder="Masukan kode sales" value="{{$sale->kode}}">
+                                  <label for="input-kode">NIP Sales</label>
+                                  <input name="kode" type="number" class="form-control" placeholder="Masukan NIP sales" value="{{$sale->nip}}">
                                 </div>
                                 <div class="form-group">
                                   <label for="input-username">Username</label>
