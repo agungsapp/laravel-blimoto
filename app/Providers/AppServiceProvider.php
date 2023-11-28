@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+
     /**
      * Register any application services.
      *
@@ -25,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Carbon::setLocale('id');
+
         //
         Str::macro('rupiah', function ($value) {
             return 'Rp. ' . number_format($value, 0, '.', '.');
