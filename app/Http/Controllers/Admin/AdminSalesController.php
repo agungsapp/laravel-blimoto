@@ -58,7 +58,7 @@ class AdminSalesController extends Controller
     try {
       $sales = Sales::create([
         'nama' => $request->input('nama'),
-        'kode' => $request->input('kode'),
+        'nip' => $request->input('kode'),
         'username' => $request->input('username'),
         'password' => Hash::make($request->input('password')),
       ]);
@@ -119,7 +119,7 @@ class AdminSalesController extends Controller
 
     $sales->nama = $request->nama;
     $sales->username = $request->username;
-    $sales->kode = $request->kode;
+    $sales->nip = $request->kode;
     $sales->password = $request->filled('password') ? Hash::make($request->input('password')) : $request->input('password_old');
     $sales->save();
 

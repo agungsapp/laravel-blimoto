@@ -15,7 +15,7 @@ class Sales extends Model implements AuthenticatableContract
   public $timestamps = false;
   protected $fillable = [
     'nama',
-    'kode',
+    'nip',
     'username',
     'password',
     'status_online'
