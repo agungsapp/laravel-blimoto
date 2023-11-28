@@ -55,6 +55,14 @@ class UserEventController extends Controller
   public function show($id)
   {
     //
+
+    $data = [
+      'event' => Event::find($id),
+    ];
+
+    // dd($data['event']);
+
+    return view('user.event.show', $data);
   }
 
   /**
