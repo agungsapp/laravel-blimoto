@@ -151,6 +151,7 @@
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
+                <th>Leasing</th>
                 <th>Tenor</th>
                 <th>Motor</th>
                 <th>Jumlah</th>
@@ -169,6 +170,7 @@
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->pembayaran}}</td>
+                <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
                 <td>{{$p->jumlah}}</td>
