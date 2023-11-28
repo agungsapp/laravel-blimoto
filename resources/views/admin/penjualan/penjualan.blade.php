@@ -32,16 +32,16 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="input-tenor">Tenor</label>
-                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
-              </div>
-              <div class="form-group col-md-6">
                 <label>Metode Pembayaran</label>
                 <select id="pembayaran-input" name="pembayaran" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih pembayaran --</option>
                   <option value="cash">Cash</option>
                   <option value="kredit">Kredit</option>
                 </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-tenor">Tenor</label>
+                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
               </div>
             </div>
 
@@ -90,7 +90,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input-hasil">Jumlah</label>
-                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor">
+                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="1">
               </div>
             </div>
 
@@ -151,6 +151,7 @@
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
+                <th>Leasing</th>
                 <th>Tenor</th>
                 <th>Motor</th>
                 <th>Jumlah</th>
@@ -169,6 +170,7 @@
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->pembayaran}}</td>
+                <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
                 <td>{{$p->jumlah}}</td>

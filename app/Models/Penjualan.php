@@ -34,7 +34,7 @@ class Penjualan extends Model
 
   public function leasing()
   {
-    return $this->belongsTo(LeasingMotor::class, 'id_leasing');
+    return $this->belongsTo(LeasingMotor::class, 'id_lising');
   }
 
   public function hasil()

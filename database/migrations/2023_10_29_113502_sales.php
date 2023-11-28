@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('kode')->unique();
+            $table->string('nip');
             $table->string('nama');
             $table->string('username')->unique();
             $table->string('password');
