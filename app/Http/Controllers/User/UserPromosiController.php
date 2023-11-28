@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class UserPromosiController extends Controller
@@ -14,7 +15,13 @@ class UserPromosiController extends Controller
      */
     public function index()
     {
+
         //
+
+
+
+        // dd($data['events']);
+
         return view('user.promosi.index');
     }
 
