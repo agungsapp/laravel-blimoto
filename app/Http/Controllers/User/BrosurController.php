@@ -18,10 +18,10 @@ class BrosurController extends Controller
     {
 
         $data = [
-            'terbaru' => $this->getMotorData(6),
+            'populer' => $this->getMotorData(6),
         ];
 
-        // dd($data['terbaru']);
+        // dd($data['populer']);
 
         return view('user.brosur.index', $data);
     }
@@ -94,7 +94,7 @@ class BrosurController extends Controller
 
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::with('diskonMotor')
+        $motors = Motor::with(['diskonMotor', 'brosurMotor'])
             ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
                 $query->where('id_best_motor', $bestMotorId);
             })
@@ -103,9 +103,10 @@ class BrosurController extends Controller
         foreach ($motors as $motor) {
             $motor->image = DetailMotor::where('id_motor', $motor->id)
                 ->pluck('gambar')->first();
-        }
 
-        // dd($motors);
+            // Lakukan null check sebelum mengakses properti 'nama_file'
+            $motor->brosur = $motor->brosurMotor ? $motor->brosurMotor->nama_file : null;
+        }
 
         return $motors;
     }
