@@ -232,7 +232,7 @@
 																																<div class="d-flex justify-content-between">
 																																		<p class="text-doff">Harga OTR </p>
 																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->otr) }}
+																																				{{ Str::rupiah($item4->harga) }}
 																																		</p>
 																																</div>
 																																<div class="d-flex justify-content-between">
