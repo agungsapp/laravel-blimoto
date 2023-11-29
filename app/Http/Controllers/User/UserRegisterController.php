@@ -36,18 +36,31 @@ class UserRegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
+
     public function store(Request $request)
     {
         //
 
         $otp = $this->generateOTP();
 
-        User::create([
-            'nama' => $request->nama,
-            'nomor_hp' => $request->nohp,
-            'kode_otp' => $otp,
-            'is_verified' => 0,
-        ]);
+        try {
+            $register =  User::firstOrNew([
+                'nama' => $request->nama,
+                'nomor_hp' => $request->nohp,
+                'kode_otp' => $otp,
+                'is_verified' => 0,
+            ]);
+
+
+
+            if ($register->exists) {
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         $data = [
             'nomor' => $request->nohp,
@@ -110,6 +123,9 @@ class UserRegisterController extends Controller
 
         $user = User::where('nomor_hp', $nomor)->first();
 
+        // dd($nomor, $otp, $user->kode_otp);
+        // dd($user->otp == $otp);
+
         if ($user && $user->otp == $otp) {
             $user->verified = 1;
             $user->kode_otp = 0000;
@@ -121,7 +137,7 @@ class UserRegisterController extends Controller
 
             return redirect()->to(route('home.index'));
         } else {
-            return redirect()->to(route('register.store'))->withErrors(['otp' => 'Masukan OTP dengan benar.']);
+            return redirect()->back()->withErrors(['otp' => 'Masukan OTP dengan benar.']);
         }
     }
 

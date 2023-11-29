@@ -106,21 +106,6 @@
 		</section>
 		<!--Section ends-->
 
-		<!-- video modal start -->
-		<div class="modal modal-v-sec fade" id="v-section1" role="dialog">
-				<div class="modal-dialog modal-dialog-centered">
-						<!-- Modal content-->
-						<div class="modal-content">
-								<!-- <i class="close ti-close" data-bs-dismiss="modal"></i>            -->
-								<iframe src="https://www.youtube.com/embed/XUNKidriodQ?si=S99O0CtYIJo7vYu-"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowfullscreen></iframe>
-						</div>
-				</div>
-		</div>
-		<!-- video modal start -->
-
-
 
 		<!-- add to  setting bar  end-->
 		<!-- latest jquery-->
