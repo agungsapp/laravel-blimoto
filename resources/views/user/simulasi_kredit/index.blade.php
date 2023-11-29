@@ -30,10 +30,10 @@
 	<div class="custom-container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-11 col-md-10 px-3 py-3">
-				<p class="fs-4 fw-bold mb-1 text-start text-black">Cari Diskon Terbaik Disini</h>
+				<p class="fs-4 fw-bold mb-1 text-start text-black">Cari Motor Kredit Disini</h>
 			</div>
 			<div class="col-11 col-md-10 card-diskon-terbaik py-lg-0 pt-lg-4 pe-lg-0 overflow-hidden py-5 pe-5 ps-5">
-				{{-- <h3 class="title8 mb-3 text-center">Cari Diskon Terbaik</h3> --}}
+				{{-- <h3 class="title8 mb-3 text-center">Simulasi Kredit</h3> --}}
 
 				<div class="row">
 					<div class="col-12 col-lg-8">
@@ -77,7 +77,7 @@
 								</div>
 
 								<!-- pembayaran -->
-								<div class="col-12 col-md-4">
+								<!-- <div class="col-12 col-md-4">
 									<div class="form-group">
 										<label for="SelectKota" class="mb-0" style="font-size: 12px">Pembayaran</label>
 										<select id="pembayaran" class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="pembayaran">
@@ -86,7 +86,7 @@
 											<option value="2">Kredit</option>
 										</select>
 									</div>
-								</div>
+								</div> -->
 
 								<!-- model motor -->
 								<div class="col-12 col-md-4">
@@ -159,7 +159,7 @@
 					{{-- img simulasi kanan --}}
 					<div class="col-12 col-lg-4 d-none d-lg-block h-100 p-0">
 						<div class="w-100 h-100 d-flex justify-content-end align-items-end">
-							<img src="{{ asset('assets') }}/images/custom/simulasi/simulasi.svg" class="w-75 h-100" style="" alt="simulasi.png">
+							<img src="{{ asset('assets') }}/images/custom/simulasi/simulasi.png" class="w-75 h-100" style="" alt="simulasi.png">
 						</div>
 					</div>
 				</div>
