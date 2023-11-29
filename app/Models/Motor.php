@@ -59,4 +59,9 @@ class Motor extends Model
     {
         return $this->belongsTo(MtrBestMotor::class, 'id', 'id_motor');
     }
+
+    public function brosurMotor()
+    {
+        return $this->hasOne(BrosurMotor::class, 'id_motor', 'id');
+    }
 }

@@ -115,6 +115,9 @@
 																								Menampilkan hasil pencarian untuk :
 																								<strong class="text-capitalize text-basic">'{{ $keyword }}'
 																								</strong>
+																								@if ($data->count() == 0)
+																										data tidak di temukan
+																								@endif
 																						</h3>
 																				</div>
 																				<div class="d-flex align-items-baseline gap-3">
@@ -175,12 +178,12 @@
 																				@if ($data->count() == 0)
 																						<div class="container-fluid d-flex flex-column">
 																								<div class="mx-auto text-center">
-																										<img width="300" class="d-block" src="{{ asset('assets') }}/images/gif/sorry.gif"
+																										<img width="100%" class="d-block" src="{{ asset('assets') }}/images/gif/sorry.webp"
 																												alt="sorry.gif">
-																										<h4 class="text-center">
+																										{{-- <h4 class="text-center">
 																												Yah Maaf banget pencarian motor <strong>"{{ $keyword }}"</strong> untuk lokasi kota
 																												<strong>"{{ $lokasi[0]->nama }}"</strong> belum ada
-																										</h4>
+																										</h4> --}}
 																								</div>
 																						</div>
 																				@endif
