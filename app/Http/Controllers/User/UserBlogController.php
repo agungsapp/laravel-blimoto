@@ -15,7 +15,15 @@ class UserBlogController extends Controller
      */
     public function index()
     {
-        return view('user.blog.index');
+
+        $data = [
+            'blogs' => Blog::all(),
+            'recents' => Blog::orderBy('created_at', 'desc')->limit(5)->get(),
+        ];
+
+        // dd($data['recents']);
+
+        return view('user.blog.index', $data);
     }
 
     /**
@@ -49,9 +57,10 @@ class UserBlogController extends Controller
     {
         $data = [
             'blog' => Blog::where('id', $id)->first(),
+            'recents' => Blog::orderBy('created_at', 'desc')->limit(5)->get(),
         ];
 
-        return view('user.detail_blog.index', $data);
+        return view('user.blog.show', $data);
     }
 
     /**

@@ -175,9 +175,7 @@
 																								<li>
 																										<a href="{{ route('simulasi_kredit.index') }}">Simulasi</a>
 																								</li>
-																								<li>
-																										<a href="{{ route('brosur_kredit.index') }}">Brosur</a>
-																								</li>
+
 																								<li><a href="{{ route('syarat_kredit.index') }}">Syarat Kredit</a></li>
 																								<li>
 																										<a href="{{ route('info_leasing.index') }}">Info Leasing</a>

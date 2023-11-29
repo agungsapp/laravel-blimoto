@@ -18,7 +18,7 @@ class BrosurController extends Controller
     {
 
         $data = [
-            'terbaru' => $this->getMotorData(7),
+            'terbaru' => $this->getMotorData(6),
         ];
 
         // dd($data['terbaru']);

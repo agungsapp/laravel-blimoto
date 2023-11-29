@@ -70,27 +70,27 @@
 										<div class="theme-card">
 												<h3 class="mb-1 text-center">Daftar</h3>
 												<p class="mb-4 text-center">daftar dan temukan motor impian yang sesuai dengan anda</p>
-												<form class="theme-form">
+												<form class="theme-form" action="{{ route('register.store') }}" method="POST">
+														@csrf
 														<div class="row g-3">
 																<div class="col-md-12 form-group">
 																		<label for="nama">Nama lengkap</label>
-																		<input type="text" class="form-control" id="nama" placeholder="masukan nama lengkap anda"
-																				required>
+																		<input type="text" class="form-control" id="nama" name="nama"
+																				placeholder="masukan nama lengkap anda" required>
 																</div>
 																<label for="nohp">Nomor Hp</label>
 																<div class="col-md-12 input-group mb-4">
 																		<span class="input-group-text" id="nohp">+62</span>
-																		<input type="text" class="form-control" placeholder="08xxxxxxxxxx" aria-describedby="nohp">
+																		<input type="text" class="form-control" name="nohp" placeholder="08xxxxxxxxxx"
+																				aria-describedby="nohp">
 																</div>
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12 form-group">
-																		<label>email</label>
-																		<input type="text" class="form-control" placeholder="Email" required="">
-																</div>
-																<div class="col-md-12 form-group"><button type="submit" class="btn btn-rounded">
+																		<button type="submit" class="btn btn-rounded">
 																				Daftar
-																		</button></div>
+																		</button>
+																</div>
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12">
