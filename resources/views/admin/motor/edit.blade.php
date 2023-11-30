@@ -91,7 +91,7 @@
 							<select name="kategori-best-motor" class="form-control">
 								<option value="" selected>-- Pilih kategori best motor --</option>
 								@foreach ($kategori_best_motor as $merk)
-								<option value="{{ $merk->id }}" {{ $motor[0]->id_best_motor === $merk->id ? 'selected' : '' }}>
+								<option value="{{ $merk->id }}" {{ $motor[0]->mtrBestMotor->id_best_motor === $merk->id ? 'selected' : '' }}>
 									{{ $merk->nama }}
 								</option>
 								@endforeach

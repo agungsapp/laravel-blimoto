@@ -137,7 +137,7 @@ class MotorController extends Controller
      */
     public function edit($id)
     {
-        $motor = Motor::where('id', $id)->get();
+        $motor = Motor::with('mtrBestMotor')->where('id', $id)->get();
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
