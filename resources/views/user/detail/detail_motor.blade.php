@@ -345,7 +345,7 @@
 				let now = new Date();
 				let year = now.getFullYear();
 				let month = now.getMonth() + 1; // JavaScript months are 0-11
-				let day = now.getDate();
+				let day = now.getDate() + 1;
 
 				console.log("count down start")
 
