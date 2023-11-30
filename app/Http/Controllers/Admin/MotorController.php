@@ -207,14 +207,14 @@ class MotorController extends Controller
     public function destroy($id)
     {
         try {
-            $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
-            $kategoriBestMotor->delete();
+            // $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
+            // $kategoriBestMotor->delete();
             $motor = Motor::findOrFail($id);
             $motor->delete();
             flash()->addSuccess("Berhasil menghapus motor!");
             return redirect()->back();
         } catch (\Throwable $th) {
-            flash()->addError("$motor->name tidak bisa dihapus karena data digunakan oleh data lain!");
+            flash()->addError("Tidak bisa dihapus karena data digunakan oleh data lain!");
             return redirect()->back();
         }
     }
