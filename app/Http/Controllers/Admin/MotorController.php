@@ -28,16 +28,17 @@ class MotorController extends Controller
                 ->join('type', 'motor.id_type', '=', 'type.id')
                 ->leftJoin('mtr_motor_best', 'motor.id', '=', 'mtr_motor_best.id_motor')
                 ->leftJoin('best_motor', 'best_motor.id', '=', 'mtr_motor_best.id_best_motor')
-                ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name')
+                ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name', 'mtr_motor_best.id_best_motor')
                 ->get();
 
             return DataTables::of($motors)
                 ->addColumn('action', function ($motor) {
                     return '<div class="d-flex justify-content-between">
-                                <a href="' . route('admin.motor.edit', $motor->id) . '" class="btn btn-warning">Edit</a>
+                                <a href="' . route('admin.motor.edit', ['motor' => $motor->id, 'id_best_motor' => $motor->id_best_motor]) . '" class="btn btn-warning">Edit</a>
                                 <form action="' . route('admin.motor.destroy', $motor->id) . '" method="post">
                                     ' . csrf_field() . '
                                     ' . method_field('DELETE') . '
+                                    <input type="hidden" name="id_best_motor" value="' . (isset($motor->mtr_motor_best) ? $motor->mtr_motor_best->id_best_motor : '') . '">
                                     <button type="submit" class="btn btn-danger show_confirm">Delete</button>
                                 </form>
                             </div>';
@@ -137,18 +138,18 @@ class MotorController extends Controller
      */
     public function edit($id)
     {
-        $motor = Motor::with('mtrBestMotor')->where('id', $id)->get();
+        $motor = Motor::where('motor.id', $id)->get();
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
-
-        // dd($motor);
+        $id_best_motor = intval(request('id_best_motor'));
 
         return view('admin.motor.edit', [
             'motor' => $motor,
             'merk_motor' => $merk_motor,
             'tipe_motor' => $tipe_motor,
             'kategori_best_motor' => $kategori_best_motor,
+            'id_best_motor' => $id_best_motor,
         ]);
     }
 
@@ -178,24 +179,28 @@ class MotorController extends Controller
 
         $kategori_best_motor = $request->input('kategori-best-motor') ?? 1;
         $stock = $request->input('stock-motor') ?? 1;
-
-        $motor = Motor::findOrFail($id);
-        $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
-
-
-        $motor->nama = $request->nama;
-        $motor->harga = $request->harga;
-        $motor->deskripsi = $request->deskripsi_motor;
-        $motor->fitur_utama = $request->fitur_motor;
-        $motor->bonus = $request->bonus_motor;
-        $motor->id_merk = $request->merk_motor;
-        $motor->id_type = $request->tipe_motor;
-        $motor->stock = $stock;
-        $kategoriBestMotor->id_best_motor = $kategori_best_motor;
-
-        $motor->save();
-        flash()->addSuccess("Berhasil merubah motor!");
-        return redirect()->to(route('admin.motor.index'));
+        try {
+            $motor = Motor::findOrFail($id);
+            $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
+    
+            $motor->nama = $request->nama;
+            $motor->harga = $request->harga;
+            $motor->deskripsi = $request->deskripsi_motor;
+            $motor->fitur_utama = $request->fitur_motor;
+            $motor->bonus = $request->bonus_motor;
+            $motor->id_merk = $request->merk_motor;
+            $motor->id_type = $request->tipe_motor;
+            $motor->stock = $stock;
+            $kategoriBestMotor->id_best_motor = $kategori_best_motor;
+    
+            $motor->save();
+            $kategoriBestMotor->save();
+            flash()->addSuccess("Berhasil merubah motor!");
+            return redirect()->to(route('admin.motor.index'));
+        } catch (\Exception $e) {
+            flash()->addSuccess("Gagal merubah data silahkan cek kembali inputan!");
+            return redirect()->back();
+        }
     }
 
     /**
