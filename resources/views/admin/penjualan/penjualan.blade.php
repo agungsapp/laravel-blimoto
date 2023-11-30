@@ -13,17 +13,17 @@
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="input-hasil">Nama Konsumen</label>
-                <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen">
+                <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen" value="{{ old('konsumen') }}">
               </div>
               <div class="form-group col-md-6">
                 <label>Sales</label>
                 @if ($sales == null)
                 <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
                 @else
-                <select id="sales-input" name="sales" class="form-control select2" style="width: 100%;">
+                <select id="sales-input-input" name="sales" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih sales --</option>
                   @foreach ($sales as $s)
-                  <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                  <option value="{{ $s->id }}" {{ old('sales') == $s->id ? 'selected' : '' }}>{{ $s->nama }}</option>
                   @endforeach
                 </select>
                 @endif
@@ -35,13 +35,13 @@
                 <label>Metode Pembayaran</label>
                 <select id="pembayaran-input" name="pembayaran" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih pembayaran --</option>
-                  <option value="cash">Cash</option>
-                  <option value="kredit">Kredit</option>
+                  <option value="cash" {{ old('pembayaran') == 'cash' ? 'selected' : '' }}>Cash</option>
+                  <option value="kredit" {{ old('pembayaran') == 'kredit' ? 'selected' : '' }}>Kredit</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="input-tenor">Tenor</label>
-                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
+                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
               </div>
             </div>
 
@@ -54,7 +54,7 @@
                 <select id="kabupaten-input" name="kabupaten" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih kabupaten --</option>
                   @foreach ($kota as $k)
-                  <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                  <option value="{{ $k->id }}" {{ old('kabupaten') == $k->id ? 'selected' : '' }}>{{ $k->nama }}</option>
                   @endforeach
                 </select>
                 @endif
@@ -67,7 +67,7 @@
                 <select id="hasil-input" name="hasil" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih hasil --</option>
                   @foreach ($hasil as $h)
-                  <option value="{{ $h->id }}">{{ $h->hasil }}</option>
+                  <option value="{{ $h->id }}" {{ old('hasil') == $h->id ? 'selected' : '' }}>{{ $h->hasil }}</option>
                   @endforeach
                 </select>
                 @endif
@@ -83,14 +83,14 @@
                 <select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih motor --</option>
                   @foreach ($motor as $m)
-                  <option value="{{ $m->id }}">{{ $m->nama }}</option>
+                  <option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
                   @endforeach
                 </select>
                 @endif
               </div>
               <div class="form-group col-md-6">
                 <label for="input-hasil">Jumlah</label>
-                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="1">
+                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{ old('jumlah', '1') }}">
               </div>
             </div>
 
@@ -103,19 +103,21 @@
                 <select id="leasing-input" name="leasing" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih leasing --</option>
                   @foreach ($leasing as $l)
-                  <option value="{{ $l->id }}">{{ $l->nama }}</option>
+                  <option value="{{ $l->id }}" {{ old('leasing') == $l->id ? 'selected' : '' }}>{{ $l->nama }}</option>
                   @endforeach
                 </select>
                 @endif
               </div>
               <div class="form-group col-md-6">
                 <label for="input-hasil">Catatan Penjualan</label>
-                <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor">
+                <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{ old('catatan') }}">
               </div>
-
             </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
+
       </div>
 
     </div>
@@ -191,7 +193,7 @@
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
                         Edit
                       </button>
-                      <button type="submit" class="btn btn-danger">Delete</button>
+                      <button type="submit" class="btn btn-danger show_confirm">Delete</button>
                     </form>
                   </div>
                   <!-- Modal cetak -->
@@ -258,12 +260,12 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                       <label>Metode Pembayaran</label>
-                                      <select id="metodePembayaran" name="metode_pembayaran" class="form-control select2" style="width: 100%;">
-                                        <option value="tunai">Tunai</option>
+                                      <select id="metodePembayaran_{{$loop->index}}" name="metode_pembayaran" class="form-control select2 metodePembayaran" style="width: 100%;" onchange="toggleMetodeLainnya(this)">
+                                        <option value="tunai" selected>Tunai</option>
                                         <option value="cek">Cek/Bilyet Giro</option>
                                         <option value="">Kredit</option>
                                       </select>
-                                      <div class="form-check my-3" id="metodeHide">
+                                      <div class="form-check my-3 metodeHide" id="metodeLainnya_{{$loop->index}}" style="display: none;">
                                         <input type="text" class="form-control" placeholder="Masukan nama leasing" name="metode_lainnya">
                                       </div>
                                     </div>
@@ -280,9 +282,9 @@
                                     <div class="form-group col-md-12">
                                       <label>Jangka Waktu</label>
                                       <input type="hidden" class="jangka_send" name="jangka_waktu">
-                                      <div class="input-group date jangka_waktu" id="reservationdate_jangka" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate_jangka" />
-                                        <div class="input-group-append" data-target="#reservationdate_jangka" data-toggle="datetimepicker">
+                                      <div class="input-group date jangka_waktu" id="jangka_waktu_cetak_{{ $loop->index }}" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#jangka_waktu_cetak_{{ $loop->index }}" />
+                                        <div class="input-group-append" data-target="#jangka_waktu_cetak_{{ $loop->index }}" data-toggle="datetimepicker">
                                           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                       </div>
@@ -299,7 +301,6 @@
                       </div>
                     </div>
                   </div>
-
                 </td>
               </tr>
               <!-- Modal update -->
@@ -341,15 +342,15 @@
 
                               <div class="row">
                                 <div class="form-group col-md-6">
-                                  <label for="input-tenor">Tenor</label>
-                                  <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" value="{{$p->tenor}}">
-                                </div>
-                                <div class="form-group col-md-6">
                                   <label>Metode Pembayaran</label>
-                                  <select id="pembayaran" name="pembayaran" class="form-control select2" style="width: 100%;">
+                                  <select id="pembayaranUpdate_{{$loop->index}}" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
                                     <option value="cash" {{ $p->pembayaran === 'cash' ? 'selected' : '' }}>Cash</option>
                                     <option value="kredit" {{ $p->pembayaran === 'kredit' ? 'selected' : '' }}>Kredit</option>
                                   </select>
+                                </div>
+                                <div class="form-group col-md-6" id="tenorUpdate_{{$loop->index}}">
+                                  <label for="input-tenor">Tenor</label>
+                                  <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" value="{{$p->tenor}}">
                                 </div>
                               </div>
 
@@ -403,22 +404,18 @@
                               </div>
 
                               <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" id="leasingUpdate_{{$loop->index}}">
                                   <label>Leasing</label>
-                                  @if ($leasing == null)
-                                  <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
-                                  @else
-                                  <select id="leasing" name="leasing" class="form-control select2" style="width: 100%;">
+                                  <select name="leasing" class="form-control select2" style="width: 100%;">
                                     <option value="" selected>-- Pilih leasing --</option>
                                     @foreach ($leasing as $l)
                                     <option value="{{ $l->id }}" @if($p->id_lising === $l->id) selected @endif>{{ $l->nama }}</option>
                                     @endforeach
                                   </select>
-                                  @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label for="input-hasil">Catatan Penjualan</label>
-                                  <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor" value="{{$p->catatan}}">
+                                  <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{$p->catatan}}">
                                 </div>
                               </div>
 
@@ -464,65 +461,20 @@
 
 @endsection
 @push('script')
-<!-- <script>
-  $(document).ready(function() {
-    // DataTable initialization
-    var table = $('#data-sale').DataTable();
-
-    // Append input fields for date range pickers to the DataTables filter row
-    $(`<input type="text" id="min-date" placeholder="Min Date"/>`).appendTo('#data-sale_filter');
-    $('<input type="text" id="max-date" placeholder="Max Date"/>').appendTo('#data-sale_filter');
-
-    // Initialize datepickers
-    $('#min_date, #max-date').on('select', function() {
-      datetimepicker({
-        dateFormat: 'yy-mm-dd', // Set the desired date format
-        onSelect: function() {
-          table.draw();
-        }
-      });
-    });
-
-
-    // Add date range filter for Tanggal Dibuat column
-    $.fn.dataTable.ext.search.push(
-      function(settings, data, dataIndex) {
-        var minDate = $('#min-date').val();
-        var maxDate = $('#max-date').val();
-        var date = moment(data[10]);
-
-        if (
-          (minDate === '' || date.isSameOrAfter(minDate)) &&
-          (maxDate === '' || date.isSameOrBefore(maxDate))
-        ) {
-          return true;
-        }
-
-        return false;
-      }
-    );
-
-    // Apply the filter on input change
-    $('#min-date, #max-date').on('change', function() {
-      table.draw();
-    });
-
-  });
-</script> -->
 <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
 <script>
+  $('.select2').select2()
+
   function toggleLeasingInput() {
     if ($('#pembayaran-input').val() === 'cash') {
       $('#leasing-input').closest('.form-group').hide();
+      $('#input-tenor').closest('.form-group').hide();
     } else {
       $('#leasing-input').closest('.form-group').show();
+      $('#input-tenor').closest('.form-group').show();
     }
   }
-
-  // Initial check
   toggleLeasingInput();
-
-  // Event listener for changes in payment method
   $('#pembayaran-input').change(function() {
     toggleLeasingInput();
   });
@@ -538,12 +490,21 @@
       }
     }]
   });
+
+  // Apply the filter on input change
+  $('#min, #max').on('change', function() {
+    table.draw();
+  });
+
+  // Create date inputs
+  minDate = new DateTime('#min', {});
+  maxDate = new DateTime('#max', {});
   // Custom filtering function which will search data in column four between two values
   $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
       var minDate = $('#min').val();
       var maxDate = $('#max').val();
-      var date = moment(data[10]);
+      var date = moment(data[11]);
       if (
         (minDate === '' || date.isSameOrAfter(minDate)) &&
         (maxDate === '' || date.isSameOrBefore(maxDate))
@@ -554,15 +515,49 @@
       return false;
     }
   );
+</script>
 
-  // Apply the filter on input change
-  $('#min, #max').on('change', function() {
-    table.draw();
+<script>
+  var metodePembayaranElements = document.querySelectorAll('[id^="metodePembayaran_"]');
+  metodePembayaranElements.forEach(function(selectElement) {
+    toggleMetodeLainnya(selectElement);
   });
 
-  // Create date inputs
-  minDate = new DateTime('#min', {});
-  maxDate = new DateTime('#max', {});
+  function toggleMetodeLainnya(selectElement) {
+    var index = selectElement.id.split('_')[1];
+    var metodeLainnyaInput = document.getElementById('metodeLainnya_' + index);
+
+    if (selectElement.value === 'tunai' || selectElement.value === 'cek') {
+      metodeLainnyaInput.style.display = 'none';
+    } else {
+      metodeLainnyaInput.style.display = 'block';
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Initial check when the page loads
+    var metodePembayaranElements = document.querySelectorAll('[id^="pembayaranUpdate_"]');
+    metodePembayaranElements.forEach(function(selectElement) {
+      toggleFieldsUpdate(selectElement);
+    });
+  });
+
+  function toggleFieldsUpdate(selectElement) {
+    var index = selectElement.id.split('_')[1];
+    var tenorField = document.getElementById('tenorUpdate_' + index);
+    var leasingField = document.getElementById('leasingUpdate_' + index);
+    console.log(leasingField);
+
+    if (selectElement.value === 'cash') {
+      tenorField.style.display = 'none';
+      leasingField.style.display = 'none';
+    } else {
+      tenorField.style.display = 'block';
+      leasingField.style.display = 'block';
+    }
+  }
 </script>
 
 <script>
@@ -576,23 +571,17 @@
     });
   }
 
-  $(function() {
-    $('.select2').select2()
-    initDatePickers();
+  $(document).ready(function() {
+    $('#data-sale').on('shown.bs.modal', '.modal', function() {
+      initDatePickers();
+      $('.select2').select2()
+    });
+
     $('button[data-toggle="modal"]').on('click', function() {
       initDatePickers();
+      $('.select2').select2()
     });
   });
-
-  $('#metodeHide').hide();
-  $('#metodePembayaran').on('change', function() {
-    if ($(this).val() === '') {
-      $('#metodeHide').show();
-    } else {
-      $('#metodeHide').hide();
-    }
-  });
-
 
   function formatTanggal(tanggal) {
     return moment(tanggal, 'MM/DD/YYYY').format('DD MMMM YYYY');
@@ -612,5 +601,25 @@
   var tanggalLama = tanggalInput.val();
   var tanggalBaru = formatTanggal(tanggalLama);
   tanggalInput.val(tanggalBaru);
+
+  $(document).ready(function() {
+    $('.show_confirm').click(function(event) {
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Delete Data ?`,
+          text: "data yang di hapus tidak dapat dipulihkan!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.submit();
+          }
+        });
+    });
+  })
 </script>
 @endpush
