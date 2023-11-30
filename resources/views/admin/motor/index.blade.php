@@ -127,9 +127,6 @@
 							<th width="120px">Action</th>
 						</tr>
 					</thead>
-					<tbody>
-
-					</tbody>
 					<tfoot>
 						<tr>
 							<th>ID</th>
@@ -153,6 +150,25 @@
 
 
 @push('script')
+<script>
+	$(document).on('click', '.show_confirm', function(e) {
+		e.preventDefault();
+		var form = $(this).closest('form');
+		event.preventDefault();
+		swal({
+				title: `Delete Data ?`,
+				text: "data yang di hapus tidak dapat dipulihkan!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					form.submit();
+				}
+			});
+	});
+</script>
 <script>
 	$(document).ready(function() {
 		// Summernote
@@ -184,6 +200,9 @@
 	$(function() {
 		$('#dataMotor').DataTable({
 			serverSide: true,
+			order: [
+				[0, 'desc']
+			],
 			ajax: {
 				url: '{{ route("admin.motor.index") }}',
 				type: 'GET',
@@ -233,25 +252,5 @@
 			]
 		});
 	});
-
-	$(document).ready(function() {
-		$('.show_confirm').click(function(event) {
-			var form = $(this).closest("form");
-			var name = $(this).data("name");
-			event.preventDefault();
-			swal({
-					title: `Delete Data Motor ?`,
-					text: "data yang di hapus tidak dapat dipulihkan!",
-					icon: "warning",
-					buttons: true,
-					dangerMode: true,
-				})
-				.then((willDelete) => {
-					if (willDelete) {
-						form.submit();
-					}
-				});
-		});
-	})
 </script>
 @endpush

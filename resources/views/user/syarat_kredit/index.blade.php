@@ -142,7 +142,7 @@
 								</div>
 
 								<!-- pembayaran -->
-								<div class="col-12 col-md-4">
+								<!-- <div class="col-12 col-md-4">
 									<div class="form-group">
 										<label for="SelectKota" class="mb-0" style="font-size: 12px">Pembayaran</label>
 										<select id="pembayaran" class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="pembayaran">
@@ -151,7 +151,7 @@
 											<option value="2">Kredit</option>
 										</select>
 									</div>
-								</div>
+								</div> -->
 
 								<!-- model motor -->
 								<div class="col-12 col-md-4">
