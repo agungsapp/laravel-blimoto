@@ -56,7 +56,7 @@
 
 		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
 
-		<link rel="stylesheet" type="text/css" {{-- href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}} <script src="{{ asset('assets') }}/js/countDown.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" {{-- href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}} <script src="{{ asset('assets') }}/js/countDown.js"></script> -->
 
 
 		<!-- sweat alert -->
@@ -290,7 +290,7 @@
 
 </html>
 <!-- botman -->
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+<!-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 <script>
 		var botmanWidget = {
 				// chatServer: '/botman',
@@ -303,4 +303,4 @@
 				bubbleBackground: '#DD0202',
 
 		};
-</script>
+</script> -->
