@@ -43,23 +43,29 @@ class UserRegisterController extends Controller
     public function store(Request $request)
     {
         //
+        // Validate request data as needed
 
         $otp = $this->generateOTP();
 
         try {
-            $register =  User::firstOrNew([
-                'nama' => $request->nama,
+            $user = User::firstOrNew([
                 'nomor_hp' => $request->nohp,
-                'kode_otp' => $otp,
-                'is_verified' => 0,
             ]);
 
-
-
-            if ($register->exists) {
+            if ($user->exists) {
+                // User already exists with the provided phone number
+                // You can handle this situation, for example, by redirecting back with an error message
+                return redirect()->back()->with('error', 'User with this phone number already exists.');
             }
+
+            // Set or update other user attributes
+            $user->nama = $request->nama;
+            $user->kode_otp = $otp;
+            $user->is_verified = 0;
+            $user->save();
         } catch (\Throwable $th) {
-            //throw $th;
+            // Handle exceptions if needed
+            return redirect()->back()->with('error', 'An error occurred while processing your request.');
         }
 
         $data = [
@@ -118,26 +124,24 @@ class UserRegisterController extends Controller
 
     public function verifikasi(Request $request)
     {
-        $nomor = $request->nomor;
-        $otp = $request->otp;
+        $nomor = $request->input('nomor');
+        $otp_user = intval($request->input('kode_otp'));
 
         $user = User::where('nomor_hp', $nomor)->first();
 
-        // dd($nomor, $otp, $user->kode_otp);
-        // dd($user->otp == $otp);
-
-        if ($user && $user->otp == $otp) {
-            $user->verified = 1;
+        // $kebenaran = $user->kode_otp == $otp_user;
+        if ($user && $user->kode_otp == $otp_user) {
+            $user->is_verified = 1;
             $user->kode_otp = 0000;
             $user->save();
 
             Auth::login($user); // Log in the user
 
-
-
-            return redirect()->to(route('home.index'));
+            // Mengirim respons JSON dengan status code 200 (OK)
+            return response()->json(['success' => true, 'message' => 'Token',], 200);
         } else {
-            return redirect()->back()->withErrors(['otp' => 'Masukan OTP dengan benar.']);
+            // Mengirim respons JSON dengan status code 422 (Unprocessable Entity)
+            return response()->json(['success' => false, 'message' => 'Masukkan OTP dengan benar'], 422);
         }
     }
 
