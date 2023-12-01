@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('slik', function (Blueprint $table) {
             $table->id();
+            $table->string('no');
             $table->string('ktp');
             $table->string('kk');
             $table->string('status');
+            $table->string('email')->nullable();
+            $table->enum('status_pembayaran', ['pending', 'success', 'free'])->default('pending');
             $table->unsignedBigInteger('id_type_slik');
-            // Add foreign key constraint if needed
             $table->foreign('id_type_slik')->references('id')->on('type_slik');
         });
     }
