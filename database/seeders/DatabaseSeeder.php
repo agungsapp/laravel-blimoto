@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PenjualanSeeder::class);
         $this->call(MtrBestMotorSeeder::class);
         $this->call(CompanyProfileSeeder::class);
+        $this->call(TypeSlikSeeder::class);
         DB::table('admin')->insert([
             'nama' => 'Admin BliMoto',
             'username' => 'admin',

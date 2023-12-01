@@ -12,4 +12,9 @@ class TypeSlik extends Model
     'nama',
     'harga',
   ];
+
+  public function sliks()
+  {
+    return $this->hasMany(Slik::class, 'id_type_slik');
+  }
 }
