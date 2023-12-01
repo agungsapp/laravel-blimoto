@@ -180,7 +180,7 @@
 				</li>
 
 				{{-- master slik --}}
-				<li class="nav-item {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'menu-open' : '' }}">
+				<!-- <li class="nav-item {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-id-card" aria-hidden="true"></i>
 						<p>
@@ -202,7 +202,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
 
 				<li class="nav-item">
 					<a href="{{ route('admin.blog.index') }}" class="nav-link {{ \Route::is('admin.blog.*') ? 'active' : '' }}">
