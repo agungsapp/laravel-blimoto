@@ -483,3 +483,6 @@ $('.slick-card-home').slick({
     // instead of a settings object
   ]
 });
+
+
+

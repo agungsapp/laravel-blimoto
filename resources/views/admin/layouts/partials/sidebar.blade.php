@@ -161,12 +161,12 @@
 								<p>Master Hasil</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a href="{{ route('admin.penjualan.spk.index') }}" class="nav-link {{ \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>SPK</p>
 							</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 

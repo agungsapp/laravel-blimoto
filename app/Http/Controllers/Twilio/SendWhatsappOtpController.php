@@ -85,8 +85,14 @@ class SendWhatsappOtpController extends Controller
         //
     }
 
-    public function send()
+    public function send(Request $request)
     {
+
+        $nomor = $request->input('nomor');
+        $otp = $request->input('otp');
+        $message = 'Kode OTP Anda Adalah : ' . $otp;
+
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -99,8 +105,8 @@ class SendWhatsappOtpController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
-                'target' => '08984287381',
-                'message' => 'test message',
+                'target' => $nomor,
+                'message' => $message,
                 'countryCode' => '62', //optional
             ),
             CURLOPT_HTTPHEADER => array(

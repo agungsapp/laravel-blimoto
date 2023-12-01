@@ -34,8 +34,8 @@ states.initialize();
 
 
 $('.the-basics .typeahead').typeahead({
-  hint: true,
-  highlight: true,
+  hint: false,
+  highlight: false,
   minLength: 1
 },)
 // {

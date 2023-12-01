@@ -56,8 +56,8 @@
 
 		<link rel="stylesheet" href="{{ asset('assets') }}/css/simplyCountdown.css">
 
-		<!-- <link rel="stylesheet" type="text/css" {{-- href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}} <script src="{{ asset('assets') }}/js/countDown.js"></script> -->
-
+		<link rel="stylesheet" type="text/css">
+		<script src="{{ asset('assets') }}/js/countDown.js"></script>
 
 		<!-- sweat alert -->
 		{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> --}}

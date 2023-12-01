@@ -46,6 +46,8 @@
 																<p class="card-text text-success fw-bold mt-2">
 																		{{ $event->tanggal_event }}
 																</p>
+																<a href="{{ route('event.show', $event->id) }}" class="btn btn-basic mt-2 rounded-lg px-4 py-1">Lihat
+																		Detail</a>
 														</div>
 												</div>
 										</div>

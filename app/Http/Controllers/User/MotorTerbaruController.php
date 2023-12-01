@@ -70,6 +70,10 @@ class MotorTerbaruController extends Controller
     $motorData->appends($request->all());
 
     // Return the view with data and additional filter data for form selections
+
+
+    // dd($motorData);
+
     return view('user.motor_terbaru.index', [
       'data' => $motorData,
       'merks' => Merk::all(),

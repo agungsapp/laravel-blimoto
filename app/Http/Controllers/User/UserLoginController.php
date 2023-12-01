@@ -36,6 +36,7 @@ class UserLoginController extends Controller
     public function store(Request $request)
     {
         //
+        return  "ini store";
     }
 
     /**

@@ -17,11 +17,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nomor_hp',
-        'nama',
-        'kode_otp',
-        'ig',
-        'is_verified',
+    protected $guarded = [
+        'id'
     ];
+
+    public $timestamps = false;
 }
