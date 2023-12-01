@@ -35,6 +35,10 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 
 	<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css" />
 
+	<!-- lightbox -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -135,6 +139,8 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 	{{-- sweet alert --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
+	<!-- light box -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
 
 	@stack('script')

@@ -179,6 +179,31 @@
 					</a>
 				</li>
 
+				{{-- master slik --}}
+				<li class="nav-item {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-id-card" aria-hidden="true"></i>
+						<p>
+							Master Slik
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.slik-bi.index') }}" class="nav-link {{ \Route::is('admin.slik-bi.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Cek Slik BI</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.type-slik-bi.index') }}" class="nav-link {{ \Route::is('admin.type-slik-bi.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Type Slik BI</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+
 				<li class="nav-item">
 					<a href="{{ route('admin.blog.index') }}" class="nav-link {{ \Route::is('admin.blog.*') ? 'active' : '' }}">
 						<i class="nav-icon fas fa-newspaper"></i>
