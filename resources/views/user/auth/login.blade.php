@@ -58,7 +58,9 @@
 
 
 		<div class="container mt-5 text-center">
-				<img src="assets/images/logo/Logo-blimoto.webp" alt="">
+				<a href="/home">
+						<img src="assets/images/logo/Logo-blimoto.webp" alt="">
+				</a>
 		</div>
 
 
