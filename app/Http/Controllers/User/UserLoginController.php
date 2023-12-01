@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserLoginController extends Controller
 {
@@ -79,8 +80,10 @@ class UserLoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         //
+        Auth::logout(); // Lakukan proses logout
+        return redirect()->route('login'); // Redirect ke halaman login atau halaman lain yang diinginkan
     }
 }

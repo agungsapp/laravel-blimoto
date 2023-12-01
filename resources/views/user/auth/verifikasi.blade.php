@@ -72,7 +72,7 @@
 										<div class="theme-card">
 												<h3 class="mb-1 text-center">Verifikasi Nomor HP</h3>
 												<p class="mb-4 text-center">Hore, tinggal selangkah lagi untuk mengaktifkan akun anda.</p>
-												<form class="theme-form" action="{{ route('register.verif') }}" method="POST">
+												<form id="form-verifikasi" class="theme-form" action="{{ route('register.verif') }}" method="POST">
 														@csrf
 
 														<input type="hidden" id="nomor" name="nomor" value="{{ $nomor }}">
@@ -84,9 +84,9 @@
 																		</div>
 																@enderror
 																<div class="col-md-12 form-group">
-																		<label for="otp">Masukan Kode OTP</label>
-																		<input type="text" class="form-control" id="otp" name="otp" value="{{ old('otp') }}"
-																				placeholder="Masukan 4 Digit Kode OTP" required>
+																		<label for="otp_user">Masukan Kode OTP</label>
+																		<input type="text" class="form-control" id="otp_user" name="otp_user"
+																				value="{{ old('otp') }}" placeholder="Masukan 4 Digit Kode OTP" required>
 																</div>
 																<div class="col-md-12 form-group d-flex justify-content-between">
 																		<button class="btn btn-warning btn-block rounded-lg py-1" id="kirim" type="button">KIRIM
@@ -116,19 +116,6 @@
 		</section>
 		<!--Section ends-->
 
-		<!-- video modal start -->
-		<div class="modal modal-v-sec fade" id="v-section1" role="dialog">
-				<div class="modal-dialog modal-dialog-centered">
-						<!-- Modal content-->
-						<div class="modal-content">
-								<!-- <i class="close ti-close" data-bs-dismiss="modal"></i>            -->
-								<iframe src="https://www.youtube.com/embed/XUNKidriodQ?si=S99O0CtYIJo7vYu-"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowfullscreen></iframe>
-						</div>
-				</div>
-		</div>
-		<!-- video modal start -->
 
 
 
@@ -207,6 +194,63 @@
 
 						// Jika Anda memiliki tombol atau elemen pemicu, tambahkan event listener disini
 						// Contoh: $('#tombolKirim').on('click', sendOtp);
+
+						// Fungsi ini akan dijalankan ketika tombol "Verifikasi" ditekan
+						// Fungsi ini akan dijalankan ketika tombol "Verifikasi" ditekan
+						$("#form-verifikasi").submit(function(e) {
+								// Menghentikan aksi default form (prevent form submission)
+								e.preventDefault();
+
+								// Mendapatkan nilai input otp_user
+								var otpUser = $("#otp_user").val();
+
+								// Mendapatkan nilai input nomor dan otp (untuk dikirim dalam request)
+								var nomor = $("#nomor").val();
+								var otp = $("#otp").val();
+
+								// Membuat objek data yang akan dikirim dalam request
+								var data = {
+										nomor: nomor,
+										otp: otp,
+										kode_otp: otpUser
+								};
+
+								// Melakukan request ke endpoint "/register-verified" dengan method POST
+								$.ajax({
+										url: "/register-verified",
+										type: "POST",
+										data: data,
+										dataType: "json",
+										success: function(response) {
+												console.log(response);
+												// Handle response jika verifikasi berhasil
+												window.location.href = "/home";
+										},
+										error: function(xhr, status, error) {
+												// Handle error jika request gagal
+												console.error("Error:", error);
+
+												alert("Verifikasi gagal. " + response.message);
+
+
+												// Tampilkan alert jika terjadi kesalahan pada server
+												// alert("Terjadi kesalahan pada server. Mohon coba lagi.");
+
+												// Tampilkan respons JSON yang dikirim oleh server di konsol
+												console.log("XHR Response:", xhr.responseText);
+										}
+								});
+						});
+
+
+
+						const errotOtp = () => {
+
+						}
+
+
+
+
 				});
 		</script>
 

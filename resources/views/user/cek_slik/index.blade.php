@@ -1,20 +1,5 @@
 @extends('user.layouts.main')
 @section('content')
-<!-- breadcrumb start -->
-<!-- <div class="breadcrumb-main bg-dark">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="breadcrumb-contain">
-          <div>
-            <h2 class="text-white">Promosi</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- breadcrumb End -->
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -26,133 +11,63 @@
       </div>
     </div>
     @endforeach
-
   </div>
 </div>
 
-<section>
+<section class="mb-4">
   <div class="custom-container simulasi-container">
     <div class="row d-flex justify-content-center simulasi-wrapper">
-      <div class="col-11 col-md-10 px-3 py-3 card rounded-3">
-        <h3 class="text-center title8 mb-4">Cek BI Checking</h3>
-
-        <h4 class="text-transform: capitalize">Silahkan masukan nomor KTP anda untuk melakukan BI Checking!</h4>
-
-        <form id="form-simulasi" action="" class="mt-2">
-          <div class="row">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Nomor anda" aria-label="Nomor anda" aria-describedby="button-addon2">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="z-index: 1;">Check</button>
+      <div class="col-12 col-md-10 px-3 py-3 card rounded-3">
+        <div class="">
+          <h3 class="text-center title8 mb-4">Cek BI Checking</h3>
+          <h4 class="text-transform: capitalize">Silahkan Lengkapi form berikut!</h4>
+        </div>
+        <form role="form" action="{{ route('cek-slik.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="input-hasil">Nomor WA</label>
+                <input name="no" type="tel" class="form-control @error('no') is-invalid @enderror" placeholder="Masukan nomor WA anda untuk konfirmasi" value="{{ old('no') }}">
+                @error('no')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-hasil">Masukan Email</label>
+                <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan email aktif anda (kosongkan jika tidak ada)" value="{{ old('email') }}">
+                @error('email')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
             </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Jenis BI Ceking</label>
+                <p class="text-danger">*Premium dikenakan biaya</p>
+                <select id="bi-ceking" name="tipe" class="form-control select2 @error('tipe') is-invalid @enderror" style="width: 100%;">
+                  <option value="" {{ old('tipe') == '' ? 'selected' : '' }}>-- Pilih Tipe --</option>
+                  <option value="1" {{ old('tipe') == '1' ? 'selected' : '' }}>premium</option>
+                  <option value="2" {{ old('tipe') == '2' ? 'selected' : '' }}>biasa</option>
+                </select>
+                @error('tipe')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+              <div class="form-group col-md-6">
+                <label for="ktp">Scan KTP</label>
+                <br />
+                <input type="file" id="ktp" name="ktp" class="@error('ktp') is-invalid @enderror">
+                @error('ktp')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </section>
-
-
-<div class="title8 my-5">
-  <h4 style="text-transform: capitalize">Rekomendasi Kendaraan</h4>
-</div>
-<!-- rekomendasi kendaraan slider -->
-<section class="ratio_asos product b-g-light mb-4 pb-5 pt-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 slide-download-populer">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0 shadow-sm">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="card border-0">
-            <img src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-acc-6-25072023-093811.png" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Honda Vario 125</h5>
-              <p class="card-text fw-bold mt-3">Rp 30,04 - 32,62 Juta</p>
-              <p class="mb-3" style="font-size: 12px">
-                Angsuran: Rp. 532.326 X 36
-              </p>
-              <a href="#" class="text-basic">Lihat promo</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- rekomendasi kendaraan slider -->
 @endsection

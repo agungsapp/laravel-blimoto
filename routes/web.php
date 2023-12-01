@@ -21,7 +21,9 @@ use App\Http\Controllers\Admin\AdminHasilController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminSalesController;
+use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
+use App\Http\Controllers\Admin\AdminTypeSlikController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -77,6 +79,7 @@ Route::get('/admin/login', function () {
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
 Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
+Route::delete('/logout', [UserLoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 Route::post('/register', [UserRegisterController::class, 'store'])->name('register.store');
 Route::post('/register-verified', [UserRegisterController::class, 'verifikasi'])->name('register.verif');
@@ -161,6 +164,8 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('mtr-best-motor', AdminMtrBestMotorController::class);
         Route::resource('event', AdminEventController::class);
         Route::resource('company-profile', AdminCompanyProfileController::class);
+        Route::resource('slik-bi', AdminSlikController::class);
+        Route::resource('type-slik-bi', AdminTypeSlikController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
