@@ -79,6 +79,7 @@ Route::get('/admin/login', function () {
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
 Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
+Route::delete('/logout', [UserLoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 Route::post('/register', [UserRegisterController::class, 'store'])->name('register.store');
 Route::post('/register-verified', [UserRegisterController::class, 'verifikasi'])->name('register.verif');

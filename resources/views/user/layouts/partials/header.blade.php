@@ -64,18 +64,44 @@
 																		</ul>
 																</li>
 
-																<li>
-																		<a href="{{ route('login') }}"><button type="button" class="btn bg-basic text-white"
-																						style="padding-left: 2.5rem; padding-right: 2.5rem">
-																						Masuk
-																				</button></a>
-																</li>
-																<li>
-																		<a href="{{ route('register') }}"><button type="button" class="btn btn-outline-dark"
-																						style="padding-left: 2.5rem; padding-right: 2.5rem">
-																						Daftar
-																				</button></a>
-																</li>
+																@if (auth()->check())
+																		<li>
+																				<a class="dark-menu-item">
+																						<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
+																				</a>
+																				<ul class="user-option-wrapper mr-4 p-2">
+																						<li><a href="#">{{ auth()->user()->nama }}</a></li>
+																						<li><a href="#">Edit Profil</a></li>
+																						<li class="px-2">
+
+																								<form action="{{ route('login.destroy') }}" method="POST">
+																										@csrf
+																										@method('DELETE')
+
+																										<button type="submit" class="btn btn-basic"
+																												style="border-radius: 19px !important; color: white !important; font-weight: bold;">Logout</button>
+																								</form>
+
+																								{{-- <a href="{{ route('login.destroy') }}">Logout</a> --}}
+																						</li>
+																				</ul>
+																		</li>
+																@else
+																		<li>
+																				<a href="{{ route('login') }}"><button type="button" class="btn bg-basic text-white"
+																								style="padding-left: 2.5rem; padding-right: 2.5rem">
+																								Masuk
+																						</button></a>
+																		</li>
+																		<li>
+																				<a href="{{ route('register') }}"><button type="button" class="btn btn-outline-dark"
+																								style="padding-left: 2.5rem; padding-right: 2.5rem">
+																								Daftar
+																						</button></a>
+																		</li>
+																@endif
+
+
 														</ul>
 														<div class="toggle-nav">
 																<i class="fa fa-bars sidebar-bar"></i>
