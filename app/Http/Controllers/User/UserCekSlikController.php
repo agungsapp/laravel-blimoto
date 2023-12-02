@@ -44,16 +44,19 @@ class UserCekSlikController extends Controller
   public function store(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'no' => 'required',
+      'no' => ['required', 'regex:/^(?:\+?62|0)[0-9]{9,13}$/'],
       'tipe' => 'required',
-      'ktp' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+      'ktp' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+      'email' => ['sometimes', 'nullable', 'email'],
     ], [
       'no.required' => 'Nomor WA harus diisi.',
+      'no.regex' => 'Format Nomor WA tidak valid.',
       'tipe.required' => 'Jenis BI Checking harus dipilih.',
       'ktp.required' => 'Scan KTP harus diunggah.',
       'ktp.image' => 'File KTP harus berupa gambar.',
       'ktp.mimes' => 'File KTP harus berformat jpeg, png, jpg, atau webp.',
       'ktp.max' => 'Ukuran file KTP tidak boleh lebih dari 2048 kilobytes.',
+      'email.email' => 'Format alamat email tidak valid.',
     ]);
 
     if ($validator->fails()) {
