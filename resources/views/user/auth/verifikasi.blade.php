@@ -83,10 +83,15 @@
 																				<div class="alert alert-danger">{{ $message }}</div>
 																		</div>
 																@enderror
+																{{-- form otp --}}
 																<div class="col-md-12 form-group">
 																		<label for="otp_user">Masukan Kode OTP</label>
 																		<input type="text" class="form-control" id="otp_user" name="otp_user"
 																				value="{{ old('otp') }}" placeholder="Masukan 4 Digit Kode OTP" required>
+
+																		<div id="otpUserFeedback" class="invalid-feedback d-none">
+																				Kode otp yang anda masukan salah !
+																		</div>
 																</div>
 																<div class="col-md-12 form-group d-flex justify-content-between">
 																		<button class="btn btn-warning btn-block rounded-lg py-1" id="kirim" type="button">KIRIM
@@ -174,7 +179,7 @@
 								console.log(otp);
 
 								$.ajax({
-										url: '/send-whatsapp',
+										url: '/send-whasapp',
 										type: 'POST',
 										data: {
 												nomor: nomor,
@@ -225,12 +230,16 @@
 												console.log(response);
 												// Handle response jika verifikasi berhasil
 												window.location.href = "/home";
+
+												$('#otp_user').addClass('is-valid');
 										},
 										error: function(xhr, status, error) {
 												// Handle error jika request gagal
 												console.error("Error:", error);
 
-												alert("Verifikasi gagal. " + response.message);
+												// alert("Verifikasi gagal. " + response.message);
+												$('#otp_user').addClass('is-invalid');
+												$('#otpUserFeedback').removeClass('d-none');
 
 
 												// Tampilkan alert jika terjadi kesalahan pada server
@@ -245,7 +254,7 @@
 
 
 						const errotOtp = () => {
-
+								$('#otp_user').addClass('is-invalid')
 						}
 
 

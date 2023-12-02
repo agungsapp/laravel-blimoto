@@ -28,13 +28,13 @@
 														</div>
 														<div class="footer-contant">
 																<ul>
-																		<li><a href="#testimonial">Testimonial</a></li>
-																		<li><a href="dealer.html">Dealer</a></li>
+																		{{-- <li><a href="{{ route('blog.index') }}">Testimonial</a></li> --}}
+																		<li><a href="{{ route('dealer.index') }}">Dealer</a></li>
 																		<li>
-																				<a href="/about-us">Tentang Kami</a>
+																				<a href="{{ route('about-us.index') }}">Tentang Kami</a>
 																		</li>
 																		<li>
-																				<a href="javascript:void(0)">Berita</a>
+																				<a href="{{ route('blog.index') }}">Berita</a>
 																		</li>
 																</ul>
 														</div>
@@ -78,22 +78,22 @@
 										<div class="footer-right">
 												<ul class="sosiyal">
 														<li>
-																<a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+																<a href="https://www.facebook.com/blimoto.indonesia" target="_blank"><i class="fa fa-facebook"></i></a>
 														</li>
 														<li>
-																<a href="javascript:void(0)">
+																<a href="https://www.tiktok.com/@blimotoindonesia" target="_blank">
 																		<i class="bx bxl-tiktok"></i>
 																</a>
 														</li>
 														<li>
-																<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+																<a href="https://twitter.com/blimoto" target="_blank"><i class="fa fa-twitter"></i></a>
 														</li>
 														<li>
 																<a href="https://www.instagram.com/blimotoindonesia/" target="_blank"><i
 																				class="fa fa-instagram"></i></a>
 														</li>
 														<li>
-																<a href="https://www.youtube.com/@Blimoto" target="_blank"><i class="fa fa-youtube-play"
+																<a href="https://www.youtube.com/@Blimoto/videos" target="_blank"><i class="fa fa-youtube-play"
 																				aria-hidden="true"></i></a>
 														</li>
 												</ul>
