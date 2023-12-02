@@ -16,7 +16,9 @@ class UserRegisterController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
         return view('user.auth.register');
     }
 

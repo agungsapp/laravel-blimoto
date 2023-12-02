@@ -71,7 +71,7 @@
 								<div class="col-lg-4 offset-lg-4">
 										<div class="theme-card shadow-sm">
 												<h3 class="title8 mb-3 text-center">Login</h3>
-												<form class="theme-form" action="{{ route('login.store') }}" method="post">
+												<form class="theme-form" action="{{ route('requestOTP') }}" method="post">
 														@csrf
 														<div class="row g-3">
 																<label for="nohp">Nomor Hp</label>
