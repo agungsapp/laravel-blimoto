@@ -28,7 +28,7 @@
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="input-hasil">Nomor WA</label>
-                <input name="no" type="tel" class="form-control @error('no') is-invalid @enderror" placeholder="Masukan nomor WA anda untuk konfirmasi" value="{{ old('no') }}">
+                <input name="no" type="tel" class="form-control @error('no') is-invalid @enderror" placeholder="Masukan nomor WA anda untuk konfirmasi(gunakan 62 atau 08)" value="{{ old('no') }}">
                 @error('no')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
