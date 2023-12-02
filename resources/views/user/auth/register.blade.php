@@ -75,14 +75,24 @@
 														<div class="row g-3">
 																<div class="col-md-12 form-group">
 																		<label for="nama">Nama lengkap</label>
-																		<input type="text" class="form-control" id="nama" name="nama"
-																				placeholder="masukan nama lengkap anda" required>
+																		<input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+																				name="nama" value="{{ old('nama') }}" placeholder="masukan nama lengkap anda">
+																		@error('nama')
+																				<div id="otpUserFeedback" class="invalid-feedback">
+																						{{ $message }}
+																				</div>
+																		@enderror
 																</div>
 																<label for="nohp">Nomor Hp</label>
 																<div class="col-md-12 input-group mb-4">
 																		<span class="input-group-text" id="nohp">+62</span>
-																		<input type="text" class="form-control" name="nohp" placeholder="08xxxxxxxxxx"
-																				aria-describedby="nohp">
+																		<input type="text" class="form-control @error('nohp') is-invalid @enderror" name="nohp"
+																				value="{{ old('nohp') }}" placeholder="08xxxxxxxxxx" aria-describedby="nohp">
+																		@error('nohp')
+																				<div id="otpUserFeedback" class="invalid-feedback">
+																						{{ $message }}
+																				</div>
+																		@enderror
 																</div>
 														</div>
 														<div class="row g-3">

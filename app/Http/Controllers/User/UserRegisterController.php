@@ -47,15 +47,28 @@ class UserRegisterController extends Controller
 
         $otp = $this->generateOTP();
 
+        $nohp = $this->formatNohp($request->nohp);
+
+        $valid = $request->validate([
+            'nama' => 'required|string',
+            'nohp' => 'required|numeric|unique:users,nomor_hp|min:10', // Add unique validation for the 'nomor_hp' column in the 'users' table
+        ], [
+            'nama.required' => 'nama tidak boleh kosong !',
+            'nama.string' => 'nama harus berupa huruf !',
+            'nohp.required' => 'nomor hp tidak boleh kosong !',
+            'nohp.unique' => 'nomor yang anda masukan sudah pernah terdaftar',
+            'nohp.min' => 'nomor harus memiliki panjang minimal 10 angka'
+        ]);
+
         try {
             $user = User::firstOrNew([
-                'nomor_hp' => $request->nohp,
+                'nomor_hp' => $nohp,
             ]);
 
             if ($user->exists) {
                 // User already exists with the provided phone number
                 // You can handle this situation, for example, by redirecting back with an error message
-                return redirect()->back()->with('error', 'User with this phone number already exists.');
+                return redirect()->back()->with('error', 'User dengan nomor ini sudah terdaftar.');
             }
 
             // Set or update other user attributes
@@ -65,11 +78,11 @@ class UserRegisterController extends Controller
             $user->save();
         } catch (\Throwable $th) {
             // Handle exceptions if needed
-            return redirect()->back()->with('error', 'An error occurred while processing your request.');
+            return redirect()->back()->with('error', 'Maaf, Terjadi kesalahan pada server.');
         }
 
         $data = [
-            'nomor' => $request->nohp,
+            'nomor' => $nohp,
             'otp' => $otp,
         ];
 
@@ -153,5 +166,18 @@ class UserRegisterController extends Controller
             $otp .= $digits[rand(0, strlen($digits) - 1)];
         }
         return $otp;
+    }
+
+    // Helper function to format the phone number
+    private function formatNohp($nohp)
+    {
+        // Check if the phone number starts with '0'
+        if (substr($nohp, 0, 1) === '0') {
+            // Remove the leading '0' and add '62'
+            return '62' . substr($nohp, 1);
+        }
+
+        // If it doesn't start with '0', assume it's already in the correct format
+        return $nohp;
     }
 }
