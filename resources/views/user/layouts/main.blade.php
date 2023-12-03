@@ -134,8 +134,13 @@
 						<!-- Modal content-->
 						<div class="modal-content">
 								<!-- <i class="close ti-close" data-bs-dismiss="modal"></i>            -->
-								<iframe src="https://www.youtube.com/embed/XUNKidriodQ?si=S99O0CtYIJo7vYu-"
+								{{-- <iframe src="https://www.youtube.com/watch?v=b9kGXU_g0c0"
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen></iframe> --}}
+
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/b9kGXU_g0c0?si=-d9aSpdDBRqOaTY9"
+										title="YouTube video player" frameborder="0"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 										allowfullscreen></iframe>
 						</div>
 				</div>
