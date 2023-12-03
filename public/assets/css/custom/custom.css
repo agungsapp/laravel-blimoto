@@ -11,6 +11,13 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.hero-about {
+    background-image: url("/assets/images/about/blimotomock.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 .btn-fitur-kami {
     padding: 3px 20px;
     border-radius: 8px;
