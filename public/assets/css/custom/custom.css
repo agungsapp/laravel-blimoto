@@ -11,6 +11,18 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.about-text span,
+.about-text i {
+    color: #000;
+    font-size: 1.1em;
+}
+
+.about-text {
+    font-size: 1.2em;
+    color: #000;
+    font-weight: 500;
+}
+
 .hero-about {
     background-image: url("/assets/images/about/blimotomock.png");
     background-size: cover;
