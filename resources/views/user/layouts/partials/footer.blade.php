@@ -28,13 +28,13 @@
 														</div>
 														<div class="footer-contant">
 																<ul>
-																		<li><a href="#testimonial">Testimonial</a></li>
-																		<li><a href="dealer.html">Dealer</a></li>
+																		{{-- <li><a href="{{ route('blog.index') }}">Testimonial</a></li> --}}
+																		<li><a href="{{ route('dealer.index') }}">Dealer</a></li>
 																		<li>
-																				<a href="/about-us">Tentang Kami</a>
+																				<a href="{{ route('about-us.index') }}">Tentang Kami</a>
 																		</li>
 																		<li>
-																				<a href="javascript:void(0)">Berita</a>
+																				<a href="{{ route('blog.index') }}">Berita</a>
 																		</li>
 																</ul>
 														</div>
@@ -50,14 +50,14 @@
 																				Jakarta -<span>3654123</span>
 																		</li>
 																		<li>
-																				<i class="fa fa-phone"></i>call us:
-																				<span>123-456-7898</span>
+																				<i class="fa fa-phone"></i>hubungi kami:
+																				<span>0823-2222-2023</span>
 																		</li>
 																		<li>
-																				<i class="fa fa-envelope-o"></i>email us:
-																				support@blimoto.com
+																				<i class="fa fa-envelope-o"></i>email :
+																				blimotoindonesia@gmail.com
 																		</li>
-																		<li><i class="fa fa-fax"></i>fax <span>123456</span></li>
+																		{{-- <li><i class="fa fa-fax"></i>fax <span>123456</span></li> --}}
 																</ul>
 														</div>
 												</div>
@@ -78,22 +78,22 @@
 										<div class="footer-right">
 												<ul class="sosiyal">
 														<li>
-																<a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+																<a href="https://www.facebook.com/blimoto.indonesia" target="_blank"><i class="fa fa-facebook"></i></a>
 														</li>
 														<li>
-																<a href="javascript:void(0)">
+																<a href="https://www.tiktok.com/@blimotoindonesia" target="_blank">
 																		<i class="bx bxl-tiktok"></i>
 																</a>
 														</li>
 														<li>
-																<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+																<a href="https://twitter.com/blimoto" target="_blank"><i class="fa fa-twitter"></i></a>
 														</li>
 														<li>
 																<a href="https://www.instagram.com/blimotoindonesia/" target="_blank"><i
 																				class="fa fa-instagram"></i></a>
 														</li>
 														<li>
-																<a href="https://www.youtube.com/@Blimoto" target="_blank"><i class="fa fa-youtube-play"
+																<a href="https://www.youtube.com/@Blimoto/videos" target="_blank"><i class="fa fa-youtube-play"
 																				aria-hidden="true"></i></a>
 														</li>
 												</ul>

@@ -71,15 +71,22 @@
 								<div class="col-lg-4 offset-lg-4">
 										<div class="theme-card shadow-sm">
 												<h3 class="title8 mb-3 text-center">Login</h3>
-												<form class="theme-form" action="{{ route('login.store') }}" method="post">
+												<form class="theme-form" action="{{ route('requestOTP') }}" method="post">
 														@csrf
 														<div class="row g-3">
 																<label for="nohp">Nomor Hp</label>
 																<div class="col-md-12 input-group mb-4">
 																		<span class="input-group-text" id="nohp">+62</span>
-																		<input type="text" class="form-control" placeholder="08xxxxxxxxxx" name="nohp"
-																				aria-describedby="nohp" required>
+																		<input type="text" class="form-control @error('nohp') is-invalid @enderror"
+																				placeholder="08xxxxxxxxxx" name="nohp" aria-describedby="nohp" required>
+																		@error('nohp')
+																				{{-- <div class="alert alert-danger">{{ $message }}</div> --}}
+																				<div class="invalid-feedback">
+																						{{ $message }}
+																				</div>
+																		@enderror
 																</div>
+
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12 form-group">

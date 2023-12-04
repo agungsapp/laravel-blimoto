@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dealer;
 use Illuminate\Http\Request;
 
 class DealerController extends Controller
@@ -12,10 +13,20 @@ class DealerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return view('user.dealer.index');
+        $nama = $request->input('keyword', '');
+        $lokasi = $request->input('lokasi', 1);
+
+        $data = [
+            'dealers' => Dealer::where('nama', 'like', "%{$nama}%")
+                ->where('id_kota', $lokasi)
+                ->limit(9)
+                ->get(),
+            'lokasi' => $lokasi,
+        ];
+
+        return view('user.dealer.index', $data);
     }
 
     /**

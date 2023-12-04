@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
+use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
@@ -78,7 +79,8 @@ Route::get('/admin/login', function () {
 
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
-Route::post('/login', [UserLoginController::class, 'store'])->name('login.store');
+Route::post('/request-otp', [UserLoginController::class, 'requestOTP'])->name('requestOTP');
+Route::post('/verify-login', [UserLoginController::class, 'verifyOTP'])->name('verifyOTP');
 Route::delete('/logout', [UserLoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 Route::post('/register', [UserRegisterController::class, 'store'])->name('register.store');
@@ -166,6 +168,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('company-profile', AdminCompanyProfileController::class);
         Route::resource('slik-bi', AdminSlikController::class);
         Route::resource('type-slik-bi', AdminTypeSlikController::class);
+        Route::resource('promo', AdminPromoController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
