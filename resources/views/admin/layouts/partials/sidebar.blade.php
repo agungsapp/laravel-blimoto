@@ -254,6 +254,15 @@
 					</a>
 				</li>
 
+				<li class="nav-item">
+					<a href="{{ route('admin.promo.index') }}" class="nav-link {{ \Route::is('admin.promo.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-bell"></i>
+						<p>
+							Data Promo
+						</p>
+					</a>
+				</li>
+
 				{{-- <li class="nav-item">
 					<a href="{{ route('admin.promo.index') }}" class="nav-link {{ \Route::is('admin.promo.*') ? 'active' : '' }}">
 				<i class="nav-icon fa fa-bell"></i>
