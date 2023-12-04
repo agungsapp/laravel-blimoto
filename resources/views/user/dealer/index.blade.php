@@ -63,8 +63,7 @@
 								@foreach ($dealers as $d)
 										<div class="col">
 												<div class="card">
-														<div style="background-image: url('{{ asset('assets') }}/images/dealer/{{ $d->gambar }}')"
-																class="img-dealer"></div>
+														<div style="background-image: url('/images/dealer/{{ $d->gambar }}')" class="img-dealer"></div>
 														{{-- <img src="" class="card-img-top img-fluid" alt="..." /> --}}
 														<div style="min-height: 170px;" class="card-body">
 																<div class="row">
