@@ -32,7 +32,7 @@
 }
 
 .hero-about {
-    background-image: url("/assets/images/about/blimotomock.png");
+    background-image: url("https://blimoto.com/assets/images/about/blimotomock.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
