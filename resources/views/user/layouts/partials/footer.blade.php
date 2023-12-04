@@ -50,14 +50,14 @@
 																				Jakarta -<span>3654123</span>
 																		</li>
 																		<li>
-																				<i class="fa fa-phone"></i>call us:
-																				<span>123-456-7898</span>
+																				<i class="fa fa-phone"></i>hubungi kami:
+																				<span>0823-2222-2023</span>
 																		</li>
 																		<li>
-																				<i class="fa fa-envelope-o"></i>email us:
-																				support@blimoto.com
+																				<i class="fa fa-envelope-o"></i>email :
+																				blimotoindonesia@gmail.com
 																		</li>
-																		<li><i class="fa fa-fax"></i>fax <span>123456</span></li>
+																		{{-- <li><i class="fa fa-fax"></i>fax <span>123456</span></li> --}}
 																</ul>
 														</div>
 												</div>

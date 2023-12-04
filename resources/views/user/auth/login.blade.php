@@ -77,9 +77,16 @@
 																<label for="nohp">Nomor Hp</label>
 																<div class="col-md-12 input-group mb-4">
 																		<span class="input-group-text" id="nohp">+62</span>
-																		<input type="text" class="form-control" placeholder="08xxxxxxxxxx" name="nohp"
-																				aria-describedby="nohp" required>
+																		<input type="text" class="form-control @error('nohp') is-invalid @enderror"
+																				placeholder="08xxxxxxxxxx" name="nohp" aria-describedby="nohp" required>
+																		@error('nohp')
+																				{{-- <div class="alert alert-danger">{{ $message }}</div> --}}
+																				<div class="invalid-feedback">
+																						{{ $message }}
+																				</div>
+																		@enderror
 																</div>
+
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12 form-group">

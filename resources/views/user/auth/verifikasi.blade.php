@@ -179,7 +179,7 @@
 								console.log(otp);
 
 								$.ajax({
-										url: '/send-whasapp',
+										url: '/send-whatsapp',
 										type: 'POST',
 										data: {
 												nomor: nomor,

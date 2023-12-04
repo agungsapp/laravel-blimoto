@@ -102,8 +102,25 @@ class UserLoginController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $nomor = $request->input('nohp');
+
+
+        $nomor = $this->formatNohp($request->input('nohp'));
         $otp = $this->generateOTP();
+
+        try {
+            //code...
+            $user = User::firstOrNew([
+                'nomor_hp' => $nomor,
+            ]);
+
+            if (!$user->exists) {
+                // User already exists with the provided phone number
+                // You can handle this situation, for example, by redirecting back with an error message
+                return redirect()->back()->withErrors(['nohp' => 'User dengan nomor ini belum terdaftar']);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         // Save OTP to user record in the database
         $user = User::where('nomor_hp', $nomor)->first();
@@ -134,7 +151,7 @@ class UserLoginController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $nomor = Session::get('verified_nomor');
+        $nomor = $this->formatNohp(Session::get('verified_nomor'));
         $otp = $request->input('otp_user');
 
         // Retrieve the user by phone number and OTP
@@ -169,5 +186,18 @@ class UserLoginController extends Controller
             $otp .= $digits[rand(0, strlen($digits) - 1)];
         }
         return $otp;
+    }
+
+    // Helper function to format the phone number
+    private function formatNohp($nohp)
+    {
+        // Check if the phone number starts with '0'
+        if (substr($nohp, 0, 1) === '0') {
+            // Remove the leading '0' and add '62'
+            return '62' . substr($nohp, 1);
+        }
+
+        // If it doesn't start with '0', assume it's already in the correct format
+        return $nohp;
     }
 }
