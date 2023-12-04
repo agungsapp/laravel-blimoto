@@ -151,7 +151,7 @@
 																</li>
 														</ul>
 														<div class="card-body d-flex justify-content-center">
-																<a href="https://wa.me/6282182662724?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $motor['merk'] }}%0AKategori%20:%20{{ $motor['type'] }}%0AType%20:%20{{ $motor['nama'] }}%0Aleasing%20:%20{{ $a['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $a['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($a['dp']) }}."
+																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $motor['merk'] }}%0AKategori%20:%20{{ $motor['type'] }}%0AType%20:%20{{ $motor['nama'] }}%0Aleasing%20:%20{{ $a['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $a['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($a['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>
 														</div>
@@ -320,7 +320,7 @@
 																</li>
 														</ul>
 														<div class="card-body d-flex justify-content-center">
-																<a href="https://wa.me/6282182662724?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $rm['merk'] }}%0AKategori%20:%20{{ $rm['type'] }}%0AType%20:%20{{ $rm['nama'] }}%0Aleasing%20:%20{{ $rc['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $rc['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($rc['dp']) }}."
+																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $rm['merk'] }}%0AKategori%20:%20{{ $rm['type'] }}%0AType%20:%20{{ $rm['nama'] }}%0Aleasing%20:%20{{ $rc['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $rc['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($rc['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>
 														</div>
