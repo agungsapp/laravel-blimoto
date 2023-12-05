@@ -1038,7 +1038,7 @@
 														<h3>Tunggu apalagi ?</h3>
 														<!-- <h3>food market</h3> -->
 														<!-- <h4>special offer</h4> -->
-														<a href="#" class="btn bg-basic btn-rounded fs-3 mt-3 px-5"><i class="fa fa-whatsapp"
+														<a href="wa.me/6282322222023" target="_blank" class="btn bg-basic btn-rounded fs-3 mt-3 px-5"><i class="fa fa-whatsapp"
 																		aria-hidden="true"></i><span class="ms-1">Ajukan Sekarang</span></a>
 												</div>
 										</div>

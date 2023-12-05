@@ -11,6 +11,14 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.img-dealer {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 .about-text span,
 .about-text i {
     color: #000;
@@ -24,7 +32,7 @@
 }
 
 .hero-about {
-    background-image: url("/assets/images/about/blimotomock.png");
+    background-image: url("https://blimoto.com/assets/images/about/blimotomock.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
