@@ -218,10 +218,12 @@
 				if (!currentLocationId) {
 						currentLocationId = defaultLocationId;
 						sessionStorage.setItem('lokasiUser', defaultLocationId);
+						console.log("change lokasi di tangkap !!!!!!!!!!!")
 				}
 				// Set nilai lokasi ke dalam input field dan teks menu saat halaman dimuat
 				setLokasiToInput();
 				setTeksMenuLokasi();
+				updateLokasi(sessionStorage.getItem('lokasiUser'))
 
 				console.log("aman running")
 				var lokasiNow = 1;
@@ -240,6 +242,7 @@
 								// Update nilai variabel global saat lokasi berubah
 								lokasiNow = id;
 								setLokasiToInput();
+								updateLokasi(lokasiNow);
 								console.log(`behasil ubah id lokasi ke ${lokasiNow}`);
 						});
 				}
@@ -270,6 +273,26 @@
 						selectElement.textContent = lokasiText;
 						var stickyNav = document.getElementById('lokasiTextShow2');
 						stickyNav.textContent = lokasiText;
+
+				}
+
+
+
+				// request ke server untuk melakukan update session lokasi user 
+				function updateLokasi(lokasiUser) {
+						$.ajax({
+								type: 'POST',
+								url: '/updateLokasi',
+								data: {
+										lokasiUser: lokasiUser,
+										_token: '{{ csrf_token() }}'
+								},
+								success: function(response) {
+										console.log('Data berhasil dikirim ke server');
+
+								}
+						});
+
 				}
 
 				// manipulasi navigasi

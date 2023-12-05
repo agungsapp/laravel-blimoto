@@ -14,6 +14,7 @@ use App\Models\Mitra;
 use App\Models\Motor;
 use App\Models\MotorKota;
 use App\Models\Type;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +40,8 @@ class HomeController extends Controller
                 ->orderBy('order', 'asc')->get(),
             'mitras' => Mitra::all(),
         ];
+
+        // dd(Session::get('lokasiUser'));
 
         // dd($data['best4']);
 
@@ -223,9 +226,13 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
+        $kotaId = Session::get('lokasiUser');
         $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
             $query->where('id_best_motor', $bestMotorId);
         })
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', $kotaId);
+            })
             ->get();
 
         foreach ($motors as $motor) {
@@ -247,6 +254,7 @@ class HomeController extends Controller
 
         return $motors;
     }
+
 
 
     public function try()

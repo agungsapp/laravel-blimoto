@@ -65,6 +65,7 @@ use App\Http\Controllers\User\UserPromosiController;
 use App\Http\Controllers\User\UserRegisterController;
 // lain lain
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return redirect()->to('/home');
@@ -199,6 +200,19 @@ Route::get('testing', [UserRegisterController::class, 'edit']);
 // TWILIO WHATSAPP ROUTE
 Route::post('/send-whatsapp', [SendWhatsappOtpController::class, 'send']);
 
+
+
+// update data session lokasi user : 
+Route::post('/updateLokasi', function (Illuminate\Http\Request $request) {
+    // Terima data dari permintaan POST
+    $lokasiUser = $request->input('lokasiUser');
+
+    // Lakukan sesuatu dengan nilai tersebut, seperti menyimpannya di sesi Laravel
+    Session::put('lokasiUser', $lokasiUser);
+
+    // Beri respons ke klien jika diperlukan
+    return 'Data berhasil diterima oleh server';
+});
 
 
 // done repo pindah
