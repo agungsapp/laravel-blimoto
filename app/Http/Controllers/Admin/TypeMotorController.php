@@ -17,7 +17,7 @@ class TypeMotorController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Type::all();
+    $data = Type::orderBy('id', 'desc')->get();
     return view('admin.type.index', [
       'types' => $data
     ]);
@@ -40,9 +40,21 @@ class TypeMotorController extends Controller
     }
 
     try {
+      $lowercaseName = strtolower($request->input('nama'));
+
+      // Check if the type with the given lowercase name already exists
+      $existingType = Type::whereRaw('LOWER(nama) = ?', [$lowercaseName])->first();
+
+      if ($existingType) {
+        flash()->addError("Type motor dengan nama $request->nama sudah ada!");
+        return redirect()->back();
+      }
+
+      // Create a new type only if it doesn't exist
       $type = Type::create([
-        'nama' => $request->input('nama')
+        'nama' => $lowercaseName,
       ]);
+
       flash()->addSuccess("Type motor $type->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
