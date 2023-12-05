@@ -20,6 +20,59 @@
 			<span class="ml-2">Hapus data cicilan</span>
 		</button>
 
+		<!-- cari cicilan -->
+		<form action="{{ route('serverSideCicilanMotor') }}" method="GET" id="searchForm" class="mt-4">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="motor">Motor</label>
+						<select name="motor" class="form-control select2">
+							<option value="" selected>-- All Motors --</option>
+							@foreach ($motor as $motorItem)
+							<option value="{{ $motorItem->id }}">{{ $motorItem->nama }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="leasing">Leasing</label>
+						<select name="leasing" class="form-control select2">
+							<option value="" selected>-- All Leasing --</option>
+							@foreach ($leasing as $leasingItem)
+							<option value="{{ $leasingItem->id }}">{{ $leasingItem->nama }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="lokasi">Location</label>
+						<select name="lokasi" class="form-control select2">
+							<option value="" selected>-- All Locations --</option>
+							@foreach ($lokasi as $lokasiItem)
+							<option value="{{ $lokasiItem->id }}">{{ $lokasiItem->nama }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="tenor">Tenor</label>
+						<select name="tenor" class="form-control select2">
+							<option value="" selected>-- All Tenors --</option>
+							@foreach ($tenor as $tenorItem)
+							<option value="{{ $tenorItem->tenor }}">{{ $tenorItem->tenor }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</div>
+			</div>
+		</form>
+
 		<!-- Modal import -->
 		<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="modalImportLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -177,51 +230,65 @@
 
 @push('script')
 <script>
-	$('#example1').DataTable({
-		processing: true,
-		serverSide: true,
-		ajax: "{{ route('serverSideCicilanMotor') }}",
-		columns: [{
-				data: 'id',
-				name: 'id'
-			},
-			{
-				data: 'motor_name',
-				name: 'motor_name'
-			},
-			{
-				data: 'leasing_name',
-				name: 'leasing_name'
-			},
-			{
-				data: 'lokasi_name',
-				name: 'lokasi_name'
-			},
-			{
-				data: 'dp',
-				name: 'dp',
-				render: function(data, type, row) {
-					return 'Rp. ' + parseInt(data).toLocaleString();
-				}
-			},
-			{
-				data: 'tenor',
-				name: 'tenor'
-			},
-			{
-				data: 'cicilan',
-				name: 'cicilan',
-				render: function(data, type, row) {
-					return 'Rp. ' + parseInt(data).toLocaleString();
-				}
-			}
-		]
-	});
-</script>
-<script>
 	$(document).ready(function() {
-		//Initialize Select2 Elements
-		$('.select2').select2()
+		// Initialize Select2 Elements
+		$('.select2').select2();
+
+		// Initialize DataTable
+		var table = $('#example1').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url: "{{ route('serverSideCicilanMotor') }}",
+				data: function(d) {
+					d.motor = $('select[name=motor]').val();
+					d.leasing = $('select[name=leasing]').val();
+					d.lokasi = $('select[name=lokasi]').val();
+					d.tenor = $('select[name=tenor]').val();
+				},
+			},
+			columns: [{
+					data: 'id',
+					name: 'id'
+				},
+				{
+					data: 'motor_name',
+					name: 'motor_name'
+				},
+				{
+					data: 'leasing_name',
+					name: 'leasing_name'
+				},
+				{
+					data: 'lokasi_name',
+					name: 'lokasi_name'
+				},
+				{
+					data: 'dp',
+					name: 'dp',
+					render: function(data, type, row) {
+						return 'Rp. ' + parseInt(data).toLocaleString();
+					},
+				},
+				{
+					data: 'tenor',
+					name: 'tenor'
+				},
+				{
+					data: 'cicilan',
+					name: 'cicilan',
+					render: function(data, type, row) {
+						return 'Rp. ' + parseInt(data).toLocaleString();
+					},
+				},
+			],
+		});
+
+		// Submit the form on button click
+		$('#searchForm').on('submit', function(e) {
+			e.preventDefault();
+			table.ajax.reload();
+		});
 	});
 </script>
 @endpush
