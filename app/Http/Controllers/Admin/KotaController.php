@@ -17,7 +17,7 @@ class KotaController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Kota::all();
+    $data = Kota::orderBy('id', 'desc')->get();
     return view('admin.kota.index', [
       'kotas' => $data
     ]);
@@ -51,10 +51,20 @@ class KotaController extends Controller
     }
 
     try {
+      // Check if the city already exists
+      $existingCity = Kota::whereRaw('LOWER(nama) = LOWER(?)', [$request->input('nama')])->first();
+
+      if ($existingCity) {
+        flash()->addError("Kota {$existingCity->nama} sudah ada!");
+        return redirect()->back();
+      }
+
+      // If not, create a new city
       $kota = Kota::create([
         'nama' => $request->input('nama')
       ]);
-      flash()->addSuccess("kota $kota->nama berhasil dibuat");
+
+      flash()->addSuccess("Kota $kota->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
       flash()->addError("Gagal membuat data pastikan sudah benar!");
