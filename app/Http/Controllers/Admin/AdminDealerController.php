@@ -20,7 +20,7 @@ class AdminDealerController extends Controller
   {
     $data = [
       'kota' => Kota::all(),
-      'dealer' => Dealer::with('kota')->get()
+      'dealer' => Dealer::with('kota')->orderBy('id', 'desc')->get()
     ];
 
     return view('admin.dealer.index', $data);
@@ -59,6 +59,11 @@ class AdminDealerController extends Controller
     }
 
     try {
+      $existingDealer = Dealer::where('nama', $request->input('nama'))->first();
+      if ($existingDealer) {
+        flash()->addError("Dealer dengan nama '{$request->input('nama')}' sudah ada!");
+        return redirect()->back()->withInput();
+      }
       // Periksa apakah gambar diunggah
       if ($request->hasFile('gambar-dealer')) {
         // Mengambil file gambar yang diunggah
