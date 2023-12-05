@@ -227,9 +227,14 @@ class AdminCicilanMotorController extends Controller
     return redirect()->back();
   }
 
-  public function dataTable()
+  public function dataTable(Request $request)
   {
-    $cicilan = CicilanMotor::getCicilanTable();
+    $motor = $request->input('motor');
+    $leasing = $request->input('leasing');
+    $lokasi = $request->input('lokasi');
+    $tenor = $request->input('tenor');
+
+    $cicilan = CicilanMotor::getCicilanTable($motor, $leasing, $lokasi, $tenor);
     return Datatables::of($cicilan)->make(true);
   }
 }

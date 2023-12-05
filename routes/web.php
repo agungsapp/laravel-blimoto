@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
 use App\Http\Controllers\Admin\AdminTypeSlikController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -182,6 +183,7 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::middleware(['auth.admin:admin'])->group(function () {
             Route::resource('/sales', AdminSalesController::class);
+            Route::resource('/users', AdminUserController::class);
         });
 
         Route::middleware(['auth.sales:sales'])->group(function () {

@@ -90,7 +90,7 @@
 				<table id="dataDetail" class="table-bordered table-striped table">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>NO</th>
 							<th>Nama Dealer</th>
 							<th>Telpon</th>
 							<th>Alamat</th>
@@ -242,6 +242,25 @@
 
 		//Initialize Select2 Elements
 		$('.select2').select2()
+	})
+	$(document).ready(function() {
+		$('.show_confirm').click(function(event) {
+			var form = $(this).closest("form");
+			var name = $(this).data("name");
+			event.preventDefault();
+			swal({
+					title: `Delete Data ?`,
+					text: "data yang di hapus tidak dapat dipulihkan!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						form.submit();
+					}
+				});
+		});
 	})
 </script>
 @endpush

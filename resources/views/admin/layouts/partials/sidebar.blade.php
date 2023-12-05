@@ -36,6 +36,17 @@
 					</a>
 				</li>
 
+				@if (Auth::guard('admin')->check())
+				<li class="nav-item">
+					<a href="{{ route('admin.users.index') }}" class="nav-link {{ \Route::is('admin.users.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-user"></i>
+						<p>
+							Data User
+						</p>
+					</a>
+				</li>
+				@endif
+
 				<li class="nav-item">
 					<a href="{{ route('admin.company-profile.index') }}" class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-user-md"></i>

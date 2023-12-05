@@ -18,26 +18,39 @@ class CicilanMotor extends Model
     'id_motor',
   ];
 
-  public static function getCicilanTable()
+  public static function getCicilanTable($motorId = null, $leasingId = null, $lokasiId = null, $tenor = null)
   {
-    return DB::select('
-    SELECT 
-        cicilan_motor.id,
-        motor.nama AS motor_name, 
-        kota.nama AS lokasi_name,
-        leasing_motor.nama AS leasing_name, 
-        cicilan_motor.dp, 
-        cicilan_motor.tenor,
-        cicilan_motor.cicilan
-    FROM 
-        cicilan_motor
-    INNER JOIN 
-        motor ON cicilan_motor.id_motor = motor.id
-    INNER JOIN 
-        leasing_motor ON cicilan_motor.id_leasing = leasing_motor.id
-    INNER JOIN 
-        kota ON cicilan_motor.id_lokasi = kota.id
-    ');
+    $query = DB::table('cicilan_motor')
+      ->select(
+        'cicilan_motor.id',
+        'motor.nama AS motor_name',
+        'kota.nama AS lokasi_name',
+        'leasing_motor.nama AS leasing_name',
+        'cicilan_motor.dp',
+        'cicilan_motor.tenor',
+        'cicilan_motor.cicilan'
+      )
+      ->join('motor', 'cicilan_motor.id_motor', '=', 'motor.id')
+      ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')
+      ->join('kota', 'cicilan_motor.id_lokasi', '=', 'kota.id');
+
+    if ($motorId !== null) {
+      $query->where('cicilan_motor.id_motor', $motorId);
+    }
+
+    if ($leasingId !== null) {
+      $query->where('cicilan_motor.id_leasing', $leasingId);
+    }
+
+    if ($lokasiId !== null) {
+      $query->where('cicilan_motor.id_lokasi', $lokasiId);
+    }
+
+    if ($tenor !== null) {
+      $query->where('cicilan_motor.tenor', $tenor);
+    }
+
+    return $query->get();
   }
 
   public static function deleteData($idMotor, $idLeasing, $tenor, $idKota)
