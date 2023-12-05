@@ -23,14 +23,10 @@ class DetailMotorController extends Controller
     public function index(Request $request)
     {
         $motors = DetailMotor::orderBy('id', 'desc')->get();
-        $merk_motor = Merk::all();
-        $tipe_motor = Type::all();
-        $kategori_best_motor = BestMotor::all();
+        $dataMotor = Motor::all();
         return view('admin.detail-motor.index', [
             'motors' => $motors,
-            'merk_motor' => $merk_motor,
-            'tipe_motor' => $tipe_motor,
-            'kategori_best_motor' => $kategori_best_motor,
+            'dataMotor' => $dataMotor
         ]);
     }
 
@@ -53,12 +49,14 @@ class DetailMotorController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'merk-motor' => 'required',
-            'tipe-motor' => 'required',
             'warna-motor' => 'required',
             'model' => 'required',
             'gambar-motor' => 'required|mimes:jpeg,png,jpg,webp',
-        ], ['gambar-motor.required' => 'gambar tidak boleh kosong !']);
+        ], [
+            'gambar-motor.required' => 'gambar tidak boleh kosong !',
+            'model.required' => 'motor tidak boleh kosong !',
+            'warna-motor.required' => 'warna motor tidak boleh kosong !',
+        ]);
 
         if ($validator->fails()) {
             flash()->addError("Inputkan semua data dengan benar!");
