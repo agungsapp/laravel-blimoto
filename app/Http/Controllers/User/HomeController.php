@@ -190,6 +190,7 @@ class HomeController extends Controller
 
     public function getSearchMotor(Request $request)
     {
+        $kotaId = Session::get('lokasiUser');
         $motorNama = $request->input('motor');
         $idLokasi = intval($request->input('id_lokasi'));
         $typeMotor = intval($request->input('kategori'));
@@ -203,8 +204,8 @@ class HomeController extends Controller
             ->whereHas('type', function ($query) use ($typeMotor) {
                 $query->where('id', '=', $typeMotor);
             })
-            ->whereHas('motorKota', function ($query) use ($idLokasi) {
-                $query->where('id_kota', '=', $idLokasi);
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', '=', $kotaId);
             })
             ->whereRaw("MATCH(motor.nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
             ->get();
@@ -212,7 +213,7 @@ class HomeController extends Controller
         $data = [
             'data' => $results,
             'keyword' => $motorNama,
-            'lokasi' => Kota::where('id', $idLokasi)->get(),
+            'lokasi' => Kota::where('id', $kotaId)->get(),
             'merks' => Merk::all(),
             'types' => Type::all(),
             'kategori' => $typeMotor,
