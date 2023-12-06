@@ -59,14 +59,15 @@
 																<div class="rounded-lg p-4" style="border: 1px solid #D22232; background-color: #FFF6F7;">
 																		<h5 class="text-black">Diskon Terbaik!</h5>
 																		<p class="text-black">Nikmati penawaran diskon eksklusif untuk motor impianmu di Blimoto!</p>
-																		<a href="#" class="btn btn-basic btn-fitur-kami">Lihat Diskon</a>
+																		<a href="{{ route('home.index') }}" class="btn btn-basic btn-fitur-kami">Lihat Diskon</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
 																<div class="rounded-lg p-4" style="border: 1px solid #01E928; background-color: #E3FFE8;">
 																		<h5 class="text-black">DP Termurah!</h5>
 																		<p class="text-black">Miliki motor impian dengan DP terjangkau hanya di Blimoto!</p>
-																		<a href="#" style="background-color: #00EB27; color: white;" class="btn btn-fitur-kami">Lihat
+																		<a href="{{ route('home.index') }}" style="background-color: #00EB27; color: white;"
+																				class="btn btn-fitur-kami">Lihat
 																				DP</a>
 																</div>
 														</div>
@@ -74,7 +75,8 @@
 																<div class="rounded-lg p-4" style="border: 1px solid #FC0; background-color: #FFFAE4;">
 																		<h5 class="text-black">Harga Terbawah!</h5>
 																		<p class="text-black">Temukan harga terbaik untuk motor pilihanmu hanya di Blimoto!</p>
-																		<a href="#" style="background-color: #FC0; color: white;" class="btn btn-fitur-kami">Lihat
+																		<a href="{{ route('home.index') }}" style="background-color: #FC0; color: white;"
+																				class="btn btn-fitur-kami">Lihat
 																				Harga</a>
 																</div>
 														</div>
@@ -82,7 +84,8 @@
 																<div class="rounded-lg p-4" style="border: 1px solid #9747FF; background-color: #FFEDFF;">
 																		<h5 class="text-black">Angsuran Ringan!</h5>
 																		<p class="text-black">Nikmati angsuran ringan untuk memudahkan kepemilikan motor di Blimoto!</p>
-																		<a href="#" style="background-color: #9747FF; color: white;" class="btn btn-fitur-kami">Lihat
+																		<a href="{{ route('home.index') }}" style="background-color: #9747FF; color: white;"
+																				class="btn btn-fitur-kami">Lihat
 																				Angsuran</a>
 																</div>
 														</div>
