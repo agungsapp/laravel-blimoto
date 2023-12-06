@@ -7,7 +7,7 @@
 								<div class="col">
 										<div class="breadcrumb-contain">
 												<div>
-														<h2 class="text-white">Pencarian</h2>
+														<h2 class="text-white">Pencarian </h2>
 														<ul>
 																<li>
 																		<a class="text-white" href="javascript:void(0)">home</a>

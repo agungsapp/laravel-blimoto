@@ -36,6 +36,17 @@
 					</a>
 				</li>
 
+				@if (Auth::guard('admin')->check())
+				<li class="nav-item">
+					<a href="{{ route('admin.users.index') }}" class="nav-link {{ \Route::is('admin.users.*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-user"></i>
+						<p>
+							Data User
+						</p>
+					</a>
+				</li>
+				@endif
+
 				<li class="nav-item">
 					<a href="{{ route('admin.company-profile.index') }}" class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-user-md"></i>
@@ -170,13 +181,29 @@
 					</ul>
 				</li>
 
-				<li class="nav-item">
-					<a href="{{ route('admin.cicilan.index') }}" class="nav-link {{ \Route::is('admin.cicilan.*') ? 'active' : '' }}">
-						<i class="nav-icon fas fa-money-bill"></i>
+				{{-- master price list --}}
+				<li class="nav-item {{ \Route::is('admin.cicilan.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.cicilan.*') ? 'active' : '' }}">
+						<i class="nav-icon fas fa-money-bill" aria-hidden="true"></i>
 						<p>
-							Data Pricelist
+							Master Price List
+							<i class="right fas fa-angle-left"></i>
 						</p>
 					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.cicilan.create') }}" class="nav-link {{ \Route::is('admin.cicilan.create') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Price List</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.cicilan.index') }}" class="nav-link {{ \Route::is('admin.cicilan.index') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Price List</p>
+							</a>
+						</li>
+					</ul>
 				</li>
 
 				{{-- master slik --}}

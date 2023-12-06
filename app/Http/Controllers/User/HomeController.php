@@ -14,6 +14,7 @@ use App\Models\Mitra;
 use App\Models\Motor;
 use App\Models\MotorKota;
 use App\Models\Type;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +40,8 @@ class HomeController extends Controller
                 ->orderBy('order', 'asc')->get(),
             'mitras' => Mitra::all(),
         ];
+
+        // dd(Session::get('lokasiUser'));
 
         // dd($data['best4']);
 
@@ -187,6 +190,7 @@ class HomeController extends Controller
 
     public function getSearchMotor(Request $request)
     {
+        $kotaId = Session::get('lokasiUser');
         $motorNama = $request->input('motor');
         $idLokasi = intval($request->input('id_lokasi'));
         $typeMotor = intval($request->input('kategori'));
@@ -200,8 +204,8 @@ class HomeController extends Controller
             ->whereHas('type', function ($query) use ($typeMotor) {
                 $query->where('id', '=', $typeMotor);
             })
-            ->whereHas('motorKota', function ($query) use ($idLokasi) {
-                $query->where('id_kota', '=', $idLokasi);
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', '=', $kotaId);
             })
             ->whereRaw("MATCH(motor.nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
             ->get();
@@ -209,9 +213,11 @@ class HomeController extends Controller
         $data = [
             'data' => $results,
             'keyword' => $motorNama,
-            'lokasi' => Kota::where('id', $idLokasi)->get(),
+            'lokasi' => Kota::where('id', $kotaId)->get(),
             'merks' => Merk::all(),
-            'types' => Type::all()
+            'types' => Type::all(),
+            'kategori' => $typeMotor,
+            'keyword' => $motorNama
         ];
 
 
@@ -223,9 +229,13 @@ class HomeController extends Controller
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
     {
+        $kotaId = Session::get('lokasiUser');
         $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
             $query->where('id_best_motor', $bestMotorId);
         })
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', $kotaId);
+            })
             ->get();
 
         foreach ($motors as $motor) {
@@ -247,6 +257,7 @@ class HomeController extends Controller
 
         return $motors;
     }
+
 
 
     public function try()

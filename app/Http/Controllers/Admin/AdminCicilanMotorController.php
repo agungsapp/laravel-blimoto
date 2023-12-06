@@ -42,6 +42,13 @@ class AdminCicilanMotorController extends Controller
   public function create()
   {
     //
+    $data = [
+      'motors' => Motor::all(),
+      'leasings' => LeasingMotor::all(),
+      'kotas' => Kota::all()
+    ];
+
+    return view('admin.cicilan.tambah', $data);
   }
 
   /**
@@ -52,6 +59,35 @@ class AdminCicilanMotorController extends Controller
    */
   public function store(Request $request)
   {
+    $validator = Validator::make($request->all(), [
+      'motor' => 'required',
+      'leasing' => 'required',
+      'kota' => 'required',
+      'dp' => 'required|numeric',
+      'tenor' => 'required|numeric',
+      'cicilan' => 'required|numeric',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    try {
+      CicilanMotor::create([
+        'dp' => $request->input('dp'),
+        'tenor' => $request->input('tenor'),
+        'cicilan' => $request->input('cicilan'),
+        'id_leasing' => $request->input('leasing'),
+        'id_lokasi' => $request->input('kota'),
+        'id_motor' => $request->input('motor'),
+      ]);
+      flash()->addSuccess("Data cicilan motor berhasil dibuat");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      flash()->addError("Gagal membuat data, pastikan sudah benar!");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -72,7 +108,14 @@ class AdminCicilanMotorController extends Controller
    */
   public function edit($id)
   {
-    //
+    $data = [
+      'motors' => Motor::all(),
+      'leasings' => LeasingMotor::all(),
+      'kotas' => Kota::all(),
+      'cicilan' => CicilanMotor::where('id', $id)->first(),
+    ];
+
+    return view('admin.cicilan.update', $data);
   }
 
   /**
@@ -84,7 +127,45 @@ class AdminCicilanMotorController extends Controller
    */
   public function update(Request $request, $id)
   {
+    $validator = Validator::make($request->all(), [
+      'motor' => 'required',
+      'leasing' => 'required',
+      'kota' => 'required',
+      'dp' => 'required|numeric',
+      'tenor' => 'required|numeric',
+      'cicilan' => 'required|numeric',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    try {
+      $cicilan = CicilanMotor::find($id);
+
+      if (!$cicilan) {
+        flash()->addError("Data cicilan motor tidak ditemukan!");
+        return redirect()->back();
+      }
+
+      $cicilan->update([
+        'dp' => $request->input('dp'),
+        'tenor' => $request->input('tenor'),
+        'cicilan' => $request->input('cicilan'),
+        'id_leasing' => $request->input('leasing'),
+        'id_lokasi' => $request->input('kota'),
+        'id_motor' => $request->input('motor'),
+      ]);
+
+      flash()->addSuccess("Data cicilan motor berhasil diupdate");
+      return redirect()->route('admin.cicilan.index');
+    } catch (\Throwable $th) {
+      flash()->addError("Gagal mengupdate data, pastikan sudah benar!");
+      return redirect()->back();
+    }
   }
+
 
   /**
    * Remove the specified resource from storage.
@@ -94,10 +175,22 @@ class AdminCicilanMotorController extends Controller
    */
   public function destroy($id)
   {
-  }
+    try {
+      $cicilan = CicilanMotor::find($id);
 
-  public function view(BrosurMotor $brochure)
-  {
+      if (!$cicilan) {
+        flash()->addError("Data cicilan motor tidak ditemukan!");
+        return redirect()->back();
+      }
+
+      $cicilan->delete();
+
+      flash()->addSuccess("Data cicilan motor berhasil dihapus");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      flash()->addError("Gagal menghapus data, pastikan sudah benar!");
+      return redirect()->back();
+    }
   }
 
   public function importCsv(Request $request)
@@ -227,9 +320,29 @@ class AdminCicilanMotorController extends Controller
     return redirect()->back();
   }
 
-  public function dataTable()
+  public function dataTable(Request $request)
   {
-    $cicilan = CicilanMotor::getCicilanTable();
-    return Datatables::of($cicilan)->make(true);
+    $motor = $request->input('motor');
+    $leasing = $request->input('leasing');
+    $lokasi = $request->input('lokasi');
+    $tenor = $request->input('tenor');
+
+    $cicilan = CicilanMotor::getCicilanTable($motor, $leasing, $lokasi, $tenor);
+    return DataTables::of($cicilan)
+      ->addColumn('action', function ($row) {
+        $editUrl = route('admin.cicilan.edit', ['cicilan' => $row->id]);
+        $deleteUrl = route('admin.cicilan.destroy', ['cicilan' => $row->id]);
+
+        return '<div class="d-flex justify-content-between">
+                    <a href="' . $editUrl . '" class="btn btn-warning">Edit</a>
+                    <form action="' . $deleteUrl . '" method="post">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+                    </form>
+                </div>';
+      })
+      ->rawColumns(['action'])
+      ->make(true);
   }
 }
