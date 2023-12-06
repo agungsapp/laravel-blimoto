@@ -215,6 +215,7 @@
 						<th>DP</th>
 						<th>Tenor</th>
 						<th>Cicilan</th>
+						<th width="120px">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -230,6 +231,23 @@
 
 @push('script')
 <script>
+	$(document).on('click', '.show_confirm', function(e) {
+		e.preventDefault();
+		var form = $(this).closest('form');
+		event.preventDefault();
+		swal({
+				title: `Delete Data ?`,
+				text: "data yang di hapus tidak dapat dipulihkan!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					form.submit();
+				}
+			});
+	});
 	$(document).ready(function() {
 		// Initialize Select2 Elements
 		$('.select2').select2();
@@ -238,6 +256,9 @@
 		var table = $('#example1').DataTable({
 			processing: true,
 			serverSide: true,
+			order: [
+				[0, 'desc']
+			],
 			ajax: {
 				url: "{{ route('serverSideCicilanMotor') }}",
 				data: function(d) {
@@ -281,6 +302,11 @@
 						return 'Rp. ' + parseInt(data).toLocaleString();
 					},
 				},
+				{
+					data: 'action',
+					name: 'action',
+					orderable: false
+				}
 			],
 		});
 
