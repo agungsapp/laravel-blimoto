@@ -181,6 +181,7 @@
 					</ul>
 				</li>
 
+				<!-- data pricelist -->
 				<li class="nav-item">
 					<a href="{{ route('admin.cicilan.index') }}" class="nav-link {{ \Route::is('admin.cicilan.*') ? 'active' : '' }}">
 						<i class="nav-icon fas fa-money-bill"></i>
