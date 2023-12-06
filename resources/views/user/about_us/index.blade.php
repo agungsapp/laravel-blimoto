@@ -57,40 +57,37 @@
 												<div class="row">
 														<div class="col-12 col-md-6 p-2">
 																<div class="rounded-lg p-4" style="border: 1px solid #D22232; background-color: #FFF6F7;">
-																		<h5 class="text-black">Up to Date !</h5>
-																		<p class="text-black">Blimoto selalu memberikan Update
-																				motor terbaru yang kamu cari!</p>
-																		<a href="#" class="btn btn-basic btn-fitur-kami">Lihat Fitur</a>
+																		<h5 class="text-black">Diskon Terbaik!</h5>
+																		<p class="text-black">Nikmati penawaran diskon eksklusif untuk motor impianmu di Blimoto!</p>
+																		<a href="#" class="btn btn-basic btn-fitur-kami">Lihat Diskon</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
 																<div class="rounded-lg p-4" style="border: 1px solid #01E928; background-color: #E3FFE8;">
-																		<h5 class="text-black">Up to Date !</h5>
-																		<p class="text-black">Blimoto selalu memberikan Update
-																				motor terbaru yang kamu cari!</p>
+																		<h5 class="text-black">DP Termurah!</h5>
+																		<p class="text-black">Miliki motor impian dengan DP terjangkau hanya di Blimoto!</p>
 																		<a href="#" style="background-color: #00EB27; color: white;" class="btn btn-fitur-kami">Lihat
-																				Fitur</a>
+																				DP</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
 																<div class="rounded-lg p-4" style="border: 1px solid #FC0; background-color: #FFFAE4;">
-																		<h5 class="text-black">Up to Date !</h5>
-																		<p class="text-black">Blimoto selalu memberikan Update
-																				motor terbaru yang kamu cari!</p>
+																		<h5 class="text-black">Harga Terbawah!</h5>
+																		<p class="text-black">Temukan harga terbaik untuk motor pilihanmu hanya di Blimoto!</p>
 																		<a href="#" style="background-color: #FC0; color: white;" class="btn btn-fitur-kami">Lihat
-																				Fitur</a>
+																				Harga</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
 																<div class="rounded-lg p-4" style="border: 1px solid #9747FF; background-color: #FFEDFF;">
-																		<h5 class="text-black">Up to Date !</h5>
-																		<p class="text-black">Blimoto selalu memberikan Update
-																				motor terbaru yang kamu cari!</p>
+																		<h5 class="text-black">Angsuran Ringan!</h5>
+																		<p class="text-black">Nikmati angsuran ringan untuk memudahkan kepemilikan motor di Blimoto!</p>
 																		<a href="#" style="background-color: #9747FF; color: white;" class="btn btn-fitur-kami">Lihat
-																				Fitur</a>
+																				Angsuran</a>
 																</div>
 														</div>
 												</div>
+
 										</div>
 								</div>
 						</div>
