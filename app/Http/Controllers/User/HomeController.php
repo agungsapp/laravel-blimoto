@@ -214,7 +214,9 @@ class HomeController extends Controller
             'keyword' => $motorNama,
             'lokasi' => Kota::where('id', $idLokasi)->get(),
             'merks' => Merk::all(),
-            'types' => Type::all()
+            'types' => Type::all(),
+            'kategori' => $typeMotor,
+            'keyword' => $motorNama
         ];
 
 
