@@ -24,6 +24,11 @@
 																</a>
 														</div>
 												</div>
+												@php
+														$kategori = isset($kategori) ? $kategori : null;
+														$keyword = isset($keyword) ? $keyword : '';
+												@endphp
+												{{-- @dd($kategori) --}}
 												<form action="{{ route('search-motor') }}" method="GET">
 														@csrf
 														<div class="header-search ajax-search the-basics">
@@ -31,15 +36,16 @@
 																		<div class="input-group-text bg-basic">
 																				<input id="lokasi-user-pencarian" type="hidden" name="id_lokasi" value="">
 																				<select name="kategori" class="">
-																						<option value="" class="bg-basic">Kategori</option>
-																						<option value="1" selected class="bg-basic">Matic</option>
-																						<option value="2" class="bg-basic">Bebek/Cub</option>
-																						<option value="3" class="bg-basic">Sport</option>
-																						<option value="4" class="bg-basic">Big Bike</option>
+																						<option value="" selected class="bg-basic">Kategori</option>
+																						<option value="1" {{ $kategori == 1 ? 'selected' : '' }} class="bg-basic">Matic</option>
+																						<option value="2" {{ $kategori == 2 ? 'selected' : '' }} class="bg-basic">Bebek/Cub</option>
+																						<option value="3" {{ $kategori == 3 ? 'selected' : '' }} class="bg-basic">Sport</option>
+																						<option value="4" {{ $kategori == 4 ? 'selected' : '' }} class="bg-basic">Big Bike</option>
 																				</select>
+
 																		</div>
 																		<input type="search" class="form-control typeahead" name="motor"
-																				placeholder="Cari motor impian anda !" />
+																				placeholder="Cari motor impian anda !" value="{{ $keyword }}" />
 																		<button type="submit" class="input-group-text">
 																				<i class="fa fa-search"></i>
 																		</button>
@@ -210,7 +216,7 @@
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosi</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosii</a>
 																				</li>
 
 																				<li>
@@ -238,6 +244,44 @@
 																								<li><a href="#" data-id="5">Bekasi</a></li>
 																						</ul>
 																				</li>
+
+																				{{-- login placement --}}
+																				@if (auth()->check())
+																						<li class="d-lg-none">
+																								<a class="dark-menu-item">
+																										<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
+																								</a>
+																								<ul class="user-option-wrapper mr-4 p-2">
+																										<li><a href="#">{{ auth()->user()->nama }}</a></li>
+																										<li><a href="#">Edit Profil</a></li>
+																										<li class="px-2">
+
+																												<form action="{{ route('login.destroy') }}" method="POST">
+																														@csrf
+																														@method('DELETE')
+
+																														<button type="submit" class="btn btn-block btn-basic"
+																																style="border-radius: 19px !important; color: white !important; font-weight: bold;">Logout</button>
+																												</form>
+																										</li>
+																								</ul>
+																						</li>
+																				@else
+																						<li class="d-lg-none">
+																								<a href="{{ route('login') }}"><button type="button"
+																												class="btn btn-block bg-basic text-white"
+																												style="padding-left: 2.5rem; padding-right: 2.5rem">
+																												Masuk
+																										</button></a>
+																						</li>
+																						<li class="d-lg-none">
+																								<a href="{{ route('register') }}"><button type="button"
+																												class="btn btn-block btn-outline-dark"
+																												style="padding-left: 2.5rem; padding-right: 2.5rem">
+																												Daftar
+																										</button></a>
+																						</li>
+																				@endif
 																		</ul>
 																</nav>
 														</div>
