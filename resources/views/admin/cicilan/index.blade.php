@@ -4,7 +4,7 @@
 	<div class="col-12">
 		<div class="callout callout-info">
 			<h5><i class="fas fa-info"></i> Note:</h5>
-			Lakukan import/update data dengan import file CSV dengan format yang telah di tentukan.
+			<p>Lakukan import/update data dengan import file CSV dengan format yang telah ditentukan. Silakan unduh format file CSV <a href="{{asset('csv/template.csv')}}" download>di sini</a>.</p>
 		</div>
 	</div>
 
