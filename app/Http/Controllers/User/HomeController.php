@@ -274,6 +274,7 @@ class HomeController extends Controller
 
     private function getDpTermurah($bestMotorId)
     {
+        $kotaId = Session::get('lokasiUser');
         // Subquery untuk menemukan tenor maksimal per motor
         $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
             ->groupBy('id_motor');
@@ -282,6 +283,9 @@ class HomeController extends Controller
         $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
             $query->where('id_best_motor', $bestMotorId);
         })
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', $kotaId);
+            })
             ->leftJoinSub($maxTenorSubquery, 'max_tenors', function ($join) {
                 $join->on('motor.id', '=', 'max_tenors.id_motor');
             })
