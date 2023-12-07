@@ -247,7 +247,7 @@
 
 																				{{-- login placement --}}
 																				@if (auth()->check())
-																						<li class="d-lg-none">
+																						<li class="d-md-none">
 																								<a class="dark-menu-item">
 																										<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
 																								</a>
@@ -267,14 +267,14 @@
 																								</ul>
 																						</li>
 																				@else
-																						<li class="d-lg-none">
+																						<li class="d-md-none">
 																								<a href="{{ route('login') }}"><button type="button"
 																												class="btn btn-block bg-basic text-white"
 																												style="padding-left: 2.5rem; padding-right: 2.5rem">
 																												Masuk
 																										</button></a>
 																						</li>
-																						<li class="d-lg-none">
+																						<li class="d-md-none">
 																								<a href="{{ route('register') }}"><button type="button"
 																												class="btn btn-block btn-outline-dark"
 																												style="padding-left: 2.5rem; padding-right: 2.5rem">
