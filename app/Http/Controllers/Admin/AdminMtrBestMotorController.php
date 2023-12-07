@@ -23,8 +23,11 @@ class AdminMtrBestMotorController extends Controller
     $motor = DB::table('motor')
       ->get();
 
-    $mtrKategoriMotor = MtrBestMotor::with('motor', 'bestMotor')->get();
-    // dd($motor);
+    $mtrKategoriMotor = MtrBestMotor::with('motor', 'bestMotor')
+      ->orderBy('id', 'desc')
+      ->get();
+
+
     return view('admin.mtr-best-motor.index', [
       'mtrKategori' => $mtrKategori,
       'motor' => $motor,
@@ -61,15 +64,27 @@ class AdminMtrBestMotorController extends Controller
     }
 
     try {
-      MtrBestMotor::create([
-        'id_motor' => $request->input('motor'),
-        'id_best_motor' => $request->input('kategori'),
-      ]);
+      // Check if the data already exists
+      $existingEntry = MtrBestMotor::where('id_motor', $request->input('motor'))
+        ->where('id_best_motor', $request->input('kategori'))
+        ->first();
 
-      flash()->addSuccess("Berhasil dibuat");
+      if ($existingEntry) {
+        // Data already exists, show a notification
+        flash()->addError("Data sudah ada!");
+      } else {
+        // Data doesn't exist, create a new entry
+        MtrBestMotor::create([
+          'id_motor' => $request->input('motor'),
+          'id_best_motor' => $request->input('kategori'),
+        ]);
+
+        flash()->addSuccess("Berhasil dibuat");
+      }
+
       return redirect()->back();
     } catch (\Throwable $th) {
-      flash()->addError("Gagal membuat data pastikan sudah benar!");
+      flash()->addError("Gagal membuat data, pastikan sudah benar!");
       return redirect()->back();
     }
   }
