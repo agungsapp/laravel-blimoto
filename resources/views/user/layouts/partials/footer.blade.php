@@ -55,7 +55,7 @@
 																		</li>
 																		<li>
 																				<i class="fa fa-envelope-o"></i>email :
-																				blimotoindonesia@gmail.com
+																				support@blimoto.com
 																		</li>
 																		{{-- <li><i class="fa fa-fax"></i>fax <span>123456</span></li> --}}
 																</ul>

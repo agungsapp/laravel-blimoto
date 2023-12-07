@@ -9,6 +9,7 @@ use App\Models\MotorKota;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class MotorTerbaruController extends Controller
 {
@@ -37,6 +38,13 @@ class MotorTerbaruController extends Controller
       $typeIds = $request->input('id_type'); // Expecting an array of IDs
       $query->whereHas('type', function ($query) use ($typeIds) {
         $query->whereIn('id', $typeIds);
+      });
+    }
+    // Apply type filter if specified
+    if (Session::get('lokasiUser')) {
+      $kota = Session::get('lokasiUser');
+      $query->whereHas('motorKota', function ($query) use ($kota) {
+        $query->where('id', $kota);
       });
     }
 
