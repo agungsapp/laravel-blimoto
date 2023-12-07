@@ -216,7 +216,7 @@
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosii</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosi</a>
 																				</li>
 
 																				<li>
