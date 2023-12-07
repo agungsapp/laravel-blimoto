@@ -63,8 +63,8 @@
 																		</a>
 																		<ul id="select-lokasi-user" class="select-lokasi-user">
 																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
-																				<li><a href="#" data-id="2">Depok</a></li>
-																				<li><a href="#" data-id="3">Bogor</a></li>
+																				<li><a href="#" data-id="2">Bogor</a></li>
+																				<li><a href="#" data-id="3">Depok</a></li>
 																				<li><a href="#" data-id="4">Tanggerang</a></li>
 																				<li><a href="#" data-id="5">Bekasi</a></li>
 																		</ul>
@@ -216,7 +216,7 @@
 																				</li>
 
 																				<li>
-																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosii</a>
+																						<a class="dark-menu-item text-dark" href="{{ route('promosi.index') }}">Promosi</a>
 																				</li>
 
 																				<li>
