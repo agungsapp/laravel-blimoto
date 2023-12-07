@@ -230,6 +230,10 @@ class HomeController extends Controller
     private function getMotorData($bestMotorId)
     {
         $kotaId = Session::get('lokasiUser');
+        // Set default value of $kotaId to 1 if it's empty
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
         $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
             $query->where('id_best_motor', $bestMotorId);
         })
@@ -275,6 +279,10 @@ class HomeController extends Controller
     private function getDpTermurah($bestMotorId)
     {
         $kotaId = Session::get('lokasiUser');
+        // Set default value of $kotaId to 1 if it's empty
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
         // Subquery untuk menemukan tenor maksimal per motor
         $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
             ->groupBy('id_motor');

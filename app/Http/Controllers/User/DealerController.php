@@ -24,9 +24,10 @@ class DealerController extends Controller
                 ->limit(9)
                 ->get(),
             'lokasi' => $lokasi,
+            'nama' => $nama,
         ];
 
-        return view('user.dealer.index', $data);
+        return view('user.dealer.index', $data)->withInput($request->input());
     }
 
     /**
