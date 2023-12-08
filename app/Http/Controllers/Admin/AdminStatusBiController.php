@@ -3,23 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hasil;
+use App\Models\Slik;
+use App\Models\StatusBI;
+use App\Models\TypeSlik;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class AdminHasilController extends Controller
+class AdminStatusBiController extends Controller
 {
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index()
   {
-    $data = Hasil::orderBy('id', 'desc')->get();
-    return view('admin.penjualan.hasil', [
-      'hasil' => $data
-    ]);
+
+    $data = [
+      'status' => StatusBI::all(),
+    ];
+
+    return view('admin.status-bi.index', $data);
   }
 
   /**
@@ -41,29 +46,24 @@ class AdminHasilController extends Controller
   public function store(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'hasil' => 'required',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back();
+      return redirect()->back()->withErrors($validator)->withInput();
     }
 
     try {
-      $existingResult = Hasil::where('hasil', strtolower($request->input('hasil')))->first();
-
-      if ($existingResult) {
-        flash()->addError("Data sudah ada!");
-        return redirect()->back();
-      }
-
-      $hasil = Hasil::create([
-        'hasil' => strtolower($request->input('hasil')),
+      StatusBI::create([
+        'status' => $request->input('status'),
       ]);
-      flash()->addSuccess("hasil $hasil->hasil berhasil dibuat");
+
+      flash()->addSuccess("Berhasil menambah data");
       return redirect()->back();
     } catch (\Throwable $th) {
-      flash()->addError("Gagal membuat data pastikan sudah benar!");
+      throw $th;
+      flash()->addError("Error silahkan coba beberapa saat lagi");
       return redirect()->back();
     }
   }
@@ -99,8 +99,9 @@ class AdminHasilController extends Controller
    */
   public function update(Request $request, $id)
   {
+    // Validasi data input
     $validator = Validator::make($request->all(), [
-      'hasil' => 'required',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -108,14 +109,18 @@ class AdminHasilController extends Controller
       return redirect()->back();
     }
 
-    $hasil = Hasil::findOrFail($id);
+    try {
+      $status = StatusBI::find($id);
+      $status->status = $request->input('status');
+      $status->save();
 
-    $hasil->hasil = $request->hasil;
-    $hasil->save();
-
-    // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah data!");
-    return redirect()->back();
+      flash()->addSuccess("Data berhasil diupdate");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      throw $th;
+      flash()->addError("Data gagal di update");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -126,13 +131,13 @@ class AdminHasilController extends Controller
    */
   public function destroy($id)
   {
+    $slik = StatusBI::findOrFail($id);
     try {
-      $hasil = Hasil::findOrFail($id);
-      $hasil->delete();
+      $slik->delete();
       flash()->addSuccess("Berhasil menghapus data!");
       return redirect()->back();
     } catch (\Throwable $th) {
-      flash()->addError("$hasil->hasil tidak bisa dihapus karena data digunakan oleh data lain!");
+      flash()->addError("Tidak bisa dihapus karena data digunakan oleh data lain!");
       return redirect()->back();
     }
   }

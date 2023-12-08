@@ -28,14 +28,19 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label>Status BI Ceking</label>
+							@if($status->isEmpty())
+							<p>Data tidak ada. Silahkan buat terlebih dahulu.</p>
+							@else
 							<select name="status" class="form-control select2 @error('status') is-invalid @enderror" style="width: 100%;">
-								<option value="" {{ old('status') == '' ? 'selected' : '' }}>-- Pilih Status Ceking --</option>
-								<option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>pending</option>
-								<option value="success" {{ old('status') == 'success' ? 'selected' : '' }}>success</option>
+								<option value="" {{ old('status') == '' ? 'selected' : '' }}>-- Pilih status --</option>
+								@foreach($status as $s)
+								<option value="{{ $s->id }}" {{ old('status') == $s->id ? 'selected' : '' }}>{{ $s->status }}</option>
+								@endforeach
 							</select>
 							@error('status')
 							<span class="text-danger">{{ $message }}</span>
 							@enderror
+							@endif
 						</div>
 						<div class="form-group col-md-6">
 							<label>Jenis BI Ceking</label>
@@ -122,7 +127,7 @@
 							<td>{{ $c->id }}</td>
 							<td>{{ $c->no }}</td>
 							<td>{{ $c->email }}</td>
-							<td>{{ $c->status }}</td>
+							<td>{{ $c->statusBi->status }}</td>
 							<td>{{ $c->status_pembayaran }}</td>
 							<td>{{ $c->typeSlik->nama }}</td>
 							<td>{{ Str::rupiah($c->typeSlik->harga) }}</td>

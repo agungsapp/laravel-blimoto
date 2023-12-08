@@ -207,8 +207,8 @@
 				</li>
 
 				{{-- master slik --}}
-				<li class="nav-item {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') ? 'active' : '' }}">
+				<li class="nav-item {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') || \Route::is('admin.status-bi.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.slik-bi.*') || \Route::is('admin.type-slik-bi.*') || \Route::is('admin.status-bi.*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-id-card" aria-hidden="true"></i>
 						<p>
 							Master Slik
@@ -226,6 +226,12 @@
 							<a href="{{ route('admin.type-slik-bi.index') }}" class="nav-link {{ \Route::is('admin.type-slik-bi.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Data Type Slik BI</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.status-bi.index') }}" class="nav-link {{ \Route::is('admin.status-bi.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Status BI</p>
 							</a>
 						</li>
 					</ul>
