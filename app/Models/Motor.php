@@ -64,4 +64,28 @@ class Motor extends Model
     {
         return $this->hasOne(BrosurMotor::class, 'id_motor', 'id');
     }
+
+
+
+    // logika data : 
+    public static function getMotorsWithBrosur($search = null)
+    {
+        $query = self::with(['diskonMotor', 'brosurMotor'])
+            ->whereHas('brosurMotor');
+
+        if ($search) {
+            $query->where('nama', 'like', '%' . $search . '%');
+        }
+
+        $motors = $query->get();
+
+        foreach ($motors as $motor) {
+            $motor->image = DetailMotor::where('id_motor', $motor->id)
+                ->pluck('gambar')->first();
+
+            $motor->brosur = $motor->brosurMotor ? $motor->brosurMotor->nama_file : null;
+        }
+
+        return $motors;
+    }
 }
