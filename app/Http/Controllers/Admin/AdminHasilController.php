@@ -16,7 +16,7 @@ class AdminHasilController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Hasil::all();
+    $data = Hasil::orderBy('id', 'desc')->get();
     return view('admin.penjualan.hasil', [
       'hasil' => $data
     ]);
@@ -50,8 +50,15 @@ class AdminHasilController extends Controller
     }
 
     try {
+      $existingResult = Hasil::where('hasil', strtolower($request->input('hasil')))->first();
+
+      if ($existingResult) {
+        flash()->addError("Data sudah ada!");
+        return redirect()->back();
+      }
+
       $hasil = Hasil::create([
-        'hasil' => $request->input('hasil'),
+        'hasil' => strtolower($request->input('hasil')),
       ]);
       flash()->addSuccess("hasil $hasil->hasil berhasil dibuat");
       return redirect()->back();
