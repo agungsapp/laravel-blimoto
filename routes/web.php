@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
+use App\Http\Controllers\Admin\AdminStatusBiController;
 use App\Http\Controllers\Admin\AdminTypeSlikController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
@@ -169,6 +170,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('event', AdminEventController::class);
         Route::resource('company-profile', AdminCompanyProfileController::class);
         Route::resource('slik-bi', AdminSlikController::class);
+        Route::resource('status-bi', AdminStatusBiController::class);
         Route::resource('type-slik-bi', AdminTypeSlikController::class);
         Route::resource('promo', AdminPromoController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {

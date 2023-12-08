@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Slik;
+use App\Models\StatusBI;
 use App\Models\TypeSlik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -20,7 +21,8 @@ class AdminSlikController extends Controller
   {
 
     $data = [
-      'slik' => Slik::with('typeSlik')->get(),
+      'slik' => Slik::with('typeSlik', 'statusBi')->get(),
+      'status' => StatusBI::all(),
       'typeSlik' => TypeSlik::all(),
     ];
 
@@ -88,7 +90,7 @@ class AdminSlikController extends Controller
         'email' => $request->input('email') ?? null,
         'ktp' => $ktpName,
         'kk' => $kkName,
-        'status' => $request->input('status'),
+        'id_status' => $request->input('status'),
         'status_pembayaran' => $tipe === 2 ? 'free' : $request->input('status_pembayaran'),
         'id_type_slik' => $tipe,
       ]);

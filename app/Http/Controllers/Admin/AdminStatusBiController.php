@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hook;
 use App\Models\Slik;
-use Carbon\Carbon;
+use App\Models\StatusBI;
+use App\Models\TypeSlik;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class UserCekSlikController extends Controller
+class AdminStatusBiController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -18,12 +19,12 @@ class UserCekSlikController extends Controller
    */
   public function index()
   {
+
     $data = [
-      'hooks' => Hook::where('status', 1)
-        ->orderBy('order', 'asc')->get(),
+      'status' => StatusBI::all(),
     ];
 
-    return view('user.cek_slik.index', $data);
+    return view('admin.status-bi.index', $data);
   }
 
   /**
@@ -33,6 +34,7 @@ class UserCekSlikController extends Controller
    */
   public function create()
   {
+    //
   }
 
   /**
@@ -44,19 +46,7 @@ class UserCekSlikController extends Controller
   public function store(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'no' => ['required', 'regex:/^(?:\+?62|0)[0-9]{9,13}$/'],
-      'tipe' => 'required',
-      'ktp' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
-      'email' => ['sometimes', 'nullable', 'email'],
-    ], [
-      'no.required' => 'Nomor WA harus diisi.',
-      'no.regex' => 'Format Nomor WA tidak valid.',
-      'tipe.required' => 'Jenis BI Checking harus dipilih.',
-      'ktp.required' => 'Scan KTP harus diunggah.',
-      'ktp.image' => 'File KTP harus berupa gambar.',
-      'ktp.mimes' => 'File KTP harus berformat jpeg, png, jpg, atau webp.',
-      'ktp.max' => 'Ukuran file KTP tidak boleh lebih dari 2048 kilobytes.',
-      'email.email' => 'Format alamat email tidak valid.',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -65,27 +55,14 @@ class UserCekSlikController extends Controller
     }
 
     try {
-      $tipe = intval(request()->input('tipe'));
-      $ktp = $request->file('ktp');
-      $waktu = Carbon::now();
-      $ktpName = $waktu->toDateString() . '_' . $ktp->getClientOriginalName();
-
-      // Perform the data storage within this try block
-      Slik::create([
-        'no' => $request->input('no'),
-        'email' => $request->input('email') ?? null,
-        'ktp' => $ktpName,
-        'id_status' => 1,
-        'status_pembayaran' => $tipe === 1 ? 'pending' : 'free',
-        'id_type_slik' => $tipe,
+      StatusBI::create([
+        'status' => $request->input('status'),
       ]);
 
-      // Move the image only if the data storage is successful
-      $ktp->move(public_path('assets/images/slik/ktp/'), $ktpName);
-
-      flash()->addSuccess("Hasil BI akan dikirimkan paling cepat 3 hari");
+      flash()->addSuccess("Berhasil menambah data");
       return redirect()->back();
     } catch (\Throwable $th) {
+      throw $th;
       flash()->addError("Error silahkan coba beberapa saat lagi");
       return redirect()->back();
     }
@@ -122,7 +99,28 @@ class UserCekSlikController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    // Validasi data input
+    $validator = Validator::make($request->all(), [
+      'status' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back();
+    }
+
+    try {
+      $status = StatusBI::find($id);
+      $status->status = $request->input('status');
+      $status->save();
+
+      flash()->addSuccess("Data berhasil diupdate");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      throw $th;
+      flash()->addError("Data gagal di update");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -133,6 +131,14 @@ class UserCekSlikController extends Controller
    */
   public function destroy($id)
   {
-    //
+    $slik = StatusBI::findOrFail($id);
+    try {
+      $slik->delete();
+      flash()->addSuccess("Berhasil menghapus data!");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      flash()->addError("Tidak bisa dihapus karena data digunakan oleh data lain!");
+      return redirect()->back();
+    }
   }
 }
