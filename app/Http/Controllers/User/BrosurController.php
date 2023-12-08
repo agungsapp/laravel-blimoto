@@ -14,14 +14,16 @@ class BrosurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search', '');
+        $motors = Motor::getMotorsWithBrosur($search);
 
         $data = [
             'populer' => $this->getMotorData(6),
+            'motors' => $motors,
+            'pencarian' => $search
         ];
-
-        // dd($data['populer']);
 
         return view('user.brosur.index', $data);
     }

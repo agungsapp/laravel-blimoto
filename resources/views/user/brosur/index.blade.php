@@ -36,11 +36,14 @@
 
 						<div class="row">
 								<div class="col-5">
-										<div class="input-group mb-3">
-												<input type="text" class="form-control" placeholder="Cari brosur motor impian !"
-														aria-label="Recipient's username" aria-describedby="button-addon2">
-												<button class="btn btn-basic" type="button" id="button-addon2">Cari</button>
-										</div>
+										<form action="{{ route('brosur.index') }}" method="get">
+												@csrf
+												<div class="input-group mb-3">
+														<input type="text" class="form-control" name="search" placeholder="Cari brosur motor impian !"
+																value="{{ $pencarian }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+														<button class="btn btn-basic" type="submit" id="button-addon2">Cari</button>
+												</div>
+										</form>
 								</div>
 						</div>
 
@@ -101,6 +104,38 @@
 		<!-- brosur download end -->
 
 		<div class="title8 mb-4">
+				<h4 style="text-transform: capitalize">Brosur Motor Terbaik</h4>
+		</div>
+		<!-- brosur motor populer slider -->
+		<section id="brosur-motor-populer" class="ratio_asos product b-g-light mb-5 pb-5 pt-3">
+				<div class="container">
+						<div class="row">
+								<div class="col-12 slide-download-populer">
+
+										@foreach ($motors as $m)
+												<div class="d-flex justify-content-center align-items-center">
+														<div class="card border-0">
+																<img src="{{ asset('assets') }}/images/detail-motor/{{ $m->image }}" class="card-img-top"
+																		alt="{{ $m->id }}" />
+																<div class="card-body">
+																		<h5 class="card-title">{{ $m->nama }}</h5>
+																		<p class="card-text">{{ Str::rupiah($m->harga) }}</p>
+																		<a href="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/download/{{ $m->brosur }}" target="_blank"
+																				class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
+																</div>
+														</div>
+												</div>
+										@endforeach
+
+								</div>
+						</div>
+				</div>
+		</section>
+		<!-- brosur motor populer slider -->
+
+
+
+		<div class="title8 mb-4">
 				<h4 style="text-transform: capitalize">Brosur Motor Populer</h4>
 		</div>
 		<!-- brosur motor populer slider -->
@@ -117,8 +152,8 @@
 																<div class="card-body">
 																		<h5 class="card-title">{{ $t->nama }}</h5>
 																		<p class="card-text">{{ Str::rupiah($t->harga) }}</p>
-																		<a href="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/download/{{ $t->brosur }}" target="_blank"
-																				class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
+																		<a href="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/download/{{ $t->brosur }}"
+																				target="_blank" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
 																</div>
 														</div>
 												</div>
