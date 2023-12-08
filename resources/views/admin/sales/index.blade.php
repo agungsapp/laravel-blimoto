@@ -13,17 +13,17 @@
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="input-nama">Nama Sales</label>
-                <input name="nama" type="text" class="form-control" placeholder="Masukan nama sales">
+                <input name="nama" type="text" class="form-control" placeholder="Masukan nama sales" value="{{ old('nama') }}">
               </div>
               <div class="form-group col-md-6">
                 <label for="input-kode">NIP Sales</label>
-                <input name="kode" type="text" class="form-control" placeholder="Masukan NIP sales">
+                <input name="kode" type="text" class="form-control" placeholder="Masukan NIP sales" value="{{ old('kode') }}">
               </div>
             </div>
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="input-username">Username</label>
-                <input name="username" type="text" class="form-control" id="input-username" placeholder="Masukan username sales)">
+                <input name="username" type="text" class="form-control" id="input-username" placeholder="Masukan username sales" value="{{ old('username') }}">
               </div>
               <div class="form-group col-md-6">
                 <label for="input-password">Password</label>

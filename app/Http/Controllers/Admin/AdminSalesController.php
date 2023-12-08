@@ -48,11 +48,26 @@ class AdminSalesController extends Controller
       'kode' => 'required',
       'username' => 'required',
       'password' => 'required',
+    ], [
+      'username.unique' => 'The username has already been taken.',
     ]);
 
     if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back();
+      flash()->addError($validator->errors()->first());
+      return redirect()->back()->withInput();
+    }
+
+    $usernameLower = strtolower($request->input('username'));
+    $nipLower = strtolower($request->input('kode'));
+
+    // Check for uniqueness of 'username' and 'nip' using a single query (case-insensitive)
+    $existingSales = Sales::whereRaw('LOWER(username) = ?', [$usernameLower])
+      ->orWhereRaw('LOWER(nip) = ?', [$nipLower])
+      ->first();
+
+    if ($existingSales) {
+      flash()->addError('Username atau NIP sudah digunakan!.');
+      return redirect()->back()->withInput();
     }
 
     try {
@@ -62,11 +77,12 @@ class AdminSalesController extends Controller
         'username' => $request->input('username'),
         'password' => Hash::make($request->input('password')),
       ]);
+
       flash()->addSuccess("Sales $sales->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
       flash()->addError("Gagal membuat data pastikan sudah benar!");
-      return redirect()->back();
+      return redirect()->back()->withInput();
     }
   }
 
