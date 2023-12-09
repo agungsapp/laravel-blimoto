@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('thumbnail');
-            $table->string('tanggal_promo');
-            $table->timestamps();
+            $table->date('tanggal_promo');
+            $table->date('tanggal_berakhir');
         });
     }
 

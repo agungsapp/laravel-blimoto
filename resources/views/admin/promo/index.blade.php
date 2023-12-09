@@ -16,24 +16,53 @@
           <div class="row">
             <div class="form-group col-md-6">
               <label for="judul">Judul Promo</label>
-              <input name="judul" type="text" class="form-control" id="judul" placeholder="Masukan judul promo">
+              <input name="judul" type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" placeholder="Masukan judul promo" value="{{ old('judul') }}">
+              @error('judul')
+              <span class="invalid-feedback" role="alert">{{ $message }}</span>
+              @enderror
             </div>
             <div class="form-group col-md-6">
-              <label for="tanggal">Tanggal Promo</label>
-              <input name="tanggal" type="text" class="form-control" id="tanggal" placeholder="Masukan tanggal promo">
+              <label>Tanggal Promo </label>
+              <div class="input-group date" id="tanggalPromo" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input @error('tanggal_promo') is-invalid @enderror" data-target="#tanggalPromo" name="tanggal_promo" value="{{ old('tanggal_promo') }}">
+                <div class="input-group-append" data-target="#tanggalPromo" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+                @error('tanggal_promo')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Tanggal Berakhir: </label>
+              <div class="input-group date" id="tanggalBerakhir" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input @error('tanggal_berakhir') is-invalid @enderror" data-target="#tanggalBerakhir" name="tanggal_berakhir" value="{{ old('tanggal_berakhir') }}">
+                <div class="input-group-append" data-target="#tanggalBerakhir" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+                @error('tanggal_berakhir')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="form-group col-md-5">
+              <label for="exampleInputFile">Pilih Gambar</label>
+              <input type="file" id="exampleInputFile" class="@error('gambar_promo') is-invalid @enderror" name="gambar_promo">
+              <p class="help-block">Silahkan pilih gambar promo</p>
+              @error('gambar_promo')
+              <span class="invalid-feedback" role="alert">{{ $message }}</span>
+              @enderror
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
               <label>Deskripsi Promo</label>
-              <textarea id="deskripsi-promo" name="deskripsi" class="form-control" rows="3" placeholder="Deskripsi promo"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-5">
-              <label for="exampleInputFile">Pilih Gambar</label>
-              <input type="file" id="exampleInputFile" class="" name="gambar_promo">
-              <p class="help-block">Silahkan pilih gambar promo</p>
+              <textarea id="deskripsi-promo" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" placeholder="Deskripsi promo">{{ old('deskripsi') }}</textarea>
+              @error('deskripsi')
+              <span class="invalid-feedback" role="alert">{{ $message }}</span>
+              @enderror
             </div>
           </div>
         </div>
@@ -60,6 +89,7 @@
               <th>ID</th>
               <th>Judul promo</th>
               <th>Tanggal promo</th>
+              <th>Tanggal berakhir</th>
               <th>Deskripsi promo</th>
               <th>Gambar</th>
               <th width="120px">Action</th>
@@ -71,6 +101,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $e->judul }}</td>
               <td>{{ $e->tanggal_promo }}</td>
+              <td>{{ $e->tanggal_berakhir }}</td>
               <td>{!! $e->deskripsi !!}</td>
               <td>
                 <img width="150px" src="/assets/images/custom/promo/{{ $e->thumbnail }}" alt="{{ $e->thumbnail }}" srcset="">
@@ -104,8 +135,22 @@
                           </div>
                           <div class="row">
                             <div class="form-group col">
-                              <label for="tanggal">Tanggal promo</label>
-                              <input name="tanggal_update" type="text" class="form-control" id="tanggal" placeholder="Masukan tanggal promo" value="{{$e->tanggal_promo}}">
+                              <label>Tanggal Promo </label>
+                              <div class="input-group date" id="tanggalPromoUpdate{{$e->id}}" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#tanggalPromoUpdate{{$e->id}}" name="tanggal_promo" value="{{ date('m/d/Y', strtotime($e->tanggal_promo)) }}" />
+                                <div class="input-group-append" data-target="#tanggalPromoUpdate{{$e->id}}" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group col">
+                              <label>Tanggal Berakhir </label>
+                              <div class="input-group date" id="tanggalBerakhirUpdate{{$e->id}}" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#tanggalBerakhirUpdate{{$e->id}}" name="tanggal_berakhir" value="{{ $e->tanggal_berakhir ? date('m/d/Y', strtotime($e->tanggal_berakhir)) : '' }}" />
+                                <div class="input-group-append" data-target="#tanggalBerakhirUpdate{{$e->id}}" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                           <div class="row">
@@ -157,6 +202,7 @@
               <th>ID</th>
               <th>Judul promo</th>
               <th>Tanggal promo</th>
+              <th>Tanggal berakhir</th>
               <th>Deskripsi promo</th>
               <th>Gambar</th>
               <th width="120px">Action</th>
@@ -175,6 +221,37 @@
 @push('script')
 <script>
   $(document).ready(function() {
+    $('.show_confirm').click(function(promo) {
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      promo.preventDefault();
+      swal({
+          title: `Delete Data ?`,
+          text: "data yang di hapus tidak dapat dipulihkan!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.submit();
+          }
+        });
+    })
+
+    $('[id^=tanggalPromoUpdate]').datetimepicker({
+      format: 'L'
+    });
+    $('[id^=tanggalBerakhirUpdate]').datetimepicker({
+      format: 'L'
+    });
+
+    $('#tanggalPromo').datetimepicker({
+      format: 'L'
+    });
+    $('#tanggalBerakhir').datetimepicker({
+      format: 'L'
+    });
 
     function limitCharacterCount(editor, limit) {
       editor.on('summernote.keyup', function(we, e) {
@@ -212,7 +289,6 @@
       });
     });
 
-
     $("#dataDetail").DataTable({
       "responsive": true,
       "lengthChange": false,
@@ -221,24 +297,6 @@
     }).buttons().container().appendTo('#dataDetail .col-md-6:eq(0)');
 
     $('.select2').select2()
-
-    $('.show_confirm').click(function(promo) {
-      var form = $(this).closest("form");
-      var name = $(this).data("name");
-      promo.prpromoDefault();
-      swal({
-          title: `Delete Data Detail Motor ?`,
-          text: "data yang di hapus tidak dapat dipulihkan!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            form.submit();
-          }
-        });
-    })
   })
 </script>
 @endpush

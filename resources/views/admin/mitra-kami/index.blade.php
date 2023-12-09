@@ -91,7 +91,7 @@
 													</div>
 													<div class="form-group">
 														<label for="exampleInputFile">Pilih Gambar</label>
-														<input type="file" id="exampleInputFile" class="" name="gambar-mitra" >
+														<input type="file" id="exampleInputFile" class="" name="gambar-mitra">
 														<p class="help-block">Silahkan pilih gambar mitra</p>
 														@error('gambar-mitra')
 														<div class="alert alert-danger">{{ $message }}</div>
@@ -148,7 +148,23 @@
 @push('script')
 <script>
 	$(document).ready(function() {
-
+		$('.show_confirm').click(function(event) {
+			var form = $(this).closest("form");
+			var name = $(this).data("name");
+			event.preventDefault();
+			swal({
+					title: `Delete Data ?`,
+					text: "data yang di hapus tidak dapat dipulihkan!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						form.submit();
+					}
+				});
+		});
 		$("#dataDetail").DataTable({
 			"responsive": true,
 			"lengthChange": false,
