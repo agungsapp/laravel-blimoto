@@ -11,6 +11,11 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.img-responsive-tablets-container {
+    object-fit: cover;
+    object-align: center;
+}
+
 .img-dealer {
     width: 100%;
     height: 200px;
