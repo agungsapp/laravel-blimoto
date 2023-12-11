@@ -11,6 +11,10 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+.login-btn-nav {
+    display: block !important;
+}
+
 .img-responsive-tablets-container {
     object-fit: cover;
     object-align: center;
@@ -923,6 +927,9 @@ section .simulasi-container .simulasi-wrapper .card {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .login-btn-nav {
+        display: none !important;
+    }
     .size-lihat-info {
         font-size: 1.2em;
     }
