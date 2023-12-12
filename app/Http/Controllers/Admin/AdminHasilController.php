@@ -29,7 +29,7 @@ class AdminHasilController extends Controller
    */
   public function create()
   {
-    //
+    // oke
   }
 
   /**
