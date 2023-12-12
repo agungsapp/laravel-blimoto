@@ -311,6 +311,19 @@
 						});
 
 						watchTextChanges();
+
+
+						// Attach a click event listener to the section with class 'video-banner'
+						$('.video-banner').on('click', function(event) {
+								// Prevent the default action and stop event propagation
+								event.preventDefault();
+								event.stopPropagation();
+
+								// Trigger the click event of the anchor tag with class 'video-btn'
+								$(this).find('.video-btn').trigger('click');
+						});
+
+
 				});
 
 
@@ -350,6 +363,10 @@
 				headerTextColor: '#fff',
 				mainColor: '#DD0202',
 				bubbleBackground: '#DD0202',
+				mobileHeight: '100vh',
+				desktopHeight: '40vh',
+				desktopWidth: '80vh',
+				mobileWidth: '80vh',
 
 		};
 </script>
