@@ -18,8 +18,8 @@ class MerkMotorController extends Controller
   public function index(Request $request)
   {
     $search = $request->get('search');
-    $data = DB::table('merk')
-      ->where('nama', 'LIKE', "%{$search}%")
+    $data = Merk::where('nama', 'LIKE', "%{$search}%")
+      ->orderByDesc('id')
       ->paginate(10);
     return view('admin.merk.index', [
       'merks' => $data
@@ -44,9 +44,20 @@ class MerkMotorController extends Controller
     }
 
     try {
+      // Check if the record already exists
+      $existingMerk = Merk::whereRaw('LOWER(nama) = ?', [strtolower($request->input('nama'))])->first();
+
+      if ($existingMerk) {
+        // Data already exists, show an alert
+        flash()->addWarning("Merk motor dengan nama $existingMerk->nama sudah ada!");
+        return redirect()->back();
+      }
+
+      // Data does not exist, create a new record
       $merk = Merk::create([
-        'nama' => $request->input('nama')
+        'nama' => strtolower($request->input('nama')),
       ]);
+
       flash()->addSuccess("Merk motor $merk->nama berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
@@ -54,6 +65,7 @@ class MerkMotorController extends Controller
       return redirect()->back();
     }
   }
+
 
   /**
    * Update the specified resource in storage.

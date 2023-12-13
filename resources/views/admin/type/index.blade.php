@@ -57,7 +57,7 @@
                       </button>
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger">Delete</button>
+                      <button type="submit" class="btn btn-danger show_confirm">Delete</button>
                     </form>
                   </div>
                   <!-- Modal update -->
@@ -116,5 +116,24 @@
       //"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
     }).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
   });
+  $(document).ready(function() {
+    $('.show_confirm').click(function(event) {
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Delete Data ?`,
+          text: "data yang di hapus tidak dapat dipulihkan!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.submit();
+          }
+        });
+    });
+  })
 </script>
 @endpush

@@ -21,6 +21,7 @@ class MotorKotaController extends Controller
         $motorKotaData = MotorKota::join('kota', 'motor_kota.id_kota', '=', 'kota.id')
             ->join('motor', 'motor_kota.id_motor', '=', 'motor.id')
             ->select('motor_kota.*', 'kota.nama as kota_nama', 'motor.nama as motor_nama')
+            ->orderByDesc('motor_kota.id')
             ->get();
 
         $kota = Kota::all();
@@ -62,15 +63,25 @@ class MotorKotaController extends Controller
         }
 
         try {
-            $motorKota = MotorKota::create([
+            $existingRecord = MotorKota::where([
+                'id_kota' => $request->input('kota'),
+                'id_motor' => $request->input('motor'),
+            ])->first();
+
+            if ($existingRecord) {
+                flash()->addError("Data motor dan kota sudah ada!");
+                return redirect()->back();
+            }
+
+            MotorKota::firstOrCreate([
                 'id_kota' => $request->input('kota'),
                 'id_motor' => $request->input('motor'),
             ]);
-            flash()->addSuccess("Motor $motorKota->nama berhasil dibuat");
+
+            flash()->addSuccess("Motor berhasil ditambahkan ke kota");
             return redirect()->back();
         } catch (\Throwable $th) {
-            throw $th;
-            flash()->addError("Gagal membuat data pastikan sudah benar!");
+            flash()->addError("Gagal membuat data, pastikan sudah benar!");
             return redirect()->back();
         }
     }

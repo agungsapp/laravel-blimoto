@@ -18,7 +18,7 @@ class MitraKamiController extends Controller
   public function index()
   {
     //
-    $mitra = Mitra::all();
+    $mitra = Mitra::orderBy('id', 'desc')->get();
     return view('admin.mitra-kami.index', [
       'mitra' => $mitra,
     ]);
@@ -50,6 +50,13 @@ class MitraKamiController extends Controller
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
       return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $lowercaseName = strtolower($request->input('nama'));
+    $existingMitra = Mitra::whereRaw('LOWER(nama) = ?', [$lowercaseName])->first();
+    if ($existingMitra) {
+      flash()->addError("Mitra dengan nama {$request->input('nama')} sudah ada!");
+      return redirect()->back()->withInput();
     }
 
     try {

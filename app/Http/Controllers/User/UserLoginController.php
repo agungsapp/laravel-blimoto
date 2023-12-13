@@ -106,7 +106,7 @@ class UserLoginController extends Controller
 
         $nomor = $this->formatNohp($request->input('nohp'));
         $otp = $this->generateOTP();
-
+        // dd($nomor);
         try {
             //code...
             $user = User::firstOrNew([
@@ -188,16 +188,21 @@ class UserLoginController extends Controller
         return $otp;
     }
 
-    // Helper function to format the phone number
     private function formatNohp($nohp)
     {
-        // Check if the phone number starts with '0'
-        if (substr($nohp, 0, 1) === '0') {
-            // Remove the leading '0' and add '62'
+        // Check if the phone number starts with '08'
+        if (substr($nohp, 0, 2) === '08') {
             return '62' . substr($nohp, 1);
         }
-
-        // If it doesn't start with '0', assume it's already in the correct format
+        // Check if the phone number starts with '8'
+        elseif (substr($nohp, 0, 1) === '8') {
+            return '62' . $nohp;
+        }
+        // Check if the phone number starts with '0'
+        elseif (substr($nohp, 0, 1) === '0') {
+            return '62' . substr($nohp, 1);
+        }
+        // If it doesn't start with '0', '08', or '8', assume it's already in the correct format
         return $nohp;
     }
 }

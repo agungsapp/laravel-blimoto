@@ -75,7 +75,7 @@ class UserCekSlikController extends Controller
         'no' => $request->input('no'),
         'email' => $request->input('email') ?? null,
         'ktp' => $ktpName,
-        'status' => 'pending',
+        'id_status' => 1,
         'status_pembayaran' => $tipe === 1 ? 'pending' : 'free',
         'id_type_slik' => $tipe,
       ]);

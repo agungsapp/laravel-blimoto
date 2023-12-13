@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('no');
             $table->string('ktp');
             $table->string('kk');
-            $table->string('status');
             $table->string('email')->nullable();
             $table->enum('status_pembayaran', ['pending', 'success', 'free'])->default('pending');
+            $table->unsignedBigInteger('id_status');
             $table->unsignedBigInteger('id_type_slik');
+            $table->foreign('id_status')->references('id')->on('status_bi_checking');
             $table->foreign('id_type_slik')->references('id')->on('type_slik');
         });
     }

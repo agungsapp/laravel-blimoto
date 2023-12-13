@@ -17,7 +17,7 @@ class AdminPromoController extends Controller
    */
   public function index(Request $request)
   {
-    $promo = Promo::all();
+    $promo = Promo::orderBy('id', 'desc')->get();
 
     return view('admin.promo.index', [
       'promo' => $promo,
@@ -45,7 +45,8 @@ class AdminPromoController extends Controller
     // dd($request->all());
     $validator = Validator::make($request->all(), [
       'judul' => 'required',
-      'tanggal' => 'required',
+      'tanggal_promo' => 'required',
+      'tanggal_berakhir' => 'required',
       'deskripsi' => 'required',
       'gambar_promo' => 'required|mimes:jpeg,png,jpg,webp',
     ]);
@@ -53,6 +54,13 @@ class AdminPromoController extends Controller
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
       return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $lowercaseTitle = strtolower($request->input('judul'));
+    $existingPromo = Promo::whereRaw('LOWER(judul) = ?', [$lowercaseTitle])->first();
+    if ($existingPromo) {
+      flash()->addError("Promo dengan judul {$request->input('judul')} sudah ada!");
+      return redirect()->back()->withInput();
     }
 
     try {
@@ -66,15 +74,19 @@ class AdminPromoController extends Controller
         $gambarName = $waktu->toDateString() . '_' . $gambar->getClientOriginalName();
 
         // Pindahkan gambar ke direktori yang sesuai (misalnya, public/assets/images/custom/hook/)
-        $gambar->move(public_path('assets/images/custom/promo/'), $gambarName);
       }
 
+      $tanggalPromo = Carbon::createFromFormat('m/d/Y', $request->input('tanggal_promo'))->format('Y-m-d');
+      $tanggalBerakhir = Carbon::createFromFormat('m/d/Y', $request->input('tanggal_berakhir'))->format('Y-m-d');
       Promo::create([
         'judul' => $request->input('judul'),
         'deskripsi' => $request->input('deskripsi'),
         'thumbnail' => $gambarName,
-        'tanggal_promo' => $request->input('tanggal'),
+        'tanggal_promo' => $tanggalPromo,
+        'tanggal_berakhir' => $tanggalBerakhir,
       ]);
+
+      $gambar->move(public_path('assets/images/custom/promo/'), $gambarName);
       flash()->addSuccess("Promo berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
@@ -118,7 +130,8 @@ class AdminPromoController extends Controller
     // dd($request->all());
     $validator = Validator::make($request->all(), [
       'judul' => 'required',
-      'tanggal_update' => 'required',
+      'tanggal_promo' => 'required',
+      'tanggal_berakhir' => 'required',
       'deskripsi' => 'required',
     ]);
 
@@ -129,6 +142,8 @@ class AdminPromoController extends Controller
 
     try {
       $gambar_promo = Promo::findOrFail($id);
+      $tanggalPromo = Carbon::createFromFormat('m/d/Y', $request->input('tanggal_promo'))->format('Y-m-d');
+      $tanggalBerakhir = Carbon::createFromFormat('m/d/Y', $request->input('tanggal_berakhir'))->format('Y-m-d');
 
       // Periksa apakah ada file gambar yang diunggah
       if ($request->hasFile('gambar_promo')) {
@@ -158,7 +173,8 @@ class AdminPromoController extends Controller
       }
       $gambar_promo->update([
         'judul' => $request->input('judul'),
-        'tanggal_promo' => $request->input('tanggal_update'),
+        'tanggal_promo' => $tanggalPromo,
+        'tanggal_berakhir' => $tanggalBerakhir,
         'deskripsi' => $request->input('deskripsi'),
       ]);
 

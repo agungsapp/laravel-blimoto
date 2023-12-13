@@ -88,7 +88,7 @@
 											</button>
 											@csrf
 											@method('DELETE')
-											<button type="submit" class="btn btn-danger">Delete</button>
+											<button type="submit" class="btn btn-danger show_confirm">Delete</button>
 										</form>
 									</div>
 									<!-- Modal update -->
@@ -162,6 +162,26 @@
 
 		//Initialize Select2 Elements
 		$('.select2').select2()
+	})
+
+	$(document).ready(function() {
+		$('.show_confirm').click(function(event) {
+			var form = $(this).closest("form");
+			var name = $(this).data("name");
+			event.preventDefault();
+			swal({
+					title: `Delete Data ?`,
+					text: "data yang di hapus tidak dapat dipulihkan!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						form.submit();
+					}
+				});
+		});
 	})
 </script>
 @endpush

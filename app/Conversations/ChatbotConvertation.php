@@ -9,7 +9,7 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 
 class ChatbotConvertation extends Conversation
 {
-
+  protected $nomor_admin = '6282322222023';
   protected $name;
   protected $lokasi;
   protected $brand;
@@ -17,6 +17,7 @@ class ChatbotConvertation extends Conversation
   protected $type;
   protected $paymentMethod;
   protected $leasing;
+  protected $tenor;
 
   public function askName()
   {
@@ -111,7 +112,6 @@ class ChatbotConvertation extends Conversation
         $this->say("Metode pembayaran yang Anda pilih adalah: $this->paymentMethod");
         if ($this->paymentMethod === 'Cash') {
           $this->confirmDetails();
-          $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
         } else {
           $this->askLeasing();
         }
@@ -133,9 +133,81 @@ class ChatbotConvertation extends Conversation
       if ($answer->isInteractiveMessageReply()) {
         $this->leasing = $answer->getValue();
         $this->say("Leasing motor yang Anda pilih adalah: $this->leasing");
-        $this->say('<p class="">Error internal server chabot masih dalam tahap pengembangan </p>');
+        $this->askTenor();
       }
     });
+  }
+
+  public function askTenor()
+  {
+    $question = Question::create('Silahkan pilih tenor yang anda inginkan.')
+      ->addButtons([
+        Button::create('11')->value('11'),
+        Button::create('17')->value('17'),
+        Button::create('23')->value('23'),
+        Button::create('27')->value('27'),
+        Button::create('29')->value('29'),
+        Button::create('33')->value('33'),
+        Button::create('35')->value('35'),
+      ]);
+
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        $this->tenor = $answer->getValue();
+        $this->say("Tenor yang Anda pilih adalah: $this->tenor");
+        $this->confirmDetails();
+      }
+    });
+  }
+
+  public function confirmDetails()
+  {
+    $message = "Anda akan terhubung dengan sales dengan detail data. <br>" .
+      "Nama: <strong>$this->name</strong> <br>" .
+      "Domisili: <strong>$this->lokasi</strong><br>" .
+      "Merk: <strong>$this->brand</strong><br>" .
+      "Kategori: <strong>$this->category</strong><br>" .
+      "Type motor: <strong>$this->type</strong><br>" .
+      "Metode Pembayaran: <strong>$this->paymentMethod</strong><br>";
+
+    if ($this->paymentMethod !== 'Cash') {
+      $message .= "Leasing: <strong>$this->leasing</strong><br>" .
+        "Tenor: <strong>$this->tenor</strong><br>";
+    }
+
+    $this->say($message);
+
+    $question = Question::create("Apakah data tersebut sudah sesuai?")
+      ->addButtons([
+        Button::create('Ya')->value('Y'),
+        Button::create('Tidak')->value('N'),
+      ]);
+
+    $this->ask($question, function (Answer $answer) {
+      if ($answer->isInteractiveMessageReply()) {
+        if ($answer->getValue() === 'Y') {
+          $this->say('Chat customer service sekarang. !');
+          $whatsAppUrl = $this->createWhatsAppMessageUrl();
+          $this->say("Silakan <a href=\"{$whatsAppUrl}\" target=\"_blank\">klik di sini</a> untuk chat dengan customer service kami via WhatsApp.");
+        } else {
+          $this->askLocation();
+        }
+      }
+    });
+  }
+
+  protected function createWhatsAppMessageUrl()
+  {
+    $base_url = "https://wa.me/{$this->nomor_admin}?text=";
+    if ($this->paymentMethod === 'Cash') {
+      $message = "Halo admin, nama saya {$this->name}, saya ingin membeli unit {$this->brand} {$this->type} dengan pembayaran tunai (cash).";
+    } else {
+      $message = "Halo admin, nama saya {$this->name}, saya ingin membeli unit {$this->brand} {$this->type} dengan tenor {$this->tenor} bulan menggunakan leasing {$this->leasing}.";
+    }
+
+    // Encode the message for URL
+    $url_message = urlencode($message);
+    return $base_url . $url_message;
   }
 
   public function run()

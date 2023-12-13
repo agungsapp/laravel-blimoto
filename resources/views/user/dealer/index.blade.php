@@ -39,7 +39,8 @@
 														{{-- <span class="input-group-text" style="background-color: red;">
 
 														</span> --}}
-														<input type="search" class="form-control" placeholder="Cari dealer Anda!" name="keyword">
+														<input type="search" class="form-control" placeholder="Cari dealer Anda!" name="keyword"
+																value="{{ $nama }}">
 														<div class="input-group-text bg-basic" style="border: 1px solid red;">
 																<select class="form-select" name="lokasi">
 																		<option {{ $lokasi == 1 ? 'selected' : '' }} value="1">Jakarta Selatan</option>
@@ -54,6 +55,14 @@
 												</div>
 										</form>
 
+								</div>
+						</div>
+				</div>
+
+				<div class="container">
+						<div class="row p-2">
+								<div class="col-md-3 col-6">
+										<a href="{{ route('dealer.index') }}" class="btn btn-basic">Reset</a>
 								</div>
 						</div>
 				</div>

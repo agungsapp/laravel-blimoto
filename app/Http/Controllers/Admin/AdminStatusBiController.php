@@ -3,36 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\BestMotor;
-use App\Models\MtrBestMotor;
+use App\Models\Slik;
+use App\Models\StatusBI;
+use App\Models\TypeSlik;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class AdminMtrBestMotorController extends Controller
+class AdminStatusBiController extends Controller
 {
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index()
   {
-    $mtrKategori = DB::table('best_motor')
-      ->get();
-    $motor = DB::table('motor')
-      ->get();
 
-    $mtrKategoriMotor = MtrBestMotor::with('motor', 'bestMotor')
-      ->orderBy('id', 'desc')
-      ->get();
+    $data = [
+      'status' => StatusBI::all(),
+    ];
 
-
-    return view('admin.mtr-best-motor.index', [
-      'mtrKategori' => $mtrKategori,
-      'motor' => $motor,
-      'mtrKategoriMotor' => $mtrKategoriMotor,
-    ]);
+    return view('admin.status-bi.index', $data);
   }
 
   /**
@@ -54,37 +46,24 @@ class AdminMtrBestMotorController extends Controller
   public function store(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'motor' => 'required',
-      'kategori' => 'required',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back();
+      return redirect()->back()->withErrors($validator)->withInput();
     }
 
     try {
-      // Check if the data already exists
-      $existingEntry = MtrBestMotor::where('id_motor', $request->input('motor'))
-        ->where('id_best_motor', $request->input('kategori'))
-        ->first();
+      StatusBI::create([
+        'status' => $request->input('status'),
+      ]);
 
-      if ($existingEntry) {
-        // Data already exists, show a notification
-        flash()->addError("Data sudah ada!");
-      } else {
-        // Data doesn't exist, create a new entry
-        MtrBestMotor::create([
-          'id_motor' => $request->input('motor'),
-          'id_best_motor' => $request->input('kategori'),
-        ]);
-
-        flash()->addSuccess("Berhasil dibuat");
-      }
-
+      flash()->addSuccess("Berhasil menambah data");
       return redirect()->back();
     } catch (\Throwable $th) {
-      flash()->addError("Gagal membuat data, pastikan sudah benar!");
+      throw $th;
+      flash()->addError("Error silahkan coba beberapa saat lagi");
       return redirect()->back();
     }
   }
@@ -120,9 +99,9 @@ class AdminMtrBestMotorController extends Controller
    */
   public function update(Request $request, $id)
   {
+    // Validasi data input
     $validator = Validator::make($request->all(), [
-      'motor' => 'required',
-      'kategori' => 'required',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -130,17 +109,18 @@ class AdminMtrBestMotorController extends Controller
       return redirect()->back();
     }
 
-    // Find the best_motor model by id
-    $mtrBestMtr = MtrBestMotor::findOrFail($id);
+    try {
+      $status = StatusBI::find($id);
+      $status->status = $request->input('status');
+      $status->save();
 
-    // Update the mtrBestMtr model
-    $mtrBestMtr->id_motor = $request->motor;
-    $mtrBestMtr->id_best_motor = $request->kategori;
-    $mtrBestMtr->save();
-
-    // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah kategori best motor!");
-    return redirect()->back();
+      flash()->addSuccess("Data berhasil diupdate");
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      throw $th;
+      flash()->addError("Data gagal di update");
+      return redirect()->back();
+    }
   }
 
   /**
@@ -151,9 +131,9 @@ class AdminMtrBestMotorController extends Controller
    */
   public function destroy($id)
   {
+    $slik = StatusBI::findOrFail($id);
     try {
-      $mtrBestMtr = MtrBestMotor::findOrFail($id);
-      $mtrBestMtr->delete();
+      $slik->delete();
       flash()->addSuccess("Berhasil menghapus data!");
       return redirect()->back();
     } catch (\Throwable $th) {

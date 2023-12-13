@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<section class="mb-4">
+<section style="margin-bottom: 100px;">
   <div class="custom-container simulasi-container">
     <div class="row d-flex justify-content-center simulasi-wrapper">
       <div class="col-12 col-md-10 px-3 py-3 card rounded-3">

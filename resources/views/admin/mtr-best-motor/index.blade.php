@@ -62,7 +62,7 @@
 				<table id="dataBest" class="table-bordered table-striped table">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>No</th>
 							<th>Nama Motor</th>
 							<th>Nama Kategori</th>
 							<th width="170px">Action</th>
