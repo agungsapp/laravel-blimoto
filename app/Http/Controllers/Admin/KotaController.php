@@ -56,7 +56,7 @@ class KotaController extends Controller
 
       if ($existingCity) {
         flash()->addError("Kota {$existingCity->nama} sudah ada!");
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
 
       // If not, create a new city
