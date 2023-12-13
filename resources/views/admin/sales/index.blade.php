@@ -5,7 +5,7 @@
     <div class="col-12">
       <div class="card card-primary">
         <div class="card-header with-border">
-          <h3 class="card-title">Input Data Kota</h3>
+          <h3 class="card-title">Input Data Sales</h3>
         </div>
         <form action="{{ route('admin.sales.store') }}" method="post">
           @csrf
