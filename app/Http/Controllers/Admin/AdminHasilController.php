@@ -54,7 +54,7 @@ class AdminHasilController extends Controller
 
       if ($existingResult) {
         flash()->addError("Data sudah ada!");
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
 
       $hasil = Hasil::create([
