@@ -19,12 +19,13 @@
 							<div class="form-group col-md-6">
 								<label>Kota</label>
 								@if($kota === null)
-								<p class="text-danger">Tidak ada data kota silahkan buat terlebih dahulu !</p>
+								<p class="text-danger">Tidak ada data kota, silahkan buat terlebih dahulu!</p>
 								@else
 								<select id="kota" name="kota" class="form-control select2" style="width: 100%;">
 									<option value="" selected>-- Pilih kota --</option>
 									@foreach ($kota as $k)
-									<option value="{{ $k->id }}">{{ $k->nama }}</option>
+									<!-- Check if the old value matches and set it as selected -->
+									<option value="{{ $k->id }}" {{ old('kota') == $k->id ? 'selected' : '' }}>{{ $k->nama }}</option>
 									@endforeach
 								</select>
 								@endif
@@ -32,12 +33,13 @@
 							<div class="form-group col-md-6">
 								<label>Motor</label>
 								@if ($motor === null)
-								<p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
+								<p class="text-danger">Tidak ada data motor, silahkan buat terlebih dahulu!</p>
 								@else
 								<select id="motor" name="motor" class="form-control select2" style="width: 100%;">
 									<option value="" selected>-- Pilih motor --</option>
 									@foreach ($motor as $m)
-									<option value="{{ $m->id }}">{{ $m->nama }}</option>
+									<!-- Check if the old value matches and set it as selected -->
+									<option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
 									@endforeach
 								</select>
 								@endif
@@ -47,6 +49,7 @@
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</div>
 				</form>
+
 			</div>
 		</div>
 	</div>
