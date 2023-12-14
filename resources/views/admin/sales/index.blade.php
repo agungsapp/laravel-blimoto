@@ -27,7 +27,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input-password">Password</label>
-                <input name="password" type="text" class="form-control" placeholder="Masukan password">
+                <input name="password" type="password" class="form-control" placeholder="Masukan password">
               </div>
             </div>
           </div>
