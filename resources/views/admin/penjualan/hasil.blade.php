@@ -12,12 +12,14 @@
           <div class="card-body">
             <div class="form-group">
               <label for="input-hasil">Hasil</label>
-              <input name="hasil" type="text" class="form-control" placeholder="Masukan hasil penjualan">
+              <input name="hasil" type="text" class="form-control" id="input-hasil" placeholder="Masukan hasil penjualan" value="{{ old('hasil') }}">
             </div>
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
+
       </div>
 
     </div>

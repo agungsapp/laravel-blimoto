@@ -12,17 +12,15 @@
           <div class="card-body">
             <div class="form-group">
               <label for="exampleInputTypeMotor">Nama Type Motor</label>
-              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)">
+              <input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan type motor (Matic, Bebek/CUB, Sport, dll)" value="{{ old('nama') }}">
             </div>
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
-      </div>
-
+      </div </div>
     </div>
-  </div>
 </section>
 
 <section class="content">

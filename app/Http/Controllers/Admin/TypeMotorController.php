@@ -47,7 +47,7 @@ class TypeMotorController extends Controller
 
       if ($existingType) {
         flash()->addError("Type motor dengan nama $request->nama sudah ada!");
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
 
       // Create a new type only if it doesn't exist

@@ -167,18 +167,18 @@
 						function sendOtp() {
 								const nomor = $('#nomor').val();
 								const otp = $('#otp').val();
-								console.log(nomor);
-								console.log(otp);
 
 								$.ajax({
 										url: '/send-whatsapp',
 										type: 'POST',
 										data: {
 												nomor: nomor,
-												otp: otp
+												otp: otp,
+												topik: ' Login '
 										},
 										success: function(response) {
 												console.log(response);
+												startCountdown();
 										},
 										error: function(error) {
 												console.error(error);
@@ -186,7 +186,36 @@
 								});
 						}
 
-						$('#kirim').on('click', sendOtp)
+						function startCountdown() {
+								var counter = 30;
+								$('#kirim').prop('disabled', true)
+										.addClass('red-text')
+										.text('KIRIM KODE OTP ' + counter + ' DETIK LAGI');
+
+								var interval = setInterval(function() {
+										counter--;
+										$('#kirim').text('KIRIM KODE OTP ' + counter + ' DETIK LAGI');
+
+										if (counter <= 0) {
+												clearInterval(interval);
+												$('#kirim').prop('disabled', false)
+														.removeClass('red-text')
+														.text('KIRIM KODE OTP');
+										}
+								}, 1000);
+						}
+
+						// Panggil fungsi sendOtp saat halaman dimuat
+						sendOtp();
+
+						// Tombol kirim dengan event handler
+						$('#kirim').on('click', function() {
+								sendOtp();
+								startCountdown();
+						});
+
+
+
 
 
 						// Jika Anda memiliki tombol atau elemen pemicu, tambahkan event listener disini

@@ -12,7 +12,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="merk-motor">Nama Merk Motor</label>
-              <input name="nama" type="text" class="form-control" id="merk-motor" placeholder="Masukan merk motor (Honda, Yamaha, Suzuki, dll)">
+              <input name="nama" type="text" class="form-control" id="merk-motor" placeholder="Masukan merk motor (Honda, Yamaha, Suzuki, dll)" value="{{ old('nama') }}">
             </div>
           </div>
           <div class="card-footer">

@@ -70,7 +70,7 @@ class MotorKotaController extends Controller
 
             if ($existingRecord) {
                 flash()->addError("Data motor dan kota sudah ada!");
-                return redirect()->back();
+                return redirect()->back()->withInput();
             }
 
             MotorKota::firstOrCreate([

@@ -56,6 +56,7 @@ use App\Http\Controllers\User\DetailMotorControllerUser;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InfoLeasingController;
 use App\Http\Controllers\User\MotorTerbaruController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\SimulasiKreditController;
 use App\Http\Controllers\User\SyaratKreditController;
 use App\Http\Controllers\User\UserBlogController;
@@ -88,6 +89,7 @@ Route::delete('/logout', [UserLoginController::class, 'destroy'])->name('login.d
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 Route::post('/register', [UserRegisterController::class, 'store'])->name('register.store');
 Route::post('/register-verified', [UserRegisterController::class, 'verifikasi'])->name('register.verif');
+Route::resource('/profil', ProfileController::class);
 
 // chatbot
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
@@ -197,7 +199,7 @@ Route::prefix('app')->name('admin.')->group(function () {
 
 
 // testing
-Route::get('testing', [UserRegisterController::class, 'edit']);
+// Route::resource('testing', ProfileController::class);
 //sss
 
 
