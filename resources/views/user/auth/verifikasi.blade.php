@@ -94,10 +94,11 @@
 																		</div>
 																</div>
 																<div class="col-md-12 form-group d-flex justify-content-between">
-																		<button class="btn btn-warning btn-block rounded-lg py-1" id="kirim" type="button">KIRIM
-																				KODE
-																				OTP</button>
+																		<button class="btn btn-warning btn-block rounded-lg py-1" id="kirim" type="button">
+																				KIRIM KODE OTP <span id="timer"></span>
+																		</button>
 																</div>
+
 														</div>
 														<div class="row g-3">
 																<div class="col-md-12 form-group">
@@ -175,18 +176,18 @@
 						function sendOtp() {
 								const nomor = $('#nomor').val();
 								const otp = $('#otp').val();
-								console.log(nomor);
-								console.log(otp);
 
 								$.ajax({
 										url: '/send-whatsapp',
 										type: 'POST',
 										data: {
 												nomor: nomor,
-												otp: otp
+												otp: otp,
+												topik: ' Pendaftaran '
 										},
 										success: function(response) {
 												console.log(response);
+												startCountdown();
 										},
 										error: function(error) {
 												console.error(error);
@@ -194,7 +195,37 @@
 								});
 						}
 
-						$('#kirim').on('click', sendOtp)
+						function startCountdown() {
+								var counter = 30;
+								$('#kirim').prop('disabled', true)
+										.addClass('red-text')
+										.text('KIRIM KODE OTP ' + counter + ' DETIK LAGI');
+
+								var interval = setInterval(function() {
+										counter--;
+										$('#kirim').text('KIRIM KODE OTP ' + counter + ' DETIK LAGI');
+
+										if (counter <= 0) {
+												clearInterval(interval);
+												$('#kirim').prop('disabled', false)
+														.removeClass('red-text')
+														.text('KIRIM KODE OTP');
+										}
+								}, 1000);
+						}
+
+						// Panggil fungsi sendOtp saat halaman dimuat
+						sendOtp();
+
+						// Tombol kirim dengan event handler
+						$('#kirim').on('click', function() {
+								sendOtp();
+								startCountdown();
+						});
+
+
+
+
 
 
 						// Jika Anda memiliki tombol atau elemen pemicu, tambahkan event listener disini

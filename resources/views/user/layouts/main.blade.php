@@ -341,6 +341,16 @@
 								}
 						}, 1000); // Interval dapat disesuaikan sesuai kebutuhan
 				}
+
+
+
+				$(document).ready(function() {
+						$('#kategoriPencarian').on('invalid', function() {
+								this.setCustomValidity('Silakan pilih kategori dahulu untuk melanjutkan.');
+						}).on('change', function() {
+								this.setCustomValidity('');
+						});
+				});
 		</script>
 
 		@stack('script')
