@@ -1,17 +1,21 @@
 @extends('user.layouts.main')
 @section('content')
 		<!-- breadcrumb start -->
-		<div class="breadcrumb-main text-white" style="background-color: black">
+		<div class="breadcrumb-main bg-dark">
 				<div class="container">
 						<div class="row">
 								<div class="col">
 										<div class="breadcrumb-contain">
 												<div>
-														<h2>Syarat Kredit</h2>
+														<h2 class="text-white">Syarat Kredit</h2>
 														<ul>
-																<li><a href="javascript:void(0)">home</a></li>
-																<li><i class="fa fa-angle-double-right"></i></li>
-																<li><a href="javascript:void(0)">syarat-kredit</a></li>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">kredit</a>
+																</li>
+																<li><i class="fa fa-angle-double-right text-white"></i></li>
+																<li>
+																		<a class="text-white" href="javascript:void(0)">syarat kredit</a>
+																</li>
 														</ul>
 												</div>
 										</div>
@@ -150,15 +154,15 @@
 
 																		<!-- pembayaran -->
 																		<!-- <div class="col-12 col-md-4">
-											<div class="form-group">
-												<label for="SelectKota" class="mb-0" style="font-size: 12px">Pembayaran</label>
-												<select id="pembayaran" class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="pembayaran">
-													<option value="0" selected>-- Pilih Pembayaran --</option>
-													<option value="1">Cash</option>
-													<option value="2">Kredit</option>
-												</select>
-											</div>
-										</div> -->
+																	<div class="form-group">
+																		<label for="SelectKota" class="mb-0" style="font-size: 12px">Pembayaran</label>
+																		<select id="pembayaran" class="js-example-basic-single form-select form-select-sm" style="width: 100%" name="pembayaran">
+																			<option value="0" selected>-- Pilih Pembayaran --</option>
+																			<option value="1">Cash</option>
+																			<option value="2">Kredit</option>
+																		</select>
+																	</div>
+																</div> -->
 
 																		<!-- model motor -->
 																		<div class="col-12 col-md-4">

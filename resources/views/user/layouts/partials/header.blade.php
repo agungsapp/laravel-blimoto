@@ -35,7 +35,7 @@
 																<div class="input-group">
 																		<div class="input-group-text bg-basic">
 																				<input id="lokasi-user-pencarian" type="hidden" name="id_lokasi" value="">
-																				<select name="kategori" class="">
+																				<select name="kategori" id="kategoriPencarian" class="" required>
 																						<option value="" selected class="bg-basic">Kategori</option>
 																						<option value="1" {{ $kategori == 1 ? 'selected' : '' }} class="bg-basic">Matic</option>
 																						<option value="2" {{ $kategori == 2 ? 'selected' : '' }} class="bg-basic">Bebek/Cub</option>
@@ -45,7 +45,7 @@
 
 																		</div>
 																		<input type="search" class="form-control typeahead" name="motor"
-																				placeholder="Cari motor impian anda !" value="{{ $keyword }}" />
+																				placeholder="Cari motor impian anda !" value="{{ $keyword }}" required />
 																		<button type="submit" class="input-group-text">
 																				<i class="fa fa-search"></i>
 																		</button>
@@ -76,8 +76,8 @@
 																						<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
 																				</a>
 																				<ul class="user-option-wrapper mr-4 p-2">
-																						<li><a href="#">{{ auth()->user()->nama }}</a></li>
-																						<li><a href="#">Edit Profil</a></li>
+																						<li><a href="{{ route('profil.index') }}">{{ auth()->user()->nama }}</a></li>
+																						<li><a href="{{ route('profil.index') }}">Edit Profil</a></li>
 																						<li class="px-2">
 
 																								<form action="{{ route('login.destroy') }}" method="POST">

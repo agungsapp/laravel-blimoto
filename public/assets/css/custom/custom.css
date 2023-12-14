@@ -11,6 +11,21 @@
 /* .tab-product-main .tab-prodcut-contain ul li.current:before {
 } */
 
+:root {
+    --bg-basic: #dd0202;
+}
+
+.card-profile {
+    border-left: 5px solid var(--bg-basic);
+    border-radius: 25px;
+    box-shadow: 9px 9px 49.4px -11px rgba(0, 0, 0, 0.26);
+}
+
+.red-text {
+    color: var(--bg-basic);
+    font-weight: bold;
+}
+
 .modal-v-sec {
     z-index: ;
 }

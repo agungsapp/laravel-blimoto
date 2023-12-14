@@ -44,8 +44,6 @@ class UserRegisterController extends Controller
 
     public function store(Request $request)
     {
-        //
-        // Validate request data as needed
 
         $otp = $this->generateOTP();
 
@@ -53,7 +51,7 @@ class UserRegisterController extends Controller
 
         $valid = $request->validate([
             'nama' => 'required|string',
-            'nohp' => 'required|numeric|unique:users,nomor_hp|min:10', // Add unique validation for the 'nomor_hp' column in the 'users' table
+            'nohp' => 'required|numeric|unique:users,nomor_hp|min:10',
         ], [
             'nama.required' => 'nama tidak boleh kosong !',
             'nama.string' => 'nama harus berupa huruf !',
@@ -68,18 +66,15 @@ class UserRegisterController extends Controller
             ]);
 
             if ($user->exists) {
-                // User already exists with the provided phone number
-                // You can handle this situation, for example, by redirecting back with an error message
-                return redirect()->back()->with('error', 'User dengan nomor ini sudah terdaftar.');
+                return redirect()->back()->with('error', 'User dengan nomor ini sudah terdaftar.')->withInput();
             }
 
-            // Set or update other user attributes
             $user->nama = $request->nama;
             $user->kode_otp = $otp;
             $user->is_verified = 0;
             $user->save();
         } catch (\Throwable $th) {
-            // Handle exceptions if needed
+
             return redirect()->back()->with('error', 'Maaf, Terjadi kesalahan pada server.');
         }
 
