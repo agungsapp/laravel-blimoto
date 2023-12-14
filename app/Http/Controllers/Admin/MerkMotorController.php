@@ -50,7 +50,7 @@ class MerkMotorController extends Controller
       if ($existingMerk) {
         // Data already exists, show an alert
         flash()->addWarning("Merk motor dengan nama $existingMerk->nama sudah ada!");
-        return redirect()->back();
+        return redirect()->back()->withInput();
       }
 
       // Data does not exist, create a new record

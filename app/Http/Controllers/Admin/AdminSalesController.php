@@ -19,7 +19,7 @@ class AdminSalesController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Sales::all();
+    $data = Sales::orderBy('id', 'desc')->get();
     return view('admin.sales.index', [
       'sales' => $data
     ]);
