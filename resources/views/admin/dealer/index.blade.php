@@ -16,21 +16,21 @@
 					<div class="row">
 						<div class="form-group col-md-4">
 							<label for="nama">Nama Dealer</label>
-							<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan nama dealer">
+							<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan nama dealer" value="{{ old('nama') }}">
 							@error('nama')
 							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group col-md-4">
 							<label for="alamat">Alamat Dealer</label>
-							<input name="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukan alamat dealer">
-							@error('lokasi')
+							<input name="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukan alamat dealer" value="{{ old('alamat') }}">
+							@error('alamat')
 							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group col-md-4">
 							<label for="telpon">Nomor Telpon</label>
-							<input name="telpon" type="text" class="form-control @error('telpon') is-invalid @enderror" id="telpon" placeholder="Masukan nomor telpon dealer">
+							<input name="telpon" type="text" class="form-control @error('telpon') is-invalid @enderror" id="telpon" placeholder="Masukan nomor telpon dealer" value="{{ old('telpon') }}">
 							@error('telpon')
 							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
@@ -40,12 +40,12 @@
 						<div class="form-group col-md-4">
 							<label>Kota Dealer</label>
 							@if ($kota == null)
-							<p class="text-danger">Tidak ada data dealer silahkan buat terlebih dahulu !</p>
+							<p class="text-danger">Tidak ada data dealer, silahkan buat terlebih dahulu!</p>
 							@else
 							<select id="kota-insert" name="kota" class="form-control select2 @error('kota') is-invalid @enderror" style="width: 100%;">
 								<option value="" selected>-- Pilih kota dealer --</option>
 								@foreach ($kota as $k)
-								<option value="{{ $k->id }}">{{ $k->nama }}</option>
+								<option value="{{ $k->id }}" {{ old('kota') == $k->id ? 'selected' : '' }}>{{ $k->nama }}</option>
 								@endforeach
 							</select>
 							@endif
@@ -55,7 +55,7 @@
 						</div>
 						<div class="form-group col-md-4">
 							<label for="link-map">Link Lokasi Google Map</label>
-							<input name="link-map" type="text" class="form-control @error('link-map') is-invalid @enderror" id="link-map" placeholder="Masukan link googel map dealer">
+							<input name="link-map" type="text" class="form-control @error('link-map') is-invalid @enderror" id="link-map" placeholder="Masukan link Google Map dealer" value="{{ old('link-map') }}">
 							@error('link-map')
 							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
