@@ -71,6 +71,7 @@ class UserRegisterController extends Controller
 
             $user->nama = $request->nama;
             $user->kode_otp = $otp;
+            $user->path_image = 'default.png';
             $user->is_verified = 0;
             $user->save();
         } catch (\Throwable $th) {

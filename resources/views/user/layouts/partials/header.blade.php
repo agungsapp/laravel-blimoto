@@ -65,7 +65,7 @@
 																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Bogor</a></li>
 																				<li><a href="#" data-id="3">Depok</a></li>
-																				<li><a href="#" data-id="4">Tanggerang</a></li>
+																				<li><a href="#" data-id="4">Tangerang</a></li>
 																				<li><a href="#" data-id="5">Bekasi</a></li>
 																		</ul>
 																</li>
