@@ -14,14 +14,13 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="exampleInputTypeMotor">Nama Kategori Best Motor</label>
-						<input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan kategori best motor (Diskon Terbaik, DP Terumurah, Harga Terbawah, dll)">
+						<input name="nama" type="text" class="form-control" id="exampleInputTypeMotor" placeholder="Masukan kategori best motor (Diskon Terbaik, DP Termurah, Harga Terbawah, dll)" value="{{ old('nama') }}">
 					</div>
 				</div>
 				<div class="card-footer">
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</div>
 			</form>
-
 		</div>
 		<!-- /.card -->
 	</div>

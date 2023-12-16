@@ -24,7 +24,7 @@
 		</div>
 	</div>
 </div>
-</div>
+
 
 <section class="container-fluid mt-4">
 	<div class="row">

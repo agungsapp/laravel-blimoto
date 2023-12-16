@@ -83,7 +83,7 @@ class MitraKamiController extends Controller
     } catch (\Throwable $th) {
       throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");
-      return redirect()->back();
+      return redirect()->back()->withInput();
     }
   }
 
