@@ -374,8 +374,8 @@
 				mainColor: '#DD0202',
 				bubbleBackground: '#DD0202',
 				mobileHeight: '100vh',
-				desktopHeight: '40vh',
-				desktopWidth: '80vh',
+				desktopHeight: '70vh',
+				desktopWidth: '40vh',
 				mobileWidth: '80vh',
 
 		};
