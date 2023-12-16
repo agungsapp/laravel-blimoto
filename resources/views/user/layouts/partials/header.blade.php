@@ -252,8 +252,8 @@
 																										<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
 																								</a>
 																								<ul class="user-option-wrapper mr-4 p-2">
-																										<li><a href="#">{{ auth()->user()->nama }}</a></li>
-																										<li><a href="#">Edit Profil</a></li>
+																										<li><a href="{{ route('profil.index') }}">{{ auth()->user()->nama }}</a></li>
+																										<li><a href="{{ route('profil.index') }}">Edit Profil</a></li>
 																										<li class="px-2">
 
 																												<form action="{{ route('login.destroy') }}" method="POST">
