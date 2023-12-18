@@ -577,7 +577,7 @@
 		<div class="container-fluid padding-primary mb-3 mt-4">
 				<div class="row">
 						<div class="col-11 col-md-10 px-3 py-3">
-								<p class="fs-4 fw-bold mb-1 text-start text-black">Berita Blog</h>
+								<p class="fs-4 fw-bold mb-1 text-start text-black">Berita Blog</p>
 						</div>
 						<div class="col-12">
 								<div class="owl-home-slider owl-theme position-relative overflow-hidden">
