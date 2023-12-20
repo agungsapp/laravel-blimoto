@@ -166,19 +166,60 @@ class CicilanMotorController extends Controller
 
   public function searchAndRecommend(Request $request)
   {
-    $validator = Validator::make($request->all(), [
-      'id_lokasi' => 'required',
-      'id_motor' => 'required',
-      'dp' => 'required',
-      'tenor' => 'required',
-    ]);
+
+
+    if ($request->input('pembayaran') == 1) {
+      $validator = Validator::make(
+        $request->all(),
+        [
+          'id_lokasi' => 'required',
+          'id_motor' => 'required',
+          'dp' => 'required',
+          'tenor' => 'required',
+        ],
+        [
+          'id_lokasi.required' => 'kota harus dipilih terlebih dahulu',
+          'id_motor.required' => 'motor harus dipilih terlebih dahulu',
+          'dp.required' => 'dp harus dipilih terlebih dahulu',
+          'tenor.required' => 'tenor harus dipilih terlebih dahulu',
+        ]
+      );
+      if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+    } else {
+      // dd($request->input('pembayaran'));
+      $validator = Validator::make(
+        $request->all(),
+        [
+          'id_lokasi' => 'required',
+          'id_motor' => 'required',
+          'dp' => 'required',
+          'pembayaran' => 'required',
+        ],
+        [
+          'id_lokasi.required' => 'kota harus dipilih terlebih dahulu',
+          'id_motor.required' => 'motor harus dipilih terlebih dahulu',
+          'dp.required' => 'dp harus dipilih terlebih dahulu',
+          'pembayaran.required' => 'pembayaran harus dipilih terlebih dahulu',
+        ]
+      );
+
+      if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      $id_lokasi = $request->input('id_lokasi');
+      $id_motor = $request->input('id_motor');
+
+      return redirect()->to("/detail-motor?_token=URotrl3JPsfZnK6ER5OF6RHFxvGjINUduJcdytlY&id_lokasi=$id_lokasi&id_motor=$id_motor");
+    }
+
+
 
     if ($validator->fails()) {
-      return response()->json([
-        'message' => 'inputkan semua data dengan benar',
-        'errors' => $validator->errors(),
-      ], 403);
+      return redirect()->back()->withErrors($validator)->withInput();
     }
+
 
     $id_lokasi = $request->input('id_lokasi');
     $id_motor = $request->input('id_motor');
@@ -206,59 +247,6 @@ class CicilanMotorController extends Controller
         'message' => 'tidak ada data'
       ], 404);
     }
-
-    // $cicilan_motor = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'potongan_tenor', 'id_leasing', 'id_motor', 'id_lokasi')
-    //   ->with([
-    //     'leasingMotor' => function ($query) {
-    //       $query->select('id', 'nama', 'gambar');
-    //     },
-    //   ])
-    //   ->where('id_lokasi', $id_lokasi)
-    //   ->where('id_motor', $id_motor)
-    //   ->where('tenor', $tenor)
-    //   ->where('dp', $dp)
-    //   ->get();
-
-    // dd($cicilan_motor);
-
-
-    // $cicilan_motor = CicilanMotor::with(['leasingMotor'])
-    //   ->where('id_lokasi', $id_lokasi)
-    //   ->where('id_motor', $id_motor)
-    //   ->where('tenor', $tenor)
-    //   ->where(function ($query) {
-    //     $query->where('dp', DB::raw("(SELECT MIN(dp))"));
-    //   })
-    //   ->distinct()
-    //   ->get();
-
-
-    // $subQuery = DB::table('cicilan_motor')
-    //   ->where('id_motor', $id_motor)
-    //   ->where('tenor', $tenor)
-    //   ->where('id_lokasi', $id_lokasi)
-    //   ->selectRaw('MIN(dp) as dp')
-    //   ->groupBy('id_leasing')
-    //   ->pluck('dp');
-
-
-    // $subquery = CicilanMotor::select('id_leasing')
-    //   ->distinct()
-    //   ->where('id_motor', $id_motor)
-    //   ->where('id_lokasi', $id_lokasi)
-    //   ->where('tenor', $tenor)
-    //   ->groupBy('id_leasing');
-
-    // $leasings = $subquery->get()->pluck('id_leasing');
-
-    // $results = CicilanMotor::with('leasingMotor')
-    //   ->whereIn('id_leasing', $leasings)
-    //   ->where('id_motor', $id_motor)
-    //   ->where('id_lokasi', $id_lokasi)
-    //   ->where('tenor', $tenor)
-    //   ->groupBy('id_leasing')
-    //   ->get();
-
 
     $cicilan_motor = DB::table('cicilan_motor')
       ->join('leasing_motor', 'cicilan_motor.id_leasing', '=', 'leasing_motor.id')

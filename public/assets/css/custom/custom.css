@@ -15,6 +15,10 @@
     --bg-basic: #dd0202;
 }
 
+.sosiyal li:hover {
+    cursor: pointer;
+}
+
 .profile-img img {
     width: 150px !important;
     height: 150px !important;
