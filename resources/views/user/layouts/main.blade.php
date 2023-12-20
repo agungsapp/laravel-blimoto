@@ -324,6 +324,19 @@
 						});
 
 
+						$(document).ready(function() {
+								$('.sosiyal li').click(function(e) {
+										// Mencegah aksi default jika targetnya bukan <a>
+										if (!$(e.target).is('a')) {
+												e.preventDefault();
+												$(this).find('a')[0].click();
+										}
+								});
+						});
+
+
+
+
 				});
 
 
