@@ -21,13 +21,23 @@ class MotorTerbaruController extends Controller
   public function index(Request $request)
   {
     $request->flash();
-    // Start the query builder
-    $query = Motor::with('merk', 'type', 'detailMotor');
-    // dd($request->all());
+    // Mengatur query untuk selalu memilih motor dengan id_best_motor = 7
+    $query = Motor::with('merk', 'type', 'detailMotor')
+      ->whereHas('mtrBestMotor', function ($q) {
+        $q->where('id_best_motor', 7);
+      });
+
+    // Filter berdasarkan lokasi dari session jika ada
+    if (Session::get('lokasiUser')) {
+      $kota = Session::get('lokasiUser');
+      $query->whereHas('motorKota', function ($q) use ($kota) {
+        $q->where('id_kota', $kota);
+      });
+    }
 
     // Apply brand filter if specified
     if ($request->filled('id_merk')) {
-      $brandIds = $request->input('id_merk'); // Expecting an array of IDs
+      $brandIds = $request->input('id_merk');
       $query->whereHas('merk', function ($query) use ($brandIds) {
         $query->whereIn('id', $brandIds);
       });
@@ -35,16 +45,9 @@ class MotorTerbaruController extends Controller
 
     // Apply type filter if specified
     if ($request->filled('id_type')) {
-      $typeIds = $request->input('id_type'); // Expecting an array of IDs
+      $typeIds = $request->input('id_type');
       $query->whereHas('type', function ($query) use ($typeIds) {
         $query->whereIn('id', $typeIds);
-      });
-    }
-    // Apply type filter if specified
-    if (Session::get('lokasiUser')) {
-      $kota = Session::get('lokasiUser');
-      $query->whereHas('motorKota', function ($query) use ($kota) {
-        $query->where('id', $kota);
       });
     }
 
@@ -77,17 +80,13 @@ class MotorTerbaruController extends Controller
     // Append current request's query parameters to the pagination links
     $motorData->appends($request->all());
 
-    // Return the view with data and additional filter data for form selections
-
-
-    // dd($motorData);
-
     return view('user.motor_terbaru.index', [
       'data' => $motorData,
       'merks' => Merk::all(),
       'types' => Type::all(),
     ]);
   }
+
 
   /**
    * Show the form for creating a new resource.
