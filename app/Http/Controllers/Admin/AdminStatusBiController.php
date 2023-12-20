@@ -55,15 +55,25 @@ class AdminStatusBiController extends Controller
     }
 
     try {
-      StatusBI::create([
-        'status' => $request->input('status'),
+      $lowercaseStatus = strtolower($request->input('status'));
+
+      // Check if the status with the given lowercase value already exists
+      $existingStatus = StatusBI::whereRaw('LOWER(status) = ?', [$lowercaseStatus])->first();
+
+      if ($existingStatus) {
+        flash()->addError("Status dengan nama {$request->status} sudah ada!");
+        return redirect()->back()->withInput();
+      }
+
+      // Create a new status only if it doesn't exist
+      $status = StatusBI::create([
+        'status' => $lowercaseStatus,
       ]);
 
-      flash()->addSuccess("Berhasil menambah data");
+      flash()->addSuccess("Status {$status->status} berhasil dibuat");
       return redirect()->back();
     } catch (\Throwable $th) {
-      throw $th;
-      flash()->addError("Error silahkan coba beberapa saat lagi");
+      flash()->addError("Gagal membuat status, pastikan sudah benar!");
       return redirect()->back();
     }
   }

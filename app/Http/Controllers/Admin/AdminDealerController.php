@@ -47,7 +47,6 @@ class AdminDealerController extends Controller
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'alamat' => 'required',
-      'telpon' => 'required',
       'kota' => 'required',
       'link-map' => 'required',
       'gambar-dealer' => 'required|mimes:jpeg,png,jpg,webp',
@@ -128,7 +127,6 @@ class AdminDealerController extends Controller
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'alamat' => 'required',
-      'telpon' => 'required',
       'kota' => 'required',
       'link-map' => 'required',
     ]);

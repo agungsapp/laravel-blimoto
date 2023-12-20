@@ -16,7 +16,7 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="nama">Nama Mitra</label>
-							<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan nama mitra">
+							<input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukan nama mitra" value="{{ old('nama') }}">
 							@error('nama')
 							<div class="alert alert-danger">{{ $message }}</div>
 							@enderror
@@ -35,6 +35,7 @@
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</div>
 			</form>
+
 		</div>
 	</div>
 </div>

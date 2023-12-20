@@ -18,6 +18,7 @@ class BestMotorController extends Controller
   public function index(Request $request)
   {
     $data = DB::table('best_motor')
+      ->orderBy('id', 'desc')
       ->get();
 
     return view('admin.best-motor.index', [
@@ -59,10 +60,10 @@ class BestMotorController extends Controller
 
     if ($existingMotor) {
       flash()->addError("Nama $nama sudah ada!");
-      return redirect()->back();
+      return redirect()->back()->withInput();
     }
 
-    
+
     try {
       $best_motor = BestMotor::create([
         'nama' => $nama

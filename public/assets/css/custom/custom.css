@@ -15,6 +15,17 @@
     --bg-basic: #dd0202;
 }
 
+.profile-img img {
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: cover;
+    object-align: center;
+}
+
+.img-mitra {
+    object-fit: cover;
+}
+
 .card-profile {
     border-left: 5px solid var(--bg-basic);
     border-radius: 25px;

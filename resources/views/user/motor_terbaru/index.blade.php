@@ -162,11 +162,11 @@
 																																				class="img-fluid" alt="{{ $motor->detailMotor[0]->gambar }}" />
 																																</div>
 																														</div>
-																														<div class="product-detail product-detail2 text-start">
-																																<a href="product-page(left-sidebar).html" tabindex="0">
-																																		<h3>{{ $motor->nama }}</h3>
+																														<div class="product-detail product-detail2 pt-3 text-start">
+																																<a tabindex="0">
+																																		<h3 class="fw-bold text-center">{{ $motor->nama }}</h3>
 																																</a>
-																																<h3>Harga Spesial</h3>
+																																<h3 class="mt-3">Harga Spesial</h3>
 																																<h5>{{ Str::rupiah($motor->harga) }}</h5>
 																																<form action="{{ route('detail-motor') }}" method="GET">
 																																		@csrf

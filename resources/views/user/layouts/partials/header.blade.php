@@ -65,7 +65,7 @@
 																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Bogor</a></li>
 																				<li><a href="#" data-id="3">Depok</a></li>
-																				<li><a href="#" data-id="4">Tanggerang</a></li>
+																				<li><a href="#" data-id="4">Tangerang</a></li>
 																				<li><a href="#" data-id="5">Bekasi</a></li>
 																		</ul>
 																</li>
@@ -252,8 +252,8 @@
 																										<div class="icon-user-wrapper"><i class="fa fa-user"></i></div>
 																								</a>
 																								<ul class="user-option-wrapper mr-4 p-2">
-																										<li><a href="#">{{ auth()->user()->nama }}</a></li>
-																										<li><a href="#">Edit Profil</a></li>
+																										<li><a href="{{ route('profil.index') }}">{{ auth()->user()->nama }}</a></li>
+																										<li><a href="{{ route('profil.index') }}">Edit Profil</a></li>
 																										<li class="px-2">
 
 																												<form action="{{ route('login.destroy') }}" method="POST">
