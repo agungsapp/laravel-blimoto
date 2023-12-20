@@ -23,6 +23,9 @@ class MotorTerbaruController extends Controller
     $request->flash();
     // Start the query builder
     $query = Motor::with('merk', 'type', 'detailMotor');
+    $query->whereHas('mtrBestMotor', function ($query) {
+      $query->where('id_best', 7);
+    });
     // dd($request->all());
 
     // Apply brand filter if specified
