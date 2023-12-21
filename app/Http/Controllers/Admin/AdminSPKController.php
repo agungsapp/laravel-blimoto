@@ -153,8 +153,8 @@ class AdminSPKController extends Controller
       'kelengkapan' => 'required',
       'metode_pembayaran' => 'required_without:metode_lainnya',
       'metode_lainnya' => 'required_without:metode_pembayaran',
-      'jangka_waktu' => 'required',
       'id_penjualan' => 'required',
+      'alamat' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -202,6 +202,7 @@ class AdminSPKController extends Controller
       'metode_pembayaran' => $request->input('metode_pembayaran'),
       'metode_lainnya' => $request->input('metode_lainnya'),
       'jangka_waktu' => $request->input('jangka_waktu'),
+      'alamat' => $request->input('alamat'),
     ];
 
     return view('admin.spk.spk', $data);

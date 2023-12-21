@@ -221,13 +221,20 @@
                                   </div>
 
                                   <div class="row">
+                                    <div class="form-group col-md-12">
+                                      <label for="input-hasil">Alamat Customer</label>
+                                      <input name="alamat" type="text" class="form-control" placeholder="Masukan alamat customer">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
                                     <div class="form-group col-md-6">
                                       <label for="input-tenor">BPKB/STNK a.n</label>
                                       <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
                                     </div>
                                     <div class="form-group col-md-6">
                                       <label for="input-tenor">Nomor HP</label>
-                                      <input name="nomor_hp" type="text" class="form-control" placeholder="Masukan Nomor HP">
+                                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP">
                                     </div>
                                   </div>
 
@@ -279,15 +286,9 @@
                                   </div>
 
                                   <div class="row">
-                                    <div class="form-group col-md-12">
-                                      <label>Jangka Waktu</label>
-                                      <input type="hidden" class="jangka_send" name="jangka_waktu">
-                                      <div class="input-group date jangka_waktu" id="jangka_waktu_cetak_{{ $loop->index }}" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#jangka_waktu_cetak_{{ $loop->index }}" />
-                                        <div class="input-group-append" data-target="#jangka_waktu_cetak_{{ $loop->index }}" data-toggle="datetimepicker">
-                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                      </div>
+                                    <div class="form-group col-md-12" id="jangkaWaktuInput_{{$loop->index}}">
+                                      <label for="input-tenor">Jangka Waktu</label>
+                                      <input name="jangka_waktu" type="text" class="form-control" placeholder="Jangka waktu tenor (kosongkan jika cash)">
                                     </div>
                                   </div>
 
@@ -526,11 +527,14 @@
   function toggleMetodeLainnya(selectElement) {
     var index = selectElement.id.split('_')[1];
     var metodeLainnyaInput = document.getElementById('metodeLainnya_' + index);
+    var jangkaWaktuInput = document.getElementById('jangkaWaktuInput_' + index);
 
     if (selectElement.value === 'tunai' || selectElement.value === 'cek') {
       metodeLainnyaInput.style.display = 'none';
+      jangkaWaktuInput.style.display = 'none';
     } else {
       metodeLainnyaInput.style.display = 'block';
+      jangkaWaktuInput.style.display = 'block';
     }
   }
 </script>

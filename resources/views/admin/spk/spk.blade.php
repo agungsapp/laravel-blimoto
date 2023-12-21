@@ -46,6 +46,7 @@
         <p>Kabupaten: {{$kabupaten}}</p>
         <p>BPKB/STNK a.n: {{$bpkb_stnk}}</p>
         <p>Nomor HP: {{$nomor_hp}}</p>
+        <p>Alamat: {{$alamat}}</p>
         <br>
         <hr style="border: 1px solid black;">
         <p>SYARAT DAN KETENTUAN</p>
@@ -62,6 +63,7 @@
           <li>Pembayaran dengan cek/bilyet/giro/transfer harus diatasnamakan</li>
           <li>Pemesanan berkewajiban membayar tambahan biaya/pajak kendaraan dalam hal terdapat penambahan biaya pajak karena berlakunya ketentuan perundangan tentang pajak progresif atas pemikiran dan pendaftaran kendaraan bermotor atau karena adanya perubahan tarif pajak yang berlaku pada saat pendaftaran</li>
           <li>Pemesan bersedia menerima telpon untuk di follow up, penawaran dan keperluan lainnya dari pihak dealer</li>
+          <li>Berlaku, harga tidak mengikat. jika ada perubahan akan dihubungi sales.</li>
         </ol>
       </div>
       <div class="col-1 d-flex align-item-center justify-content-center" style="max-width: 1%;">
@@ -87,8 +89,6 @@
             </tr>
           </tbody>
         </table>
-        <p>Keterangan Program: {{$ket_program}}</p>
-        <p>Nama Diskon: {{$nama_diskon}}</p>
         <p>Kelengkapan: {{$kelengkapan}}</p>
         <hr style="border: 1px solid black;">
         <p>Harga Total Kenderaan (OTR): {{$harga}}</p>
@@ -107,7 +107,7 @@
           <input type="checkbox" id="kredit" name="pembayaran" value="kredit" @if(!is_null($metode_lainnya)) checked @endif>
           <label for="kredit">Kredit Via: {{$metode_lainnya ?? ''}}</label>
         </fieldset>
-        <p>Jangka Waktu: {{$jangka_waktu}}</p>
+        <p>Jangka Waktu: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</p>
       </div>
     </div>
     <div class="row text-center" style="margin-top: 100px;">
