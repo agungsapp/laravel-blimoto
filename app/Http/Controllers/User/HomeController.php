@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
 
         $data = [
-            'best1' => $this->getMotorData(2),
+            'best1' => $this->getDiskonTerbaik(2),
             'best2' => $this->getDpTermurah(3),
             'best3' => $this->getMotorData(4),
             'best4' => $this->getDpTermurah(5),
@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         // dd(Session::get('lokasiUser'));
 
-        // dd($data['best4']);
+        // dd($data['best1']);
 
         // dd($data['hooks']);
         return view('user.home.index', $data);
@@ -273,6 +273,51 @@ class HomeController extends Controller
     private function getBandingkanMotor()
     {
         // $motor = Motor
+    }
+
+
+    private function getDiskonTerbaik($bestMotorId)
+    {
+        $kotaId = Session::get('lokasiUser');
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
+        $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
+            ->groupBy('id_motor');
+        $maxDiskonSubquery = DiskonMotor::selectRaw('MAX(diskon_promo) as max_diskon_promo, MAX(diskon) as max_diskon, id_motor')
+            ->groupBy('id_motor');
+
+        // dd($maxDiskonSubquery, $maxTenorSubquery);
+        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+            $query->where('id_best_motor', $bestMotorId);
+        })
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->where('id_kota', $kotaId);
+            })
+            ->joinSub($maxTenorSubquery, 'max_tenors', function ($join) {
+                $join->on('motor.id', '=', 'max_tenors.id_motor');
+            })
+            ->joinSub($maxDiskonSubquery, 'max_diskons', function ($join) {
+                $join->on('motor.id', '=', 'max_diskons.id_motor');
+            })
+            ->join('cicilan_motor', function ($join) {
+                $join->on('motor.id', '=', 'cicilan_motor.id_motor')
+                    ->on('cicilan_motor.tenor', '=', 'max_tenors.max_tenor');
+            })
+            ->selectRaw('max_diskons.*, motor.*, cicilan_motor.dp, cicilan_motor.cicilan, cicilan_motor.tenor, cicilan_motor.id_leasing, cicilan_motor.id_lokasi, (cicilan_motor.dp - COALESCE(max_diskons.max_diskon_promo, 0)) as dp_bayar, (cicilan_motor.cicilan * cicilan_motor.tenor + cicilan_motor.dp) as total_bayar')
+            ->orderBy('dp_bayar', 'asc')
+            ->orderBy('total_bayar', 'asc')
+            ->groupBy('motor.id')
+            ->get();
+
+        // dd($motors);
+        // Menambahkan informasi gambar ke setiap motor
+        foreach ($motors as $motor) {
+            $motor->image = DetailMotor::where('id_motor', $motor->id)
+                ->pluck('gambar')->first();
+        }
+
+        return $motors;
     }
 
 
