@@ -35,7 +35,8 @@
       <div class="col text-center">
         <h4>Surat Pesanan Kendaraan (SPK)</h4>
       </div>
-      <div class="col text-right">133</div>
+      <div class="col"></div>
+      <!-- <div class="col text-right">133</div> -->
     </div>
     <div class="row">
       <div class="col">
@@ -91,23 +92,45 @@
         </table>
         <p>Kelengkapan: {{$kelengkapan}}</p>
         <hr style="border: 1px solid black;">
-        <p>Harga Total Kenderaan (OTR): {{$harga}}</p>
-        <p>DP: {{$dp}}</p>
-        <p>Total Diskon: {{$total_diskon}}</p>
-        <p>Sisa Yang Harus Dibayar: {{$sisa_bayar}}</p>
-        <fieldset>
-          <p>Metode Pembayaran</p>
-          <input type="checkbox" id="tunai" name="pembayaran" value="tunai" @if($metode_pembayaran==='tunai' ) checked @endif>
-          <label for="tunai" style="margin-right: 50px;">Tunai</label>
+        <br>
 
-          <input type="checkbox" id="cek" name="pembayaran" value="cek" @if($metode_pembayaran==='cek' ) checked @endif>
-          <label for="cek">Cek/Bilyet Giro</label>
-        </fieldset>
-        <fieldset>
-          <input type="checkbox" id="kredit" name="pembayaran" value="kredit" @if(!is_null($metode_lainnya)) checked @endif>
-          <label for="kredit">Kredit Via: {{$metode_lainnya ?? ''}}</label>
-        </fieldset>
-        <p>Jangka Waktu: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</p>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>Harga Total</td>
+            <td>: {{$harga}}</td>
+          </tr>
+          <tr>
+            <td>DP</td>
+            <td>: {{$dp}}</td>
+          </tr>
+          <tr>
+            <td>Total Diskon</td>
+            <td>: {{$total_diskon}}</td>
+          </tr>
+          <tr>
+            <td>Sisa DP Yang Harus Dibayar</td>
+            <td>: {{$sisa_bayar}}</td>
+          </tr>
+          <tr>
+            <td>Metode Pembayaran</td>
+            <td>:
+              @if($metode_pembayaran==='tunai')
+              Tunai
+              @elseif($metode_pembayaran==='cek')
+              Cek/Bilyet Giro
+              @elseif(!is_null($metode_lainnya))
+              Kredit Via {{$metode_lainnya}}
+              @endif
+            </td>
+          </tr>
+          @if(!is_null($metode_lainnya))
+          <tr>
+            <td>Tenor</td>
+            <td>: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</td>
+          </tr>
+          @endif
+        </table>
+
       </div>
     </div>
     <div class="row text-center" style="margin-top: 100px;">

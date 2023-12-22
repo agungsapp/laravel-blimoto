@@ -240,17 +240,6 @@
 
                                   <div class="row">
                                     <div class="form-group col-md-6">
-                                      <label for="input-tenor">Keterangan Program</label>
-                                      <input name="ket_program" type="text" class="form-control" placeholder="Masukan keterngan program">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">Nama Diskon</label>
-                                      <input name="nama_diskon" type="text" class="form-control" placeholder="Masukan nama diskon">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-6">
                                       <label for="input-tenor">DP</label>
                                       <input name="dp" type="number" class="form-control" placeholder="Masukan DP">
                                     </div>
