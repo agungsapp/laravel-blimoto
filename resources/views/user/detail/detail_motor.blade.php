@@ -82,49 +82,19 @@
 										</div>
 								</div>
 						</div>
-						{{-- <div id="motor-baru" class="col-12 col-md-4 col-lg-4 col-xl-3 rounded-3 min-vh-50"
-								style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-								<img src="{{ asset('assets') }}/images/detail-motor/{{ $data['motor']['detail_motor'][0]['gambar'] }}"
-										class="img-fluid" alt="{{ $data['motor']['detail_motor'][0]['gambar'] }}" srcset=""
-										style="max-width: 100%; height: auto;">
-								<div class="product-right py-5">
-										<div class="d-flex justify-content-between">
-												<p class="text-dark nama-motor fs-lg-4 fw-bold">{{ $data['motor']['nama'] }}</h>
-												<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
-														<span class="ms-2">{{ $lokasi }}</span>
-												</div>
-										</div>
-										<div class="d-flex justify-content-between mt-2">
-												<h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-												<p class="nama-motor" style="font-weight: bold; color: red;">{{ Str::rupiah($data['motor']['otr']) }}</p>
-										</div>
-										<div class="d-flex justify-content-between mt-2">
-												<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-												<span class="badge bg-success nama-motor">Kredit</span>
-										</div>
-										<div class="d-flex justify-content-between mt-2">
-												<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-												<p class="nama-motor">{{ $data['motor']['type'] }}</p>
-										</div>
-										<div class="d-flex justify-content-between mt-2">
-												<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-												<p class="nama-motor">{{ $data['motor']['merk'] }}</p>
-										</div>
-										<div class="d-flex justify-content-between mt-2">
-												<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-												<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
-										</div>
-								</div>
-						</div> --}}
 						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0">
 								<div class="owl-carousel-leasing d-flex align-items-center row mt-3 overflow-hidden">
 
 										@foreach ($data['cicilan_motor'] as $a)
-												<div class="item card" style=" margin-left: 10px;">
+												<div class="item card overflow-hidden" style=" 
+														margin-left: 10px;">
+														<div class="{{ $a['best'] == true ? 'bg-sorot' : '' }} fw-bold py-2">
+																<p class="text-center text-white">Rekomendasi Untuk Anda</p>
+														</div>
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img style="min-height: 130px; " src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
-																class="card-img-top" alt="{{ $a['gambar'] }}">
-														<ul class="list-group list-group-flush">
+																class="card-img-top {{ $a['best'] == true ? 'sorot_x' : '' }}" alt="{{ $a['gambar'] }}">
+														<ul class="list-group list-group-flush {{ $a['best'] == true ? 'sorot_x' : '' }}">
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($a['dp']) }}</p>
@@ -150,7 +120,8 @@
 																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['total_bayar']) }}</p>
 																</li>
 														</ul>
-														<div class="card-body d-flex justify-content-center">
+														<div
+																class="card-body {{ $a['best'] == true ? 'sorot_x' : '' }} d-flex justify-content-center {{ $a['best'] == true ? 'sorotan_bot' : '' }} overflow-hidden">
 																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $motor['merk'] }}%0AKategori%20:%20{{ $motor['type'] }}%0AType%20:%20{{ $motor['nama'] }}%0Aleasing%20:%20{{ $a['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $a['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($a['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>
@@ -282,10 +253,13 @@
 
 										@foreach ($r['cicilan_motor'] as $rc)
 												<div class="item card" style=" margin-left: 10px; ">
+														<div class="{{ $rc['best'] == true ? 'bg-sorot' : '' }} fw-bold py-2">
+																<p class="text-center text-white">Rekomendasi Untuk Anda</p>
+														</div>
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img style="min-height: 130px; " src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}"
-																class="card-img-top" alt="{{ $rc['gambar'] }}">
-														<ul class="list-group list-group-flush">
+																class="card-img-top {{ $rc['best'] == true ? 'sorot_x' : '' }}" alt="{{ $rc['gambar'] }}">
+														<ul class="list-group list-group-flush {{ $rc['best'] == true ? 'sorot_x' : '' }}">
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($rc['dp']) }}</p>
@@ -319,7 +293,8 @@
 																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($rc['total_bayar']) }}</p>
 																</li>
 														</ul>
-														<div class="card-body d-flex justify-content-center">
+														<div
+																class="card-body {{ $rc['best'] == true ? 'sorotan_bot sorot_x' : '' }} d-flex justify-content-center">
 																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $rm['merk'] }}%0AKategori%20:%20{{ $rm['type'] }}%0AType%20:%20{{ $rm['nama'] }}%0Aleasing%20:%20{{ $rc['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $rc['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($rc['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>

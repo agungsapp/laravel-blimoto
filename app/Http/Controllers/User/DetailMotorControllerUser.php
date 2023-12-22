@@ -290,8 +290,54 @@ class DetailMotorControllerUser extends Controller
       );
     }
 
-    // return response()->json($data);
+    // logic highlight leasing untuk data motor pertama di detail start
+    $isAllSame = true;
+    $prevDpBayar = null;
+    $prevTotalBayar = null;
+    $fifKey = null;
 
+    // Cek apakah semua data sama dan cari FIF Group
+    foreach ($data['cicilan_motor'] as $key => &$value) {
+      if ($prevDpBayar !== null && ($value['dp_bayar'] != $prevDpBayar || $value['total_bayar'] != $prevTotalBayar)) {
+        $isAllSame = false;
+      }
+
+      if ($value['nama_leasing'] == "FIF Group") {
+        $fifKey = $key;
+      }
+
+      $prevDpBayar = $value['dp_bayar'];
+      $prevTotalBayar = $value['total_bayar'];
+      $value['best'] = false; // Default ke false
+    }
+    unset($value); // Memutus referensi pada elemen terakhir
+
+    // Jika semua data sama, tandai FIF Group sebagai terbaik
+    if ($isAllSame && $fifKey !== null) {
+      $data['cicilan_motor'][$fifKey]['best'] = true;
+    } else {
+      // Cari cicilan dengan angsuran terendah
+      $lowestAngsuran = PHP_INT_MAX;
+      $bestDiscountKey = null;
+      foreach ($data['cicilan_motor'] as $key => $value) {
+        if ($value['angsuran'] < $lowestAngsuran) {
+          $lowestAngsuran = $value['angsuran'];
+          $bestDiscountKey = $key;
+        }
+      }
+
+      // Tandai cicilan terbaik
+      if ($bestDiscountKey !== null) {
+        $data['cicilan_motor'][$bestDiscountKey]['best'] = true;
+      }
+    }
+
+    // logic highlight leasing untuk data motor pertama di detail end
+
+    // dd($data);
+
+    // return response()->json($data);
+    // area rekomendasi
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
     $cicilanRange = $averageAngsuran * 0.2;
 
@@ -378,6 +424,55 @@ class DetailMotorControllerUser extends Controller
       }
     }
 
+
+    // proses penentuan rekomendasi highlight leasing terbaik start
+    foreach ($rekomendasiMotor as $motorId => &$motorInfo) {
+      $isAllSame = true;
+      $prevDpBayar = null;
+      $prevTotalBayar = null;
+      $prevAngsuran = null;
+      $fifKey = null;
+
+      // Cek apakah semua data sama
+      foreach ($motorInfo['cicilan_motor'] as $key => &$cicilan) {
+        if ($prevDpBayar !== null && ($cicilan['dp_bayar'] != $prevDpBayar || $cicilan['total_bayar'] != $prevTotalBayar || $cicilan['angsuran'] != $prevAngsuran)) {
+          $isAllSame = false;
+        }
+
+        if ($cicilan['nama_leasing'] == "FIF Group") {
+          $fifKey = $key;
+        }
+
+        $prevDpBayar = $cicilan['dp_bayar'];
+        $prevTotalBayar = $cicilan['total_bayar'];
+        $prevAngsuran = $cicilan['angsuran'];
+        $cicilan['best'] = false; // Default ke false
+      }
+
+      // Jika semua data sama, tandai FIF Group sebagai terbaik
+      if ($isAllSame && $fifKey !== null) {
+        $motorInfo['cicilan_motor'][$fifKey]['best'] = true;
+        continue;
+      }
+
+      // Cari cicilan dengan angsuran terendah
+      $lowestAngsuran = PHP_INT_MAX;
+      $bestDiscountKey = null;
+      foreach ($motorInfo['cicilan_motor'] as $key => $cicilan) {
+        if ($cicilan['angsuran'] < $lowestAngsuran) {
+          $lowestAngsuran = $cicilan['angsuran'];
+          $bestDiscountKey = $key;
+        }
+      }
+
+      // Tandai cicilan terbaik
+      if ($bestDiscountKey !== null) {
+        $motorInfo['cicilan_motor'][$bestDiscountKey]['best'] = true;
+      }
+    }
+    unset($motorInfo); // Memutus referensi pada elemen terakhir 
+    // proses penentuan rekomendasi highlight leasing terbaik end 
+
     $rekomendasiMotor = array_values($rekomendasiMotor);
     $lokasi = Kota::find($lokasiId);
 
@@ -386,6 +481,10 @@ class DetailMotorControllerUser extends Controller
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
     ];
+
+    // dd($data['rekomendasi']);
+
+
 
     // return response()->json($data);
     return view('user.detail.detail_motor', $data);
