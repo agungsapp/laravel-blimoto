@@ -114,6 +114,17 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Status Pembayaran</label>
+                <select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih status pembayaran --</option>
+                  <option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending</option>
+                  <option value="paid" {{ old('status_pembayaran') == 'paid' ? 'selected' : '' }}>Paid</option>
+                </select>
+              </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
@@ -153,6 +164,7 @@
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
+                <th>Status Pembayaran DP</th>
                 <th>Leasing</th>
                 <th>Tenor</th>
                 <th>Motor</th>
@@ -162,7 +174,7 @@
                 <th>Catatan</th>
                 <th>Tanggal Dibuat</th>
                 <th>Tanggal Hasil</th>
-                <th width="200px" class="no-export">Action</th>
+                <th class="no-export">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -172,6 +184,7 @@
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->pembayaran}}</td>
+                <td>{{$p->status_pembayaran_dp}}</td>
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
@@ -187,13 +200,13 @@
                       @csrf
                       @method('DELETE')
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
+                      <button type="button" class="btn btn-success w-100 mb-1" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
                         Cetak
                       </button>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
+                      <button type="button" class="btn btn-primary w-100 mb-1" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
                         Edit
                       </button>
-                      <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+                      <button type="submit" class="btn btn-danger show_confirm w-100">Delete</button>
                     </form>
                   </div>
                   <!-- Modal cetak -->
@@ -406,6 +419,17 @@
                                 <div class="form-group col-md-6">
                                   <label for="input-hasil">Catatan Penjualan</label>
                                   <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{$p->catatan}}">
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="form-group col-md-12">
+                                  <label for="status_pembayaran_dp">Status Pembayaran DP</label>
+                                  <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
+                                    <option value="" {{ $p->status_pembayaran_dp === null ? 'selected' : '' }}>-- Pilih status pembayaran DP --</option>
+                                    <option value="pending" {{ $p->status_pembayaran_dp == 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="paid" {{ $p->status_pembayaran_dp == 'paid' ? 'selected' : '' }}>Paid</option>
+                                  </select>
                                 </div>
                               </div>
 
