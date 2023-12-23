@@ -59,22 +59,6 @@
 																																<p class="text-doff">Diskon normal </p>
 																																<del class="text-basic">{{ Str::rupiah($item1->diskon ?? '0') }}</del>
 																														</div>
-																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">DP normal </p>
-																																<del class="text-basic">{{ Str::rupiah($item1->dp) }}</del>
-																														</div>
-																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">DP Bayar </p>
-																																<p class="text-basic fw-bold">
-																																		{{ Str::rupiah($item1->dp - $item1->diskon_promo) }}
-																																</p>
-																														</div>
-																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">Total Bayar </p>
-																																<p class="text-basic fw-bold">
-																																		{{ Str::rupiah($item1->cicilan * $item1->tenor + $item1->dp) }}
-																																</p>
-																														</div>
 																												</div>
 																												<form action="{{ route('detail-motor') }}" method="GET">
 																														@csrf
