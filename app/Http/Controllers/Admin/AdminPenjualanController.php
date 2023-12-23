@@ -67,6 +67,7 @@ class AdminPenjualanController extends Controller
       'hasil' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
+      'status_pembayaran' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -78,6 +79,7 @@ class AdminPenjualanController extends Controller
     $pembayaran = $request->pembayaran;
     $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
+
     try {
       $penjualan = Penjualan::create([
         'nama_konsumen' => $request->input('konsumen'),
@@ -91,6 +93,7 @@ class AdminPenjualanController extends Controller
         'id_lising' => $request->input('leasing') ?? null,
         'catatan' => $catatan,
         'tanggal_dibuat' => $tanggal_dibuat,
+        'status_pembayaran_dp' => $request->input('status_pembayaran'),
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       return redirect()->back();
@@ -141,6 +144,7 @@ class AdminPenjualanController extends Controller
       'motor' => 'required',
       'jumlah' => 'required',
       'tanggal_dibuat' => 'required',
+      'status_pembayaran_dp' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -165,6 +169,7 @@ class AdminPenjualanController extends Controller
     $penjualan->catatan = $catatan;
     $penjualan->tanggal_dibuat = $tanggal_dibuat;
     $penjualan->tanggal_hasil = $tanggal_hasil;
+    $penjualan->status_pembayaran_dp = $request->input('status_pembayaran_dp');
     $penjualan->id_lising = $leasing;
     $penjualan->id_motor = $request->input('motor');
     $penjualan->id_kota = $request->input('kabupaten');
