@@ -42,6 +42,7 @@ use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Botman\BotManController;
 use App\Http\Controllers\Twilio\SendWhatsappOtpController;
 use App\Http\Controllers\User\AboutUsController;
@@ -175,6 +176,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('status-bi', AdminStatusBiController::class);
         Route::resource('type-slik-bi', AdminTypeSlikController::class);
         Route::resource('promo', AdminPromoController::class);
+        Route::resource('pembayaran', PembayaranController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
