@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
+use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
@@ -175,6 +176,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('status-bi', AdminStatusBiController::class);
         Route::resource('type-slik-bi', AdminTypeSlikController::class);
         Route::resource('promo', AdminPromoController::class);
+        Route::resource('pembayaran', AdminPembayaranController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);

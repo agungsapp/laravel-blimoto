@@ -141,8 +141,8 @@
 					</ul>
 				</li>
 				{{-- master sales --}}
-				<li class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
+				<li class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*')  ? 'active' : '' }}">
 						<i class="nav-icon fas fa-city"></i>
 						<p>
 							Master Sales
@@ -170,6 +170,12 @@
 							<a href="{{ route('admin.penjualan.hasil.index') }}" class="nav-link {{ \Route::is('admin.penjualan.hasil.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Master Hasil</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.pembayaran.index') }}" class="nav-link {{ \Route::is('admin.pembayaran.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Pembayaran</p>
 							</a>
 						</li>
 						<!-- <li class="nav-item">
