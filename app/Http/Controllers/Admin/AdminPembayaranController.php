@@ -84,60 +84,35 @@ class AdminPembayaranController extends Controller
 			}
 
 			// Menggunakan metode create untuk membuat pembayaran baru
-			// $pembayaran = Pembayaran::create([
-			// 	'id_penjualan' => $request->id_penjualan,
-			// 	'harga' => $request->dp
-			// ]);
-
-			// Set your Merchant Server Key
-			// \Midtrans\Config::$curlOptions = array(CURLOPT_SSL_VERIFYPEER => false);
-			\Midtrans\Config::$serverKey = 'SB-Mid-server-WZ5Qc5QBitWJP0lUk2K0bcoS';
-			// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-			\Midtrans\Config::$isProduction = false;
-			// Set sanitization on (default)
-			\Midtrans\Config::$isSanitized = true;
-			// Set 3DS transaction for credit card to true
-			\Midtrans\Config::$is3ds = true;
-
-			$params = array(
-				'transaction_details' => array(
-					'order_id' => rand(),
-					'gross_amount' => 10000,
-				),
-				'customer_details' => array(
-					'first_name' => 'budi',
-					'last_name' => 'pratama',
-					'email' => 'budi.pra@example.com',
-					'phone' => '08111222333',
-				),
-			);
-
-			$snapToken = \Midtrans\Snap::getSnapToken($params);
+			$pembayaran = Pembayaran::create([
+				'id_penjualan' => $request->id_penjualan,
+				'harga' => $request->dp
+			]);
 
 			// Konfigurasi Midtrans
-			// \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-			// \Midtrans\Config::$isProduction = false;
-			// \Midtrans\Config::$isSanitized = true;
-			// \Midtrans\Config::$is3ds = false;
+			\Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+			\Midtrans\Config::$isProduction = false;
+			\Midtrans\Config::$isSanitized = true;
+			\Midtrans\Config::$is3ds = false;
 
 
-			// // Mempersiapkan data transaksi
+			// Mempersiapkan data transaksi
 
-			// $transactionDetails = [
-			// 	'order_id' => $pembayaran->id,
-			// 	'gross_amount' => $pembayaran->harga,
-			// ];
+			$transactionDetails = [
+				'order_id' => $pembayaran->id,
+				'gross_amount' => $pembayaran->harga,
+			];
 
 			// Membuat transaksi ke Midtrans
-			// $transaction = [
-			// 	'transaction_details' => $transactionDetails,
-			// 	// Anda dapat menambahkan data customer, item_details, dll.
-			// ];
+			$transaction = [
+				'transaction_details' => $transactionDetails,
+				// Anda dapat menambahkan data customer, item_details, dll.
+			];
 
-			// $snapToken = \Midtrans\Snap::getSnapToken($transaction);
-			// $snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
-			dd($snapToken);
-			return redirect()->away($snapToken);
+			$snapToken = \Midtrans\Snap::getSnapToken($transaction);
+			$snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
+
+			return redirect()->away($snapUrl);
 		} catch (\Exception $e) {
 			throw $e;
 			flash()->addError("Data penjualan tidak ditemukan!");
