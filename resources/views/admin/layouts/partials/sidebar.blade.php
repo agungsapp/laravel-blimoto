@@ -59,141 +59,129 @@
 										</a>
 								</li>
 
-								{{-- master motor --}}
-								<li
-										class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
-										<a href="#"
-												class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
-												<i class="nav-icon fas fa-motorcycle"></i>
-												<p>
-														Master Motor
-														<i class="right fas fa-angle-left"></i>
-												</p>
-										</a>
-										<ul class="nav nav-treeview">
-												<li class="nav-item">
-														<a href="{{ route('admin.motor.index') }}"
-																class="nav-link {{ \Route::is('admin.motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Tambah Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.detail-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.detail-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Tambah Detail Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.best-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.best-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Best Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.mtr-best-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.mtr-best-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Kategori Best Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.type-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.type-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Type Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.merk-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.merk-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Merk Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.diskon-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.diskon-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Diskon Motor</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.brosur-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Brosur Motor</p>
-														</a>
-												</li>
-										</ul>
-								</li>
-								{{-- master kota --}}
-								<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
-										<a href="#"
-												class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
-												<i class="nav-icon fas fa-city"></i>
-												<p>
-														Master Kota
-														<i class="right fas fa-angle-left"></i>
-												</p>
-										</a>
-										<ul class="nav nav-treeview">
-												<li class="nav-item">
-														<a href="{{ route('admin.kota.index') }}"
-																class="nav-link {{ \Route::is('admin.kota.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Tambah Kota</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.kota-motor.index') }}"
-																class="nav-link {{ \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Tambah Motor Kota</p>
-														</a>
-												</li>
-										</ul>
-								</li>
-								{{-- master sales --}}
-								<li
-										class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'menu-open' : '' }}">
-										<a href="#"
-												class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
-												<i class="nav-icon fas fa-city"></i>
-												<p>
-														Master Sales
-														<i class="right fas fa-angle-left"></i>
-												</p>
-										</a>
-										@if (Auth::guard('admin')->check())
-												<ul class="nav nav-treeview">
-														<li class="nav-item">
-																<a href="{{ route('admin.sales.index') }}"
-																		class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
-																		<i class="far fa-circle nav-icon"></i>
-																		<p>Tambah Akun Sales</p>
-																</a>
-														</li>
-												</ul>
-										@endif
-										<ul class="nav nav-treeview">
-												<li class="nav-item">
-														<a href="{{ route('admin.penjualan.data.index') }}"
-																class="nav-link {{ \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Data Penjualan</p>
-														</a>
-												</li>
-												<li class="nav-item">
-														<a href="{{ route('admin.penjualan.hasil.index') }}"
-																class="nav-link {{ \Route::is('admin.penjualan.hasil.*') ? 'active' : '' }}">
-																<i class="far fa-circle nav-icon"></i>
-																<p>Master Hasil</p>
-														</a>
-												</li>
-												<!-- <li class="nav-item">
+				{{-- master motor --}}
+				<li class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
+						<i class="nav-icon fas fa-motorcycle"></i>
+						<p>
+							Master Motor
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.motor.index') }}" class="nav-link {{ \Route::is('admin.motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.detail-motor.index') }}" class="nav-link {{ \Route::is('admin.detail-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Detail Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.best-motor.index') }}" class="nav-link {{ \Route::is('admin.best-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Best Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.mtr-best-motor.index') }}" class="nav-link {{ \Route::is('admin.mtr-best-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Kategori Best Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.type-motor.index') }}" class="nav-link {{ \Route::is('admin.type-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Type Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.merk-motor.index') }}" class="nav-link {{ \Route::is('admin.merk-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Merk Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.diskon-motor.index') }}" class="nav-link {{ \Route::is('admin.diskon-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Diskon Motor</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.brosur-motor.index') }}" class="nav-link {{ \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Brosur Motor</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				{{-- master kota --}}
+				<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
+						<i class="nav-icon fas fa-city"></i>
+						<p>
+							Master Kota
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.kota.index') }}" class="nav-link {{ \Route::is('admin.kota.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Kota</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.kota-motor.index') }}" class="nav-link {{ \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Motor Kota</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				{{-- master sales --}}
+				<li class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*')  ? 'active' : '' }}">
+						<i class="nav-icon fas fa-city"></i>
+						<p>
+							Master Sales
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					@if (Auth::guard('admin')->check())
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.sales.index') }}" class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Tambah Akun Sales</p>
+							</a>
+						</li>
+					</ul>
+					@endif
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('admin.penjualan.data.index') }}" class="nav-link {{ \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Data Penjualan</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.penjualan.hasil.index') }}" class="nav-link {{ \Route::is('admin.penjualan.hasil.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Master Hasil</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.pembayaran.index') }}" class="nav-link {{ \Route::is('admin.pembayaran.*') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Pembayaran</p>
+							</a>
+						</li>
+						<!-- <li class="nav-item">
 							<a href="{{ route('admin.penjualan.spk.index') }}" class="nav-link {{ \Route::is('admin.penjualan.spk.*') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>SPK</p>
