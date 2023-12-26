@@ -5,18 +5,27 @@
     <div class="col-12">
       <div class="card card-primary">
         <div class="card-header with-border">
-          <h3 class="card-title">Input Data Penjualan</h3>
+          <h3 class="card-title">Buat Pembayaran</h3>
         </div>
-        <form action="{{ route('admin.penjualan.data.store') }}" method="post">
+        <form action="{{ route('admin.pembayaran.store') }}" method="post">
           @csrf
           <div class="card-body">
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="input-hasil">Nama Konsumen</label>
-                <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen" value="{{ old('konsumen') }}">
+                <label>Nama Konsumen</label>
+                @if ($penjualan == null)
+                <p class="text-danger">Tidak ada data konsumen silahkan buat terlebih dahulu !</p>
+                @else
+                <select id="input-nama-konsumen" name="konsumen" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih Konsumen --</option>
+                  @foreach ($penjualan as $s)
+                  <option value="{{ $s->nama_konsumen }}" {{ old('konsumen') == $s->nama_konsumen ? 'selected' : '' }}>{{ $s->nama_konsumen }}</option>
+                  @endforeach
+                </select>
+                @endif
               </div>
               <div class="form-group col-md-6">
-                <label>Sales</label>
+                <label>Nama Sales</label>
                 @if ($sales == null)
                 <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
                 @else
@@ -32,96 +41,12 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Metode Pembayaran</label>
-                <select id="pembayaran-input" name="pembayaran" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih pembayaran --</option>
-                  <option value="cash" {{ old('pembayaran') == 'cash' ? 'selected' : '' }}>Cash</option>
-                  <option value="kredit" {{ old('pembayaran') == 'kredit' ? 'selected' : '' }}>Kredit</option>
-                </select>
+                <label for="input-tenor">Masukan ID Penjualan</label>
+                <input name="id_penjualan" type="number" class="form-control" placeholder="Masukan id penjualan" id="input-tenor" value="{{ old('id_penjualan') }}">
               </div>
               <div class="form-group col-md-6">
-                <label for="input-tenor">Tenor</label>
-                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label>Kabupaten</label>
-                @if ($kota == null)
-                <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
-                @else
-                <select id="kabupaten-input" name="kabupaten" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih kabupaten --</option>
-                  @foreach ($kota as $k)
-                  <option value="{{ $k->id }}" {{ old('kabupaten') == $k->id ? 'selected' : '' }}>{{ $k->nama }}</option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-              <div class="form-group col-md-6">
-                <label>Hasil</label>
-                @if ($hasil == null)
-                <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
-                @else
-                <select id="hasil-input" name="hasil" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih hasil --</option>
-                  @foreach ($hasil as $h)
-                  <option value="{{ $h->id }}" {{ old('hasil') == $h->id ? 'selected' : '' }}>{{ $h->hasil }}</option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label>Motor</label>
-                @if ($motor == null)
-                <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
-                @else
-                <select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih motor --</option>
-                  @foreach ($motor as $m)
-                  <option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-              <div class="form-group col-md-6">
-                <label for="input-hasil">Jumlah</label>
-                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{ old('jumlah', '1') }}">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label>Leasing</label>
-                @if ($leasing == null)
-                <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
-                @else
-                <select id="leasing-input" name="leasing" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih leasing --</option>
-                  @foreach ($leasing as $l)
-                  <option value="{{ $l->id }}" {{ old('leasing') == $l->id ? 'selected' : '' }}>{{ $l->nama }}</option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-              <div class="form-group col-md-6">
-                <label for="input-hasil">Catatan Penjualan</label>
-                <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{ old('catatan') }}">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label>Status Pembayaran</label>
-                <select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih status pembayaran --</option>
-                  <option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending</option>
-                  <option value="paid" {{ old('status_pembayaran') == 'paid' ? 'selected' : '' }}>Paid</option>
-                </select>
+                <label for="input-tenor">Masukan Harga DP</label>
+                <input name="dp" type="number" class="form-control" placeholder="Masukan harga DP" id="input-tenor" value="{{ old('dp') }}">
               </div>
             </div>
 
@@ -160,7 +85,7 @@
           <table id="data-sale" class="table table-bordered table-striped">
             <thead>
               <tr role="row">
-                <th>NO</th>
+                <th>ID</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
@@ -196,113 +121,14 @@
                 <td>{{$p->tanggal_hasil}}</td>
                 <td class="no-export">
                   <div class="btn-group">
-                    <form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
+                    <form action="{{ route('admin.pembayaran.destroy', $p->id) }}" method="post">
                       @csrf
                       @method('DELETE')
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success w-100 mb-1" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
-                        Cetak
-                      </button>
                       <button type="button" class="btn btn-primary w-100 mb-1" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
                         Edit
                       </button>
                       <button type="submit" class="btn btn-danger show_confirm w-100">Delete</button>
                     </form>
-                  </div>
-                  <!-- Modal cetak -->
-                  <div class="modal fade" id="modalCetak{{$p->id}}" role="dialog" aria-labelledby="modalCetak">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title" id="modalCetak">Cetak data: {{$p->nama_konsumen}}</h4>
-                        </div>
-                        <form action="{{ route('admin.cetakPDF') }}" method="GET" target="_blank">
-                          <input type="hidden" value="{{ date('m/d/Y', strtotime($p->tanggal_dibuat)) }}" name="tanggal_dibuat" id="tanggal_dibuat">
-                          <input type="hidden" value="{{$p->nama_konsumen}}" name="nama_pemohon">
-                          <input type="hidden" value="{{$p->kota->nama}}" name="kabupaten">
-                          <input type="hidden" value="{{$p->id_motor}}" name="motor">
-                          <input type="hidden" value="{{$p->id}}" name="id_penjualan">
-                          <div class="modal-body">
-                            <div class="card card-primary">
-                              <div class="card-body">
-                                <div class="form-group">
-                                  <div class="row">
-                                    <div class="form-group col-md-12">
-                                      <label for="input-hasil">Nomor KTP</label>
-                                      <input name="no_ktp" type="number" class="form-control" placeholder="Masukan nomor KTP">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-12">
-                                      <label for="input-hasil">Alamat Customer</label>
-                                      <input name="alamat" type="text" class="form-control" placeholder="Masukan alamat customer">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">BPKB/STNK a.n</label>
-                                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">Nomor HP</label>
-                                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">DP</label>
-                                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">Total Diskon</label>
-                                      <input name="total_diskon" type="number" class="form-control" placeholder="Masukan total diskon">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-6">
-                                      <label for="input-tenor">Kelengkapan</label>
-                                      <input name="kelengkapan" type="text" class="form-control" placeholder="Masukan kelengkapan">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                      <label>Metode Pembayaran</label>
-                                      <select id="metodePembayaran_{{$loop->index}}" name="metode_pembayaran" class="form-control select2 metodePembayaran" style="width: 100%;" onchange="toggleMetodeLainnya(this)">
-                                        <option value="tunai" selected>Tunai</option>
-                                        <option value="cek">Cek/Bilyet Giro</option>
-                                        <option value="">Kredit</option>
-                                      </select>
-                                      <div class="form-check my-3 metodeHide" id="metodeLainnya_{{$loop->index}}" style="display: none;">
-                                        <input type="text" class="form-control" placeholder="Masukan nama leasing" name="metode_lainnya">
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-12">
-                                      <label for="input-tenor">Warna Motor</label>
-                                      <input name="warna" type="text" class="form-control" placeholder="Masukan warna motor">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-12" id="jangkaWaktuInput_{{$loop->index}}">
-                                      <label for="input-tenor">Jangka Waktu</label>
-                                      <input name="jangka_waktu" type="text" class="form-control" placeholder="Jangka waktu tenor (kosongkan jika cash)">
-                                    </div>
-                                  </div>
-
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Cetak</button>
-                              </div>
-                        </form>
-                      </div>
-                    </div>
                   </div>
                 </td>
               </tr>
@@ -313,7 +139,7 @@
                     <div class="modal-header">
                       <h4 class="modal-title" id="myModalLabel">Edit data: {{$p->nama_konsumen}}</h4>
                     </div>
-                    <form action="{{ route('admin.penjualan.data.update', $p->id) }}" method="post">
+                    <form action="{{ route('admin.pembayaran.update', $p->id) }}" method="post">
                       @csrf
                       @method('PUT')
                       <div class="modal-body">
