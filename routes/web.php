@@ -43,6 +43,7 @@ use App\Http\Controllers\Admin\DetailMotorController;
 use App\Http\Controllers\Admin\LeasingMotorController;
 use App\Http\Controllers\Admin\MitraKamiController;
 use App\Http\Controllers\Admin\MotorKotaController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Botman\BotManController;
 use App\Http\Controllers\Twilio\SendWhatsappOtpController;
 use App\Http\Controllers\User\AboutUsController;
