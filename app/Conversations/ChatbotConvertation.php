@@ -189,6 +189,7 @@ class ChatbotConvertation extends Conversation
           $this->say('Chat customer service sekarang. !');
           $whatsAppUrl = $this->createWhatsAppMessageUrl();
           $this->say("Silakan <a href=\"{$whatsAppUrl}\" target=\"_blank\">klik di sini</a> untuk chat dengan customer service kami via WhatsApp.");
+          $this->say("Terima kasih telah menggunakan layanan kami. Ketik 'mulai' atau 'isi data' untuk memulai percakapan baru.");
         } else {
           $this->askLocation();
         }
