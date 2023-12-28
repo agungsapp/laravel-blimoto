@@ -12,6 +12,8 @@ use App\Models\Penjualan;
 use App\Models\Sales;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPembayaranController extends Controller
@@ -49,7 +51,6 @@ class AdminPembayaranController extends Controller
 	 */
 	public function create()
 	{
-		//
 	}
 
 	/**
@@ -72,6 +73,7 @@ class AdminPembayaranController extends Controller
 			return redirect()->back()->withInput();
 		}
 
+		DB::beginTransaction();
 		try {
 			$penjualan = Penjualan::where('id', $request->id_penjualan)
 				->where('nama_konsumen', $request->konsumen)
@@ -99,7 +101,7 @@ class AdminPembayaranController extends Controller
 			// Mempersiapkan data transaksi
 
 			$transactionDetails = [
-				'order_id' => $pembayaran->id,
+				'order_id' => $pembayaran->id_penjualan,
 				'gross_amount' => $pembayaran->harga,
 			];
 
@@ -111,10 +113,12 @@ class AdminPembayaranController extends Controller
 
 			$snapToken = \Midtrans\Snap::getSnapToken($transaction);
 			$snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
+			DB::commit();
 
 			return redirect()->away($snapUrl);
 		} catch (\Exception $e) {
-			throw $e;
+			DB::rollback();
+			// throw $e;
 			flash()->addError("Data penjualan tidak ditemukan!");
 			return redirect()->back()->withInput();
 		}
@@ -151,51 +155,6 @@ class AdminPembayaranController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$validator = Validator::make($request->all(), [
-			'konsumen' => 'required',
-			'sales' => 'required',
-			'pembayaran' => 'required',
-			'kabupaten' => 'required',
-			'hasil' => 'required',
-			'motor' => 'required',
-			'jumlah' => 'required',
-			'tanggal_dibuat' => 'required',
-			'status_pembayaran_dp' => 'required',
-		]);
-
-		if ($validator->fails()) {
-			flash()->addError("Inputkan semua data dengan benar!");
-			return redirect()->back();
-		}
-
-		$penjualan = Penjualan::findOrFail($id);
-
-		$tanggal_dibuat = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_dibuat'))->format('Y-m-d');
-		$tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;
-		$pembayaran = $request->pembayaran;
-		$tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
-		$catatan = $request->catatan ?? '-';
-		$leasing = $pembayaran === 'cash' ? null : $request->leasing;
-
-		$penjualan->nama_konsumen = $request->input('konsumen');
-		$penjualan->tenor = $tenor;
-		$penjualan->pembayaran = $pembayaran;
-		$penjualan->id_sales = $request->input('sales');
-		$penjualan->jumlah = $request->input('jumlah');
-		$penjualan->catatan = $catatan;
-		$penjualan->tanggal_dibuat = $tanggal_dibuat;
-		$penjualan->tanggal_hasil = $tanggal_hasil;
-		$penjualan->status_pembayaran_dp = $request->input('status_pembayaran_dp');
-		$penjualan->id_lising = $leasing;
-		$penjualan->id_motor = $request->input('motor');
-		$penjualan->id_kota = $request->input('kabupaten');
-		$penjualan->id_hasil = $request->input('hasil');
-
-		$penjualan->save();
-
-		// Redirect back with a success message
-		flash()->addSuccess("Berhasil merubah data!");
-		return redirect()->back();
 	}
 
 	/**
@@ -206,14 +165,89 @@ class AdminPembayaranController extends Controller
 	 */
 	public function destroy($id)
 	{
+	}
+
+	public function midtransWebhook(Request $request)
+	{
+		// Validasi Signature Key (opsional, untuk keamanan tambahan)
+		$signatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . env('MIDTRANS_SERVER_KEY'));
+		if ($signatureKey != $request->signature_key) {
+			return response()->json(['message' => 'Invalid signature',], 403);
+		}
+
+		// Mengolah data notifikasi
+		$data = json_decode($request->getContent(), true);
+
+		// Mendapatkan ID pembayaran dari order ID
+		$orderId = $data['order_id'];
+
+		// Mencari pembayaran yang berkaitan
+		$pembayaran = Pembayaran::where('id_penjualan', $orderId)->first();
+		$penjualan = Penjualan::where('id', $orderId)->first();
+
+		if (!$pembayaran) {
+			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
+		}
+
+		if (!$penjualan) {
+			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
+		}
+
 		try {
-			$penjualan = Penjualan::findOrFail($id);
-			$penjualan->delete();
-			flash()->addSuccess("Berhasil menghapus data!");
-			return redirect()->back();
-		} catch (\Throwable $th) {
-			flash()->addError("Tidak bisa dihapus karena data digunakan oleh data lain!");
-			return redirect()->back();
+			// Memperbarui status pembayaran berdasarkan notifikasi dari Midtrans
+			switch ($data['transaction_status']) {
+				case 'capture':
+					// Untuk tipe pembayaran kartu kredit
+					if ($data['fraud_status'] == 'accept') {
+						$pembayaran->update(['status_pembayaran' => 'success']);
+						$penjualan->update(['status_pembayaran_dp' => 'success']);
+					}
+					break;
+				case 'settlement':
+					// Untuk tipe pembayaran selain kartu kredit
+					$pembayaran->update(['status_pembayaran' => 'success']);
+					$penjualan->update(['status_pembayaran_dp' => 'success']);
+					break;
+				case 'pending':
+					$pembayaran->update(['status_pembayaran' => 'pending']);
+					$penjualan->update(['status_pembayaran_dp' => 'pending']);
+					break;
+				case 'deny':
+					$pembayaran->update(['status_pembayaran' => 'denied']);
+					$penjualan->update(['status_pembayaran_dp' => 'denied']);
+					break;
+				case 'expire':
+					$pembayaran->update(['status_pembayaran' => 'expired']);
+					$penjualan->update(['status_pembayaran_dp' => 'expired']);
+					break;
+				case 'cancel':
+					$pembayaran->update(['status_pembayaran' => 'cancelled']);
+					$penjualan->update(['status_pembayaran_dp' => 'cancelled']);
+					break;
+				case 'refund':
+					// Jika ada pembatalan dan pengembalian dana
+					$pembayaran->update(['status_pembayaran' => 'refunded']);
+					$penjualan->update(['status_pembayaran_dp' => 'refunded']);
+					break;
+				case 'partial_refund':
+					// Jika ada pengembalian dana sebagian
+					$pembayaran->update(['status_pembayaran' => 'partially_refunded']);
+					$penjualan->update(['status_pembayaran_dp' => 'partially_refunded']);
+					break;
+				case 'chargeback':
+					// Jika ada penarikan balik pembayaran oleh bank atau penyedia kartu kredit
+					$pembayaran->update(['status_pembayaran' => 'chargeback']);
+					$penjualan->update(['status_pembayaran_dp' => 'chargeback']);
+					break;
+				default:
+					$pembayaran->update(['status_pembayaran' => 'unknown']);
+					$penjualan->update(['status_pembayaran_dp' => 'unknown']);
+					break;
+			}
+			return response()->json(['message' => 'Webhook berhasil diproses']);
+		} catch (\Exception $e) {
+			Log::error('Midtrans Webhook Error: ' . $e->getMessage());
+			return response()->json(['message' => 'Terjadi kesalahan saat memproses webhook'], 500);
 		}
 	}
 }
