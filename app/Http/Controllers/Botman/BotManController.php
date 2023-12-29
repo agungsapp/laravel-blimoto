@@ -22,6 +22,7 @@ class BotManController extends Controller
       $bot->startConversation(new ChatbotSekaligus);
     });
     $botman->fallback(function ($bot) {
+      $bot->typesAndWaits(2);
       $bot->reply('Maaf saya tidak mengerti, silahkan ketikan "mulai" atau "isi data"');
     });
     $botman->listen();
