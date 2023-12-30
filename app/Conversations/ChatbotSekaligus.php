@@ -13,6 +13,8 @@ class ChatbotSekaligus extends Conversation
 
   public function start()
   {
+    // $this->typesAndWaits(2);
+    $this->bot->typesAndWaits(2);
     $this->say('Dengan melanjutkan percakapan ini, Anda menyetujui proses pengumpulan dan pemrosesan data pribadi yang Anda berikan kepada kami sesuai dengan tujuan yang ditentukan dalam dan sebagaimana diatur dalam Kebijakan Privasi kami di sini.');
     $this->askForDetails();
   }
