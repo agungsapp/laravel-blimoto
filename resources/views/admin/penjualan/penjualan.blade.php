@@ -203,11 +203,43 @@
                       <button type="button" class="btn btn-success w-100 mb-1" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
                         Cetak
                       </button>
+                      {{-- <button type="button" class="btn btn-info w-100 mb-1" data-toggle="modal" data-target="#modalBayar{{$p->id}}">Bayar</button> --}}
                       <button type="button" class="btn btn-primary w-100 mb-1" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
                         Edit
                       </button>
                       <button type="submit" class="btn btn-danger show_confirm w-100">Delete</button>
+                      </button>
                     </form>
+                    <!-- Modal bayar -->
+                    {{-- <div>
+                      <div class="modal fade" id="modalBayar{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group col-md-12">
+                                <label for="nama-sales">Nama Sales</label>
+                                <input type="text" class="form-control" id="nama-sales" value="{{$p->sales->nama}}" readonly>
+                              </div>
+                              <div class="form-group col-md-12">
+                                <label for="nama-konsumen">Nama Konsumen</label>
+                                <input type="text" class="form-control" id="nama-konsumen" value="{{$p->nama_konsumen}}" readonly>
+                              </div>
+                              <div class="form-group col-md-12">
+                                <label for="input-tenor">Masukan Harga DP</label>
+                                <input name="dp" type="number" class="form-control" placeholder="Masukan harga DP" id="input-tenor" value="{{ old('dp') }}">
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Bayar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> --}}
                   </div>
                   <!-- Modal cetak -->
                   <div class="modal fade" id="modalCetak{{$p->id}}" role="dialog" aria-labelledby="modalCetak">
@@ -307,159 +339,161 @@
                 </td>
               </tr>
               <!-- Modal update -->
-              <div class="modal fade" id="modalEdit{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Edit data: {{$p->nama_konsumen}}</h4>
-                    </div>
-                    <form action="{{ route('admin.penjualan.data.update', $p->id) }}" method="post">
-                      @csrf
-                      @method('PUT')
-                      <div class="modal-body">
-                        <div class="card card-primary">
-                          <div class="card-header with-border">
-                            <h3 class="card-title">Update Data sales</h3>
-                          </div>
-                          <input type="hidden" value="{{$p->id}}">
-                          <div class="card-body">
-                            <div class="form-group">
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label for="input-hasil">Nama Konsumen</label>
-                                  <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen" value="{{$p->nama_konsumen}}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label>Sales</label>
-                                  @if ($sales == null)
-                                  <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
-                                  @else
-                                  <select id="sales" name="sales" class="form-control select2" style="width: 100%;">
-                                    @foreach ($sales as $s)
-                                    <option value="{{ $s->id }}" @if($p->id_sales === $s->id) selected @endif>{{ $s->nama }}</option>
-                                    @endforeach
-                                  </select>
-                                  @endif
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label>Metode Pembayaran</label>
-                                  <select id="pembayaranUpdate_{{$loop->index}}" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
-                                    <option value="cash" {{ $p->pembayaran === 'cash' ? 'selected' : '' }}>Cash</option>
-                                    <option value="kredit" {{ $p->pembayaran === 'kredit' ? 'selected' : '' }}>Kredit</option>
-                                  </select>
-                                </div>
-                                <div class="form-group col-md-6" id="tenorUpdate_{{$loop->index}}">
-                                  <label for="input-tenor">Tenor</label>
-                                  <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" value="{{$p->tenor}}">
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label>Kabupaten</label>
-                                  @if ($kota == null)
-                                  <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
-                                  @else
-                                  <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected>-- Pilih kabupaten --</option>
-                                    @foreach ($kota as $k)
-                                    <option value="{{ $k->id }}" @if($p->id_kota === $k->id) selected @endif>{{ $k->nama }}</option>
-                                    @endforeach
-                                  </select>
-                                  @endif
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label>Hasil</label>
-                                  @if ($hasil == null)
-                                  <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
-                                  @else
-                                  <select id="hasil" name="hasil" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected>-- Pilih hasil --</option>
-                                    @foreach ($hasil as $h)
-                                    <option value="{{ $h->id }}" @if($p->id_hasil === $h->id) selected @endif>{{ $h->hasil }}</option>
-                                    @endforeach
-                                  </select>
-                                  @endif
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label>Motor</label>
-                                  @if ($motor == null)
-                                  <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
-                                  @else
-                                  <select id="motor" name="motor" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected>-- Pilih motor --</option>
-                                    @foreach ($motor as $m)
-                                    <option value="{{ $m->id }}" @if($p->id_motor === $m->id) selected @endif>{{ $m->nama }}</option>
-                                    @endforeach
-                                  </select>
-                                  @endif
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label for="input-hasil">Jumlah</label>
-                                  <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{$p->jumlah}}">
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-6" id="leasingUpdate_{{$loop->index}}">
-                                  <label>Leasing</label>
-                                  <select name="leasing" class="form-control select2" style="width: 100%;">
-                                    <option value="" selected>-- Pilih leasing --</option>
-                                    @foreach ($leasing as $l)
-                                    <option value="{{ $l->id }}" @if($p->id_lising === $l->id) selected @endif>{{ $l->nama }}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label for="input-hasil">Catatan Penjualan</label>
-                                  <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{$p->catatan}}">
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-12">
-                                  <label for="status_pembayaran_dp">Status Pembayaran DP</label>
-                                  <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
-                                    <option value="" {{ $p->status_pembayaran_dp === null ? 'selected' : '' }}>-- Pilih status pembayaran DP --</option>
-                                    <option value="pending" {{ $p->status_pembayaran_dp == 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="paid" {{ $p->status_pembayaran_dp == 'paid' ? 'selected' : '' }}>Paid</option>
-                                  </select>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label>Tanggal Dibuat: </label>
-                                  <div class="input-group date tanggal_dibuat" id="reservationdate_{{ $loop->index }}" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate_{{ $loop->index }}" value="{{ date('m/d/Y', strtotime($p->tanggal_dibuat)) }}" name="tanggal_dibuat" />
-                                    <div class="input-group-append" data-target="#reservationdate_{{ $loop->index }}" data-toggle="datetimepicker">
-                                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
+              <div>
+                <div class="modal fade" id="modalEdit{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit data: {{$p->nama_konsumen}}</h4>
+                      </div>
+                      <form action="{{ route('admin.penjualan.data.update', $p->id) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                          <div class="card card-primary">
+                            <div class="card-header with-border">
+                              <h3 class="card-title">Update Data sales</h3>
+                            </div>
+                            <input type="hidden" value="{{$p->id}}">
+                            <div class="card-body">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label for="input-hasil">Nama Konsumen</label>
+                                    <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen" value="{{$p->nama_konsumen}}">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label>Sales</label>
+                                    @if ($sales == null)
+                                    <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
+                                    @else
+                                    <select id="sales" name="sales" class="form-control select2" style="width: 100%;">
+                                      @foreach ($sales as $s)
+                                      <option value="{{ $s->id }}" @if($p->id_sales === $s->id) selected @endif>{{ $s->nama }}</option>
+                                      @endforeach
+                                    </select>
+                                    @endif
                                   </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                  <label>Tanggal Hasil:</label>
-                                  <div class="input-group date tanggal_hasil" id="reservationdate2_{{ $loop->index }}" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input tanggal_hasil" data-target="#reservationdate2_{{ $loop->index }}" name="tanggal_hasil" value="{{ $p->tanggal_hasil ? date('m/d/Y', strtotime($p->tanggal_hasil)) : '' }}" />
-                                    <div class="input-group-append" data-target="#reservationdate2_{{ $loop->index }}" data-toggle="datetimepicker">
-                                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label>Metode Pembayaran</label>
+                                    <select id="pembayaranUpdate_{{$loop->index}}" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
+                                      <option value="cash" {{ $p->pembayaran === 'cash' ? 'selected' : '' }}>Cash</option>
+                                      <option value="kredit" {{ $p->pembayaran === 'kredit' ? 'selected' : '' }}>Kredit</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group col-md-6" id="tenorUpdate_{{$loop->index}}">
+                                    <label for="input-tenor">Tenor</label>
+                                    <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" value="{{$p->tenor}}">
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label>Kabupaten</label>
+                                    @if ($kota == null)
+                                    <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
+                                    @else
+                                    <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
+                                      <option value="" selected>-- Pilih kabupaten --</option>
+                                      @foreach ($kota as $k)
+                                      <option value="{{ $k->id }}" @if($p->id_kota === $k->id) selected @endif>{{ $k->nama }}</option>
+                                      @endforeach
+                                    </select>
+                                    @endif
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label>Hasil</label>
+                                    @if ($hasil == null)
+                                    <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
+                                    @else
+                                    <select id="hasil" name="hasil" class="form-control select2" style="width: 100%;">
+                                      <option value="" selected>-- Pilih hasil --</option>
+                                      @foreach ($hasil as $h)
+                                      <option value="{{ $h->id }}" @if($p->id_hasil === $h->id) selected @endif>{{ $h->hasil }}</option>
+                                      @endforeach
+                                    </select>
+                                    @endif
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label>Motor</label>
+                                    @if ($motor == null)
+                                    <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
+                                    @else
+                                    <select id="motor" name="motor" class="form-control select2" style="width: 100%;">
+                                      <option value="" selected>-- Pilih motor --</option>
+                                      @foreach ($motor as $m)
+                                      <option value="{{ $m->id }}" @if($p->id_motor === $m->id) selected @endif>{{ $m->nama }}</option>
+                                      @endforeach
+                                    </select>
+                                    @endif
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="input-hasil">Jumlah</label>
+                                    <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{$p->jumlah}}">
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-6" id="leasingUpdate_{{$loop->index}}">
+                                    <label>Leasing</label>
+                                    <select name="leasing" class="form-control select2" style="width: 100%;">
+                                      <option value="" selected>-- Pilih leasing --</option>
+                                      @foreach ($leasing as $l)
+                                      <option value="{{ $l->id }}" @if($p->id_lising === $l->id) selected @endif>{{ $l->nama }}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="input-hasil">Catatan Penjualan</label>
+                                    <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{$p->catatan}}">
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-12">
+                                    <label for="status_pembayaran_dp">Status Pembayaran DP</label>
+                                    <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
+                                      <option value="" {{ $p->status_pembayaran_dp === null ? 'selected' : '' }}>-- Pilih status pembayaran DP --</option>
+                                      <option value="pending" {{ $p->status_pembayaran_dp == 'pending' ? 'selected' : '' }}>Pending</option>
+                                      <option value="paid" {{ $p->status_pembayaran_dp == 'paid' ? 'selected' : '' }}>Paid</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label>Tanggal Dibuat: </label>
+                                    <div class="input-group date tanggal_dibuat" id="reservationdate_{{ $loop->index }}" data-target-input="nearest">
+                                      <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate_{{ $loop->index }}" value="{{ date('m/d/Y', strtotime($p->tanggal_dibuat)) }}" name="tanggal_dibuat" />
+                                      <div class="input-group-append" data-target="#reservationdate_{{ $loop->index }}" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label>Tanggal Hasil:</label>
+                                    <div class="input-group date tanggal_hasil" id="reservationdate2_{{ $loop->index }}" data-target-input="nearest">
+                                      <input type="text" class="form-control datetimepicker-input tanggal_hasil" data-target="#reservationdate2_{{ $loop->index }}" name="tanggal_hasil" value="{{ $p->tanggal_hasil ? date('m/d/Y', strtotime($p->tanggal_hasil)) : '' }}" />
+                                      <div class="input-group-append" data-target="#reservationdate2_{{ $loop->index }}" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                    </form>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
