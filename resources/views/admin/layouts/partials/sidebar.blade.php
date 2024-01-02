@@ -318,15 +318,6 @@
 												</p>
 										</a>
 								</li>
-								<li class="nav-item">
-										<a href="{{ route('admin.pembayaran.index') }}"
-												class="nav-link {{ \Route::is('admin.pembayaran.*') ? 'active' : '' }}">
-												<i class="nav-icon fa fa-bell"></i>
-												<p>
-														Data Pembayaran
-												</p>
-										</a>
-								</li>
 
 								{{-- <li class="nav-item">
 					<a href="{{ route('admin.promo.index') }}" class="nav-link {{ \Route::is('admin.promo.*') ? 'active' : '' }}">
