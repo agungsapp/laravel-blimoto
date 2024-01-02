@@ -148,13 +148,11 @@ class AdminSPKController extends Controller
       'bpkb_stnk' => 'required',
       'nomor_hp' => 'required',
       'warna' => 'required',
-      'ket_program' => 'required',
-      'nama_diskon' => 'required',
       'kelengkapan' => 'required',
       'metode_pembayaran' => 'required_without:metode_lainnya',
       'metode_lainnya' => 'required_without:metode_pembayaran',
-      'jangka_waktu' => 'required',
       'id_penjualan' => 'required',
+      'alamat' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -193,8 +191,6 @@ class AdminSPKController extends Controller
       'type' => $motor->type->nama,
       'harga' => $harga,
       'warna' => $request->input('warna'),
-      'ket_program' => $request->input('ket_program'),
-      'nama_diskon' => $request->input('nama_diskon'),
       'kelengkapan' => $request->input('kelengkapan'),
       'dp' => $dp,
       'total_diskon' => $totalDiskon,
@@ -202,6 +198,7 @@ class AdminSPKController extends Controller
       'metode_pembayaran' => $request->input('metode_pembayaran'),
       'metode_lainnya' => $request->input('metode_lainnya'),
       'jangka_waktu' => $request->input('jangka_waktu'),
+      'alamat' => $request->input('alamat'),
     ];
 
     return view('admin.spk.spk', $data);

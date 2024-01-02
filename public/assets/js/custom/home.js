@@ -95,12 +95,13 @@ $(document).ready(function () {
         var id_lokasi = $("#SelectKota").val();
         var idmotor = id_motor;
         var tenor = $('select[name="tenor"]').val();
+        var pembayaran = $('select[name="pembayaran"]').val();
         var dp = $("#dp").val();
 
         var tenor = $("#tenor").val();
 
         // Redirect to /cari-cicilan with the tenor parameter
-        window.location.href = `cari-cicilan?id_lokasi=${id_lokasi}&id_motor=${id_motor}&dp=${dp}&tenor=${tenor}`;
+        window.location.href = `cari-cicilan?id_lokasi=${id_lokasi}&id_motor=${id_motor}&dp=${dp}&tenor=${tenor}&pembayaran=${pembayaran}`;
     });
 
 

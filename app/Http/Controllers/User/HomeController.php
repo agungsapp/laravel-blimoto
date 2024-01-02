@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         // dd(Session::get('lokasiUser'));
 
-        // dd($data['best4']);
+        // dd($data['best1']);
 
         // dd($data['hooks']);
         return view('user.home.index', $data);
@@ -274,6 +274,7 @@ class HomeController extends Controller
     {
         // $motor = Motor
     }
+
 
 
     private function getDpTermurah($bestMotorId)

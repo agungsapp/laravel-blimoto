@@ -13,6 +13,28 @@
 
 :root {
     --bg-basic: #dd0202;
+    --bg-sorot: rgba(221, 2, 2, 0.9);
+}
+
+/* style sorotan start */
+.sorotan_top {
+    border-top: 4px solid var(--bg-sorot);
+}
+.bg-sorot {
+    background-color: var(--bg-sorot);
+}
+.sorot_x {
+    border-right: 4px solid var(--bg-sorot);
+    border-left: 4px solid var(--bg-sorot);
+}
+.sorotan_bot {
+    border-bottom: 4px solid var(--bg-sorot);
+}
+
+/* style sorotan end */
+
+.sosiyal li:hover {
+    cursor: pointer;
 }
 
 .profile-img img {

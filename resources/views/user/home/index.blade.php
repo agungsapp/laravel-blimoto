@@ -19,276 +19,9 @@
 		</div>
 		<!-- new hook slider end -->
 
-		<div class="container-home-promo">
-				<div class="style-border-home-promo">
-						<!--temukan kendaraanmu start-->
-						<div class="">
-								<div class="tab-product-main">
-										<div class="tab-prodcut-contain">
-												<ul class="tabs mb-4">
-														<li class="current"><a href="tab-1">DISKON TERBAIK</a></li>
-														<li class=""><a href="tab-2">DP TERMURAH</a></li>
-														<li class=""><a href="tab-3">HARGA TERBAWAH</a></li>
-														<li class=""><a href="tab-4">ANGSURAN RINGAN</a></li>
-														<!-- <li class=""><a href="tab-5">toys</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<li class=""><a href="tab-6">books</a></li> -->
-												</ul>
-										</div>
-								</div>
-						</div>
 
-						<!-- media tab start -->
-						<div class="ratio_40 section-pb-space">
-								<div class="custom-container product">
-										<div class="row">
-												<div class="col pr-0">
-														<div class="theme-tab product">
-																<div class="tab-content-cls">
-																		<!-- content tab 1 best diskon -->
-																		<div id="tab-1" class="tab-content active default">
-																				<div class="product-slide-5 product-m no-arrow">
-																						<!-- custom card produk box for loop -->
-
-																						{{-- {{ dd($best1) }} --}}
-
-																						@foreach ($best1 as $item1)
-																								<div>
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<a href="#">
-																																		<img src="{{ asset('assets') }}/images/detail-motor/{{ $item1->image }}"
-																																				class="img-fluid" alt="{{ $item1->image }}" />
-																																</a>
-																														</div>
-																														{{-- <button type="button" class="btn btn-outline btn-cart">Lihat Promo</button> --}}
-																														<div class="best-label" style="border-radius: 19px 0 19px 0;">
-																																<div>Best Diskon</div>
-																														</div>
-																												</div>
-																												<div class="product-detail product-detail2">
-																														<a href="#">
-																																<h3>{{ $item1->nama }}</h3>
-																														</a>
-
-																														<div class="mt-2">
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item1->diskon_promo ?? '0') }}</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon normal </p>
-																																		<del class="text-basic">{{ Str::rupiah($item1->diskon ?? '0') }}</del>
-																																</div>
-																														</div>
-																														<form action="{{ route('detail-motor') }}" method="GET">
-																																@csrf
-																																<input class="id_lokasi" type="hidden" name="id_lokasi" value="1">
-																																<input type="hidden" name="id_motor" value="{{ $item1->id }}">
-																																<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Diskon
-																																		Terbaik</button>
-																														</form>
-
-																														{{-- <a href="/try" id="detail-link" class="btn btn-sm btn-danger rounded-3 mt-3">Lihat Detail</a>
-											--}}
-																														{{-- <a href="/detail-motor/{{ $item1->id }}/{{ session('lokasiUser') }}" id="detail-link"
-													class="btn btn-sm btn-danger rounded-3 mt-3">Lihat Detail</a> --}}
-																												</div>
-																										</div>
-																								</div>
-																						@endforeach
-																						<!-- custom card produk box for loop end -->
-																				</div>
-																		</div>
-																		<!-- content tab 2 best dp -->
-																		<div id="tab-2" class="tab-content">
-																				<div class="product-slide-5 product-m no-arrow">
-																						<!-- custom card produk box for loop -->
-																						@foreach ($best2 as $item2)
-																								<div>
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<a href="#">
-																																		<img src="{{ asset('assets') }}/images/detail-motor/{{ $item2->image }}"
-																																				class="img-fluid" alt="{{ $item2->image }}" />
-																																</a>
-																														</div>
-																														<div class="best-label" style="border-radius: 19px 0 19px 0;">
-																																<div>Best DP</div>
-																														</div>
-																												</div>
-																												<div class="product-detail product-detail2">
-																														<a href="#">
-																																<h3>{{ $item2->nama }}</h3>
-																														</a>
-																														<div class="mt-2">
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">DP Normal </p>
-																																		<del class="text-basic">{{ Str::rupiah($item2->dp ?? '0') }}</del>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item2->diskon_promo ?? '0') }}</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">DP Bayar </p>
-																																		<p class="text-basic fw-bold">{{ Str::rupiah($item2->dp - $item2->diskon_promo) }}</p>
-																																</div>
-																														</div>
-																														<form action="{{ route('detail-motor') }}" method="GET">
-																																@csrf
-																																<input type="hidden" name="id_lokasi" value="">
-																																<input type="hidden" name="id_motor" value="{{ $item2->id }}">
-																																<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat DP
-																																		Termurah</button>
-																														</form>
-																												</div>
-																										</div>
-																								</div>
-																						@endforeach
-																						<!-- custom card produk box for loop end -->
-																				</div>
-																		</div>
-
-																		<!-- content tab 2 best dp -->
-																		<div id="tab-3" class="tab-content">
-																				<div class="product-slide-5 product-m no-arrow">
-																						<!-- custom card produk box for loop -->
-																						@foreach ($best3 as $item3)
-																								<div>
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<a href="#">
-																																		<img src="{{ asset('assets') }}/images/detail-motor/{{ $item3->image }}"
-																																				class="img-fluid" alt="{{ $item3->image }}" />
-																																</a>
-																														</div>
-																														<div class="best-label" style="border-radius: 19px 0 19px 0;">
-																																<div>Best Termurah</div>
-																														</div>
-																												</div>
-																												<div class="product-detail product-detail2">
-																														<a href="#">
-																																<h3>{{ $item3->nama }}</h3>
-																														</a>
-																														<div class="mt-2">
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Harga OTR </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item3->harga ?? '0') }}
-																																		</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon promo </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item3->diskon_promo ?? '0') }}
-																																		</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon normal </p>
-																																		<del class="text-basic">{{ Str::rupiah($item3->diskon ?? '0') }}</del>
-																																</div>
-																														</div>
-																														<form action="{{ route('detail-motor') }}" method="GET">
-																																@csrf
-																																<input type="hidden" name="id_lokasi" value="">
-																																<input type="hidden" name="id_motor" value="{{ $item3->id }}">
-																																<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Harga
-																																		Terbawah</button>
-																														</form>
-																												</div>
-																										</div>
-																								</div>
-																						@endforeach
-																						<!-- custom card produk box for loop end -->
-																				</div>
-																		</div>
-
-																		<!-- content tab 4 best dp -->
-																		<div id="tab-4" class="tab-content">
-																				<div class="product-slide-5 product-m no-arrow">
-																						<!-- custom card produk box for loop -->
-																						@foreach ($best4 as $item4)
-																								<div>
-																										<div class="product-box">
-																												<div class="product-imgbox">
-																														<div class="product-front">
-																																<a href="#">
-																																		<img src="{{ asset('assets') }}/images/detail-motor/{{ $item4->image }}"
-																																				class="img-fluid" alt="{{ $item4->image }}" />
-																																</a>
-																														</div>
-																														<div class="best-label" style="border-radius: 19px 0 19px 0;">
-																																<div>Best Termurah</div>
-																														</div>
-																												</div>
-																												<div class="product-detail product-detail2">
-																														<a href="#">
-																																<h3>{{ $item4->nama }}</h3>
-																														</a>
-																														<div class="mt-2">
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Harga OTR </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->harga) }}
-																																		</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">DP normal </p>
-																																		<del class="text-basic">{{ Str::rupiah($item4->dp) }}</del>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Diskon </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->diskon ?? '0') }}
-																																		</p>
-																																</div>
-
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">DP Bayar </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->dp - $item4->diskon_promo) }}
-																																		</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Cicilan. </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->cicilan) . ' x ' . $item4->tenor }}
-																																		</p>
-																																</div>
-																																<div class="d-flex justify-content-between">
-																																		<p class="text-doff">Total Bayar </p>
-																																		<p class="text-basic fw-bold">
-																																				{{ Str::rupiah($item4->cicilan * $item4->tenor + $item4->dp) }}
-																																		</p>
-																																</div>
-																														</div>
-																														<form action="{{ route('detail-motor') }}" method="GET">
-																																@csrf
-																																<input type="hidden" name="id_lokasi" value="">
-																																<input type="hidden" name="id_motor" value="{{ $item4->id }}">
-																																<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Angsuran
-																																		Ringan</button>
-																														</form>
-																												</div>
-																										</div>
-																								</div>
-																						@endforeach
-																						<!-- custom card produk box for loop end -->
-																				</div>
-																		</div>
-																</div>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-						<!-- media tab end -->
-						<!--temukan kendaraanmu end-->
-				</div>
-		</div>
+		{{-- inclide home promo --}}
+		@include('user.home._home_promo')
 
 		<!-- simulasi kredit start -->
 		<section class="my-2">
@@ -351,9 +84,9 @@
 																						<label for="SelectKota" class="mb-0" style="font-size: 12px">Pembayaran</label>
 																						<select id="pembayaran" class="js-example-basic-single form-select form-select-sm"
 																								style="width: 100%" name="pembayaran">
-																								<option value="0" selected>-- Pilih Pembayaran --</option>
-																								<option value="1">Cash</option>
-																								<option value="2">Kredit</option>
+																								<option value="" selected>-- Pilih Pembayaran --</option>
+																								<option value="2">Cash</option>
+																								<option value="1">Kredit</option>
 																						</select>
 																				</div>
 																		</div>
@@ -376,7 +109,7 @@
 																						<label for="tenor" class="mb-0" style="font-size: 12px">Tenor</label>
 																						<select id="tenor" class="js-example-basic-single form-select form-select-sm"
 																								style="width: 100%" name="tenor">
-																								<option value="0" selected>-- Pilih Tenor --</option>
+																								<option value="" selected>-- Pilih Tenor --</option>
 																								<option value="11">11 Bulan</option>
 																								<option value="17">17 Bulan</option>
 																								<option value="23">23 Bulan</option>
@@ -767,40 +500,40 @@
 																<g>
 																		<path
 																				d="M409.12,200.741c-4.418,0-8,3.582-8,8c-0.06,106.525-86.464,192.831-192.988,192.772
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								C101.607,401.453,15.3,315.049,15.36,208.524C15.42,102,101.824,15.693,208.348,15.753c51.36,0.029,100.587,20.54,136.772,56.988
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								l-17.84-0.72c-4.418,0-8,3.582-8,8s3.582,8,8,8l36.72,1.52c1.013,0.003,2.018-0.188,2.96-0.56l0.88-0.56
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c1.381-0.859,2.534-2.039,3.36-3.44c0.034-0.426,0.034-0.854,0-1.28c0.183-0.492,0.317-1.001,0.4-1.52l3.2-36.72
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c0.376-4.418-2.902-8.304-7.32-8.68s-8.304,2.902-8.68,7.32l-1.6,18.16c-80.799-82.092-212.848-83.14-294.939-2.341
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								s-83.14,212.848-2.341,294.939s212.848,83.14,294.939,2.341c39.786-39.159,62.212-92.635,62.261-148.459
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								C417.12,204.323,413.538,200.741,409.12,200.741z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												C101.607,401.453,15.3,315.049,15.36,208.524C15.42,102,101.824,15.693,208.348,15.753c51.36,0.029,100.587,20.54,136.772,56.988
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												l-17.84-0.72c-4.418,0-8,3.582-8,8s3.582,8,8,8l36.72,1.52c1.013,0.003,2.018-0.188,2.96-0.56l0.88-0.56
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c1.381-0.859,2.534-2.039,3.36-3.44c0.034-0.426,0.034-0.854,0-1.28c0.183-0.492,0.317-1.001,0.4-1.52l3.2-36.72
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c0.376-4.418-2.902-8.304-7.32-8.68s-8.304,2.902-8.68,7.32l-1.6,18.16c-80.799-82.092-212.848-83.14-294.939-2.341
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												s-83.14,212.848-2.341,294.939s212.848,83.14,294.939,2.341c39.786-39.159,62.212-92.635,62.261-148.459
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												C417.12,204.323,413.538,200.741,409.12,200.741z" />
 																</g>
 														</g>
 														<g>
 																<g>
 																		<path
 																				d="M200.4,256.341c-3.716-2.516-8.162-3.726-12.64-3.44h-56c1.564-2.442,3.302-4.768,5.2-6.96
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c6.727-7.402,14.088-14.201,22-20.32c10.667-8.747,18.293-15.147,22.88-19.2c5.252-4.976,9.752-10.689,13.36-16.96
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c4.377-7.234,6.649-15.545,6.56-24c-0.009-11.177-4.27-21.931-11.92-30.08c-3.725-3.941-8.181-7.12-13.12-9.36
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-8.709-3.645-18.08-5.443-27.52-5.28c-8.048-0.163-16.055,1.194-23.6,4c-6.2,2.328-11.862,5.894-16.64,10.48
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-4.219,4.117-7.565,9.042-9.84,14.48c-2.098,4.853-3.213,10.074-3.28,15.36c-0.192,3.547,1.081,7.018,3.52,9.6
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c2.345,2.352,5.56,3.626,8.88,3.52c3.499,0.231,6.903-1.19,9.2-3.84c2.503-3.303,4.424-7.01,5.68-10.96
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c0.939-3.008,2.144-5.926,3.6-8.72c4.562-7.738,12.94-12.416,21.92-12.24c4.114,0.077,8.149,1.147,11.76,3.12
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c3.625,1.82,6.693,4.583,8.88,8c2.194,3.673,3.329,7.882,3.28,12.16c-0.067,4.437-1.105,8.806-3.04,12.8
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-2.129,4.829-5.019,9.286-8.56,13.2c-4.419,4.617-9.298,8.772-14.56,12.4c-5.616,4.247-10.96,8.843-16,13.76
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-7.787,7.04-16.453,15.467-26,25.28c-2.638,2.966-4.773,6.344-6.32,10c-1.632,3.159-2.612,6.614-2.88,10.16
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-0.018,3.939,1.605,7.707,4.48,10.4c3.393,3.096,7.896,4.684,12.48,4.4h78.4c3.842,0.312,7.641-0.993,10.48-3.6
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c2.291-2.379,3.53-5.579,3.44-8.88C204.691,262.051,203.173,258.598,200.4,256.341z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c6.727-7.402,14.088-14.201,22-20.32c10.667-8.747,18.293-15.147,22.88-19.2c5.252-4.976,9.752-10.689,13.36-16.96
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c4.377-7.234,6.649-15.545,6.56-24c-0.009-11.177-4.27-21.931-11.92-30.08c-3.725-3.941-8.181-7.12-13.12-9.36
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-8.709-3.645-18.08-5.443-27.52-5.28c-8.048-0.163-16.055,1.194-23.6,4c-6.2,2.328-11.862,5.894-16.64,10.48
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-4.219,4.117-7.565,9.042-9.84,14.48c-2.098,4.853-3.213,10.074-3.28,15.36c-0.192,3.547,1.081,7.018,3.52,9.6
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c2.345,2.352,5.56,3.626,8.88,3.52c3.499,0.231,6.903-1.19,9.2-3.84c2.503-3.303,4.424-7.01,5.68-10.96
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c0.939-3.008,2.144-5.926,3.6-8.72c4.562-7.738,12.94-12.416,21.92-12.24c4.114,0.077,8.149,1.147,11.76,3.12
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c3.625,1.82,6.693,4.583,8.88,8c2.194,3.673,3.329,7.882,3.28,12.16c-0.067,4.437-1.105,8.806-3.04,12.8
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-2.129,4.829-5.019,9.286-8.56,13.2c-4.419,4.617-9.298,8.772-14.56,12.4c-5.616,4.247-10.96,8.843-16,13.76
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-7.787,7.04-16.453,15.467-26,25.28c-2.638,2.966-4.773,6.344-6.32,10c-1.632,3.159-2.612,6.614-2.88,10.16
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-0.018,3.939,1.605,7.707,4.48,10.4c3.393,3.096,7.896,4.684,12.48,4.4h78.4c3.842,0.312,7.641-0.993,10.48-3.6
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c2.291-2.379,3.53-5.579,3.44-8.88C204.691,262.051,203.173,258.598,200.4,256.341z" />
 																</g>
 														</g>
 														<g>
 																<g>
 																		<path
 																				d="M333.76,222.901c-4.254-1.637-8.809-2.346-13.36-2.08h-4.56v-82.48c0-12.373-5.333-18.56-16-18.56
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-3.185-0.052-6.261,1.155-8.56,3.36c-3.331,3.343-6.382,6.956-9.12,10.8l-56.48,75.6l-3.92,5.2c-1.067,1.44-2.107,2.907-3.12,4.4
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c-0.916,1.374-1.668,2.851-2.24,4.4c-0.475,1.308-0.718,2.689-0.72,4.08c-0.237,4.699,1.607,9.263,5.04,12.48
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c4.323,3.358,9.742,4.984,15.2,4.56h53.52v20.08c-0.273,4.252,1.006,8.459,3.6,11.84c5.276,5.346,13.887,5.403,19.233,0.127
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c0.043-0.042,0.085-0.084,0.127-0.127c2.587-3.384,3.866-7.589,3.6-11.84v-20h6.48c4.242,0.298,8.476-0.677,12.16-2.8
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								c2.877-2.141,4.425-5.63,4.08-9.2C339.301,228.744,337.319,224.811,333.76,222.901z M289.36,220.581h-45.84l45.84-61.92V220.581z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-3.185-0.052-6.261,1.155-8.56,3.36c-3.331,3.343-6.382,6.956-9.12,10.8l-56.48,75.6l-3.92,5.2c-1.067,1.44-2.107,2.907-3.12,4.4
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c-0.916,1.374-1.668,2.851-2.24,4.4c-0.475,1.308-0.718,2.689-0.72,4.08c-0.237,4.699,1.607,9.263,5.04,12.48
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c4.323,3.358,9.742,4.984,15.2,4.56h53.52v20.08c-0.273,4.252,1.006,8.459,3.6,11.84c5.276,5.346,13.887,5.403,19.233,0.127
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c0.043-0.042,0.085-0.084,0.127-0.127c2.587-3.384,3.866-7.589,3.6-11.84v-20h6.48c4.242,0.298,8.476-0.677,12.16-2.8
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												c2.877-2.141,4.425-5.63,4.08-9.2C339.301,228.744,337.319,224.811,333.76,222.901z M289.36,220.581h-45.84l45.84-61.92V220.581z" />
 																</g>
 														</g>
 												</svg>
@@ -839,17 +572,17 @@
 																		<g>
 																				<path
 																						d="M384,172.4C384,83.6,312.4,12,224,12S64,83.6,64,172c0,0,0,0,0,0.4C28.4,174.4,0,204,0,240v8c0,37.6,30.4,68,68,68h3.6
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											l28.4,45.2c20,32,54,50.8,91.6,50.8h5.6c3.6,13.6,16,24,30.8,24c17.6,0,32-14.4,32-32c0-17.6-14.4-32-32-32
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											c-14.8,0-27.2,10.4-30.8,24h-5.6c-32,0-61.2-16.4-78-43.6L90.4,316H96c8.8,0,16-7.2,16-16V188c0-8.8-7.2-16-16-16H80
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											c0-79.6,64.4-144,144-144s144,64.4,144,144h-16c-8.8,0-16,7.2-16,16v112c0,8.8,7.2,16,16,16h28c37.6,0,68-30.4,68-68v-8
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											C448,204,419.6,174.4,384,172.4z M228,388c8.8,0,16,7.2,16,16s-7.2,16-16,16s-16-7.2-16-16S219.2,388,228,388z M96,188v112H68
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											c-28.8,0-52-23.2-52-52v-8c0-28.8,23.2-52,52-52H96z M432,248c0,28.8-23.2,52-52,52h-28V188h28c28.8,0,52,23.2,52,52V248z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															l28.4,45.2c20,32,54,50.8,91.6,50.8h5.6c3.6,13.6,16,24,30.8,24c17.6,0,32-14.4,32-32c0-17.6-14.4-32-32-32
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															c-14.8,0-27.2,10.4-30.8,24h-5.6c-32,0-61.2-16.4-78-43.6L90.4,316H96c8.8,0,16-7.2,16-16V188c0-8.8-7.2-16-16-16H80
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															c0-79.6,64.4-144,144-144s144,64.4,144,144h-16c-8.8,0-16,7.2-16,16v112c0,8.8,7.2,16,16,16h28c37.6,0,68-30.4,68-68v-8
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															C448,204,419.6,174.4,384,172.4z M228,388c8.8,0,16,7.2,16,16s-7.2,16-16,16s-16-7.2-16-16S219.2,388,228,388z M96,188v112H68
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															c-28.8,0-52-23.2-52-52v-8c0-28.8,23.2-52,52-52H96z M432,248c0,28.8-23.2,52-52,52h-28V188h28c28.8,0,52,23.2,52,52V248z" />
 																				<path
 																						d="M290.4,72.4c-0.8-0.4-2-1.2-3.2-2c-1.2-0.8-2.4-1.6-3.2-2c-3.6-2.4-8.8-1.2-10.8,2.8S272,79.6,276,82
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											c0.8,0.4,2,1.2,3.2,2s2.4,1.6,3.6,2c1.2,0.8,2.8,1.2,4,1.2c2.8,0,5.2-1.2,6.8-4C295.6,79.6,294.4,74.8,290.4,72.4z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															c0.8,0.4,2,1.2,3.2,2s2.4,1.6,3.6,2c1.2,0.8,2.8,1.2,4,1.2c2.8,0,5.2-1.2,6.8-4C295.6,79.6,294.4,74.8,290.4,72.4z" />
 																				<path
 																						d="M224,52c-34,0-66,14.8-88,40.4c-2.8,3.2-2.4,8.4,0.8,11.2c1.6,1.2,3.2,2,5.2,2c2.4,0,4.4-0.8,6-2.8
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											c19.2-22,46.8-34.8,76-34.8c7.2,0,14.4,0.8,21.6,2.4c4.4,0.8,8.4-2,9.6-6s-2-8.4-6-9.6C240.8,52.8,232.4,52,224,52z" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															c19.2-22,46.8-34.8,76-34.8c7.2,0,14.4,0.8,21.6,2.4c4.4,0.8,8.4-2,9.6-6s-2-8.4-6-9.6C240.8,52.8,232.4,52,224,52z" />
 																		</g>
 																</g>
 														</g>
@@ -968,6 +701,17 @@
 						}
 				});
 		</script>
+		@if ($errors->any())
+				<script>
+						Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Terjadi kesalahan dalam pengisian formulir:',
+								html: "<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>",
+						});
+				</script>
+		@endif
+
 		<script src="{{ asset('/assets/js/custom/home.js') }}"></script>
 @endpush
 

@@ -35,7 +35,8 @@
       <div class="col text-center">
         <h4>Surat Pesanan Kendaraan (SPK)</h4>
       </div>
-      <div class="col text-right">133</div>
+      <div class="col"></div>
+      <!-- <div class="col text-right">133</div> -->
     </div>
     <div class="row">
       <div class="col">
@@ -46,6 +47,7 @@
         <p>Kabupaten: {{$kabupaten}}</p>
         <p>BPKB/STNK a.n: {{$bpkb_stnk}}</p>
         <p>Nomor HP: {{$nomor_hp}}</p>
+        <p>Alamat: {{$alamat}}</p>
         <br>
         <hr style="border: 1px solid black;">
         <p>SYARAT DAN KETENTUAN</p>
@@ -62,6 +64,7 @@
           <li>Pembayaran dengan cek/bilyet/giro/transfer harus diatasnamakan</li>
           <li>Pemesanan berkewajiban membayar tambahan biaya/pajak kendaraan dalam hal terdapat penambahan biaya pajak karena berlakunya ketentuan perundangan tentang pajak progresif atas pemikiran dan pendaftaran kendaraan bermotor atau karena adanya perubahan tarif pajak yang berlaku pada saat pendaftaran</li>
           <li>Pemesan bersedia menerima telpon untuk di follow up, penawaran dan keperluan lainnya dari pihak dealer</li>
+          <li>Berlaku, harga tidak mengikat. jika ada perubahan akan dihubungi sales.</li>
         </ol>
       </div>
       <div class="col-1 d-flex align-item-center justify-content-center" style="max-width: 1%;">
@@ -87,27 +90,47 @@
             </tr>
           </tbody>
         </table>
-        <p>Keterangan Program: {{$ket_program}}</p>
-        <p>Nama Diskon: {{$nama_diskon}}</p>
         <p>Kelengkapan: {{$kelengkapan}}</p>
         <hr style="border: 1px solid black;">
-        <p>Harga Total Kenderaan (OTR): {{$harga}}</p>
-        <p>DP: {{$dp}}</p>
-        <p>Total Diskon: {{$total_diskon}}</p>
-        <p>Sisa Yang Harus Dibayar: {{$sisa_bayar}}</p>
-        <fieldset>
-          <p>Metode Pembayaran</p>
-          <input type="checkbox" id="tunai" name="pembayaran" value="tunai" @if($metode_pembayaran==='tunai' ) checked @endif>
-          <label for="tunai" style="margin-right: 50px;">Tunai</label>
+        <br>
 
-          <input type="checkbox" id="cek" name="pembayaran" value="cek" @if($metode_pembayaran==='cek' ) checked @endif>
-          <label for="cek">Cek/Bilyet Giro</label>
-        </fieldset>
-        <fieldset>
-          <input type="checkbox" id="kredit" name="pembayaran" value="kredit" @if(!is_null($metode_lainnya)) checked @endif>
-          <label for="kredit">Kredit Via: {{$metode_lainnya ?? ''}}</label>
-        </fieldset>
-        <p>Jangka Waktu: {{$jangka_waktu}}</p>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>Harga Total</td>
+            <td>: {{$harga}}</td>
+          </tr>
+          <tr>
+            <td>DP</td>
+            <td>: {{$dp}}</td>
+          </tr>
+          <tr>
+            <td>Total Diskon</td>
+            <td>: {{$total_diskon}}</td>
+          </tr>
+          <tr>
+            <td>Sisa DP Yang Harus Dibayar</td>
+            <td>: {{$sisa_bayar}}</td>
+          </tr>
+          <tr>
+            <td>Metode Pembayaran</td>
+            <td>:
+              @if($metode_pembayaran==='tunai')
+              Tunai
+              @elseif($metode_pembayaran==='cek')
+              Cek/Bilyet Giro
+              @elseif(!is_null($metode_lainnya))
+              Kredit Via {{$metode_lainnya}}
+              @endif
+            </td>
+          </tr>
+          @if(!is_null($metode_lainnya))
+          <tr>
+            <td>Tenor</td>
+            <td>: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</td>
+          </tr>
+          @endif
+        </table>
+
       </div>
     </div>
     <div class="row text-center" style="margin-top: 100px;">
