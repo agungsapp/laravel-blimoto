@@ -22,10 +22,9 @@
       </div>
       <div class="col-4 text-center" style="line-height: 1px;">
         <h2>PT Blimoto Indonesia</h2>
-        <p>Jl. Dr. Saharjo Jl. Tebet Raya No.319, RT.10/</p>
-        <p>RW.1, Tebet Barm Kec. Tebet</p>
-        <p>Kota Jakarta Selatan Daerah Khusus Ibukota</p>
-        <p>Jakarta 12810</p>
+        <p>Jl. Kemang Sel. No.99A, RT.1</p>
+        <p>RW.2, Bangka, Kec. Mampang Prpt</p>
+        <p>Kota Jakarta Selatan Daerah Khusus Ibukota 12730</p>
       </div>
       <div class="col"></div>
     </div>

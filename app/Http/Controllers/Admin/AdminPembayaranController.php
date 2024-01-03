@@ -73,12 +73,16 @@ class AdminPembayaranController extends Controller
 			return redirect()->back()->withInput();
 		}
 
+		// dd($request->all());
 		DB::beginTransaction();
 		try {
 			$penjualan = Penjualan::where('id', $request->id_penjualan)
-				->where('nama_konsumen', $request->konsumen)
+				->where(function ($query) use ($request) {
+					$query->whereRaw('LOWER(nama_konsumen) = ?', [strtolower($request->konsumen)]);
+				})
 				->where('id_sales', $request->sales)
 				->first();
+
 
 			if (!$penjualan) {
 				flash()->addError("Data penjualan tidak ditemukan!");
@@ -118,7 +122,7 @@ class AdminPembayaranController extends Controller
 			return redirect()->away($snapUrl);
 		} catch (\Exception $e) {
 			DB::rollback();
-			// throw $e;
+			throw $e;
 			flash()->addError("Data penjualan tidak ditemukan!");
 			return redirect()->back()->withInput();
 		}
