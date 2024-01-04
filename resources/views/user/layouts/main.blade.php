@@ -386,7 +386,7 @@
 				headerTextColor: '#fff',
 				mainColor: '#DD0202',
 				bubbleBackground: '#DD0202',
-				mobileHeight: '95vh',
+				mobileHeight: '99vh',
 				desktopHeight: '70vh',
 				desktopWidth: '40vh',
 				mobileWidth: '80vh',
