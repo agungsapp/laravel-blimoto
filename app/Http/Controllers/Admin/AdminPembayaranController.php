@@ -182,19 +182,19 @@ class AdminPembayaranController extends Controller
 		// Mengolah data notifikasi
 		$data = json_decode($request->getContent(), true);
 
-		// Mendapatkan ID pembayaran dari order ID
-		$orderId = $data['order_id'];
+		$orderIdParts = explode('-', $data['order_id']);
+    $idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
 
 		// Mencari pembayaran yang berkaitan
-		$pembayaran = Pembayaran::where('id_penjualan', $orderId)->first();
-		$penjualan = Penjualan::where('id', $orderId)->first();
+		$pembayaran = Pembayaran::where('id_penjualan', $idPenjualan)->first();
+		$penjualan = Penjualan::where('id', $idPenjualan)->first();
 
 		if (!$pembayaran) {
 			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
 		}
 
 		if (!$penjualan) {
-			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
+			return response()->json(['message' => 'Penjualan tidak ditemukan'], 404);
 		}
 
 		try {

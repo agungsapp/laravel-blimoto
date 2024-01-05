@@ -180,6 +180,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('pembayaran', AdminPembayaranController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
+            Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
             Route::resource('hasil', AdminHasilController::class);
             Route::resource('spk', AdminSPKController::class);
         });

@@ -203,21 +203,25 @@
                       <button type="button" class="btn btn-success w-100 mb-1" data-toggle="modal" data-target="#modalCetak{{$p->id}}">
                         Cetak
                       </button>
-                      {{-- <button type="button" class="btn btn-info w-100 mb-1" data-toggle="modal" data-target="#modalBayar{{$p->id}}">Bayar</button> --}}
+                      <button type="button" class="btn btn-info w-100 mb-1" data-toggle="modal" data-target="#modalBayar{{$p->id}}">Bayar</button>
                       <button type="button" class="btn btn-primary w-100 mb-1" data-toggle="modal" data-target="#modalEdit{{$p->id}}" data-placement="top" title="edit">
                         Edit
                       </button>
                       <button type="submit" class="btn btn-danger show_confirm w-100">Delete</button>
                       </button>
                     </form>
-                    <!-- Modal bayar -->
-                    {{-- <div>
-                      <div class="modal fade" id="modalBayar{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
-                            </div>
+                  </div>
+                  <!-- Modal bayar -->
+                  <div>
+                    <div class="modal fade" id="modalBayar{{$p->id}}" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
+                          </div>
+                          <form action="{{ route('admin.penjualan.bayar-dp', $p->id) }}" method="post">
+                            <input type="hidden" value="{{$p->sales->id}}" name="sales">
+                            @csrf
                             <div class="modal-body">
                               <div class="form-group col-md-12">
                                 <label for="nama-sales">Nama Sales</label>
@@ -225,7 +229,7 @@
                               </div>
                               <div class="form-group col-md-12">
                                 <label for="nama-konsumen">Nama Konsumen</label>
-                                <input type="text" class="form-control" id="nama-konsumen" value="{{$p->nama_konsumen}}" readonly>
+                                <input type="text" class="form-control" id="nama-konsumen" value="{{$p->nama_konsumen}}" readonly name="konsumen">
                               </div>
                               <div class="form-group col-md-12">
                                 <label for="input-tenor">Masukan Harga DP</label>
@@ -234,12 +238,12 @@
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Bayar</button>
+                              <button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
                             </div>
-                          </div>
+                          </form>
                         </div>
                       </div>
-                    </div> --}}
+                    </div>
                   </div>
                   <!-- Modal cetak -->
                   <div class="modal fade" id="modalCetak{{$p->id}}" role="dialog" aria-labelledby="modalCetak">
@@ -510,6 +514,7 @@
 @endsection
 @push('script')
 <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
 <script>
   $('.select2').select2()
 
@@ -602,7 +607,6 @@
     var index = selectElement.id.split('_')[1];
     var tenorField = document.getElementById('tenorUpdate_' + index);
     var leasingField = document.getElementById('leasingUpdate_' + index);
-    console.log(leasingField);
 
     if (selectElement.value === 'cash') {
       tenorField.style.display = 'none';
@@ -676,4 +680,84 @@
     });
   })
 </script>
+
+<script>
+  $(document).ready(function() {
+    // ...other initialization code...
+
+    $('#data-sale').on('click', '#pay-button', function(e) {
+      e.preventDefault();
+
+      var form = $(this).closest('form');
+      var formData = new FormData(form.get(0));
+
+      fetch(form.attr('action'), {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+          },
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.redirect_url) {
+            // Open the Midtrans payment page in a new tab
+            window.open(data.redirect_url, '_blank');
+          } else {
+            alert('Error: Redirect URL not received.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  });
+</script>
+
+{{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script> --}}
+
+{{-- <script>
+  $(document).ready(function() {
+    // ...other initialization code...
+
+    $('#data-sale').on('click', '#pay-button', function(e) {
+      e.preventDefault();
+
+      var modal = $(this).closest('.modal');
+      var form = modal.find('form');
+      var formData = new FormData(form.get(0));
+
+      fetch(form.attr('action'), {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+'Accept': 'application/json',
+},
+body: formData
+})
+.then(response => response.json())
+.then(data => {
+if (data.snap_token) {
+snap.pay(data.snap_token, {
+// ...other callbacks...
+
+onClose: function() {
+// Close and remove the modal
+modal.modal('hide').on('hidden.bs.modal', function() {
+modal.remove();
+});
+}
+});
+} else {
+alert('Error: Snap Token not received.');
+}
+})
+.catch(error => {
+console.error('Error:', error);
+});
+});
+});
+</script> --}}
+
 @endpush

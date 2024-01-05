@@ -7,10 +7,12 @@ use App\Models\Hasil;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
+use App\Models\Pembayaran;
 use App\Models\Penjualan;
 use App\Models\Sales;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPenjualanController extends Controller
@@ -198,6 +200,79 @@ class AdminPenjualanController extends Controller
     } catch (\Throwable $th) {
       flash()->addError("Tidak bisa dihapus karena data digunakan oleh data lain!");
       return redirect()->back();
+    }
+  }
+
+  public function bayar(Request $request, $id_penjualan)
+  {
+    $validator = Validator::make($request->all(), [
+      'konsumen' => 'required',
+      'sales' => 'required',
+      'dp' => 'required',
+    ]);
+
+    $idSales = intval($request->input('sales'));
+    $idPenjualan = intval($id_penjualan);
+    $namaKonsumen = $request->input('konsumen');
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withInput();
+    }
+
+    // dd($request->all());
+    DB::beginTransaction();
+    try {
+      $penjualan = Penjualan::where('id', $idPenjualan)
+        ->where(function ($query) use ($namaKonsumen) {
+          $query->whereRaw('LOWER(nama_konsumen) = ?', [strtolower($namaKonsumen)]);
+        })
+        ->where('id_sales', $idSales)
+        ->first();
+
+      if (!$penjualan) {
+        flash()->addError("Data penjualan tidak ditemukan!");
+        return redirect()->back()->withInput();
+      }
+
+      // Menggunakan metode create untuk membuat pembayaran baru
+      $pembayaran = Pembayaran::create([
+        'id_penjualan' => $idPenjualan,
+        'harga' => $request->dp
+      ]);
+
+      // Konfigurasi Midtrans
+      \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+      \Midtrans\Config::$isProduction = false;
+      \Midtrans\Config::$isSanitized = true;
+      \Midtrans\Config::$is3ds = false;
+
+
+      // Create a unique order_id by appending a timestamp or a unique string to id_penjualan
+      $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
+
+      $transactionDetails = [
+        'order_id' => $uniqueOrderId,
+        'gross_amount' => $pembayaran->harga,
+      ];
+
+      // Membuat transaksi ke Midtrans
+      $transaction = [
+        'transaction_details' => $transactionDetails,
+      ];
+
+      $snapToken = \Midtrans\Snap::getSnapToken($transaction);
+      $snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
+      DB::commit();
+
+      // return redirect()->away($snapUrl);
+      return response()->json(['redirect_url' => $snapUrl]);
+      // return response()->json(['snap_token' => $snapToken]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      throw $e;
+      flash()->addError("Data penjualan tidak ditemukan!");
+      return redirect()->back()->withInput();
     }
   }
 }
