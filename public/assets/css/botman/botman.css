@@ -10,6 +10,15 @@ body {
     padding: 0;
 }
 
+ol.chat {
+    height: 85vh !important;
+    margin-right: 2rem;
+}
+
+.chat {
+    height: 80vh !important;
+}
+
 /* M E S S A G E S */
 #messageArea {
     overflow-y: scroll;

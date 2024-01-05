@@ -75,7 +75,7 @@
 .sorot_x {
     border-right: 4px solid var(--bg-sorot);
     border-left: 4px solid var(--bg-sorot);
-    /* animation: sorotX 1s ease-in-out infinite; */
+    animation: sorotX 1s ease-in-out infinite;
 }
 .sorotan_bot {
     border-bottom: 4px solid var(--bg-sorot);
