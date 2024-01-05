@@ -381,7 +381,7 @@
 				// chatServer: '/botman',
 				// frameEndpoint: '/botman',
 				aboutText: 'BliMoto',
-				introMessage: 'Selamat Datang !, Silahkan ketik "mulai" untuk memulai percakapan atau ketik "isi data" untuk langsung mengisi form dan mengubungi admin',
+				introMessage: 'Selamat Datang !, Silahkan ketik <strong class="text-danger">mulai</strong> untuk memulai percakapan atau ketik <strong class="text-danger">isi data</strong> untuk langsung mengisi form dan mengubungi admin',
 				title: 'Customer Service BliMoto',
 				headerTextColor: '#fff',
 				mainColor: '#DD0202',
