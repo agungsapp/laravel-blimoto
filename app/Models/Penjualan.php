@@ -17,6 +17,7 @@ class Penjualan extends Model
     'status_pembayaran_dp',
     'tanggal_dibuat',
     'tanggal_hasil',
+    'is_cetak',
     'id_sales',
     'id_lising',
     'id_motor',
