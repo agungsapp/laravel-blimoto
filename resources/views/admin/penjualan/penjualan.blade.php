@@ -121,6 +121,7 @@
                   <option value="" selected>-- Pilih status pembayaran --</option>
                   <option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending</option>
                   <option value="paid" {{ old('status_pembayaran') == 'paid' ? 'selected' : '' }}>Paid</option>
+                  <option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
                 </select>
               </div>
             </div>
@@ -714,50 +715,5 @@
     });
   });
 </script>
-
-{{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script> --}}
-
-{{-- <script>
-  $(document).ready(function() {
-    // ...other initialization code...
-
-    $('#data-sale').on('click', '#pay-button', function(e) {
-      e.preventDefault();
-
-      var modal = $(this).closest('.modal');
-      var form = modal.find('form');
-      var formData = new FormData(form.get(0));
-
-      fetch(form.attr('action'), {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-'Accept': 'application/json',
-},
-body: formData
-})
-.then(response => response.json())
-.then(data => {
-if (data.snap_token) {
-snap.pay(data.snap_token, {
-// ...other callbacks...
-
-onClose: function() {
-// Close and remove the modal
-modal.modal('hide').on('hidden.bs.modal', function() {
-modal.remove();
-});
-}
-});
-} else {
-alert('Error: Snap Token not received.');
-}
-})
-.catch(error => {
-console.error('Error:', error);
-});
-});
-});
-</script> --}}
 
 @endpush
