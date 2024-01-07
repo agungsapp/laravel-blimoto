@@ -26,7 +26,7 @@
         <p>Bangka, Kec. Mampang Prpt</p>
         <p>Kota Jakarta Selatan Daerah Khusus Ibukota 12730</p>
         <p>Email: blimotoindonesia@gmail.com</p>
-        <p>HP: 082322222023</p>
+        <p>HP: 0823-2222-2023</p>
       </div>
       <div class="col"></div>
     </div>

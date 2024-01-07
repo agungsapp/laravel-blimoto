@@ -27,6 +27,7 @@ class AdminPenjualanController extends Controller
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->orderBy('id', 'desc')
       ->get();
+      
     $kota = Kota::all();
     $hasil = Hasil::all();
     $motor = Motor::all();

@@ -201,6 +201,7 @@
                       Cetak
                     </button>
                     <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
+                    @if (Auth::guard('admin')->check() || ($p->is_cetak == 0))
                     <button type="button" class="btn btn-primary w-100 mb-1 load-update-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalEdit">
                       Edit
                     </button>
@@ -208,8 +209,8 @@
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn btn-danger show_confirm w-100">Delete</button>
-                      </button>
                     </form>
+                    @endif
                   </div>
                 </td>
               </tr>
@@ -598,7 +599,8 @@
         $(modalId + ' #tanggal_dibuat').val(data.tanggal_dibuat);
         $(modalId + ' [name="nama_pemohon"]').val(data.nama_konsumen);
         $(modalId + ' [name="kabupaten"]').val(data.kota.nama);
-        // ...populate the rest of the form fields...
+        $(modalId + ' [name="motor"]').val(data.id_motor);
+        $(modalId + ' [name="id_penjualan"]').val(data.id);
 
         // Update the form action URL dynamically
         $(modalId + ' form').attr('action', '{{route("admin.cetakPDF")}}');
@@ -663,10 +665,6 @@
     });
   });
 </script>
-
-
-
-
 
 <script>
   $('.select2').select2()
