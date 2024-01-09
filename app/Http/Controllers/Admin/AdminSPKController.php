@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use App\Models\Motor;
+use App\Models\Penjualan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -165,6 +166,16 @@ class AdminSPKController extends Controller
       ->first();
 
     $idPenjualan = $request->input('id_penjualan');
+    $penjualan = Penjualan::find($idPenjualan);
+
+    if (!$penjualan) {
+      flash()->addError("Penjualan not found!");
+      return redirect()->back();
+    }
+
+    $penjualan->is_cetak = 1;
+    $penjualan->save();
+
     $nomorUrut = sprintf('%03d', $idPenjualan);
     $bulanRomawi = $this->toRoman(date('n'));
     $tahun = date('Y');
