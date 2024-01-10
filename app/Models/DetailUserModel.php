@@ -11,8 +11,8 @@ class DetailUserModel extends Model
     protected $table = 'detail_users';
     protected $guarded = ['id'];
 
-    // public function user()
-    // {
-    //     $this->belongsTo(User::class, 'id', 'id_user');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

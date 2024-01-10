@@ -18,6 +18,7 @@ class Penjualan extends Model
     'tanggal_dibuat',
     'tanggal_hasil',
     'is_cetak',
+    'no_po',
     'id_sales',
     'id_lising',
     'id_motor',

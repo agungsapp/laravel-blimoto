@@ -17,11 +17,12 @@ class ProfileController extends Controller
     {
         //
 
-        // $user = auth()->user()->detailUser();
+        $user = auth()->user();
 
-        $user = User::with('user')->get();
+        // Menggunakan metode with untuk menggabungkan relasi 'detailUser'
+        $userWithDetails = User::with('detailUser')->find($user->id);   
 
-        dd($user);
+        dd($userWithDetails);
 
         return view('user.profile.index');
     }

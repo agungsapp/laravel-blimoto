@@ -16,12 +16,20 @@ return new class extends Migration
         //
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_kota');
             $table->string('email');
             $table->enum('jk', ['l', 'p']);
-            $table->integer('id_kota');
             $table->text('alamat');
             $table->timestamps();
+
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users');
+
+            $table->foreign('id_kota')
+                ->references('id')
+                ->on('kota');
         });
     }
 

@@ -82,6 +82,7 @@ class AdminPenjualanController extends Controller
     $pembayaran = $request->pembayaran;
     $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
+    $nomorPo = $request->nomor_po ?? null;
 
     try {
       $penjualan = Penjualan::create([
@@ -97,6 +98,7 @@ class AdminPenjualanController extends Controller
         'catatan' => $catatan,
         'tanggal_dibuat' => $tanggal_dibuat,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
+        'no_po' => $nomorPo,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       return redirect()->back();
@@ -163,6 +165,7 @@ class AdminPenjualanController extends Controller
     $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
     $leasing = $pembayaran === 'cash' ? null : $request->leasing;
+    $nomorPo = $request->nomor_po ?? null;
 
     $penjualan->nama_konsumen = $request->input('konsumen');
     $penjualan->tenor = $tenor;
@@ -177,6 +180,7 @@ class AdminPenjualanController extends Controller
     $penjualan->id_motor = $request->input('motor');
     $penjualan->id_kota = $request->input('kabupaten');
     $penjualan->id_hasil = $request->input('hasil');
+    $penjualan->no_po = $nomorPo;
 
     $penjualan->save();
 
