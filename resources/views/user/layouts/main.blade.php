@@ -115,6 +115,8 @@
 				}
 		</style>
 
+		@livewireStyles
+
 		@stack('css')
 
 
@@ -206,6 +208,7 @@
 
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
 
+		@livewireScripts
 
 		<script>
 				console.log("aman running")

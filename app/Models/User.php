@@ -22,4 +22,10 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+
+    public function user()
+    {
+        $this->belongsTo(DetailUserModel::class, 'id_user', 'id');
+    }
 }
