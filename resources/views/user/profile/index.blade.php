@@ -93,8 +93,9 @@
 										<button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								{{-- form edit profil start --}}
-								<form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
+								<form action="{{ route('profil.update', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
 										@csrf
+										@method('PUT')
 										<div class="modal-body">
 
 												{{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}
@@ -106,32 +107,36 @@
 												</div>
 												<div class="mb-3">
 														<label for="email" class="form-label">Email</label>
-														<input type="email" class="form-control" id="email" name="email" value="{{ auth()->user()->email }}"
-																placeholder="blimoto@gmail.com" required>
+														<input type="email" class="form-control" id="email" name="email"
+																value="{{ auth()->user()->detailUser->email ?? 'belum di atur' }}" placeholder="blimoto@gmail.com"
+																required>
 												</div>
 
 												<div class="mb-3">
 														<select class="form-select" name="jk" aria-label="jk" required>
-																<option selected>Jenis Kelamin</option>
-																<option value="l">Laki - laki</option>
-																<option value="p">Perempuan</option>
+																<option selected>-- Jenis Kelamin --</option>
+																<option {{ (auth()->user()->detailUser->jk ?? '') == 'l' ? 'selected' : '' }} value="l">Laki - laki
+																</option>
+																<option {{ (auth()->user()->detailUser->jk ?? '') == 'p' ? 'selected' : '' }} value="p">Perempuan
+																</option>
 														</select>
 												</div>
 
 												<div class="mb-3">
 														<select class="form-select" name="kota" aria-label="jk" required>
-																<option selected>kota</option>
-																<option value="jakarta">Jakarta</option>
-																<option value="bogor">bogor</option>
-																<option value="depok">depok</option>
-																<option value="tangerang">tangerang</option>
-																<option value="bekasi">bekasi</option>
+																<option selected value="">-- kota ---</option>
+																@foreach ($kota as $k)
+																		<option {{ $k->id == (auth()->user()->detailUser->id_kota ?? '') ? 'selected' : '' }}
+																				value="{{ $k->id }}">
+																				{{ $k->nama }}</option>
+																@endforeach
+
 														</select>
 												</div>
 
 												<div class="mb-3">
 														<label for="alamat" class="form-label">Alamat</label>
-														<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="jl. kelapa dua" required>{{ auth()->user()->alamat }}</textarea>
+														<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="jl. kelapa dua" required>{{ auth()->user()->detailUser->alamat ?? 'belum diatur' }}</textarea>
 												</div>
 
 												<div class="mb-3">

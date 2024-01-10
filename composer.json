@@ -15,6 +15,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "midtrans/midtrans-php": "^2.5",
+        "mpdf/mpdf": "^8.2",
         "php-flasher/flasher-laravel": "^1.15",
         "yajra/laravel-datatables": "^9.0"
     },
