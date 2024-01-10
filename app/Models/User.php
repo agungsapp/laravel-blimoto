@@ -22,4 +22,10 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+
+    public function detailUser()
+    {
+        return $this->hasOne(DetailUserModel::class, 'id_user');
+    }
 }

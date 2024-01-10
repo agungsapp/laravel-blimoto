@@ -27,6 +27,7 @@ class AdminPenjualanController extends Controller
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->orderBy('id', 'desc')
       ->get();
+      
     $kota = Kota::all();
     $hasil = Hasil::all();
     $motor = Motor::all();
@@ -81,6 +82,7 @@ class AdminPenjualanController extends Controller
     $pembayaran = $request->pembayaran;
     $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
+    $nomorPo = $request->nomor_po ?? null;
 
     try {
       $penjualan = Penjualan::create([
@@ -96,6 +98,7 @@ class AdminPenjualanController extends Controller
         'catatan' => $catatan,
         'tanggal_dibuat' => $tanggal_dibuat,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
+        'no_po' => $nomorPo,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       return redirect()->back();
@@ -162,6 +165,7 @@ class AdminPenjualanController extends Controller
     $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
     $leasing = $pembayaran === 'cash' ? null : $request->leasing;
+    $nomorPo = $request->nomor_po ?? null;
 
     $penjualan->nama_konsumen = $request->input('konsumen');
     $penjualan->tenor = $tenor;
@@ -176,6 +180,7 @@ class AdminPenjualanController extends Controller
     $penjualan->id_motor = $request->input('motor');
     $penjualan->id_kota = $request->input('kabupaten');
     $penjualan->id_hasil = $request->input('hasil');
+    $penjualan->no_po = $nomorPo;
 
     $penjualan->save();
 
@@ -216,8 +221,7 @@ class AdminPenjualanController extends Controller
     $namaKonsumen = $request->input('konsumen');
 
     if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back()->withInput();
+      return response()->json(['pesan' => 'Inputkan semua data dengan benar!'], 400);
     }
 
     // dd($request->all());
@@ -231,8 +235,7 @@ class AdminPenjualanController extends Controller
         ->first();
 
       if (!$penjualan) {
-        flash()->addError("Data penjualan tidak ditemukan!");
-        return redirect()->back()->withInput();
+        return response()->json(['pesan' => 'data penjualan tidak ditemukan'], 404);
       }
 
       // Menggunakan metode create untuk membuat pembayaran baru
@@ -270,9 +273,36 @@ class AdminPenjualanController extends Controller
       // return response()->json(['snap_token' => $snapToken]);
     } catch (\Exception $e) {
       DB::rollback();
-      throw $e;
-      flash()->addError("Data penjualan tidak ditemukan!");
-      return redirect()->back()->withInput();
+      return response()->json(['pesan' => 'Error coba beberapa saat lagi', 500]);
+    }
+  }
+
+  public function getPaymentData($id)
+  {
+    $penjualan = Penjualan::with('sales')->findOrFail($id);
+    // Tambahkan logika untuk mengambil data tambahan jika diperlukan
+    return response()->json($penjualan);
+  }
+
+  public function getPrintData($id)
+  {
+    $penjualan = Penjualan::with(['kota', 'motor'])->findOrFail($id);
+    return response()->json($penjualan);
+  }
+
+  public function getDataPenjualan($id)
+  {
+    try {
+      $sale = Penjualan::with(['sales', 'kota', 'hasil', 'motor', 'leasing'])->findOrFail($id);
+      return response()->json([
+        'status' => 'success',
+        'data'   => $sale
+      ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ], 404);
     }
   }
 }
