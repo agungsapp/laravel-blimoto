@@ -17,6 +17,12 @@ class ProfileController extends Controller
     {
         //
 
+        // $user = auth()->user()->detailUser();
+
+        $user = User::with('user')->get();
+
+        dd($user);
+
         return view('user.profile.index');
     }
 
