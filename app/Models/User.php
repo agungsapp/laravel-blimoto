@@ -24,8 +24,8 @@ class User extends Authenticatable
     public $timestamps = false;
 
 
-    public function user()
+    public function detailUser()
     {
-        $this->belongsTo(DetailUserModel::class, 'id_user', 'id');
+        return $this->hasOne(DetailUserModel::class, 'id_user');
     }
 }
