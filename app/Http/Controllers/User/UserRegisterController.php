@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Throw_;
 
 class UserRegisterController extends Controller
 {
@@ -75,7 +76,7 @@ class UserRegisterController extends Controller
             $user->is_verified = 0;
             $user->save();
         } catch (\Throwable $th) {
-
+            // throw $th;
             return redirect()->back()->with('error', 'Maaf, Terjadi kesalahan pada server.');
         }
 

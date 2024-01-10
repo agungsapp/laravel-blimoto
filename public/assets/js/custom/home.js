@@ -4,6 +4,8 @@ bacaKota();
 bacaMerk();
 bacaType();
 // bacaTenor();
+
+// setSelectionAfterDelay()
 var counterModel = 0;
 
 $(document).ready(function () {
