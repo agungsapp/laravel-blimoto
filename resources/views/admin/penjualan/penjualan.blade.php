@@ -124,6 +124,10 @@
                   <option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
                 </select>
               </div>
+              <div class="form-group col-md-6">
+                <label for="input-hasil">Nomor PO</label>
+                <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun" value="{{ old('nomor_po') }}">
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -166,6 +170,7 @@
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
                 <th>Status Pembayaran DP</th>
+                <th>Nomor PO</th>
                 <th>Leasing</th>
                 <th>Tenor</th>
                 <th>Motor</th>
@@ -186,6 +191,7 @@
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->pembayaran}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
+                <td>{{$p->no_po}}</td>
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
@@ -218,6 +224,7 @@
             </tbody>
           </table>
         </div>
+
       </div>
     </div>
   </div>
@@ -349,6 +356,13 @@
                   </div>
 
                   <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="input-hasil">Nomor PO</label>
+                      <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun">
+                    </div>
+                  </div>
+
+                  <div class="row">
                     <div class="form-group col-md-6">
                       <label>Tanggal Dibuat: </label>
                       <div class="input-group date tanggal_dibuat" id="reservationdate" data-target-input="nearest">
@@ -400,8 +414,8 @@
             <input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
           </div>
           <div class="form-group col-md-12">
-            <label for="input-tenor">Masukan Harga DP</label>
-            <input name="dp" type="number" class="form-control" placeholder="Masukan harga DP" id="input-tenor">
+            <label for="input-tenor">Masukan DP</label>
+            <input name="dp" type="number" class="form-control" placeholder="Masukan DP" id="input-tenor">
           </div>
         </div>
         <div class="modal-footer">
@@ -638,6 +652,7 @@
         modal.find('[name="sales"]').val(data.id_sales).trigger('change');
         modal.find('[name="pembayaran"]').val(data.pembayaran).trigger('change');
         modal.find('[name="tenor"]').val(data.tenor);
+        modal.find('[name="nomor_po"]').val(data.no_po);
         modal.find('[name="kabupaten"]').val(data.id_kota).trigger('change');
         modal.find('[name="hasil"]').val(data.id_hasil).trigger('change');
         modal.find('[name="motor"]').val(data.id_motor).trigger('change');
@@ -647,10 +662,22 @@
         modal.find('[name="status_pembayaran_dp"]').val(data.status_pembayaran_dp).trigger('change');
 
         // Correctly format the dates before setting the values
-        var tanggalDibuat = data.tanggal_dibuat ? new Date(data.tanggal_dibuat).toISOString().split('T')[0] : '';
-        var tanggalHasil = data.tanggal_hasil ? new Date(data.tanggal_hasil).toISOString().split('T')[0] : '';
+        var tanggalDibuat = data.tanggal_dibuat ? formatDate(data.tanggal_dibuat) : '';
+        var tanggalHasil = data.tanggal_hasil ? formatDate(data.tanggal_hasil) : '';
+
         modal.find('[name="tanggal_dibuat"]').val(tanggalDibuat);
         modal.find('[name="tanggal_hasil"]').val(tanggalHasil);
+
+        function formatDate(dateString) {
+          var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          };
+          var formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+          return formattedDate;
+        }
+
 
         // Update the form action URL dynamically
         var actionUrl = baseActionUrl.replace('__id__', data.id);
