@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailUserModel;
+use App\Models\Kota;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,11 +22,15 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         // Menggunakan metode with untuk menggabungkan relasi 'detailUser'
-        $userWithDetails = User::with('detailUser')->find($user->id);   
+        $userWithDetails = User::with('detailUser')->find($user->id);
 
-        dd($userWithDetails);
+        // dd($userWithDetails);
+        $data = [
+            'userDetail' => $userWithDetails,
+            'kota' => Kota::all(),
+        ];
 
-        return view('user.profile.index');
+        return view('user.profile.index', $data);
     }
 
     /**
@@ -123,8 +129,27 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            // Mendefinisikan data yang akan diupdate atau dibuat
+            $data = [
+                'id_kota' => $request->kota,
+                'email' => $request->email,
+                'jk' => $request->jk,
+                'alamat' => $request->alamat,
+            ];
+
+            // Menggunakan updateOrCreate untuk mengupdate atau membuat DetailUser
+            $detailUser = DetailUserModel::updateOrCreate(
+                ['id_user' => $id], // Kunci pencarian
+                $data               // Data untuk update atau create
+            );
+
+            return redirect()->to(route('profil.index'))->with('success', 'Profil berhasil diperbarui');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
