@@ -206,9 +206,9 @@
                       Cetak
                     </button>
                     <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
+                    {{-- <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
                       Detail
-                    </button>
+                    </button> --}}
                     @if (Auth::guard('admin')->check() || ($p->is_cetak == 0))
                     <button type="button" class="btn btn-primary w-100 mb-1 load-update-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalEdit">
                       Edit
@@ -923,7 +923,11 @@
     }],
     order: [
       [0, 'desc']
-    ]
+    ],
+    // columnDefs: [{
+    //   targets: 'no-visible',
+    //   visible: false, // Set the visibility to false for 'no-visible' class
+    // }]
   });
 
   // Apply the filter on input change
