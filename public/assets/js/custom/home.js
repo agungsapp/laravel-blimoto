@@ -92,8 +92,78 @@ $(document).ready(function () {
         // getDp(id);
     });
 
+    var storedData = sessionStorage.getItem("formData");
+    console.log(storedData);
+    if (storedData) {
+        var formData = JSON.parse(storedData);
+        // Mengisi kembali form dengan data yang disimpan
+        // $("#SelectKota").val(formData.SelectKota).trigger("change");
+        // $("#merk").val(formData.merk).trigger("change");
+        // $("#tipe").val(formData.tipe).trigger("change");
+        // $("#pembayaran").val(formData.pembayaran).trigger("change");
+        // $("#tenor").val(formData.tenor).trigger("change");
+        // $("#model").val(formData.model).trigger("change");
+        // $("#dp").val(formData.dp).trigger("change");
+
+        if (storedData) {
+            var formData = JSON.parse(storedData);
+
+            setTimeout(function () {
+                $("#SelectKota").val(formData.SelectKota).trigger("change");
+            }, 2000); // Delay untuk SelectKota
+
+            setTimeout(function () {
+                $("#merk").val(formData.merk).trigger("change");
+            }, 2500); // Delay untuk merk
+
+            setTimeout(function () {
+                $("#tipe").val(formData.tipe).trigger("change");
+            }, 3000); // Delay untuk tipe
+
+            setTimeout(function () {
+                $("#pembayaran").val(formData.pembayaran).trigger("change");
+            }, 3500); // Delay untuk pembayaran
+
+            setTimeout(function () {
+                $("#tenor").val(formData.tenor).trigger("change");
+            }, 4000); // Delay untuk tenor
+
+            setTimeout(function () {
+                $("#model").val(formData.model).trigger("change");
+            }, 5000); // Delay untuk model
+
+            setTimeout(function () {
+                $("#dp").val(formData.dp).trigger("change");
+            }, 9000); // Delay untuk dp
+
+            // Hapus data dari sessionStorage setelah digunakan
+            setTimeout(function () {
+                sessionStorage.removeItem("formData");
+            }, 9500); // Hapus data setelah semua form terisi
+        }
+
+
+        // Hapus data dari sessionStorage setelah digunakan
+        // sessionStorage.removeItem("formData");
+    }
+
     $("#form-simulasi").on("submit", function (e) {
         e.preventDefault();
+
+        e.preventDefault();
+
+        var formData = {
+            SelectKota: $("#SelectKota").val(),
+            merk: $("#merk").val(),
+            tipe: $("#tipe").val(),
+            pembayaran: $("#pembayaran").val(),
+            tenor: $("#tenor").val(),
+            model: $("#model").val(),
+            dp: $("#dp").val(),
+        };
+
+        sessionStorage.setItem("formData", JSON.stringify(formData));
+
         var id_lokasi = $("#SelectKota").val();
         var idmotor = id_motor;
         var tenor = $('select[name="tenor"]').val();
@@ -107,370 +177,7 @@ $(document).ready(function () {
     });
 
 
-    // $("#form-simulasi").on("submit", function (e) {
-    //     e.preventDefault();
-    //     console.log("submit di triger =====================================");
-    //     console.log(`model on change id motor adalah : ${id_motor}`);
 
-    //     // Mengambil nilai dari setiap input
-    //     var id_lokasi = $("#SelectKota").val();
-    //     var idmotor = id_motor;
-    //     var tenor = $('select[name="tenor"]').val();
-    //     var dp = $("#dp").val();
-    //     console.log("id motornya adalah : " + id_motor);
-
-    //     // Memeriksa apakah ada input yang kosong
-    //     if (!id_lokasi || !tenor || !dp) {
-    //         Swal.fire({
-    //             icon: "error",
-    //             title: "Error",
-    //             text: "Pastikan semua data sudah terisi !",
-    //         });
-    //         return;
-    //     }
-
-    //     console.log("ajax di mulai");
-    //     console.log(
-    //         `data di tangkap pada ajax, id_lokasi : ${id_lokasi}, id_motor : ${id_motor}, dp : ${dp}, tenor : ${tenor},`
-    //     );
-
-    //     $.ajax({
-    //         url: "/cari-cicilan",
-    //         type: "GET",
-    //         data: {
-    //             id_lokasi: id_lokasi,
-    //             id_motor: idmotor,
-    //             dp: dp,
-    //             tenor: tenor,
-    //         },
-    //         success: function (response) {
-    //             $("#modalResult").modal("show");
-    //             const motorData = response.data.motor;
-    //             console.log(motorData.nama);
-
-    //             const detailMotorElement =
-    //                 document.querySelector("#motor-baru");
-    //             detailMotorElement.innerHTML = `
-    //     														<img src="/assets/images/detail-motor/${
-    //                                                                 motorData
-    //                                                                     .detail_motor[0]
-    //                                                                     .gambar
-    //                                                             }" class="img-fluid" alt="${
-    //                 motorData.detail_motor[0].gambar
-    //             }" srcset=""
-    // 															style="max-width: 100%; height: auto;">
-    // 													<div class="product-right py-5">
-    // 															<div class="d-flex justify-content-between">
-    // 																	<p class="text-dark nama-motor fs-lg-4 fw-bold">${motorData.nama}</h>
-    // 																	<div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i>
-    //                                 <span class="ms-2">${response.lokasi}</span>
-    // 															</div>
-    // 															</div>
-    // 															<div class="d-flex justify-content-between mt-2">
-    //                                 <h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-    // 																	<p class="nama-motor" style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                         motorData.otr
-    //                                                                     )}</p>
-    // 															</div>
-    // 															<div class="d-flex justify-content-between mt-2">
-    // 																	<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-    // 																	<span class="badge bg-success nama-motor">Kredit</span>
-    // 															</div>
-    // 															<div class="d-flex justify-content-between mt-2">
-    // 																	<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-    // 																	<p class="nama-motor">${motorData.type}</p>
-    // 															</div>
-    // 															<div class="d-flex justify-content-between mt-2">
-    // 																	<h6 class="fw-bold text-doff nama-motor">Merk</h6>
-    // 																	<p class="nama-motor">${motorData.merk}</p>
-    // 															</div>
-    // 															<div class="d-flex justify-content-between mt-2">
-    // 																	<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-    // 																	<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
-    // 															</div>
-    // 													</div>
-    // `;
-
-    //             const cicilanMotorData = response.data.cicilan_motor;
-    //             const leasingContainer =
-    //                 document.querySelector("#leasing-baru");
-
-    //             cicilanMotorData.forEach(function (leasingData) {
-    //                 const leasingElement = document.createElement("div");
-    //                 leasingElement.classList.add(
-    //                     "d-flex",
-    //                     "justify-content-center",
-    //                     "p-1"
-    //                 );
-    //                 leasingElement.innerHTML = `
-    // 															<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-    // 																	<img style="min-height: 130px; background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${
-    //                                                                         leasingData.gambar
-    //                                                                     }" class="card-img-top" alt="${
-    //                     leasingData.gambar
-    //                 }">
-    // 																	<ul class="list-group list-group-flush">
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>DP</p>
-    // 																					<p>${formatRupiah(leasingData.dp)}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Diskon</p>
-    // 																					<p>${formatRupiah(leasingData.diskon)}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>DP Bayar</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         leasingData.dp_bayar
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Angsuran</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         leasingData.angsuran
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Tenor</p>
-    // 																					<p>${leasingData.tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Potongan Tenor</p>
-    // 																					<p>${leasingData.potongan_tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Total Tenor</p>
-    // 																					<p>${leasingData.total_tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Total Bayar</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         leasingData.total_bayar
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																	</ul>
-    // 																	<div class="card-body d-flex justify-content-center">
-    // 																			<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-    // 																	</div>
-    // 															</div>
-    //   `;
-
-    //                 leasingContainer.appendChild(leasingElement);
-    //             });
-    //             if (cicilanMotorData.length < 6) {
-    //                 const additionalDivs = 6 - cicilanMotorData.length;
-    //                 for (let i = 0; i < additionalDivs; i++) {
-    //                     const emptyDiv = document.createElement("div");
-    //                     leasingContainer.appendChild(emptyDiv);
-    //                 }
-    //             }
-
-    //             // area REKOMENDASI
-    //             const rekomendasiData = response.rekomendasi;
-    //             const rekomendasiWrapper = document.getElementById(
-    //                 "rekomendasi-wrapper-baru"
-    //             );
-
-    //             rekomendasiData.forEach(function (rekomendasiItem) {
-    //                 const rekomendasiMotorElement =
-    //                     document.createElement("div");
-    //                 rekomendasiMotorElement.classList.add(
-    //                     "detail-motor-baru",
-    //                     "row"
-    //                 );
-
-    //                 rekomendasiMotorElement.innerHTML = `<hr class="mt-5 mb-5">
-    //                         <div id="motor-baru" class="col-12 col-md-6 col-lg-4 col-xl-3 rounded-3 min-vh-50"
-    // 													style="box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.25); padding: 16px; border-radius: 20px">
-    //                           <img src="/assets/images/detail-motor/${
-    //                               rekomendasiData[0].motor.detail_motor[0]
-    //                                   .gambar
-    //                           }" class="img-fluid" alt="${
-    //                     rekomendasiData[0].motor.detail_motor[0].gambar
-    //                 }" srcset=""
-    //                               style="max-width: 100%; height: auto;">
-    //                           <div class="product-right py-5">
-    //                               <div class="d-flex justify-content-between">
-    //                                   <p class="text-dark nama-motor fs-lg-4 fw-bold">${
-    //                                       rekomendasiItem.motor.nama
-    //                                   }</h>
-    //                                   <div class="fs-5 nama-motor"><i class="fa text-danger fa-map-marker" aria-hidden="true"></i><span
-    //                                           class="ms-2">${
-    //                                               response.lokasi
-    //                                           }</span>
-    //                                   </div>
-    //                               </div>
-    //                               <div class="d-flex justify-content-between mt-2">
-    //                                 <h6 class="fw-bold text-doff nama-motor">Harga OTR</h6>
-    // 																	<p class="nama-motor" style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                         rekomendasiItem
-    //                                                                             .motor
-    //                                                                             .otr
-    //                                                                     )}</p>
-    // 															  </div>
-    //                               <div class="d-flex justify-content-between mt-2">
-    //                                   <h6 class="product-title nama-motor">Metode Pembayaran</h6>
-    //                                   <span class="badge bg-success nama-motor">Kredit</span>
-    //                               </div>
-    //                               <div class="d-flex justify-content-between mt-2">
-    //                                   <h6 class="fw-bold text-doff nama-motor">Tipe</h6>
-    //                                   <p class="nama-motor">${
-    //                                       rekomendasiItem.motor.type
-    //                                   }</p>
-    //                               </div>
-    //                               <div class="d-flex justify-content-between mt-2">
-    //                                   <h6 class="fw-bold text-doff nama-motor">Merk</h6>
-    //                                   <p class="nama-motor">${
-    //                                       rekomendasiItem.motor.merk
-    //                                   }</p>
-    //                               </div>
-    //                               <div class="d-flex justify-content-between mt-2">
-    // 																	<h6 class="fw-bold text-doff nama-motor">Stock</h6>
-    // 																	<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
-    // 															</div>
-    //                           </div>
-    //                       </div>
-    //                                                                   `;
-
-    //                 const leasingWrapper = document.createElement("div");
-    //                 leasingWrapper.classList.add(
-    //                     "leasing-baru",
-    //                     "col-12",
-    //                     "col-md-6",
-    //                     "col-lg-8",
-    //                     "col-xl-9",
-    //                     "d-flex",
-    //                     "justify-content-center",
-    //                     "slick-result-modal",
-    //                     "mt-lg-0",
-    //                     "mt-3",
-    //                     "flex-row"
-    //                 );
-    //                 leasingWrapper.style.flexDirection = "row";
-
-    //                 rekomendasiItem.cicilan_motor.forEach(function (
-    //                     rekomendasiLeasingData
-    //                 ) {
-    //                     const leasingElement = document.createElement("div");
-    //                     leasingElement.classList.add(
-    //                         "d-flex",
-    //                         "justify-content-center",
-    //                         "p-1"
-    //                     );
-
-    //                     leasingElement.innerHTML = `
-    // 															<div class="card" style="width: 15rem; margin-left: 10px; margin-bottom: 20px;">
-    // 																	<img style="background: url('/assets/images/custom/leasing/bg-leasing.webp');" src="/assets/images/custom/leasing/${
-    //                                                                         rekomendasiLeasingData.gambar
-    //                                                                     }" class="card-img-top" alt="${
-    //                         rekomendasiLeasingData.gambar
-    //                     }">
-    // 																	<ul class="list-group list-group-flush">
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>DP</p>
-    // 																					<p>${formatRupiah(rekomendasiLeasingData.dp)}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Diskon</p>
-    // 																					<p>${formatRupiah(rekomendasiLeasingData.diskon)}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>DP Bayar</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         rekomendasiLeasingData.dp_bayar
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Angsuran</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         rekomendasiLeasingData.angsuran
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Tenor</p>
-    // 																					<p>${rekomendasiLeasingData.tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Potongan Tenor</p>
-    // 																					<p>${rekomendasiLeasingData.potongan_tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Total Tenor</p>
-    // 																					<p>${rekomendasiLeasingData.total_tenor} Bulan</p>
-    // 																			</li>
-    // 																			<li class="list-group-item d-flex justify-content-between">
-    // 																					<p>Total Bayar</p>
-    // 																					<p style="font-weight: bold; color: red;">${formatRupiah(
-    //                                                                                         rekomendasiLeasingData.total_bayar
-    //                                                                                     )}</p>
-    // 																			</li>
-    // 																	</ul>
-    // 																	<div class="card-body d-flex justify-content-center">
-    // 																			<a href="#" class="btn btn-success w-100">Ajukan Sekarang</a>
-    // 																	</div>
-    // 															</div>
-    //                                                       `;
-
-    //                     leasingWrapper.appendChild(leasingElement);
-    //                 });
-
-    //                 // Jika jumlah cicilan_motor kurang dari 6, tambahkan div kosong
-    //                 if (rekomendasiItem.cicilan_motor.length < 6) {
-    //                     const additionalDivs =
-    //                         6 - rekomendasiItem.cicilan_motor.length;
-    //                     for (let i = 0; i < additionalDivs; i++) {
-    //                         const emptyDiv = document.createElement("div");
-    //                         leasingWrapper.appendChild(emptyDiv);
-    //                     }
-    //                 }
-
-    //                 rekomendasiMotorElement.appendChild(leasingWrapper);
-    //                 rekomendasiWrapper.appendChild(rekomendasiMotorElement);
-    //             });
-    //         },
-    //         error: function (error) {
-    //             console.log(error);
-    //             Swal.fire({
-    //                 icon: "error",
-    //                 title: "Error",
-    //                 text: "Data cicilan tidak ditemukan",
-    //             });
-    //         },
-    //     });
-
-    //     //old area start
-    //     // Mengirim data ke endpoint
-    //     // $.ajax({
-    //     //   url: '/cari-cicilan',
-    //     //   type: 'GET',
-    //     //   data: {
-    //     //     id_lokasi: id_lokasi,
-    //     //     id_motor: idmotor,
-    //     //     dp: dp,
-    //     //     tenor: tenor,
-    //     //   },
-    //     //   success: function (response) {
-    //     //     $("#modalResult").modal("show");
-    //     //     console.log(response.data);
-    //     //     // console.log(`total bayar : ${response.total_pembayaran}, cicilan perbulan : ${response.cicilan}`)
-    //     //   },
-    //     //   error: function (error) {
-    //     //     console.log(error);
-    //     //   }
-    //     // });
-    //     // old area end
-    // });
-
-    // Menambahkan class "popup-open" ke elemen body untuk mengunci laman utama
-    // $("body").addClass("popup-open");
-    // $("#popupOverlay").fadeIn();
-
-    // Menutup pop-up
-    // $("#closePopupBtn").click(function () {
-    //   // Menghapus class "popup-open" dari elemen body untuk mengizinkan scrolling kembali
-    //   $("body").removeClass("popup-open");
-    //   $("#popupOverlay").fadeOut();
-    // });
 
 
 
@@ -504,13 +211,7 @@ window.formatToRupiah = function (value) {
     }).format(value);
 };
 
-// $(document).ready(function () {
-//   // Temukan tombol "Tampilkan Pop-up" berdasarkan ID
-//   $("#showPopupBtn").click(function () {
-//     // Tampilkan modal dengan menggunakan ID
-//     $("#modalResult").modal("show");
-//   })
-// })
+
 
 function closeModal() {
     $("#modalResult").modal("hide");
@@ -752,3 +453,6 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
