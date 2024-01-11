@@ -40,8 +40,19 @@
                 </select>
               </div>
               <div class="form-group col-md-6">
+                <label for="input-tenor">Tenor</label>
+                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
                 <label for="input-dp">DP</label>
-                <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp" value="{{ old('dp') }}">
+                <input name="dp" type="number" class="form-control" placeholder="Masukan DP" id="input-dp" value="{{ old('dp') }}">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-diskon-dp">Diskon DP</label>
+                <input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP" id="input-diskon-dp" value="{{ old('diskon_dp') }}">
               </div>
             </div>
 
@@ -110,7 +121,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="input-hasil">Catatan Penjualan</label>
-                <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)" value="{{ old('catatan') }}">
+                <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tidak ada)" value="{{ old('catatan') }}">
               </div>
             </div>
 
@@ -127,13 +138,6 @@
               <div class="form-group col-md-6">
                 <label for="input-hasil">Nomor PO</label>
                 <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun" value="{{ old('nomor_po') }}">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="input-tenor">Tenor</label>
-                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
               </div>
             </div>
 
@@ -172,22 +176,16 @@
           <table id="data-sale" class="table table-bordered table-striped">
             <thead>
               <tr role="row">
-                <th>NO</th>
+                <th>ID</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
                 <th>Pembayaran</th>
                 <th>Status Pembayaran DP</th>
-                <th>Nomor PO</th>
                 <th>Leasing</th>
-                <th>Tenor</th>
                 <th>Motor</th>
-                <th>Jumlah</th>
-                <th>Kota</th>
                 <th>Hasil</th>
-                <th>Catatan</th>
                 <th>Tanggal Dibuat</th>
-                <th>Tanggal Hasil</th>
-                <th class="no-export">Action</th>
+                <th class="no-export" width="100px">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -198,22 +196,19 @@
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->pembayaran}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
-                <td>{{$p->no_po}}</td>
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
-                <td>{{$p->tenor}}</td>
                 <td>{{$p->motor->nama}}</td>
-                <td>{{$p->jumlah}}</td>
-                <td>{{$p->kota->nama}}</td>
                 <td>{{$p->hasil->hasil}}</td>
-                <td>{{$p->catatan}}</td>
                 <td>{{$p->tanggal_dibuat}}</td>
-                <td>{{$p->tanggal_hasil}}</td>
                 <td class="no-export">
                   <div>
                     <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
                       Cetak
                     </button>
                     <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
+                    <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
+                      Detail
+                    </button>
                     @if (Auth::guard('admin')->check() || ($p->is_cetak == 0))
                     <button type="button" class="btn btn-primary w-100 mb-1 load-update-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalEdit">
                       Edit
@@ -365,7 +360,14 @@
                   <div class="row">
                     <div class="form-group col-md-12">
                       <label for="input-dp">DP</label>
-                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp" value="{{ old('dp') }}">
+                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="input-diskon-dp">Diskon DP</label>
+                      <input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP" id="input-diskon-dp">
                     </div>
                   </div>
 
@@ -408,6 +410,182 @@
   </div>
 </section>
 
+<!-- Modal detail -->
+<section>
+  <div class="modal fade" id="modalDetail" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Detail data</h4>
+        </div>
+        <div class="modal-body">
+          <div class="card card-primary">
+            <div class="card-header with-border">
+              <h3 class="card-title">Update Data sales</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="input-hasil">Nama Konsumen</label>
+                    <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Sales</label>
+                    @if ($sales == null)
+                    <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
+                    @else
+                    <select id="sales" name="sales" class="form-control select2" style="width: 100%;">
+                      @foreach ($sales as $s)
+                      <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                      @endforeach
+                    </select>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Metode Pembayaran</label>
+                    <select id="pembayaranUpdate" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
+                      <option value="cash">Cash</option>
+                      <option value="kredit">Kredit</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6" id="tenorUpdate">
+                    <label for="input-tenor">Tenor</label>
+                    <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Kabupaten</label>
+                    @if ($kota == null)
+                    <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
+                    @else
+                    <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
+                      @foreach ($kota as $k)
+                      <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                      @endforeach
+                    </select>
+                    @endif
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Hasil</label>
+                    @if ($hasil == null)
+                    <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
+                    @else
+                    <select id="hasil" name="hasil" class="form-control select2" style="width: 100%;">
+                      @foreach ($hasil as $h)
+                      <option value="{{ $h->id }}">{{ $h->hasil }}</option>
+                      @endforeach
+                    </select>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Motor</label>
+                    @if ($motor == null)
+                    <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
+                    @else
+                    <select id="motor" name="motor" class="form-control select2" style="width: 100%;">
+                      <option value="" selected>-- Pilih motor --</option>
+                      @foreach ($motor as $m)
+                      <option value="{{ $m->id }}">{{ $m->nama }}</option>
+                      @endforeach
+                    </select>
+                    @endif
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="input-hasil">Jumlah</label>
+                    <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{$p->jumlah}}">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6" id="leasingUpdate">
+                    <label>Leasing</label>
+                    <select name="leasing" class="form-control select2" style="width: 100%;">
+                      <option value="" selected>-- Pilih leasing --</option>
+                      @foreach ($leasing as $l)
+                      <option value="{{ $l->id }}">{{ $l->nama }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="input-hasil">Catatan Penjualan</label>
+                    <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="status_pembayaran_dp">Status Pembayaran DP</label>
+                    <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
+                      <option value="pending">Pending</option>
+                      <option value="paid">Paid</option>
+                      <option value="cod">COD</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="input-dp">DP</label>
+                    <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="input-diskon-dp">Diskon DP</label>
+                    <input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP" id="input-diskon-dp">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="input-hasil">Nomor PO</label>
+                    <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Tanggal Dibuat: </label>
+                    <div class="input-group date tanggal_dibuat" id="reservationdate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate" name="tanggal_dibuat" />
+                      <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Tanggal Hasil:</label>
+                    <div class="input-group date tanggal_hasil" id="reservationdate2" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input tanggal_hasil" data-target="#reservationdate2" name="tanggal_hasil" />
+                      <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Modal bayar -->
 <div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -428,8 +606,8 @@
             <input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
           </div>
           <div class="form-group col-md-12">
-            <label for="input-tenor">Masukan DP</label>
-            <input name="dp" type="number" class="form-control" placeholder="Masukan DP" id="input-tenor">
+            <label for="dp">DP</label>
+            <input type="text" class="form-control" id="dp" readonly name="dp">
           </div>
         </div>
         <div class="modal-footer">
@@ -487,11 +665,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="input-tenor">DP</label>
-                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP">
+                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="input-tenor">Total Diskon</label>
-                      <input name="total_diskon" type="number" class="form-control" placeholder="Masukan total diskon">
+                      <input name="total_diskon" type="number" class="form-control" placeholder="Masukan total diskon" readonly>
                     </div>
                   </div>
 
@@ -577,10 +755,12 @@
       type: 'GET',
       dataType: 'json',
       success: function(data) {
+        console.log(data.dp);
         $('#modalBayar form').attr('action', actionUrl);
         $('#id-sales').val(data.sales.id);
         $('#nama-sales').val(data.sales.nama);
         $('#nama-konsumen').val(data.nama_konsumen);
+        $('#dp').val(Number(data.dp) - Number(data.diskon_dp));
       },
       error: function(xhr, status, error) {
         swal({
@@ -623,12 +803,15 @@
       type: 'GET',
       dataType: 'json',
       success: function(data) {
+        console.log(data)
         // Assuming 'data' contains all the necessary fields for the print modal
         $(modalId + ' #tanggal_dibuat').val(data.tanggal_dibuat);
         $(modalId + ' [name="nama_pemohon"]').val(data.nama_konsumen);
         $(modalId + ' [name="kabupaten"]').val(data.kota.nama);
         $(modalId + ' [name="motor"]').val(data.id_motor);
         $(modalId + ' [name="id_penjualan"]').val(data.id);
+        $(modalId + ' [name="dp"]').val(Number(data.dp));
+        $(modalId + ' [name="total_diskon"]').val(Number(data.diskon_dp));
 
         // Update the form action URL dynamically
         $(modalId + ' form').attr('action', '{{route("admin.cetakPDF")}}');
@@ -661,6 +844,7 @@
       success: function(response) {
         var data = response.data; // Ensure you are referencing the data object correctly
         var dpValue = Number(data.dp);
+        var diskonDpValue = Number(data.diskon_dp);
 
         // Populate the modal's form fields with the fetched data
         modal.find('[name="konsumen"]').val(data.nama_konsumen);
@@ -676,6 +860,7 @@
         modal.find('[name="catatan"]').val(data.catatan);
         modal.find('[name="status_pembayaran_dp"]').val(data.status_pembayaran_dp).trigger('change');
         modal.find('[name="dp"]').val(dpValue);
+        modal.find('[name="diskon_dp"]').val(diskonDpValue);
 
         // Correctly format the dates before setting the values
         var tanggalDibuat = data.tanggal_dibuat ? formatDate(data.tanggal_dibuat) : '';

@@ -15,6 +15,7 @@ class Penjualan extends Model
     'tenor',
     'pembayaran',
     'dp',
+    'diskon_dp',
     'status_pembayaran_dp',
     'tanggal_dibuat',
     'tanggal_hasil',

@@ -100,6 +100,7 @@ class AdminPenjualanController extends Controller
         'tanggal_dibuat' => $tanggal_dibuat,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
         'dp' => $request->input('dp'),
+        'diskon_dp' => $request->input('diskon_dp'),
         'no_po' => $nomorPo,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
@@ -180,6 +181,7 @@ class AdminPenjualanController extends Controller
     $penjualan->tanggal_hasil = $tanggal_hasil;
     $penjualan->status_pembayaran_dp = $request->input('status_pembayaran_dp');
     $penjualan->dp = $request->input('dp');
+    $penjualan->diskon_dp = $request->input('diskon_dp');
     $penjualan->id_lising = $leasing;
     $penjualan->id_motor = $request->input('motor');
     $penjualan->id_kota = $request->input('kabupaten');

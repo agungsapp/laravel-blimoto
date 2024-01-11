@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('penjualan', function (Blueprint $table) {
             //
-            $table->decimal('dp', 10, 2)->default(0);
+            $table->decimal('diskon_dp', 10, 2)->default(0);
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('penjualan', function (Blueprint $table) {
             //
-            $table->dropColumn('dp');
+            $table->dropColumn('diskon_dp');
         });
     }
 };
