@@ -40,8 +40,8 @@
                 </select>
               </div>
               <div class="form-group col-md-6">
-                <label for="input-tenor">Tenor</label>
-                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
+                <label for="input-dp">DP</label>
+                <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp" value="{{ old('dp') }}">
               </div>
             </div>
 
@@ -127,6 +127,13 @@
               <div class="form-group col-md-6">
                 <label for="input-hasil">Nomor PO</label>
                 <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun" value="{{ old('nomor_po') }}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="input-tenor">Tenor</label>
+                <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor" id="input-tenor" value="{{ old('tenor') }}">
               </div>
             </div>
 
@@ -352,6 +359,13 @@
                         <option value="paid">Paid</option>
                         <option value="cod">COD</option>
                       </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="input-dp">DP</label>
+                      <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp" value="{{ old('dp') }}">
                     </div>
                   </div>
 
@@ -646,6 +660,7 @@
       dataType: 'json',
       success: function(response) {
         var data = response.data; // Ensure you are referencing the data object correctly
+        var dpValue = Number(data.dp);
 
         // Populate the modal's form fields with the fetched data
         modal.find('[name="konsumen"]').val(data.nama_konsumen);
@@ -660,6 +675,7 @@
         modal.find('[name="leasing"]').val(data.id_lising).trigger('change'); // Make sure the field is 'leasing' and not 'lising'
         modal.find('[name="catatan"]').val(data.catatan);
         modal.find('[name="status_pembayaran_dp"]').val(data.status_pembayaran_dp).trigger('change');
+        modal.find('[name="dp"]').val(dpValue);
 
         // Correctly format the dates before setting the values
         var tanggalDibuat = data.tanggal_dibuat ? formatDate(data.tanggal_dibuat) : '';
