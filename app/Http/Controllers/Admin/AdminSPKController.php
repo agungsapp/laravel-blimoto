@@ -140,7 +140,6 @@ class AdminSPKController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'motor' => 'required',
-      'dp' => 'required',
       'total_diskon' => 'required',
       'tanggal_dibuat' => 'required',
       'no_ktp' => 'required',
@@ -181,7 +180,7 @@ class AdminSPKController extends Controller
     $tahun = date('Y');
     $nomorSPK = $nomorUrut . '/SPK/' . $bulanRomawi . '/' . $tahun;
 
-    $dp = $request->input('dp');
+    $dp = $penjualan->dp;
     $totalDiskon = $request->input('total_diskon');
     $totalBayar =  $dp - $totalDiskon;
 
@@ -235,11 +234,11 @@ class AdminSPKController extends Controller
 
     // $pdf = Pdf::loadView('admin.spk.spk', $data);
     // return $pdf->download();
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->WriteHTML(view('admin.spk.spk', $data));
-    $mpdf->Output();
+    // $mpdf = new \Mpdf\Mpdf();
+    // $mpdf->WriteHTML(view('admin.spk.spk', $data));
+    // $mpdf->Output();
 
-    // return view('admin.spk.spk', $data);
+    return view('admin.spk.spk', $data);
   }
 
   private function formatRupiah($angka)

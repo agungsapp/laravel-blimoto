@@ -40,14 +40,15 @@
 														<div class="d-flex justify-content-start align-items-baseline mt-2 gap-2">
 																<i class="fa fa-map-marker text-basic fs-3" aria-hidden="true"></i>
 																<p class="fs-4 text-dark">
-																		{{ auth()->user()->lokasi == null ? 'lokasi anda belum di atur' : auth()->user()->lokasi }}</p>
+																		{{ auth()->user()->detailUser->kota->nama == null ? 'lokasi anda belum di atur' : auth()->user()->detailUser->kota->nama }}
+																</p>
 														</div>
 												</div>
 										</div>
 										<div class="row d-flex justify-content-between w-100 flex-row">
 												<div class="">
 														<p class="text-dark">
-																{{ auth()->user()->alamat == null ? 'alamat anda belum di atur' : auth()->user()->alamat }}
+																{{ auth()->user()->detailUser->alamat == null ? 'alamat anda belum di atur' : auth()->user()->detailUser->alamat }}
 														</p>
 												</div>
 												{{-- <div class=""><i class="fa fa-location-arrow fs-3 text-primary" aria-hidden="true"></i></div> --}}
@@ -108,8 +109,7 @@
 												<div class="mb-3">
 														<label for="email" class="form-label">Email</label>
 														<input type="email" class="form-control" id="email" name="email"
-																value="{{ auth()->user()->detailUser->email ?? 'belum di atur' }}" placeholder="blimoto@gmail.com"
-																required>
+																value="{{ auth()->user()->detailUser->email ?? '' }}" placeholder="blimoto@gmail.com" required>
 												</div>
 
 												<div class="mb-3">
