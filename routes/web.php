@@ -228,4 +228,8 @@ Route::post('/updateLokasi', function (Illuminate\Http\Request $request) {
 });
 
 
+Route::get('/spk', function () {
+    return view('admin.spk.spk');
+});
+
 // done repo pindah

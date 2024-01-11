@@ -140,7 +140,6 @@ class AdminSPKController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'motor' => 'required',
-      'dp' => 'required',
       'total_diskon' => 'required',
       'tanggal_dibuat' => 'required',
       'no_ktp' => 'required',
@@ -181,7 +180,7 @@ class AdminSPKController extends Controller
     $tahun = date('Y');
     $nomorSPK = $nomorUrut . '/SPK/' . $bulanRomawi . '/' . $tahun;
 
-    $dp = $request->input('dp');
+    $dp = $penjualan->dp;
     $totalDiskon = $request->input('total_diskon');
     $totalBayar =  $dp - $totalDiskon;
 
@@ -211,6 +210,33 @@ class AdminSPKController extends Controller
       'jangka_waktu' => $request->input('jangka_waktu'),
       'alamat' => $request->input('alamat'),
     ];
+
+    // Path ke gambar
+    $pathToImage = public_path('assets/images/logo/Logo-blimoto.webp');
+
+    // Pastikan file gambar ada
+    if (file_exists($pathToImage)) {
+      // Baca isi file gambar
+      $type = pathinfo($pathToImage, PATHINFO_EXTENSION);
+      $dataImage = file_get_contents($pathToImage);
+
+      // Konversi ke base64
+      $base64 = 'data:image/' . $type . ';base64,' . base64_encode($dataImage);
+    } else {
+      // Handle error jika file tidak ditemukan
+      $base64 = null; // Atau set default image
+    }
+
+    // Tambahkan string base64 ke data yang akan dikirim ke view
+    $data['logo_base64'] = $base64;
+
+
+
+    // $pdf = Pdf::loadView('admin.spk.spk', $data);
+    // return $pdf->download();
+    // $mpdf = new \Mpdf\Mpdf();
+    // $mpdf->WriteHTML(view('admin.spk.spk', $data));
+    // $mpdf->Output();
 
     return view('admin.spk.spk', $data);
   }
