@@ -206,6 +206,7 @@ class CicilanMotorController extends Controller
       );
 
       if ($validator->fails()) {
+        // dd($request);
         return redirect()->back()->withErrors($validator)->withInput();
       }
       $id_lokasi = $request->input('id_lokasi');
@@ -243,9 +244,11 @@ class CicilanMotorController extends Controller
       ->find($id_motor);
 
     if (!$motor) {
-      return response()->json([
-        'message' => 'tidak ada data'
-      ], 404);
+      // return response()->json([
+      //   'message' => 'tidak ada data'
+      // ], 404);
+
+      return redirect()->back()->withErrors(['customError' => 'Motor tidak ditemukan'])->withInput();
     }
 
     $cicilan_motor = DB::table('cicilan_motor')
@@ -258,9 +261,10 @@ class CicilanMotorController extends Controller
       ->get();
 
     if ($cicilan_motor->isEmpty()) {
-      return response()->json([
-        'message' => 'tidak ada data cicilan motor'
-      ], 404);
+      // return response()->json([
+      //   'message' => 'tidak ada data cicilan motor'
+      // ], 404);
+      return redirect()->back()->withErrors(['customError' => 'tidak ada data cicilan motor'])->withInput();
     }
 
     $data = array(

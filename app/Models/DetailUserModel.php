@@ -15,4 +15,9 @@ class DetailUserModel extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota');
+    }
 }
