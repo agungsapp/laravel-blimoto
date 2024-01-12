@@ -211,8 +211,9 @@ class CicilanMotorController extends Controller
       }
       $id_lokasi = $request->input('id_lokasi');
       $id_motor = $request->input('id_motor');
+      $pembayaran = $request->input('pembayaran');
 
-      return redirect()->to("/detail-motor?_token=URotrl3JPsfZnK6ER5OF6RHFxvGjINUduJcdytlY&id_lokasi=$id_lokasi&id_motor=$id_motor");
+      return redirect()->to("/detail-motor?_token=URotrl3JPsfZnK6ER5OF6RHFxvGjINUduJcdytlY&id_lokasi=$id_lokasi&id_motor=$id_motor&pembayaran=$pembayaran");
     }
 
 

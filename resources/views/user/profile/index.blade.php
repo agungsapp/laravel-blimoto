@@ -40,7 +40,10 @@
 														<div class="d-flex justify-content-start align-items-baseline mt-2 gap-2">
 																<i class="fa fa-map-marker text-basic fs-3" aria-hidden="true"></i>
 																<p class="fs-4 text-dark">
-																		{{ auth()->user()->detailUser->kota->nama == null ? 'lokasi anda belum di atur' : auth()->user()->detailUser->kota->nama }}
+																		@php
+																				$kotaDetail = auth()->user()->detailUser->kota->nama ?? null;
+																		@endphp
+																		{{ $kotaDetail == null ? 'lokasi anda belum di atur' : auth()->user()->detailUser->kota->nama }}
 																</p>
 														</div>
 												</div>
@@ -48,7 +51,10 @@
 										<div class="row d-flex justify-content-between w-100 flex-row">
 												<div class="">
 														<p class="text-dark">
-																{{ auth()->user()->detailUser->alamat == null ? 'alamat anda belum di atur' : auth()->user()->detailUser->alamat }}
+																@php
+																		$alamat = auth()->user()->detailUser->alamat ?? null;
+																@endphp
+																{{ $alamat == null ? 'alamat anda belum di atur' : auth()->user()->detailUser->alamat }}
 														</p>
 												</div>
 												{{-- <div class=""><i class="fa fa-location-arrow fs-3 text-primary" aria-hidden="true"></i></div> --}}
@@ -136,14 +142,14 @@
 
 												<div class="mb-3">
 														<label for="alamat" class="form-label">Alamat</label>
-														<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="jl. kelapa dua" required>{{ auth()->user()->detailUser->alamat ?? 'belum diatur' }}</textarea>
+														<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="jl. kelapa dua" required>{{ auth()->user()->detailUser->alamat ?? '' }}</textarea>
 												</div>
 
-												<div class="mb-3">
+												{{-- <div class="mb-3">
 														<label for="formFile" class="form-label">Foto profil</label>
-														<input class="form-control" value="{{ auth()->user()->path_image }}" name="photo" type="file"
+														<input class="form-control"  name="photo" type="file"
 																id="formFile">
-												</div>
+												</div> --}}
 												{{-- form edit profil end --}}
 										</div>
 										<div class="modal-footer">
