@@ -377,7 +377,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  console.log("slick jalan..")
+  isDev && console.log("slick jalan..")
   $('.slick-cari-diskon').each(function (index, element) {
     var slideCount = $(element).find('.slick-slide').length; // get the number of slides
     $(element).slick({

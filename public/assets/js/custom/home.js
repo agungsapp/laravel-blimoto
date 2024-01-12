@@ -9,14 +9,14 @@ bacaType();
 var counterModel = 0;
 
 $(document).ready(function () {
-    console.log("jQuery aman bang !");
+    isDev && console.log("jQuery aman bang !");
     // misal
     var harga_motor;
     var id_motor;
     var tenor;
 
     $('select[name="tipe"]').change(function () {
-        console.log("area select logic running...");
+        isDev && console.log("area select logic running...");
         var merkId = $("#merk").val();
         var tipeId = $(this).val();
         counterModel += 1;
@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
 
     $('select[name="merk"]').change(function () {
-        console.log("merk counter :" + counterModel);
+        isDev && console.log("merk counter :" + counterModel);
         if (counterModel > 0) {
             var merkId = $(this).val();
             var tipeId = $("#tipe").val();
@@ -51,11 +51,11 @@ $(document).ready(function () {
 
     $("#model").on("change", function () {
         var id = $(this).val();
-        console.log("get dp by model change running  ...");
+        isDev && console.log("get dp by model change running  ...");
         fetch("/get-harga/" + id)
             .then((response) => response.json())
             .then((data) => {
-                console.log(`harga otrnya : ${data.data.harga}`);
+                isDev && console.log(`harga otrnya : ${data.data.harga}`);
                 harga_motor = data.data.harga;
                 id_motor = data.data.id;
                 tenor = $('select[name="tenor"]').val();
@@ -65,10 +65,10 @@ $(document).ready(function () {
                     .then((data) => {
                         // Clear the select options
                         $("#dp").empty();
-                        console.log(
+                        isDev && console.log(
                             "di bawah ini adalah data milik get dp response"
                         );
-                        console.log(data);
+                        isDev && console.log(data);
 
                         // Add the new options
                         data.dp.forEach((option) => {
@@ -88,12 +88,32 @@ $(document).ready(function () {
 
     $("#tenor").on("change", function () {
         var id = $("#model").val();
-        console.log("get dp by tenor change running ...");
+        isDev && console.log("get dp by tenor change running ...");
         // getDp(id);
     });
 
+
+    // RESET FORM
+    $('#reset_simulasi').on('click', function () {
+
+        isDev && console.log('reset berhasil di klik');
+
+
+
+        // Mereset
+        $("#SelectKota").val(null).trigger('change')
+        $("#merk").val(null).trigger('change')
+        $("#tipe").val(null).trigger('change')
+        $("#pembayaran").val(null).trigger('change')
+        $("#tenor").val(null).trigger('change')
+        $("#model").val(null).trigger('change')
+        $("#dp").val(null).trigger('change')
+
+        sessionStorage.removeItem("formData");
+    });
+
     var storedData = sessionStorage.getItem("formData");
-    console.log(storedData);
+    isDev && console.log(storedData);
     if (storedData) {
         var formData = JSON.parse(storedData);
         // Mengisi kembali form dengan data yang disimpan
@@ -164,16 +184,16 @@ $(document).ready(function () {
 
         sessionStorage.setItem("formData", JSON.stringify(formData));
 
-        var id_lokasi = $("#SelectKota").val();
-        var idmotor = id_motor;
-        var tenor = $('select[name="tenor"]').val();
-        var pembayaran = $('select[name="pembayaran"]').val();
-        var dp = $("#dp").val();
+        var id_lokasi = $("#SelectKota").val() || '';
+        var idmotor = id_motor || '';
+        var tenor = $('select[name="tenor"]').val() || '';
+        var pembayaran = $('select[name="pembayaran"]').val() || '';
+        var dp = $("#dp").val() || '';
 
-        var tenor = $("#tenor").val();
+        var tenor = $("#tenor").val() || '';
 
         // Redirect to /cari-cicilan with the tenor parameter
-        window.location.href = `cari-cicilan?id_lokasi=${id_lokasi}&id_motor=${id_motor}&dp=${dp}&tenor=${tenor}&pembayaran=${pembayaran}`;
+        window.location.href = `cari-cicilan?id_lokasi=${id_lokasi}&id_motor=${idmotor}&dp=${dp}&tenor=${tenor}&pembayaran=${pembayaran}`;
     });
 
 
@@ -286,7 +306,7 @@ function bacaKota() {
         .then((response) => response.json())
         .then((data) => {
             const kotaMotor = data;
-            console.log(kotaMotor);
+            isDev && console.log(kotaMotor);
             kotaMotor.forEach((kota) => {
                 const option = document.createElement("option");
                 option.value = kota.id; // Menggunakan properti "nama" sebagai nilai
@@ -316,10 +336,10 @@ function findMotorByTypeMerk(merkId, tipeId) {
             },
             function (data) {
                 // console.log(data);
-                console.log("done bang!");
+                isDev && console.log("done bang!");
                 $.each(data, function (key, value) {
                     // console.log(`id nya : ${value.id} nama nya : ${value.nama}`);
-                    console.log(`harga otr nya ${value.harga}`);
+                    isDev && console.log(`harga otr nya ${value.harga}`);
                     modelSelect.append(
                         '<option value="' +
                         value.id +
@@ -331,11 +351,12 @@ function findMotorByTypeMerk(merkId, tipeId) {
             }
         );
     } else {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Merk dan Type harus di isi terlebih dahulu ...",
-        });
+        // Swal.fire({
+        //     icon: "error",
+        //     title: "Error",
+        //     text: "Merk dan Type harus di isi terlebih dahulu ...",
+        // });
+        localStorage.setItem("jsError", "Merk dan Type harus di isi terlebih dahulu ...");
     }
 }
 
@@ -348,7 +369,7 @@ function getDp(id) {
     fetch("/get-harga/" + id)
         .then((response) => response.json())
         .then((data) => {
-            console.log(`harga otrnya : ${data.data.harga}`);
+            isDev && console.log(`harga otrnya : ${data.data.harga}`);
             harga_motor = data.data.harga;
             id_motor = data.data.id;
             tenor = $('select[name="tenor"]').val();
@@ -360,10 +381,10 @@ function getDp(id) {
                 .then((data) => {
                     // Clear the select options
                     $("#dp").empty();
-                    console.log(
+                    isDev && console.log(
                         "di bawah ini adalah data milik get dp response"
                     );
-                    console.log(data);
+                    isDev && console.log(data);
 
                     // Add the new options
                     data.dp.forEach((option) => {
@@ -414,7 +435,7 @@ $(document).ready(function () {
 
 // testing input form diskon
 function setSelectionAfterDelay() {
-    console.log("mode testing auto fill active ...........");
+    isDev && console.log("mode testing auto fill active ...........");
     const selections = [
         { selector: "#SelectKota", value: "1", delay: 2000 },
         { selector: "#merk", value: "1", delay: 2500 },
