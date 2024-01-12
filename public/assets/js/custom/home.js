@@ -188,7 +188,7 @@ $(document).ready(function () {
         var idmotor = id_motor || '';
         var tenor = $('select[name="tenor"]').val() || '';
         var pembayaran = $('select[name="pembayaran"]').val() || '';
-        var dp = $("#dp").val() || '';
+        var dp = $("#dp").val();
 
         var tenor = $("#tenor").val() || '';
 
