@@ -211,7 +211,12 @@
 
 
 		<script>
-				console.log("aman running")
+				const isDev = "{{ env('JS_LOG') }}" === 'development';
+
+				isDev && console.log('Mode development aktif');
+
+
+				isDev && console.log("aman running")
 				var lokasiNow = 1;
 
 				var locationLinks = document.querySelectorAll('.select-lokasi-user li a');
@@ -228,7 +233,7 @@
 				setTeksMenuLokasi();
 				updateLokasi(sessionStorage.getItem('lokasiUser'))
 
-				console.log("aman running")
+				isDev && console.log("aman running")
 				var lokasiNow = 1;
 
 				for (var i = 0; i < locationLinks.length; i++) {
@@ -246,7 +251,7 @@
 								lokasiNow = id;
 								setLokasiToInput();
 								updateLokasi(lokasiNow);
-								console.log(`behasil ubah id lokasi ke ${lokasiNow}`);
+								isDev && console.log(`behasil ubah id lokasi ke ${lokasiNow}`);
 						});
 				}
 
@@ -257,7 +262,7 @@
 						var inputElement = document.getElementById('lokasi-user-pencarian');
 						inputElement.value = lokasiId;
 						window.idLokasi = lokasiId;
-						console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`);
+						isDev && console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`);
 						$('input[name="id_lokasi"]').val(lokasiId);
 				}
 
@@ -291,7 +296,7 @@
 										_token: '{{ csrf_token() }}'
 								},
 								success: function(response) {
-										console.log('Data berhasil dikirim ke server');
+										isDev && console.log('Data berhasil dikirim ke server');
 
 								}
 						});
