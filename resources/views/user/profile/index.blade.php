@@ -145,11 +145,10 @@
 														<textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="jl. kelapa dua" required>{{ auth()->user()->detailUser->alamat ?? '' }}</textarea>
 												</div>
 
-												{{-- <div class="mb-3">
+												<div class="mb-3">
 														<label for="formFile" class="form-label">Foto profil</label>
-														<input class="form-control"  name="photo" type="file"
-																id="formFile">
-												</div> --}}
+														<input class="form-control" name="photo" type="file" id="formFile">
+												</div>
 												{{-- form edit profil end --}}
 										</div>
 										<div class="modal-footer">
