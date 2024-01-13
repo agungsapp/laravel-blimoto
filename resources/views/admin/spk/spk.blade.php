@@ -22,7 +22,7 @@
 			</div>
 			<div class="col-4 text-center" style="line-height: 1px;">
 				<h2>PT Blimoto Indonesia</h2>
-				<p>Jl. Kemang Sel. No.99A</p>
+				<p>Jl. Kemang Sel</p>
 				<p>Bangka, Kec. Mampang Prpt</p>
 				<p>Kota Jakarta Selatan Daerah Khusus Ibukota 12730</p>
 				<p>Email: blimotoindonesia@gmail.com</p>
