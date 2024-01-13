@@ -14,6 +14,7 @@
 
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
+use App\Http\Controllers\Admin\AdminDataPembayaranController;
 use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
@@ -178,6 +179,9 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('type-slik-bi', AdminTypeSlikController::class);
         Route::resource('promo', AdminPromoController::class);
         Route::resource('pembayaran', AdminPembayaranController::class);
+        Route::get('data-pembayaran', [AdminDataPembayaranController::class, 'index'])->name('sudah-bayar');
+        Route::get('data-pembayaran-belum', [AdminDataPembayaranController::class, 'belumBayar'])->name('belum-bayar');
+
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
             Route::resource('hasil', AdminHasilController::class);
