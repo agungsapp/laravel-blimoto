@@ -113,18 +113,16 @@
 						<td>: {{$sisa_bayar}}</td>
 					</tr>
 					<tr>
-						<td>Metode Pembayaran</td>
+						<td>Metode Pembelian</td>
 						<td>:
-							@if($metode_pembayaran==='tunai')
-							Tunai
-							@elseif($metode_pembayaran==='cek')
-							Cek/Bilyet Giro
-							@elseif(!is_null($metode_lainnya))
-							Kredit Via {{$metode_lainnya}}
+							@if($metode_pembelian === 'cash')
+							Cash
+							@elseif($metode_pembelian ==='kredit')
+							Kredit Via {{$leasing}}
 							@endif
 						</td>
 					</tr>
-					@if(!is_null($metode_lainnya))
+					@if($metode_pembelian === 'kredit')
 					<tr>
 						<td>Tenor</td>
 						<td>: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</td>
