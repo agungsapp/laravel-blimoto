@@ -22,8 +22,8 @@ class ChatbotSekaligus extends Conversation
   protected function askForDetails()
   {
     $question = Question::create('Mohon beritahu kami nama, domsili, merk motor, kategori motor, tipe motor Anda.');
-    $this->say('Contoh pengisian: Dono, Jakarta Selatan, Honda, Matic, Beat CBS 125');
-    $this->say('Harap isi sesuai dengan format diatas!.');
+    $this->say('<strong>Contoh pengisian:</strong> Dono, Jakarta Selatan, Honda, Matic, Beat CBS 125');
+    $this->say('Harap isi sesuai dengan format diatas!, dengan pemisah tanda <strong>, (koma)</strong>');
 
     $this->ask($question, function (Answer $answer) {
       $this->answer = $answer->getValue();
