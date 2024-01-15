@@ -379,25 +379,35 @@
 
 		<script src="{{ asset('assets/js/nohack.js') }}"></script>
 
+
+		<!-- botman -->
+		<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+		<script>
+				var botmanWidget = {
+						// chatServer: '/botman',
+						// frameEndpoint: '/botman',
+						aboutText: 'BliMoto',
+						introMessage: 'Selamat Datang !, Silahkan ketik <strong class="text-danger">mulai</strong> untuk memulai percakapan atau ketik <strong class="text-danger">isi data</strong> untuk langsung mengisi form dan mengubungi admin',
+						title: 'Customer Service BliMoto',
+						headerTextColor: '#fff',
+						mainColor: '#DD0202',
+						bubbleBackground: '#DD0202',
+						mobileHeight: '99vh',
+						desktopHeight: '70vh',
+						desktopWidth: '40vh',
+						mobileWidth: '80vh',
+						init: function() {
+								console.log('Widget BotMan dimulai');
+								setTimeout(function() {
+										console.log('Mengirim perintah start_conversation');
+										BotmanWidget.api.send('start_conversation');
+								}, 3000);
+						}
+
+
+				};
+		</script>
+
 </body>
 
 </html>
-<!-- botman -->
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-<script>
-		var botmanWidget = {
-				// chatServer: '/botman',
-				// frameEndpoint: '/botman',
-				aboutText: 'BliMoto',
-				introMessage: 'Selamat Datang !, Silahkan ketik <strong class="text-danger">mulai</strong> untuk memulai percakapan atau ketik <strong class="text-danger">isi data</strong> untuk langsung mengisi form dan mengubungi admin',
-				title: 'Customer Service BliMoto',
-				headerTextColor: '#fff',
-				mainColor: '#DD0202',
-				bubbleBackground: '#DD0202',
-				mobileHeight: '99vh',
-				desktopHeight: '70vh',
-				desktopWidth: '40vh',
-				mobileWidth: '80vh',
-
-		};
-</script>
