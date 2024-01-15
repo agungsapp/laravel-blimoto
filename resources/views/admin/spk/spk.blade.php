@@ -22,7 +22,7 @@
 			</div>
 			<div class="col-4 text-center" style="line-height: 1px;">
 				<h2>PT Blimoto Indonesia</h2>
-				<p>Jl. Kemang Sel. No.99A</p>
+				<p>Jl. Kemang Sel</p>
 				<p>Bangka, Kec. Mampang Prpt</p>
 				<p>Kota Jakarta Selatan Daerah Khusus Ibukota 12730</p>
 				<p>Email: blimotoindonesia@gmail.com</p>
@@ -113,18 +113,16 @@
 						<td>: {{$sisa_bayar}}</td>
 					</tr>
 					<tr>
-						<td>Metode Pembayaran</td>
+						<td>Metode Pembelian</td>
 						<td>:
-							@if($metode_pembayaran==='tunai')
-							Tunai
-							@elseif($metode_pembayaran==='cek')
-							Cek/Bilyet Giro
-							@elseif(!is_null($metode_lainnya))
-							Kredit Via {{$metode_lainnya}}
+							@if($metode_pembelian === 'cash')
+							Cash
+							@elseif($metode_pembelian ==='kredit')
+							Kredit Via {{$leasing}}
 							@endif
 						</td>
 					</tr>
-					@if(!is_null($metode_lainnya))
+					@if($metode_pembelian === 'kredit')
 					<tr>
 						<td>Tenor</td>
 						<td>: {{$jangka_waktu ? $jangka_waktu . ' Bulan' : 'Cash'}}</td>

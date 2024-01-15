@@ -149,8 +149,7 @@ class AdminSPKController extends Controller
       'nomor_hp' => 'required',
       'warna' => 'required',
       'kelengkapan' => 'required',
-      'metode_pembayaran' => 'required_without:metode_lainnya',
-      'metode_lainnya' => 'required_without:metode_pembayaran',
+      'metode_pembelian' => 'required',
       'id_penjualan' => 'required',
       'alamat' => 'required',
     ]);
@@ -165,7 +164,7 @@ class AdminSPKController extends Controller
       ->first();
 
     $idPenjualan = $request->input('id_penjualan');
-    $penjualan = Penjualan::find($idPenjualan);
+    $penjualan = Penjualan::with('leasing')->find($idPenjualan);
 
     if (!$penjualan) {
       flash()->addError("Penjualan not found!");
@@ -173,6 +172,9 @@ class AdminSPKController extends Controller
     }
 
     $penjualan->is_cetak = 1;
+    $penjualan->bpkb = $request->input('bpkb_stnk');
+    $penjualan->no_hp = $request->input('nomor_hp');
+    $penjualan->warna_motor = $request->input('warna');
     $penjualan->save();
 
     $nomorUrut = sprintf('%03d', $idPenjualan);
@@ -205,8 +207,8 @@ class AdminSPKController extends Controller
       'dp' => $dp,
       'total_diskon' => $totalDiskon,
       'sisa_bayar' => $totalBayar,
-      'metode_pembayaran' => $request->input('metode_pembayaran'),
-      'metode_lainnya' => $request->input('metode_lainnya'),
+      'metode_pembelian' => $request->input('metode_pembelian'),
+      'leasing' => $penjualan->leasing->nama ?? null,
       'jangka_waktu' => $request->input('jangka_waktu'),
       'alamat' => $request->input('alamat'),
     ];
