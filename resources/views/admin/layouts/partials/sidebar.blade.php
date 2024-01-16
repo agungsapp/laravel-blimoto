@@ -183,15 +183,15 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="{{ route('admin.sudah-bayar') }}" class="nav-link {{ \Route::is('admin.sudah-bayar') ? 'active' : '' }}">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Sudah Bayar</p>
-							</a>
-						</li>
-						<li class="nav-item">
 							<a href="{{ route('admin.belum-bayar') }}" class="nav-link {{ \Route::is('admin.belum-bayar') ? 'active' : '' }}">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Belum Bayar</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.sudah-bayar') }}" class="nav-link {{ \Route::is('admin.sudah-bayar') ? 'active' : '' }}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Sudah Bayar</p>
 							</a>
 						</li>
 					</ul>
