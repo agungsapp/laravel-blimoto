@@ -32,11 +32,22 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Metode Pembayaran</label>
-                <select id="pembayaran-input" name="pembayaran" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih pembayaran --</option>
-                  <option value="cash" {{ old('pembayaran') == 'cash' ? 'selected' : '' }}>Cash</option>
-                  <option value="kredit" {{ old('pembayaran') == 'kredit' ? 'selected' : '' }}>Kredit</option>
+                <label for="input-bpkb">BPKB/STNK a.n</label>
+                <input name="bpkb" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-nomor-hp">Nomor HP</label>
+                <input name="no_hp" type="number" class="form-control" placeholder="Masukan nomor HP (Tidak wajib)" id="input-nomor-hp" value="{{ old('no_hp') }}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Metode Pembelian</label>
+                <select id="pembelian-input" name="metode_pembelian" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih pembelian --</option>
+                  <option value="cash" {{ old('metode_pembelian') == 'cash' ? 'selected' : '' }}>Cash</option>
+                  <option value="kredit" {{ old('metode_pembelian') == 'kredit' ? 'selected' : '' }}>Kredit</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -87,26 +98,6 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Motor</label>
-                @if ($motor == null)
-                <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
-                @else
-                <select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
-                  <option value="" selected>-- Pilih motor --</option>
-                  @foreach ($motor as $m)
-                  <option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-              <div class="form-group col-md-6">
-                <label for="input-hasil">Jumlah</label>
-                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{ old('jumlah', '1') }}">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
                 <label>Leasing</label>
                 @if ($leasing == null)
                 <p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
@@ -126,7 +117,43 @@
             </div>
 
             <div class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
+                <label>Motor</label>
+                @if ($motor == null)
+                <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
+                @else
+                <select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
+                  <option value="" selected>-- Pilih motor --</option>
+                  @foreach ($motor as $m)
+                  <option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
+                  @endforeach
+                </select>
+                @endif
+              </div>
+              <div class="form-group col-md-4">
+                <label for="warna_motor">Warna Motor</label>
+                <input name="warna_motor" type="text" class="form-control" placeholder="Masukan warna motor (Tidak wajib)" value="{{ old('warna_motor') }}">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="input-hasil">Jumlah</label>
+                <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{ old('jumlah', '1') }}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Metode Pembayaran</label>
+                <select id="metodePembayaranInput" name="metode_pembayaran" class="form-control select2 metodePembayaran" style="width: 100%;">
+                  <option value="" selected>-- Pilih metode pembayaran --</option>
+                  <option value="cod" {{ old('metode_pembayaran') == 'cod' ? 'selected' : ''}}>Cod</option>
+                  <option value="transfer" {{ old('metode_pembayaran') == 'transfer' ? 'selected' : ''}}>Transfer</option>
+                  <option value="cek" {{ old('metode_pembayaran') == 'cek' ? 'selected' : ''}}>Cek/Bilyet Giro</option>
+                </select>
+                <div class="form-check my-4 metodeHide" id="metodeLainnya" style="display: none;">
+                  <input type="text" class="form-control" placeholder="Masukan nama leasing" name="metode_lainnya">
+                </div>
+              </div>
+              <div class="form-group col-md-4">
                 <label>Status Pembayaran</label>
                 <select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih status pembayaran --</option>
@@ -135,7 +162,7 @@
                   <option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
                 </select>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label for="input-hasil">Nomor PO</label>
                 <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun" value="{{ old('nomor_po') }}">
               </div>
@@ -179,7 +206,7 @@
                 <th>ID</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
-                <th>Pembayaran</th>
+                <th>Metode Pembelian</th>
                 <th>Status Pembayaran DP</th>
                 <th>Leasing</th>
                 <th>Motor</th>
@@ -194,7 +221,7 @@
                 <td>{{ $p->id }}</td>
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
-                <td>{{$p->pembayaran}}</td>
+                <td>{{$p->metode_pembelian}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->motor->nama}}</td>
@@ -206,9 +233,9 @@
                       Cetak
                     </button>
                     <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
-                    {{-- <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
+                    <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
                       Detail
-                    </button> --}}
+                    </button>
                     @if (Auth::guard('admin')->check() || ($p->is_cetak == 0))
                     <button type="button" class="btn btn-primary w-100 mb-1 load-update-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalEdit">
                       Edit
@@ -271,8 +298,20 @@
 
                   <div class="row">
                     <div class="form-group col-md-6">
-                      <label>Metode Pembayaran</label>
-                      <select id="pembayaranUpdate" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
+                      <label for="input-bpkb">BPKB/STNK a.n</label>
+                      <input name="bpkb" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="input-nomor-hp">Nomor HP</label>
+                      <input name="no_hp" type="number" class="form-control" placeholder="Masukan nomor HP (Tidak wajib)" id="input-nomor-hp" value="{{ old('no_hp') }}">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label>Metode Pembelian</label>
+                      <select id="pembelian-update" name="metode_pembelian" class="form-control select2" style="width: 100%;">
+                        <option value="">-- Pilih pembelian --</option>
                         <option value="cash">Cash</option>
                         <option value="kredit">Kredit</option>
                       </select>
@@ -347,7 +386,16 @@
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                      <label>Metode Pembayaran</label>
+                      <select id="metodePembayaranInput" name="metode_pembayaran" class="form-control select2 metodePembayaran" style="width: 100%;">
+                        <option value="" selected>-- Pilih metode pembayaran --</option>
+                        <option value="cod">Cod</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="cek">Cek/Bilyet Giro</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
                       <label for="status_pembayaran_dp">Status Pembayaran DP</label>
                       <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
                         <option value="pending">Pending</option>
@@ -358,21 +406,22 @@
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                       <label for="input-dp">DP</label>
                       <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp">
                     </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                       <label for="input-diskon-dp">Diskon DP</label>
                       <input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP" id="input-diskon-dp">
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                      <label>Warna Motor</label>
+                      <input name="warna_motor" type="text" class="form-control" placeholder="Warna motor (Tidak wajib)">
+                    </div>
+                    <div class="form-group col-md-6">
                       <label for="input-hasil">Nomor PO</label>
                       <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun">
                     </div>
@@ -420,136 +469,102 @@
         </div>
         <div class="modal-body">
           <div class="card card-primary">
-            <div class="card-header with-border">
-              <h3 class="card-title">Update Data sales</h3>
-            </div>
             <div class="card-body">
               <div class="form-group">
                 <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="input-hasil">Nama Konsumen</label>
-                    <input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Sales</label>
-                    @if ($sales == null)
-                    <p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
-                    @else
-                    <select id="sales" name="sales" class="form-control select2" style="width: 100%;">
-                      @foreach ($sales as $s)
-                      <option value="{{ $s->id }}">{{ $s->nama }}</option>
-                      @endforeach
-                    </select>
-                    @endif
+                  <div class="form-group col-md-12">
+                    <label for="konsumen">Nama Konsumen</label>
+                    <input name="konsumen" type="text" class="form-control" readonly>
                   </div>
                 </div>
-
                 <div class="row">
-                  <div class="form-group col-md-6">
-                    <label>Metode Pembayaran</label>
-                    <select id="pembayaranUpdate" name="pembayaran" class="form-control select2" style="width: 100%;" onchange="toggleFieldsUpdate(this)">
-                      <option value="cash">Cash</option>
-                      <option value="kredit">Kredit</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6" id="tenorUpdate">
-                    <label for="input-tenor">Tenor</label>
-                    <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor">
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label>Kabupaten</label>
-                    @if ($kota == null)
-                    <p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
-                    @else
-                    <select id="kabupaten" name="kabupaten" class="form-control select2" style="width: 100%;">
-                      @foreach ($kota as $k)
-                      <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                      @endforeach
-                    </select>
-                    @endif
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Hasil</label>
-                    @if ($hasil == null)
-                    <p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
-                    @else
-                    <select id="hasil" name="hasil" class="form-control select2" style="width: 100%;">
-                      @foreach ($hasil as $h)
-                      <option value="{{ $h->id }}">{{ $h->hasil }}</option>
-                      @endforeach
-                    </select>
-                    @endif
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label>Motor</label>
-                    @if ($motor == null)
-                    <p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
-                    @else
-                    <select id="motor" name="motor" class="form-control select2" style="width: 100%;">
-                      <option value="" selected>-- Pilih motor --</option>
-                      @foreach ($motor as $m)
-                      <option value="{{ $m->id }}">{{ $m->nama }}</option>
-                      @endforeach
-                    </select>
-                    @endif
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="input-hasil">Jumlah</label>
-                    <input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor" value="{{$p->jumlah}}">
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-md-6" id="leasingUpdate">
-                    <label>Leasing</label>
-                    <select name="leasing" class="form-control select2" style="width: 100%;">
-                      <option value="" selected>-- Pilih leasing --</option>
-                      @foreach ($leasing as $l)
-                      <option value="{{ $l->id }}">{{ $l->nama }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="input-hasil">Catatan Penjualan</label>
-                    <input name="catatan" type="text" class="form-control" placeholder="Masukan catatan penjualan motor (kosongkan jika tida ada)">
+                  <div class="form-group col-md-12">
+                    <label for="sales">Nama Sales</label>
+                    <input name="sales" type="text" class="form-control" readonly>
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="form-group col-md-12">
-                    <label for="status_pembayaran_dp">Status Pembayaran DP</label>
-                    <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
-                      <option value="pending">Pending</option>
-                      <option value="paid">Paid</option>
-                      <option value="cod">COD</option>
-                    </select>
+                    <label for="bpkb">BPKB/STNK a.n</label>
+                    <input name="bpkb" type="text" class="form-control" readonly>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="form-group col-md-12">
-                    <label for="input-dp">DP</label>
-                    <input name="dp" type="number" class="form-control" placeholder="Masukan DP yang sudah dipotong diskon" id="input-dp">
+                  <div class="form-group col-md-6">
+                    <label for="no_hp">NO HP</label>
+                    <input name="no_hp" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="metode_pembelian">Metode Pembelian</label>
+                    <input name="metode_pembelian" type="text" class="form-control" readonly>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="form-group col-md-12">
-                    <label for="input-diskon-dp">Diskon DP</label>
-                    <input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP" id="input-diskon-dp">
+                  <div class="form-group col-md-6">
+                    <label for="dp">DP</label>
+                    <input name="dp" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="diskon_dp">Diskon DP</label>
+                    <input name="diskon_dp" type="text" class="form-control" readonly>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="form-group col-md-12">
-                    <label for="input-hasil">Nomor PO</label>
-                    <input name="nomor_po" type="text" class="form-control" placeholder="Kosongkan jika PO belum turun">
+                  <div class="form-group col-md-6">
+                    <label for="metode_pembayaran">Metode Pembayaran</label>
+                    <input name="metode_pembayaran" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="status_dp">Status Pembayaran DP</label>
+                    <input name="status_dp" type="text" class="form-control" readonly>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="nomor_po">Nomor PO</label>
+                    <input name="nomor_po" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="leasing">Leasing</label>
+                    <input name="leasing" type="text" class="form-control" readonly>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="tenor">Tenor</label>
+                    <input name="tenor" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="motor">Nama Motor</label>
+                    <input name="motor" type="text" class="form-control" readonly>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="jumlah">Jumlah</label>
+                    <input name="jumlah" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="kota">Kota</label>
+                    <input name="kota" type="text" class="form-control" readonly>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="hasil">Hasil</label>
+                    <input name="hasil" type="text" class="form-control" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="catatan">Catatan</label>
+                    <input name="catatan" type="text" class="form-control" readonly>
                   </div>
                 </div>
 
@@ -557,7 +572,7 @@
                   <div class="form-group col-md-6">
                     <label>Tanggal Dibuat: </label>
                     <div class="input-group date tanggal_dibuat" id="reservationdate" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate" name="tanggal_dibuat" />
+                      <input type="text" class="form-control datetimepicker-input tanggal_dibuat" data-target="#reservationdate" name="tanggal_dibuat" readonly />
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -566,7 +581,7 @@
                   <div class="form-group col-md-6">
                     <label>Tanggal Hasil:</label>
                     <div class="input-group date tanggal_hasil" id="reservationdate2" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input tanggal_hasil" data-target="#reservationdate2" name="tanggal_hasil" />
+                      <input type="text" class="form-control datetimepicker-input tanggal_hasil" data-target="#reservationdate2" name="tanggal_hasil" readonly />
                       <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
@@ -628,11 +643,11 @@
           <h4 class="modal-title" id="modalCetakHeader"></h4>
         </div>
         <form action="{{ route('admin.cetakPDF') }}" method="GET" target="_blank">
-          <input type="hidden" value="{{ date('m/d/Y', strtotime($p->tanggal_dibuat)) }}" name="tanggal_dibuat" id="tanggal_dibuat">
-          <input type="hidden" value="{{$p->nama_konsumen}}" name="nama_pemohon">
-          <input type="hidden" value="{{$p->kota->nama}}" name="kabupaten">
-          <input type="hidden" value="{{$p->id_motor}}" name="motor">
-          <input type="hidden" value="{{$p->id}}" name="id_penjualan">
+          <input type="hidden" name="tanggal_dibuat" id="tanggal_dibuat">
+          <input type="hidden" name="nama_pemohon">
+          <input type="hidden" name="kabupaten">
+          <input type="hidden" name="motor">
+          <input type="hidden" name="id_penjualan">
           <div class="modal-body">
             <div class="card card-primary">
               <div class="card-body">
@@ -654,11 +669,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="input-tenor">BPKB/STNK a.n</label>
-                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
+                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="input-tenor">Nomor HP</label>
-                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP">
+                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP" readonly>
                     </div>
                   </div>
 
@@ -679,17 +694,18 @@
                       <input name="kelengkapan" type="text" class="form-control" placeholder="Masukan kelengkapan">
                     </div>
                     <div class="form-group col-md-6">
-                      <label>Metode Pembayaran</label>
-                      <select id="metodePembayaran" name="metode_pembayaran" class="form-control select2 metodePembayaran" style="width: 100%;" onchange="toggleMetodeLainnya(this)">
-                        <option value="tunai" selected>Tunai</option>
-                        <option value="cek">Cek/Bilyet Giro</option>
-                        <option value="">Kredit</option>
-                      </select>
-                      <div class="form-check my-3 metodeHide" id="metodeLainnya" style="display: none;">
-                        <input type="text" class="form-control" placeholder="Masukan nama leasing" name="metode_lainnya">
-                      </div>
+                      <label for="input-tenor">Metode Pembelian</label>
+                      <input name="metode_pembelian" type="text" class="form-control" readonly>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="input-tenor">Nomor PO</label>
+                      <input name="no_po" type="text" class="form-control" placeholder="Masukan nomor PO">
+                    </div>
+                  </div>
+
 
                   <div class="row">
                     <div class="form-group col-md-12">
@@ -698,12 +714,7 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="form-group col-md-12" id="jangkaWaktuInput">
-                      <label for="input-tenor">Jangka Waktu</label>
-                      <input name="jangka_waktu" type="text" class="form-control" placeholder="Jangka waktu tenor (kosongkan jika cash)">
-                    </div>
-                  </div>
+                  <input name="jangka_waktu" type="hidden" class="form-control">
 
                 </div>
               </div>
@@ -725,25 +736,23 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Initial check when the page loads
-    var pembayaranElement = document.getElementById('pembayaranUpdate');
-    toggleFieldsUpdate(pembayaranElement);
+    toggleLeasingInputUpdate();
   });
 
-  function toggleFieldsUpdate(selectElement) {
-    var tenorField = document.getElementById('tenorUpdate');
-    var leasingField = document.getElementById('leasingUpdate'); // Assuming you have a leasing field
-
-    if (selectElement.value === 'cash') {
-      tenorField.style.display = 'none';
-      leasingField.style.display = 'none';
+  function toggleLeasingInputUpdate() {
+    if ($('#pembelian-update').val() === 'cash') {
+      $('#leasingUpdate').closest('.form-group').hide();
+      $('#tenorUpdate').closest('.form-group').hide();
     } else {
-      tenorField.style.display = 'block';
-      leasingField.style.display = 'block';
+      $('#leasingUpdate').closest('.form-group').show();
+      $('#tenorUpdate').closest('.form-group').show();
     }
   }
+  toggleLeasingInputUpdate();
+  $('#pembelian-update').change(function() {
+    toggleLeasingInputUpdate();
+  });
 </script>
-
 
 <script>
   $(document).on('click', '.load-payment-modal', function() {
@@ -755,7 +764,6 @@
       type: 'GET',
       dataType: 'json',
       success: function(data) {
-        console.log(data.dp);
         $('#modalBayar form').attr('action', actionUrl);
         $('#id-sales').val(data.sales.id);
         $('#nama-sales').val(data.sales.nama);
@@ -803,7 +811,6 @@
       type: 'GET',
       dataType: 'json',
       success: function(data) {
-        console.log(data)
         // Assuming 'data' contains all the necessary fields for the print modal
         $(modalId + ' #tanggal_dibuat').val(data.tanggal_dibuat);
         $(modalId + ' [name="nama_pemohon"]').val(data.nama_konsumen);
@@ -812,6 +819,12 @@
         $(modalId + ' [name="id_penjualan"]').val(data.id);
         $(modalId + ' [name="dp"]').val(Number(data.dp));
         $(modalId + ' [name="total_diskon"]').val(Number(data.diskon_dp));
+        $(modalId + ' [name="metode_pembelian"]').val(data.metode_pembelian).trigger('change');
+        $(modalId + ' [name="warna"]').val(data.warna_motor);
+        $(modalId + ' [name="nomor_hp"]').val(data.no_hp);
+        $(modalId + ' [name="bpkb_stnk"]').val(data.bpkb);
+        $(modalId + ' [name="jangka_waktu"]').val(data.tenor);
+        $(modalId + ' [name="no_po"]').val(data.no_po);
 
         // Update the form action URL dynamically
         $(modalId + ' form').attr('action', '{{route("admin.cetakPDF")}}');
@@ -842,14 +855,14 @@
       type: 'GET',
       dataType: 'json',
       success: function(response) {
-        var data = response.data; // Ensure you are referencing the data object correctly
+        var data = response.data;
         var dpValue = Number(data.dp);
         var diskonDpValue = Number(data.diskon_dp);
 
         // Populate the modal's form fields with the fetched data
         modal.find('[name="konsumen"]').val(data.nama_konsumen);
         modal.find('[name="sales"]').val(data.id_sales).trigger('change');
-        modal.find('[name="pembayaran"]').val(data.pembayaran).trigger('change');
+        modal.find('[name="metode_pembayaran"]').val(data.metode_pembayaran).trigger('change');
         modal.find('[name="tenor"]').val(data.tenor);
         modal.find('[name="nomor_po"]').val(data.no_po);
         modal.find('[name="kabupaten"]').val(data.id_kota).trigger('change');
@@ -861,6 +874,10 @@
         modal.find('[name="status_pembayaran_dp"]').val(data.status_pembayaran_dp).trigger('change');
         modal.find('[name="dp"]').val(dpValue);
         modal.find('[name="diskon_dp"]').val(diskonDpValue);
+        modal.find('[name="warna_motor"]').val(data.warna_motor);
+        modal.find('[name="bpkb"]').val(data.bpkb);
+        modal.find('[name="no_hp"]').val(data.no_hp);
+        modal.find('[name="metode_pembelian"]').val(data.metode_pembelian).trigger('change');
 
         // Correctly format the dates before setting the values
         var tanggalDibuat = data.tanggal_dibuat ? formatDate(data.tanggal_dibuat) : '';
@@ -895,10 +912,75 @@
 </script>
 
 <script>
+  $(document).on('click', '.load-detail-modal', function() {
+    var dataUrl = $(this).data('url');
+    var modalId = '#modalDetail';
+    var modal = $(modalId);
+    var baseActionUrl = modal.data('base-action-url');
+
+    $.ajax({
+      url: dataUrl,
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        var data = response.data; // Ensure you are referencing the data object correctly
+        var dpValue = Number(data.dp);
+        var diskonDpValue = Number(data.diskon_dp);
+
+        // Populate the modal's form fields with the fetched data
+        modal.find('[name="konsumen"]').val(data.nama_konsumen);
+        modal.find('[name="sales"]').val(data.sales.nama);
+        modal.find('[name="bpkb"]').val(data.bpkb);
+        modal.find('[name="no_hp"]').val(data.no_hp);
+        modal.find('[name="metode_pembayaran"]').val(data.metode_pembayaran);
+        modal.find('[name="metode_pembelian"]').val(data.metode_pembelian);
+        modal.find('[name="status_dp"]').val(data.status_pembayaran_dp);
+        modal.find('[name="dp"]').val(data.dp);
+        modal.find('[name="diskon_dp"]').val(data.diskon_dp);
+        modal.find('[name="nomor_po"]').val(data.no_po ? data.no_po : 'Belum ada');
+        modal.find('[name="tenor"]').val(data.tenor);
+        modal.find('[name="kota"]').val(data.kota.nama);
+        modal.find('[name="hasil"]').val(data.hasil.hasil);
+        modal.find('[name="motor"]').val(data.motor.nama);
+        modal.find('[name="jumlah"]').val(data.jumlah);
+        modal.find('[name="leasing"]').val(data.leasing ? data.leasing.nama : 'Cash'); // Make sure the field is 'leasing' and not 'lising'
+        modal.find('[name="catatan"]').val(data.catatan);
+        modal.find('[name="status_pembayaran_dp"]').val(data.status_pembayaran_dp);
+        modal.find('[name="dp"]').val(dpValue);
+        modal.find('[name="diskon_dp"]').val(diskonDpValue);
+
+        // Correctly format the dates before setting the values
+        var tanggalDibuat = data.tanggal_dibuat ? formatDate(data.tanggal_dibuat) : '';
+        var tanggalHasil = data.tanggal_hasil ? formatDate(data.tanggal_hasil) : '';
+
+        modal.find('[name="tanggal_dibuat"]').val(tanggalDibuat);
+        modal.find('[name="tanggal_hasil"]').val(tanggalHasil);
+
+        function formatDate(dateString) {
+          var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          };
+          var formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+          return formattedDate;
+        }
+
+        // Show the modal
+        modal.modal('show');
+      },
+      error: function(xhr, status, error) {
+        alert('An error occurred: ' + error);
+      }
+    });
+  });
+</script>
+
+<script>
   $('.select2').select2()
 
   function toggleLeasingInput() {
-    if ($('#pembayaran-input').val() === 'cash') {
+    if ($('#pembelian-input').val() === 'cash') {
       $('#leasing-input').closest('.form-group').hide();
       $('#input-tenor').closest('.form-group').hide();
     } else {
@@ -907,7 +989,7 @@
     }
   }
   toggleLeasingInput();
-  $('#pembayaran-input').change(function() {
+  $('#pembelian-input').change(function() {
     toggleLeasingInput();
   });
 
