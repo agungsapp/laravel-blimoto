@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
 	<a href="index3.html" class="brand-link">
-		<img src="/assets/images/logo/Logo-blimoto.webp" alt="Blimoto Logo" class="brand-image" style="opacity: .8">
+		<img src="/assets/images/logo/Logo Blimoto White_.png" alt="Blimoto Logo" class="brand-image" style="opacity: .8">
 		<span class="brand-text font-weight-light">Admin</span>
 	</a>
 

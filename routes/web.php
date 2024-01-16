@@ -96,6 +96,7 @@ Route::resource('/profil', ProfileController::class);
 
 // chatbot
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
+Route::match(['get', 'post'], '/botman/start', [BotManController::class, 'startConversation']);
 
 // User Area
 Route::resource('/home', HomeController::class);
