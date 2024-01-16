@@ -154,10 +154,18 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::get('login', [LoginAdminController::class, 'index']);
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
-    
+
     Route::middleware(['auth.admin.sales'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
-        
+        Route::prefix('penjualan')->name('penjualan.')->group(function () {
+            Route::resource('data', AdminPenjualanController::class);
+            Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
+            Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
+            Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
+            Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
+        });
+
+
         Route::middleware(['auth.admin:admin'])->group(function () {
             Route::resource('motor', MotorController::class);
             Route::resource('type-motor', TypeMotorController::class);
@@ -184,15 +192,11 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('pembayaran', AdminPembayaranController::class);
             Route::get('data-pembayaran', [AdminDataPembayaranController::class, 'index'])->name('sudah-bayar');
             Route::get('data-pembayaran-belum', [AdminDataPembayaranController::class, 'belumBayar'])->name('belum-bayar');
-            
+
             Route::prefix('penjualan')->name('penjualan.')->group(function () {
-                Route::resource('data', AdminPenjualanController::class);
+                // Route::resource('data', AdminPenjualanController::class);
                 Route::resource('hasil', AdminHasilController::class);
                 Route::resource('spk', AdminSPKController::class);
-                Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
-                Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
-                Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
-                Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
             });
 
             Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
@@ -206,12 +210,6 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::middleware(['auth.sales:sales'])->group(function () {
             Route::resource('sales-settings', AdminSalesSettingController::class);
-            Route::prefix('penjualan')->name('penjualan.')->group(function () {
-                Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
-                Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
-                Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
-                Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
-            });
         });
     });
 });
