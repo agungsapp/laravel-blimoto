@@ -10,7 +10,7 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 class ChatbotSekaligus extends Conversation
 {
   protected $nomor_admin = '6282322222023';
-  protected $answer, $cashOrKredit, $leasing, $tenor;
+  protected $answer, $ulangi, $cashOrKredit, $leasing, $tenor;
 
 
   public function start()
@@ -77,13 +77,31 @@ class ChatbotSekaligus extends Conversation
 
       // Validate the format of the answer
       if ($this->isValidFormat($this->answer)) {
+        $this->bot->typesAndWaits(1);
         $this->say("Data yang Anda masukan adalah:");
         $this->say($this->answer);
         $this->say('Chat customer service sekarang. !');
         $whatsAppUrl = $this->createWhatsAppMessageUrl();
         $this->say("Silakan <a href=\"{$whatsAppUrl}\" target=\"_blank\">klik di sini</a> untuk chat dengan customer service kami via WhatsApp.");
-        $this->say("Terima kasih telah menggunakan layanan kami. Ketik 'mulai' atau 'isi data' untuk memulai percakapan baru.");
+        // $this->say("Terima kasih telah menggunakan layanan kami. Ketik 'mulai' atau 'isi data' untuk memulai percakapan baru.");
+        $ulang = Question::create("Terima kasih telah menggunakan layanan kami. Klik 'mulai' untuk memulai percakapan baru. :")
+          ->addButtons([
+            // Button::create('Mulai')->value('mulai'),
+            Button::create('Mulai')->value('isi data'),
+          ]);
+        $this->bot->typesAndWaits(1);
+        $this->ask($ulang, function (Answer $answer) {
+          if ($answer->isInteractiveMessageReply()) {
+            $this->ulangi = $answer->getValue();
+            if ($this->ulangi == 'mulai') {
+              $this->startConversation(new ChatbotConvertation);
+            } else {
+              $this->start();
+            }
+          }
+        });
       } else {
+        $this->bot->typesAndWaits(1);
         $this->say('Maaf, format yang Anda masukkan tidak sesuai. Silakan coba lagi.');
         $this->askForDetails(); // Ask again
       }
