@@ -229,10 +229,10 @@
                 <td>{{$p->tanggal_dibuat}}</td>
                 <td class="no-export">
                   <div>
-                    <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
+                    {{-- <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
                       Cetak
                     </button>
-                    <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
+                    <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button> --}}
                     <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
                       Detail
                     </button>
@@ -602,7 +602,7 @@
 </section>
 
 <!-- Modal bayar -->
-<div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
+{{-- <div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -632,9 +632,10 @@
       </form>
     </div>
   </div>
-</div>
+</div> --}}
 
 <!-- Modal cetak -->
+{{--
 <div>
   <div class="modal fade" id="modalCetak" role="dialog" aria-labelledby="modalCetak">
     <div class="modal-dialog" role="document">
@@ -727,7 +728,7 @@
     </div>
   </div>
 </div>
-
+--}}
 
 
 @endsection
