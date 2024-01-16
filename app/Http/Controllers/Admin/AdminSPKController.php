@@ -150,6 +150,7 @@ class AdminSPKController extends Controller
       'warna' => 'required',
       // 'kelengkapan' => 'required',
       'metode_pembelian' => 'required',
+      // 'no_po' => 'required',
       'id_penjualan' => 'required',
       'alamat' => 'required',
     ]);
@@ -211,6 +212,7 @@ class AdminSPKController extends Controller
       'leasing' => $penjualan->leasing->nama ?? null,
       'jangka_waktu' => $request->input('jangka_waktu'),
       'alamat' => $request->input('alamat'),
+      'no_po' => $request->input('no_po') ?? "-",
     ];
 
     // Path ke gambar

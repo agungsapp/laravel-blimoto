@@ -669,11 +669,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="input-tenor">BPKB/STNK a.n</label>
-                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
+                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="input-tenor">Nomor HP</label>
-                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP">
+                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP" readonly>
                     </div>
                   </div>
 
@@ -698,6 +698,14 @@
                       <input name="metode_pembelian" type="text" class="form-control" readonly>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="input-tenor">Nomor PO</label>
+                      <input name="no_po" type="text" class="form-control" placeholder="Masukan nomor PO">
+                    </div>
+                  </div>
+
 
                   <div class="row">
                     <div class="form-group col-md-12">
@@ -816,6 +824,7 @@
         $(modalId + ' [name="nomor_hp"]').val(data.no_hp);
         $(modalId + ' [name="bpkb_stnk"]').val(data.bpkb);
         $(modalId + ' [name="jangka_waktu"]').val(data.tenor);
+        $(modalId + ' [name="no_po"]').val(data.no_po);
 
         // Update the form action URL dynamically
         $(modalId + ' form').attr('action', '{{route("admin.cetakPDF")}}');
