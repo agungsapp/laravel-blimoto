@@ -39,7 +39,7 @@
 										</div>
 										<div class="d-flex justify-content-between mt-2">
 												<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-												<span class="badge bg-success nama-motor">Kredit</span>
+												<span class="badge bg-success nama-motor"> {{ $pembayaran == 2 ? 'Cash' : 'Kredit' }}</span>
 										</div>
 										<div class="d-flex justify-content-between mt-2">
 												<h6 class="fw-bold text-doff nama-motor">Tipe</h6>
@@ -171,7 +171,7 @@
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="product-title nama-motor">Metode Pembayaran</h6>
-														<span class="badge bg-success nama-motor">Kredit</span>
+														<span class="badge bg-success nama-motor">{{ $pembayaran == 2 ? 'Cash' : 'Kredit' }}</span>
 												</div>
 												<div class="d-flex justify-content-between mt-2">
 														<h6 class="fw-bold text-doff nama-motor">Tipe</h6>

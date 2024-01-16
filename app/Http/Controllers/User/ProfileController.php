@@ -7,6 +7,7 @@ use App\Models\DetailUserModel;
 use App\Models\Kota;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -131,6 +132,18 @@ class ProfileController extends Controller
     {
         try {
             // Mendefinisikan data yang akan diupdate atau dibuat
+            if ($request->hasFile('photo')) {
+                $gambar = $request->file('photo');
+                $randomString = Str::random(10);
+                $gambarName = $randomString . '_' . $gambar->getClientOriginalName();
+                $gambar->move(public_path('assets/images/profile/'), $gambarName);
+
+
+                $user = User::find($id);
+                $user->path_image = $gambarName;
+                $user->save();
+            }
+
             $data = [
                 'id_kota' => $request->kota,
                 'email' => $request->email,

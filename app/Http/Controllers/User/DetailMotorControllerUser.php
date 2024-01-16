@@ -205,6 +205,7 @@ class DetailMotorControllerUser extends Controller
     $motorId = $request->input('id_motor');
     // $lokasiId = 1;
     $lokasiId = $request->input('id_lokasi');
+    $pembayaran = $request->input('pembayaran');
 
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
@@ -480,6 +481,7 @@ class DetailMotorControllerUser extends Controller
       'lokasi' => $lokasi->nama,
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
+      'pembayaran' => $pembayaran
     ];
 
     // dd($data['rekomendasi']);
