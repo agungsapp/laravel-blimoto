@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
+use App\Http\Controllers\Admin\AdminSalesSettingController;
 use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
 use App\Http\Controllers\Admin\AdminStatusBiController;
@@ -153,56 +154,64 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::get('login', [LoginAdminController::class, 'index']);
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
-
+    
     Route::middleware(['auth.admin.sales'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
-        Route::resource('motor', MotorController::class);
-        Route::resource('type-motor', TypeMotorController::class);
-        Route::resource('merk-motor', MerkMotorController::class);
-        Route::resource('best-motor', BestMotorController::class);
-        Route::resource('leasing-motor', LeasingMotorController::class);
-        Route::resource('kota', KotaController::class);
-        Route::resource('hook', HookController::class);
-        Route::resource('detail-motor', DetailMotorController::class);
-        Route::resource('brosur-motor', BrosurMotorController::class);
-        Route::resource('kota-motor', MotorKotaController::class);
-        Route::resource('blog', BlogController::class);
-        Route::resource('cicilan', AdminCicilanMotorController::class);
-        Route::resource('dealer-motor', AdminDealerController::class);
-        Route::resource('mitra', MitraKamiController::class);
-        Route::resource('diskon-motor', AdminDiskonMotorController::class);
-        Route::resource('mtr-best-motor', AdminMtrBestMotorController::class);
-        Route::resource('event', AdminEventController::class);
-        Route::resource('company-profile', AdminCompanyProfileController::class);
-        Route::resource('slik-bi', AdminSlikController::class);
-        Route::resource('status-bi', AdminStatusBiController::class);
-        Route::resource('type-slik-bi', AdminTypeSlikController::class);
-        Route::resource('promo', AdminPromoController::class);
-        Route::resource('pembayaran', AdminPembayaranController::class);
-        Route::get('data-pembayaran', [AdminDataPembayaranController::class, 'index'])->name('sudah-bayar');
-        Route::get('data-pembayaran-belum', [AdminDataPembayaranController::class, 'belumBayar'])->name('belum-bayar');
-
-        Route::prefix('penjualan')->name('penjualan.')->group(function () {
-            Route::resource('data', AdminPenjualanController::class);
-            Route::resource('hasil', AdminHasilController::class);
-            Route::resource('spk', AdminSPKController::class);
-            Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
-            Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
-            Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
-            Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
-        });
-        Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
-        Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
-        Route::post('cicilan-motor/csv/update', [AdminCicilanMotorController::class, 'updateCsv'])->name('cicilan.csv.update');
-        Route::delete('cicilan-motor/cicilan/delete', [AdminCicilanMotorController::class, 'deleteCicilan'])->name('cicilan.delete');
-        // Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
-
+        
         Route::middleware(['auth.admin:admin'])->group(function () {
+            Route::resource('motor', MotorController::class);
+            Route::resource('type-motor', TypeMotorController::class);
+            Route::resource('merk-motor', MerkMotorController::class);
+            Route::resource('best-motor', BestMotorController::class);
+            Route::resource('leasing-motor', LeasingMotorController::class);
+            Route::resource('kota', KotaController::class);
+            Route::resource('hook', HookController::class);
+            Route::resource('detail-motor', DetailMotorController::class);
+            Route::resource('brosur-motor', BrosurMotorController::class);
+            Route::resource('kota-motor', MotorKotaController::class);
+            Route::resource('blog', BlogController::class);
+            Route::resource('cicilan', AdminCicilanMotorController::class);
+            Route::resource('dealer-motor', AdminDealerController::class);
+            Route::resource('mitra', MitraKamiController::class);
+            Route::resource('diskon-motor', AdminDiskonMotorController::class);
+            Route::resource('mtr-best-motor', AdminMtrBestMotorController::class);
+            Route::resource('event', AdminEventController::class);
+            Route::resource('company-profile', AdminCompanyProfileController::class);
+            Route::resource('slik-bi', AdminSlikController::class);
+            Route::resource('status-bi', AdminStatusBiController::class);
+            Route::resource('type-slik-bi', AdminTypeSlikController::class);
+            Route::resource('promo', AdminPromoController::class);
+            Route::resource('pembayaran', AdminPembayaranController::class);
+            Route::get('data-pembayaran', [AdminDataPembayaranController::class, 'index'])->name('sudah-bayar');
+            Route::get('data-pembayaran-belum', [AdminDataPembayaranController::class, 'belumBayar'])->name('belum-bayar');
+            
+            Route::prefix('penjualan')->name('penjualan.')->group(function () {
+                Route::resource('data', AdminPenjualanController::class);
+                Route::resource('hasil', AdminHasilController::class);
+                Route::resource('spk', AdminSPKController::class);
+                Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
+                Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
+                Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
+                Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
+            });
+
+            Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
+            Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
+            Route::post('cicilan-motor/csv/update', [AdminCicilanMotorController::class, 'updateCsv'])->name('cicilan.csv.update');
+            Route::delete('cicilan-motor/cicilan/delete', [AdminCicilanMotorController::class, 'deleteCicilan'])->name('cicilan.delete');
+            // Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
             Route::resource('/sales', AdminSalesController::class);
             Route::resource('/users', AdminUserController::class);
         });
 
         Route::middleware(['auth.sales:sales'])->group(function () {
+            Route::resource('sales-settings', AdminSalesSettingController::class);
+            Route::prefix('penjualan')->name('penjualan.')->group(function () {
+                Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
+                Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
+                Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
+                Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
+            });
         });
     });
 });
