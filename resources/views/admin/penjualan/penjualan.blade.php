@@ -245,10 +245,10 @@
                 <td>{{$p->tanggal_hasil}}</td>
                 <td class="no-export">
                   <div>
-                    <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
+                    {{-- <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
                       Cetak
                     </button>
-                    <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button>
+                    <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}" data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalBayar">Bayar</button> --}}
                     <button type="button" class="btn btn-secondary w-100 mb-1 load-detail-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalDetail">
                       Detail
                     </button>
@@ -618,7 +618,7 @@
 </section>
 
 <!-- Modal bayar -->
-<div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
+{{-- <div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -648,9 +648,10 @@
       </form>
     </div>
   </div>
-</div>
+</div> --}}
 
 <!-- Modal cetak -->
+{{--
 <div>
   <div class="modal fade" id="modalCetak" role="dialog" aria-labelledby="modalCetak">
     <div class="modal-dialog" role="document">
@@ -685,11 +686,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="input-tenor">BPKB/STNK a.n</label>
-                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n">
+                      <input name="bpkb_stnk" type="text" class="form-control" placeholder="Masukan BPKB/STNK a.n" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="input-tenor">Nomor HP</label>
-                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP">
+                      <input name="nomor_hp" type="tel" class="form-control" placeholder="Masukan Nomor HP" readonly>
                     </div>
                   </div>
 
@@ -717,6 +718,14 @@
 
                   <div class="row">
                     <div class="form-group col-md-12">
+                      <label for="input-tenor">Nomor PO</label>
+                      <input name="no_po" type="text" class="form-control" placeholder="Masukan nomor PO">
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group col-md-12">
                       <label for="input-tenor">Warna Motor</label>
                       <input name="warna" type="text" class="form-control" placeholder="Masukan warna motor">
                     </div>
@@ -735,7 +744,7 @@
     </div>
   </div>
 </div>
-
+--}}
 
 
 @endsection
@@ -832,6 +841,7 @@
         $(modalId + ' [name="nomor_hp"]').val(data.no_hp);
         $(modalId + ' [name="bpkb_stnk"]').val(data.bpkb);
         $(modalId + ' [name="jangka_waktu"]').val(data.tenor);
+        $(modalId + ' [name="no_po"]').val(data.no_po);
 
         // Update the form action URL dynamically
         $(modalId + ' form').attr('action', '{{route("admin.cetakPDF")}}');

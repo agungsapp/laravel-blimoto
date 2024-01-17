@@ -148,8 +148,9 @@ class AdminSPKController extends Controller
       'bpkb_stnk' => 'required',
       'nomor_hp' => 'required',
       'warna' => 'required',
-      'kelengkapan' => 'required',
+      // 'kelengkapan' => 'required',
       'metode_pembelian' => 'required',
+      // 'no_po' => 'required',
       'id_penjualan' => 'required',
       'alamat' => 'required',
     ]);
@@ -203,7 +204,7 @@ class AdminSPKController extends Controller
       'type' => $motor->type->nama,
       'harga' => $harga,
       'warna' => $request->input('warna'),
-      'kelengkapan' => $request->input('kelengkapan'),
+      'kelengkapan' => $request->input('kelengkapan') ?? "-",
       'dp' => $dp,
       'total_diskon' => $totalDiskon,
       'sisa_bayar' => $totalBayar,
@@ -211,6 +212,7 @@ class AdminSPKController extends Controller
       'leasing' => $penjualan->leasing->nama ?? null,
       'jangka_waktu' => $request->input('jangka_waktu'),
       'alamat' => $request->input('alamat'),
+      'no_po' => $request->input('no_po') ?? "-",
     ];
 
     // Path ke gambar

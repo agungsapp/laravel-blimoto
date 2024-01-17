@@ -42,6 +42,7 @@
 		<div class="row">
 			<div class="col">
 				<p>Nomor SPK: {{$nomor_spk}}</p>
+				<p>Nomor PO: {{$no_po}}</p>
 				<p>Tanggal Pesanan: {{$tanggal_pesan}}</p>
 				<p>No KTP: {{$no_ktp}}</p>
 				<p>Nama Pemohon: {{$nama_pemohon}}</p>
