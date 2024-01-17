@@ -211,7 +211,15 @@
                 <th>Leasing</th>
                 <th>Motor</th>
                 <th>Hasil</th>
+                <th class="no-visible">Metode Pembayaran</th>
+                <th class="no-visible">Nomor PO</th>
+                <th class="no-visible">Tenor</th>
+                <th class="no-visible">Jumlah</th>
+                <th class="no-visible">Kota</th>
+                <th class="no-visible">Hasil</th>
+                <th class="no-visible">Catatan</th>
                 <th>Tanggal Dibuat</th>
+                <th class="no-visible">Tanggal Hasil</th>
                 <th class="no-export" width="100px">Action</th>
               </tr>
             </thead>
@@ -226,7 +234,15 @@
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->motor->nama}}</td>
                 <td>{{$p->hasil->hasil}}</td>
+                <td>{{$p->metode_pembayaran}}</td>
+                <td>{{$p->no_po}}</td>
+                <td>{{$p->tenor}}</td>
+                <td>{{$p->jumlah}}</td>
+                <td>{{$p->kota->nama}}</td>
+                <td>{{$p->hasil->hasil}}</td>
+                <td>{{$p->catatan}}</td>
                 <td>{{$p->tanggal_dibuat}}</td>
+                <td>{{$p->tanggal_hasil}}</td>
                 <td class="no-export">
                   <div>
                     {{-- <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}" data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal" data-target="#modalCetak">
@@ -1007,10 +1023,10 @@
     order: [
       [0, 'desc']
     ],
-    // columnDefs: [{
-    //   targets: 'no-visible',
-    //   visible: false, // Set the visibility to false for 'no-visible' class
-    // }]
+    columnDefs: [{
+      targets: 'no-visible',
+      visible: false, // Set the visibility to false for 'no-visible' class
+    }]
   });
 
   // Apply the filter on input change
@@ -1026,7 +1042,7 @@
     function(settings, data, dataIndex) {
       var minDate = $('#min').val();
       var maxDate = $('#max').val();
-      var date = moment(data[11]);
+      var date = moment(data[15]);
       if (
         (minDate === '' || date.isSameOrAfter(minDate)) &&
         (maxDate === '' || date.isSameOrBefore(maxDate))
