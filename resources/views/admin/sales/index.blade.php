@@ -51,7 +51,8 @@
         <!-- /.card-header -->
         <div class="card-body">
 
-          <table id="data-sale" class="table table-bordered table-striped">
+<div class="table-responsive">
+            <table id="data-sale" class="table table-bordered table-striped">
             <thead>
               <tr role="row">
                 <th>NO</th>
@@ -132,6 +133,7 @@
               @endforeach
             </tbody>
           </table>
+</div>
         </div>
       </div>
     </div>
