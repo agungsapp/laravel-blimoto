@@ -47,7 +47,11 @@ return [
         'sales' => [
             'driver' => 'session',
             'provider' => 'sales',
-        ]
+        ],
+        'ceo' => [
+            'driver' => 'session',
+            'provider' => 'ceos',
+        ],
     ],
 
     /*
@@ -79,7 +83,11 @@ return [
         'sales' => [
             'driver' => 'eloquent',
             'model' => App\Models\Sales::class,
-        ]
+        ],
+        'ceos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Ceo::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
