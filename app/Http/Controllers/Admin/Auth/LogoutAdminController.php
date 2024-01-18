@@ -3,23 +3,33 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sales;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutAdminController extends Controller
 {
   public function logout()
   {
-    // Mendapatkan guard yang sedang digunakan
-    $user = Auth::user();
-    $isAdmin = Auth::guard('admin')->check() ? true : false;
+    $guards = ['admin', 'ceo', 'sales'];
+    $user = null;
+    $loggedOut = false;
 
-    if (!$isAdmin) {
-      $user = Auth::guard('sales')->user();
-      $user->update(['status_online' => false]);
+    foreach ($guards as $guard) {
+      if (Auth::guard($guard)->check()) {
+        $user = Auth::guard($guard)->user();
+        if ($guard == 'sales') {
+          $user->update(['status_online' => false]);
+        }
+
+        Auth::guard($guard)->logout();
+        $loggedOut = true;
+        break;
+      }
     }
-    Auth::guard('sales')->logout();
-    Auth::guard('admin')->logout();
+
+    if (!$loggedOut) {
+      return redirect()->route('admin.login');
+    }
+
     return redirect()->route('admin.login');
   }
 }
