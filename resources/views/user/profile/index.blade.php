@@ -64,7 +64,7 @@
 				</div>
 				<div class="row my-5">
 						<div class="col-12 d-flex justify-content-center">
-								<div class="col-11 col-md-8 col-lg-6 card-profile d-flex justify-content-center gap-3 bg-white p-3">
+								<div class="col-11 col-md-8 col-lg-6 card- profile d-flex justify-content-center gap-3 bg-white p-3">
 
 										<!-- Button trigger modal edit -->
 										<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEdit">
