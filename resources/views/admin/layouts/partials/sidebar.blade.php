@@ -178,7 +178,7 @@
                         class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*') ? 'menu-open' : '' }}">
                         <a href="#"
                             class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.spk.*') || \Route::is('admin.pembayaran.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-city"></i>
+                            <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Master Sales
                                 <i class="right fas fa-angle-left"></i>
@@ -216,7 +216,7 @@
                         class="nav-item {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'menu-open' : '' }}">
                         <a href="#"
                             class="nav-link {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-city"></i>
+                            <i class="nav-icon fas fa-archive"></i>
                             <p>
                                 Data Pembayaran
                                 <i class="right fas fa-angle-left"></i>
