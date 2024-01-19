@@ -214,7 +214,7 @@ Route::prefix('app')->name('admin.')->group(function () {
     //     });
     // });
 
-    Route::middleware(['role:admin,sales,ceo'])->group(function () {
+    Route::middleware(['role:admin,sales,ceo,manager'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
@@ -225,7 +225,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         });
 
 
-        Route::middleware(['role:admin,sales,ceo'])->group(function () {
+        Route::middleware(['role:admin,sales,ceo,manager'])->group(function () {
             Route::resource('motor', MotorController::class);
             Route::resource('type-motor', TypeMotorController::class);
             Route::resource('merk-motor', MerkMotorController::class);

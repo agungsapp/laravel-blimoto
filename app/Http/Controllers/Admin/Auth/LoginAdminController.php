@@ -11,7 +11,7 @@ class LoginAdminController extends Controller
 {
     public function index()
     {
-        $guards = ['admin', 'sales', 'ceo'];
+        $guards = ['admin', 'sales', 'ceo', 'manager'];
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
@@ -38,7 +38,7 @@ class LoginAdminController extends Controller
         $roles = [
             'admin' => \App\Models\Admin::class,
             'ceo' => \App\Models\Ceo::class,
-            // 'manager' => \App\Models\Manager::class,
+            'manager' => \App\Models\Manager::class,
             // 'area_manager' => \App\Models\AreaManager::class,
             'sales' => \App\Models\Sales::class,
         ];
