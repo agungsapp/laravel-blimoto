@@ -14,7 +14,7 @@
             <div class="info">
                 @php
                     $role = '';
-                    $guards = ['admin' => 'Administrator', 'ceo' => 'CEO', 'sales' => 'Sales', 'manager' => 'Manager'];
+                    $guards = ['admin' => 'Administrator', 'ceo' => 'CEO', 'sales' => 'Sales', 'manager' => 'Manager', 'area_manager' => 'Area Manager'];
                     foreach ($guards as $guard => $roleName) {
                         if (Auth::guard($guard)->check()) {
                             $role = $roleName;
@@ -28,7 +28,7 @@
 
         @php
             $role = null;
-            $guards = ['admin', 'ceo', 'manager'];
+            $guards = ['admin', 'ceo', 'manager', 'area_manager'];
             foreach ($guards as $guard) {
                 if (Auth::guard($guard)->check()) {
                     $role = $guard;

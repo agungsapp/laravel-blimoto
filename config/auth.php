@@ -56,6 +56,10 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
+        'area_manager' => [
+            'driver' => 'session',
+            'provider' => 'area_managers',
+        ],
     ],
 
     /*
@@ -95,6 +99,10 @@ return [
         'managers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Manager::class,
+        ],
+        'area_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AreaManager::class,
         ],
 
         // 'users' => [

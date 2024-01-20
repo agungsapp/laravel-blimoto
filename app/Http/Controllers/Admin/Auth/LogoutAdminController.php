@@ -9,7 +9,7 @@ class LogoutAdminController extends Controller
 {
   public function logout()
   {
-    $guards = ['admin', 'ceo', 'sales', 'manager'];
+    $guards = ['admin', 'ceo', 'sales', 'manager', 'area_manager'];
     $user = null;
     $loggedOut = false;
 
