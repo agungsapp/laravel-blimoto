@@ -39,7 +39,7 @@ class LoginAdminController extends Controller
             'admin' => \App\Models\Admin::class,
             'ceo' => \App\Models\Ceo::class,
             'manager' => \App\Models\Manager::class,
-            // 'area_manager' => \App\Models\AreaManager::class,
+            'area_manager' => \App\Models\AreaManager::class,
             'sales' => \App\Models\Sales::class,
         ];
 
