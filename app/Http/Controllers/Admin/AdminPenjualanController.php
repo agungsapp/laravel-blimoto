@@ -152,7 +152,6 @@ class AdminPenjualanController extends Controller
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
-      'metode_pembayaran' => 'required',
       'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
