@@ -64,6 +64,16 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{ route('admin.ceo.index') }}"
+                            class="nav-link {{ \Route::is('admin.ceo.*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Data Ceo
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('admin.company-profile.index') }}"
                             class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-user-md"></i>

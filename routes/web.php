@@ -12,6 +12,7 @@
 */
 // admin
 
+use App\Http\Controllers\Admin\AdminCeoController;
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
 use App\Http\Controllers\Admin\AdminDataPembayaranController;
@@ -207,6 +208,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             // Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
             Route::resource('/sales', AdminSalesController::class);
             Route::resource('/users', AdminUserController::class);
+            Route::resource('/ceo', AdminCeoController::class);
         });
 
         Route::middleware(['role:sales'])->group(function () {
