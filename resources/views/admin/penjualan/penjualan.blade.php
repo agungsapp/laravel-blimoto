@@ -208,6 +208,8 @@
                 <th>Nama Sales</th>
                 <th>Metode Pembelian</th>
                 <th>Status Pembayaran DP</th>
+                <th class="no-visible">DP</th>
+                <th class="no-visible">Diskon DP</th>
                 <th>Leasing</th>
                 <th>Motor</th>
                 <th>Hasil</th>
@@ -231,6 +233,8 @@
                 <td>{{$p->sales->nama}}</td>
                 <td>{{$p->metode_pembelian}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
+                <td>{{$p->dp}}</td>
+                <td>{{$p->diskon_dp}}</td>
                 <td>{{$p->leasing->nama ?? 'cash'}}</td>
                 <td>{{$p->motor->nama}}</td>
                 <td>{{$p->hasil->hasil}}</td>
