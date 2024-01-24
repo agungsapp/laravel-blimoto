@@ -1046,7 +1046,7 @@
     function(settings, data, dataIndex) {
       var minDate = $('#min').val();
       var maxDate = $('#max').val();
-      var date = moment(data[15]);
+      var date = moment(data[17]);
       if (
         (minDate === '' || date.isSameOrAfter(minDate)) &&
         (maxDate === '' || date.isSameOrBefore(maxDate))
