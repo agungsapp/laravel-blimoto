@@ -5,14 +5,14 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header with-border">
-                        <h3 class="card-title">Input Data Ceo</h3>
+                        <h3 class="card-title">Input Data Manager</h3>
                     </div>
-                    <form action="{{ route('admin.ceo.store') }}" method="post">
+                    <form action="{{ route('admin.manager.store') }}" method="post">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="input-nama">Nama Ceo</label>
+                                    <label for="input-nama">Nama Manager</label>
                                     <input name="nama" type="text" class="form-control"
                                         placeholder="Masukan nama sales" value="{{ old('nama') }}">
                                 </div>
@@ -45,7 +45,7 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Data Akun Ceo</h3>
+                        <h3 class="card-title">Data Akun Manager</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -55,7 +55,7 @@
                                 <thead>
                                     <tr role="row">
                                         <th>NO</th>
-                                        <th>Nama Ceo</th>
+                                        <th>Nama Manager</th>
                                         <th>Username</th>
                                         <th width="170px">Action</th>
                                     </tr>
@@ -68,7 +68,7 @@
                                             <td>{{ $sale->username }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <form action="{{ route('admin.ceo.destroy', $sale->id) }}"
+                                                    <form action="{{ route('admin.manager.destroy', $sale->id) }}"
                                                         method="post">
                                                         <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -90,7 +90,7 @@
                                                                 <h4 class="modal-title" id="myModalLabel">Edit data:
                                                                     {{ $sale->nama }}</h4>
                                                             </div>
-                                                            <form action="{{ route('admin.ceo.update', $sale->id) }}"
+                                                            <form action="{{ route('admin.manager.update', $sale->id) }}"
                                                                 method="post">
                                                                 @csrf
                                                                 @method('PUT')

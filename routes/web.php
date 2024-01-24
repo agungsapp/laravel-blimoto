@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
+use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
@@ -209,6 +210,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('/sales', AdminSalesController::class);
             Route::resource('/users', AdminUserController::class);
             Route::resource('/ceo', AdminCeoController::class);
+            Route::resource('/manager', AdminManagerController::class);
         });
 
         Route::middleware(['role:sales'])->group(function () {
