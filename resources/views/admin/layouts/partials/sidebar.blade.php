@@ -14,7 +14,7 @@
             <div class="info">
                 @php
                     $role = '';
-                    $guards = ['admin' => 'Administrator', 'ceo' => 'CEO', 'sales' => 'Sales'];
+                    $guards = ['admin' => 'Administrator', 'ceo' => 'CEO', 'sales' => 'Sales', 'manager' => 'Manager', 'area_manager' => 'Area Manager'];
                     foreach ($guards as $guard => $roleName) {
                         if (Auth::guard($guard)->check()) {
                             $role = $roleName;
@@ -28,7 +28,7 @@
 
         @php
             $role = null;
-            $guards = ['admin', 'ceo'];
+            $guards = ['admin', 'ceo', 'manager', 'area_manager'];
             foreach ($guards as $guard) {
                 if (Auth::guard($guard)->check()) {
                     $role = $guard;
@@ -59,6 +59,16 @@
                             <i class="nav-icon fa fa-user"></i>
                             <p>
                                 Data User
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.ceo.index') }}"
+                            class="nav-link {{ \Route::is('admin.ceo.*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Data Ceo
                             </p>
                         </a>
                     </li>

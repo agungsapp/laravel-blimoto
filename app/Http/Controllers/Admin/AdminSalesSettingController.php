@@ -19,7 +19,7 @@ class AdminSalesSettingController extends Controller
    */
   public function index()
   {
-    $user = auth()->user();
+    $user = auth('sales')->user();
     $userWithoutPassword = $user->makeHidden('password')->toArray();
     return view('admin.sales-setting.index', [
       'user' => $userWithoutPassword,

@@ -35,6 +35,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanyProfileSeeder::class);
         $this->call(TypeSlikSeeder::class);
         $this->call(StatusBiSeeder::class);
+        $this->call(CeoSeeder::class);
+        $this->call(ManagerSeeder::class);
+        $this->call(AreaManagerSeeder::class);
         DB::table('admin')->insert([
             'nama' => 'Admin BliMoto',
             'username' => 'admin',

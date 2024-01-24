@@ -47,7 +47,19 @@ return [
         'sales' => [
             'driver' => 'session',
             'provider' => 'sales',
-        ]
+        ],
+        'ceo' => [
+            'driver' => 'session',
+            'provider' => 'ceos',
+        ],
+        'manager' => [
+            'driver' => 'session',
+            'provider' => 'managers',
+        ],
+        'area_manager' => [
+            'driver' => 'session',
+            'provider' => 'area_managers',
+        ],
     ],
 
     /*
@@ -79,7 +91,19 @@ return [
         'sales' => [
             'driver' => 'eloquent',
             'model' => App\Models\Sales::class,
-        ]
+        ],
+        'ceos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Ceo::class,
+        ],
+        'managers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Manager::class,
+        ],
+        'area_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AreaManager::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',

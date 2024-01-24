@@ -12,6 +12,7 @@
 */
 // admin
 
+use App\Http\Controllers\Admin\AdminCeoController;
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
 use App\Http\Controllers\Admin\AdminDataPembayaranController;
@@ -156,7 +157,7 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
 
-    Route::middleware(['auth.admin.sales'])->group(function () {
+    Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
@@ -167,7 +168,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         });
 
 
-        Route::middleware(['auth.admin:admin'])->group(function () {
+        Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
             Route::resource('motor', MotorController::class);
             Route::resource('type-motor', TypeMotorController::class);
             Route::resource('merk-motor', MerkMotorController::class);
@@ -207,9 +208,10 @@ Route::prefix('app')->name('admin.')->group(function () {
             // Route::put('cicilan-motor/update-potongan-tenor', [AdminCicilanMotorController::class, 'updatePotonganTenor'])->name('cicilan.potongan-tenor.update');
             Route::resource('/sales', AdminSalesController::class);
             Route::resource('/users', AdminUserController::class);
+            Route::resource('/ceo', AdminCeoController::class);
         });
 
-        Route::middleware(['auth.sales:sales'])->group(function () {
+        Route::middleware(['role:sales'])->group(function () {
             Route::resource('sales-settings', AdminSalesSettingController::class);
         });
     });
