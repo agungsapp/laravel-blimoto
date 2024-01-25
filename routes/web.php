@@ -12,6 +12,7 @@
 */
 // admin
 
+use App\Http\Controllers\Admin\AdminAreaManagerController;
 use App\Http\Controllers\Admin\AdminCeoController;
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
@@ -211,6 +212,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('/users', AdminUserController::class);
             Route::resource('/ceo', AdminCeoController::class);
             Route::resource('/manager', AdminManagerController::class);
+            Route::resource('/area-manager', AdminAreaManagerController::class);
         });
 
         Route::middleware(['role:sales'])->group(function () {
