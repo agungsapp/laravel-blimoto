@@ -6,22 +6,15 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model implements AuthenticatableContract
+class Ceo extends Model implements AuthenticatableContract
 {
   use Authenticatable;
 
-  protected $table = 'sales';
+  protected $table = 'ceo';
   public $timestamps = false;
   protected $fillable = [
     'nama',
-    'nip',
     'username',
     'password',
-    'status_online'
   ];
-
-  public function penjualan()
-  {
-    return $this->hasMany(Penjualan::class, 'id_motor');
-  }
 }

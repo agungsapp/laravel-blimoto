@@ -99,7 +99,8 @@
         </div>
       </div>
       <div class="card-body">
-        <table id="dataDiskon" class="table-bordered table-striped table">
+<div class="table-responsive">
+          <table id="dataDiskon" class="table-bordered table-striped table">
           <thead>
             <tr>
               <th>Nomor</th>
@@ -236,6 +237,7 @@
             </tr>
           </tfoot>
         </table>
+</div>
       </div>
       <!-- /.card-body -->
     </div>

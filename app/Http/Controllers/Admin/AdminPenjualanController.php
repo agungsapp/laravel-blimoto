@@ -65,13 +65,14 @@ class AdminPenjualanController extends Controller
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
-      'pembayaran' => 'required',
+      'metode_pembelian' => 'required',
+      'dp' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
-      'dp' => 'required',
       'status_pembayaran' => 'required',
+      'metode_pembayaran' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -80,28 +81,33 @@ class AdminPenjualanController extends Controller
     }
 
     $tanggal_dibuat = Carbon::today();
-    $pembayaran = $request->pembayaran;
-    $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
+    $pembelian = $request->input('metode_pembelian');
+    $warna_motor = $request->input('warna_motor') ?? null;
+    $tenor = $pembelian === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
     $nomorPo = $request->nomor_po ?? null;
 
     try {
       $penjualan = Penjualan::create([
         'nama_konsumen' => $request->input('konsumen'),
+        'jumlah' => $request->input('jumlah'),
+        'catatan' => $catatan,
         'tenor' => $tenor,
-        'pembayaran' => $pembayaran,
+        'metode_pembelian' => $pembelian,
+        'metode_pembayaran' => $request->input('metode_pembayaran'),
+        'warna_motor' => $warna_motor,
+        'no_hp' => $request->input('no_hp') ?? null,
+        'bpkb' => $request->input('bpkb') ?? null,
+        'dp' => $request->input('dp'),
+        'diskon_dp' => $request->input('diskon_dp'),
+        'status_pembayaran_dp' => $request->input('status_pembayaran'),
+        'tanggal_dibuat' => $tanggal_dibuat,
+        'no_po' => $nomorPo,
         'id_sales' => $request->input('sales'),
         'id_kota' => $request->input('kabupaten'),
         'id_hasil' => $request->input('hasil'),
         'id_motor' => $request->input('motor'),
-        'jumlah' => $request->input('jumlah'),
         'id_lising' => $request->input('leasing') ?? null,
-        'catatan' => $catatan,
-        'tanggal_dibuat' => $tanggal_dibuat,
-        'status_pembayaran_dp' => $request->input('status_pembayaran'),
-        'dp' => $request->input('dp'),
-        'diskon_dp' => $request->input('diskon_dp'),
-        'no_po' => $nomorPo,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       return redirect()->back();
@@ -146,7 +152,7 @@ class AdminPenjualanController extends Controller
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
-      'pembayaran' => 'required',
+      'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
@@ -165,15 +171,19 @@ class AdminPenjualanController extends Controller
 
     $tanggal_dibuat = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_dibuat'))->format('Y-m-d');
     $tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;
-    $pembayaran = $request->pembayaran;
-    $tenor = $pembayaran === 'cash' ? 0 : $request->tenor;
+    $pembelian = $request->input('metode_pembelian');
+    $tenor = $pembelian === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
-    $leasing = $pembayaran === 'cash' ? null : $request->leasing;
+    $leasing = $pembelian === 'cash' ? null : $request->leasing;
     $nomorPo = $request->nomor_po ?? null;
+    $warna = $request->warna_motor ?? null;
+    $bpkb = $request->bpkb ?? null;
+    $no_hp = $request->no_hp ?? null;
 
     $penjualan->nama_konsumen = $request->input('konsumen');
     $penjualan->tenor = $tenor;
-    $penjualan->pembayaran = $pembayaran;
+    $penjualan->metode_pembelian = $pembelian;
+    $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
     $penjualan->id_sales = $request->input('sales');
     $penjualan->jumlah = $request->input('jumlah');
     $penjualan->catatan = $catatan;
@@ -187,6 +197,9 @@ class AdminPenjualanController extends Controller
     $penjualan->id_kota = $request->input('kabupaten');
     $penjualan->id_hasil = $request->input('hasil');
     $penjualan->no_po = $nomorPo;
+    $penjualan->bpkb = $bpkb;
+    $penjualan->no_hp = $no_hp;
+    $penjualan->warna_motor = $warna;
 
     $penjualan->save();
 
