@@ -206,12 +206,16 @@
                 <th>ID</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
+                <th class="no-visible">No HP</th>
+                <th class="no-visible">STNK</th>
                 <th>Metode Pembelian</th>
                 <th>Status Pembayaran DP</th>
                 <th class="no-visible">DP</th>
                 <th class="no-visible">Diskon DP</th>
+                <th class="no-visible">DP Bayar</th>
                 <th>Leasing</th>
                 <th>Motor</th>
+                <th>Warna</th>
                 <th>Hasil</th>
                 <th class="no-visible">Metode Pembayaran</th>
                 <th class="no-visible">Nomor PO</th>
@@ -231,12 +235,16 @@
                 <td>{{ $p->id }}</td>
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
+                <td>{{$p->no_hp}}</td>
+                <td>{{$p->bpkb}}</td>
                 <td>{{$p->metode_pembelian}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
                 <td>{{$p->dp}}</td>
                 <td>{{$p->diskon_dp}}</td>
-                <td>{{$p->leasing->nama ?? 'cash'}}</td>
+                <td>{{$p->dp - $p->diskon_dp}}</td>
+                <td>{{$p->leasing->id ?? 'cash'}}</td>
                 <td>{{$p->motor->nama}}</td>
+                <td>{{$p->warna_motor}}</td>
                 <td>{{$p->hasil->hasil}}</td>
                 <td>{{$p->metode_pembayaran}}</td>
                 <td>{{$p->no_po}}</td>
@@ -1046,7 +1054,7 @@
     function(settings, data, dataIndex) {
       var minDate = $('#min').val();
       var maxDate = $('#max').val();
-      var date = moment(data[17]);
+      var date = moment(data[21]);
       if (
         (minDate === '' || date.isSameOrAfter(minDate)) &&
         (maxDate === '' || date.isSameOrBefore(maxDate))
