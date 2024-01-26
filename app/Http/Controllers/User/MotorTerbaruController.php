@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CicilanMotor;
 use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\MotorKota;
@@ -20,6 +21,22 @@ class MotorTerbaruController extends Controller
    */
   public function index(Request $request)
   {
+
+
+
+    $kotaId = Session::get('lokasiUser');
+    // Set default value of $kotaId to 1 if it's empty
+    if (empty($kotaId)) {
+      $kotaId = 1;
+    }
+    // Subquery untuk menemukan tenor maksimal per motor
+    $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
+      ->groupBy('id_motor');
+
+
+
+
+
     $request->flash();
     // Mengatur query untuk selalu memilih motor dengan id_best_motor = 7
     $query = Motor::with('merk', 'type', 'detailMotor')
@@ -56,6 +73,31 @@ class MotorTerbaruController extends Controller
       $query->whereBetween('harga', [$request->input('min_price'), $request->input('max_price')]);
     }
 
+
+
+
+
+
+
+
+
+    $query->leftJoinSub($maxTenorSubquery, 'max_tenors', function ($join) {
+      $join->on('motor.id', '=', 'max_tenors.id_motor');
+    })
+      ->leftJoin('cicilan_motor', function ($join) {
+        $join->on('motor.id', '=', 'cicilan_motor.id_motor')
+          ->on('cicilan_motor.tenor', '=', 'max_tenors.max_tenor');
+      })->select('motor.*', 'cicilan_motor.dp', 'cicilan_motor.cicilan', 'cicilan_motor.tenor', 'cicilan_motor.id_leasing', 'cicilan_motor.id_lokasi');
+
+
+
+
+
+
+
+
+
+
     // Apply sorting based on the parameter
     if ($request->filled('sort')) {
       switch ($request->input('sort')) {
@@ -86,7 +128,6 @@ class MotorTerbaruController extends Controller
       'types' => Type::all(),
     ]);
   }
-
 
   /**
    * Show the form for creating a new resource.

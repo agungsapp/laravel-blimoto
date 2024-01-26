@@ -7,6 +7,7 @@ use App\Models\DetailUserModel;
 use App\Models\Kota;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller
@@ -130,19 +131,42 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validasi request
+        $validatedData = $request->validate([
+            'nomor_hp' => 'required',
+            'email' => 'required|email',
+            'jk' => 'required',
+            'alamat' => 'required',
+            'kota' => 'required',
+            // validasi lain jika diperlukan
+        ]);
+
         try {
-            // Mendefinisikan data yang akan diupdate atau dibuat
+            DB::beginTransaction();
+
+            $user = User::findOrFail($id);
+
+            // Update nomor HP jika berbeda
+            if ($user->nomor_hp != $request->nomor_hp) {
+                $user->nomor_hp = $request->nomor_hp;
+            }
+
+            // Handle upload gambar
             if ($request->hasFile('photo')) {
+                // Hapus gambar lama jika ada
+                if ($user->path_image && file_exists(public_path('assets/images/profile/') . $user->path_image)) {
+                    unlink(public_path('assets/images/profile/') . $user->path_image);
+                }
+
                 $gambar = $request->file('photo');
                 $randomString = Str::random(10);
                 $gambarName = $randomString . '_' . $gambar->getClientOriginalName();
                 $gambar->move(public_path('assets/images/profile/'), $gambarName);
 
-
-                $user = User::find($id);
                 $user->path_image = $gambarName;
-                $user->save();
             }
+
+            $user->save();
 
             $data = [
                 'id_kota' => $request->kota,
@@ -152,14 +176,18 @@ class ProfileController extends Controller
             ];
 
             // Menggunakan updateOrCreate untuk mengupdate atau membuat DetailUser
-            $detailUser = DetailUserModel::updateOrCreate(
+            DetailUserModel::updateOrCreate(
                 ['id_user' => $id], // Kunci pencarian
                 $data               // Data untuk update atau create
             );
 
+            DB::commit();
+
             return redirect()->to(route('profil.index'))->with('success', 'Profil berhasil diperbarui');
         } catch (\Throwable $th) {
-            throw $th;
+            DB::rollBack();
+            // Handle error, misalnya dengan redirect dan pesan error
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui profil');
         }
     }
 

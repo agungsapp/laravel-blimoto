@@ -25,15 +25,15 @@
 		</div>
 		<!-- breadcrumb End -->
 
-		<div class="card">
+		{{-- <div class="card">
 				<div class="card-body">
 						<p>hanya untuk debugging : </p>
 						@foreach ($data as $m)
 								<h4> nama : {{ $m->nama }}</h4>
-								<h4> dp : {{ $m->cicilanMotor }}</h4>
+								<h4> dp : {{ $m->cicilanMotor[0] }}</h4>
 						@endforeach
 				</div>
-		</div>
+		</div> --}}
 
 		<!-- list motor terbaru start -->
 		<section class="section-big-pt-space ratio_asos b-g-light">

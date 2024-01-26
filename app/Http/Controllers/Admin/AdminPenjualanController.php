@@ -27,7 +27,7 @@ class AdminPenjualanController extends Controller
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->orderBy('id', 'desc')
       ->get();
-      
+
     $kota = Kota::all();
     $hasil = Hasil::all();
     $motor = Motor::all();
@@ -274,13 +274,21 @@ class AdminPenjualanController extends Controller
       $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
 
       $transactionDetails = [
-        'order_id' => $uniqueOrderId,
+        'order_id' => $pembayaran->id_penjualan,
         'gross_amount' => $pembayaran->harga,
+      ];
+
+      $customerDetails = [
+        'first_name' => "Kurniawan Tri Anggoro",
+        'email' => 'awanda132003114@gmail.com',
+        // Tambahkan detail lain jika ada
       ];
 
       // Membuat transaksi ke Midtrans
       $transaction = [
         'transaction_details' => $transactionDetails,
+        'customer_details' => $customerDetails,
+        // Anda dapat menambahkan data customer, item_details, dll.
       ];
 
       $snapToken = \Midtrans\Snap::getSnapToken($transaction);
