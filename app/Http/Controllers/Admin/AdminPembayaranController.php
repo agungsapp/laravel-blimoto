@@ -104,16 +104,40 @@ class AdminPembayaranController extends Controller
 
 			// Mempersiapkan data transaksi
 
+
+
+
 			$transactionDetails = [
 				'order_id' => $pembayaran->id_penjualan,
 				'gross_amount' => $pembayaran->harga,
 			];
 
+			$customerDetails = [
+				'first_name' => "Kurniawan Tri Anggoro",
+				'email' => 'awanda132003114@gmail.com',
+				// Tambahkan detail lain jika ada
+			];
+
 			// Membuat transaksi ke Midtrans
 			$transaction = [
 				'transaction_details' => $transactionDetails,
+				'customer_details' => $customerDetails,
 				// Anda dapat menambahkan data customer, item_details, dll.
 			];
+
+
+
+
+			// $transactionDetails = [
+			// 	'email' => 'awanda132003114@gmail.com',
+			// 	'order_id' => $pembayaran->id_penjualan,
+			// 	'gross_amount' => $pembayaran->harga,
+			// ];
+
+			// Membuat transaksi ke Midtrans
+			// $transaction = [
+			// 	'transaction_details' => $transactionDetails,
+			// ];
 
 			$snapToken = \Midtrans\Snap::getSnapToken($transaction);
 			$snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
@@ -183,7 +207,7 @@ class AdminPembayaranController extends Controller
 		$data = json_decode($request->getContent(), true);
 
 		$orderIdParts = explode('-', $data['order_id']);
-    $idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
+		$idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
 
 		// Mencari pembayaran yang berkaitan
 		$pembayaran = Pembayaran::where('id_penjualan', $idPenjualan)->first();
