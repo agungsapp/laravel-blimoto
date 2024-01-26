@@ -279,8 +279,8 @@ class AdminPenjualanController extends Controller
       ];
 
       $customerDetails = [
-        'first_name' => "Kurniawan Tri Anggoro",
-        'email' => 'awanda132003114@gmail.com',
+        'first_name' => "Yusuf Tri Anggoro",
+        'email' => 'm.yusufsofiyawan@gmail.com',
         // Tambahkan detail lain jika ada
       ];
 
