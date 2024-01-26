@@ -74,6 +74,26 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{ route('admin.manager.index') }}"
+                            class="nav-link {{ \Route::is('admin.manager.*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Data Manager
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.area-manager.index') }}"
+                            class="nav-link {{ \Route::is('admin.area-manager.*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Data Area Manager
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('admin.company-profile.index') }}"
                             class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-user-md"></i>

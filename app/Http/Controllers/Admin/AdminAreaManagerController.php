@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Ceo;
-use App\Models\Sales;
+use App\Models\AreaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AdminCeoController extends Controller
+class AdminAreaManagerController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -18,8 +17,8 @@ class AdminCeoController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Ceo::orderBy('id', 'desc')->get();
-    return view('admin.ceo.index', [
+    $data = AreaManager::orderBy('id', 'desc')->get();
+    return view('admin.area-manager.index', [
       'ceo' => $data
     ]);
   }
@@ -58,7 +57,7 @@ class AdminCeoController extends Controller
     $usernameLower = strtolower($request->input('username'));
 
     // Check for uniqueness of 'username' and 'nip' using a single query (case-insensitive)
-    $existingSales = Ceo::whereRaw('LOWER(username) = ?', [$usernameLower])
+    $existingSales = AreaManager::whereRaw('LOWER(username) = ?', [$usernameLower])
       ->first();
 
     if ($existingSales) {
@@ -67,7 +66,7 @@ class AdminCeoController extends Controller
     }
 
     try {
-      $sales = Ceo::create([
+      $sales = AreaManager::create([
         'nama' => $request->input('nama'),
         'username' => $request->input('username'),
         'password' => Hash::make($request->input('password')),
@@ -125,7 +124,7 @@ class AdminCeoController extends Controller
       return redirect()->back();
     }
 
-    $sales = Ceo::findOrFail($id);
+    $sales = AreaManager::findOrFail($id);
 
     $sales->nama = $request->nama;
     $sales->username = $request->username;
@@ -146,7 +145,7 @@ class AdminCeoController extends Controller
   public function destroy($id)
   {
     try {
-      $type = Ceo::findOrFail($id);
+      $type = AreaManager::findOrFail($id);
       $type->delete();
       flash()->addSuccess("Berhasil menghapus data!");
       return redirect()->back();
