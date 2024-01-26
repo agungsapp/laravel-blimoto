@@ -274,14 +274,13 @@ class AdminPenjualanController extends Controller
       $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
 
       $transactionDetails = [
-        'order_id' => $pembayaran->id_penjualan,
+        'order_id' => $uniqueOrderId,
         'gross_amount' => $pembayaran->harga,
       ];
 
       $customerDetails = [
         'first_name' => "Yusuf Tri Anggoro",
         'email' => 'm.yusufsofiyawan@gmail.com',
-        // Tambahkan detail lain jika ada
       ];
 
       // Membuat transaksi ke Midtrans
