@@ -231,6 +231,7 @@
                 </div>
                 <form action="" method="post">
                     <input type="hidden" name="sales" id="id-sales">
+                    <input type="hidden" name="motor" id="motor">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group col-md-12">
@@ -244,6 +245,10 @@
                         <div class="form-group col-md-12">
                             <label for="dp">DP</label>
                             <input type="text" class="form-control" id="dp" readonly name="dp">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="email">Email Notifikasi</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email untuk dikirimkan invoice pembayaran">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -384,6 +389,7 @@
                     $('#id-sales').val(data.sales.id);
                     $('#nama-sales').val(data.sales.nama);
                     $('#nama-konsumen').val(data.nama_konsumen);
+                    $('#motor').val(data.motor.nama);
                     $('#dp').val(Number(data.dp) - Number(data.diskon_dp));
                 },
                 error: function(xhr, status, error) {
