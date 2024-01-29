@@ -25,6 +25,9 @@ class DashboardController extends Controller
             'acc' => Penjualan::where('id_hasil', 2)->count(),
             'riject' => Penjualan::where('id_hasil', 3)->count(),
             'do' => Penjualan::where('id_hasil', 4)->count(),
+            'belum_bayar' => Penjualan::where('status_pembayaran_dp', '!=', 'success')
+                ->where('status_pembayaran_dp', '!=', 'cod')
+                ->count(),
         ];
 
         // dd($data['motor']);
