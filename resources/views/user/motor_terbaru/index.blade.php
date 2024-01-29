@@ -113,9 +113,9 @@
 																				<div class="input-group mb-3">
 																						<select name="sort" class="form-select" aria-label="Sort by">
 																								<option value="">Pilih Urutan</option>
-																								<option value="lowest_price" {{ old('sort') == 'lowest_price' ? 'selected' : '' }}>Harga: Rendah
+																								<option value="lowest_dp" {{ old('sort') == 'lowest_dp' ? 'selected' : '' }}>Harga: Rendah
 																										ke tinggi</option>
-																								<option value="highest_price" {{ old('sort') == 'highest_price' ? 'selected' : '' }}>Harga:
+																								<option value="highest_dp" {{ old('sort') == 'highest_dp' ? 'selected' : '' }}>Harga:
 																										Tinggi ke rendah</option>
 																								<option value="newest" {{ old('sort') == 'newest' ? 'selected' : '' }}>Motor Terbaru</option>
 																						</select>
@@ -176,8 +176,21 @@
 																																<a tabindex="0">
 																																		<h3 class="fw-bold text-center">{{ $motor->nama }}</h3>
 																																</a>
-																																<h3 class="mt-3">Harga Spesial</h3>
-																																<h5>{{ Str::rupiah($motor->harga) }}</h5>
+																																{{-- <h3 class="mt-3">Harga Spesial</h3>
+																																<h5>{{ Str::rupiah($motor->harga) }}</h5> --}}
+																																<div class="d-flex justify-content-between align-items-baseline">
+																																		<h3 class="">Dp Normal</h3>
+																																		<h5>{{ Str::rupiah($motor->dp ?? '0') }}</h5>
+																																</div>
+																																<div class="d-flex justify-content-between align-items-baseline">
+																																		<h3 class="">Diskon</h3>
+																																		<h5>{{ Str::rupiah($motor->diskon_promo ?? '0') }}</h5>
+																																</div>
+																																<div class="d-flex justify-content-between align-items-baseline">
+																																		<h3 class="">Dp Bayar</h3>
+																																		<h5>{{ Str::rupiah($motor->dp - $motor->diskon_promo) }}</h5>
+																																</div>
+
 																																<form action="{{ route('detail-motor') }}" method="GET">
 																																		@csrf
 																																		<input class="id_lokasi" type="hidden" name="id_lokasi" value="">

@@ -322,6 +322,7 @@ class HomeController extends Controller
             $motor->diskon = $maxDiskon;
         }
 
+
         return $motors;
     }
 }
