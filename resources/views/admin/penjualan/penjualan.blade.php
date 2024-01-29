@@ -154,11 +154,11 @@
                 </div>
               </div>
               <div class="form-group col-md-4">
-                <label>Status Pembayaran</label>
+                <label>Status Pembayaran DP</label>
                 <select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih status pembayaran --</option>
                   <option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending</option>
-                  <option value="paid" {{ old('status_pembayaran') == 'paid' ? 'selected' : '' }}>Paid</option>
+                  <option value="success" {{ old('status_pembayaran') == 'success' ? 'selected' : '' }}>Success</option>
                   <option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
                 </select>
               </div>
@@ -427,7 +427,7 @@
                       <label for="status_pembayaran_dp">Status Pembayaran DP</label>
                       <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
                         <option value="pending">Pending</option>
-                        <option value="paid">Paid</option>
+                        <option value="success">Success</option>
                         <option value="cod">COD</option>
                       </select>
                     </div>
