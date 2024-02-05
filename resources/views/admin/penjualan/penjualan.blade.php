@@ -154,11 +154,11 @@
                 </div>
               </div>
               <div class="form-group col-md-4">
-                <label>Status Pembayaran</label>
+                <label>Status Pembayaran DP</label>
                 <select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2" style="width: 100%;">
                   <option value="" selected>-- Pilih status pembayaran --</option>
                   <option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending</option>
-                  <option value="paid" {{ old('status_pembayaran') == 'paid' ? 'selected' : '' }}>Paid</option>
+                  <option value="success" {{ old('status_pembayaran') == 'success' ? 'selected' : '' }}>Success</option>
                   <option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
                 </select>
               </div>
@@ -206,12 +206,16 @@
                 <th>ID</th>
                 <th>Nama Konsumen</th>
                 <th>Nama Sales</th>
+                <th class="no-visible">No HP</th>
+                <th class="no-visible">STNK</th>
                 <th>Metode Pembelian</th>
                 <th>Status Pembayaran DP</th>
                 <th class="no-visible">DP</th>
                 <th class="no-visible">Diskon DP</th>
+                <th class="no-visible">DP Bayar</th>
                 <th>Leasing</th>
                 <th>Motor</th>
+                <th>Warna</th>
                 <th>Hasil</th>
                 <th class="no-visible">Metode Pembayaran</th>
                 <th class="no-visible">Nomor PO</th>
@@ -231,12 +235,16 @@
                 <td>{{ $p->id }}</td>
                 <td>{{$p->nama_konsumen}}</td>
                 <td>{{$p->sales->nama}}</td>
+                <td>{{$p->no_hp}}</td>
+                <td>{{$p->bpkb}}</td>
                 <td>{{$p->metode_pembelian}}</td>
                 <td>{{$p->status_pembayaran_dp}}</td>
                 <td>{{$p->dp}}</td>
                 <td>{{$p->diskon_dp}}</td>
-                <td>{{$p->leasing->nama ?? 'cash'}}</td>
+                <td>{{$p->dp - $p->diskon_dp}}</td>
+                <td>{{$p->leasing->id ?? 'cash'}}</td>
                 <td>{{$p->motor->nama}}</td>
+                <td>{{$p->warna_motor}}</td>
                 <td>{{$p->hasil->hasil}}</td>
                 <td>{{$p->metode_pembayaran}}</td>
                 <td>{{$p->no_po}}</td>
@@ -419,7 +427,7 @@
                       <label for="status_pembayaran_dp">Status Pembayaran DP</label>
                       <select id="status_pembayaran_dp" name="status_pembayaran_dp" class="form-control select2" style="width: 100%;">
                         <option value="pending">Pending</option>
-                        <option value="paid">Paid</option>
+                        <option value="success">Success</option>
                         <option value="cod">COD</option>
                       </select>
                     </div>
@@ -1046,7 +1054,7 @@
     function(settings, data, dataIndex) {
       var minDate = $('#min').val();
       var maxDate = $('#max').val();
-      var date = moment(data[17]);
+      var date = moment(data[21]);
       if (
         (minDate === '' || date.isSameOrAfter(minDate)) &&
         (maxDate === '' || date.isSameOrBefore(maxDate))

@@ -27,7 +27,7 @@ class AdminPenjualanController extends Controller
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->orderBy('id', 'desc')
       ->get();
-      
+
     $kota = Kota::all();
     $hasil = Hasil::all();
     $motor = Motor::all();
@@ -231,6 +231,7 @@ class AdminPenjualanController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
+      'email' => 'required',
       'sales' => 'required',
       'dp' => 'required',
     ]);
@@ -265,7 +266,7 @@ class AdminPenjualanController extends Controller
 
       // Konfigurasi Midtrans
       \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-      \Midtrans\Config::$isProduction = false;
+      \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
       \Midtrans\Config::$isSanitized = true;
       \Midtrans\Config::$is3ds = false;
 
@@ -278,9 +279,25 @@ class AdminPenjualanController extends Controller
         'gross_amount' => $pembayaran->harga,
       ];
 
+      $customerDetails = [
+        'first_name' => $namaKonsumen,
+        'email' => $request->input('email'),
+      ];
+
+      $productDetails = [
+        [
+          'id' => $idPenjualan,
+          'quantity' => 1,
+          'price' => $pembayaran->harga,
+          'name' => 'Pembayaran DP Motor ' . $request->input('motor'),
+        ],
+      ];
+
       // Membuat transaksi ke Midtrans
       $transaction = [
         'transaction_details' => $transactionDetails,
+        'item_details' => $productDetails,
+        'customer_details' => $customerDetails,
       ];
 
       $snapToken = \Midtrans\Snap::getSnapToken($transaction);
@@ -298,7 +315,7 @@ class AdminPenjualanController extends Controller
 
   public function getPaymentData($id)
   {
-    $penjualan = Penjualan::with('sales')->findOrFail($id);
+    $penjualan = Penjualan::with('sales', 'motor')->findOrFail($id);
     // Tambahkan logika untuk mengambil data tambahan jika diperlukan
     return response()->json($penjualan);
   }

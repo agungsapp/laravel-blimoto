@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CicilanMotor;
+use App\Models\DiskonMotor;
 use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\MotorKota;
@@ -20,41 +22,72 @@ class MotorTerbaruController extends Controller
    */
   public function index(Request $request)
   {
-    $request->flash();
-    // Mengatur query untuk selalu memilih motor dengan id_best_motor = 7
+    $kotaId = Session::get('lokasiUser');
+    if (empty($kotaId)) {
+      $kotaId = 1;
+    }
+
+    // Subquery untuk mendapatkan DP terendah per motor
+    $lowestDpSubquery = CicilanMotor::selectRaw('MIN(dp) as min_dp, id_motor')
+      ->groupBy('id_motor');
+
+    // Subquery untuk mendapatkan diskon promo maksimal per motor
+    $diskonPromoSubquery = DiskonMotor::selectRaw('MAX(diskon_promo) as max_diskon_promo, id_motor')
+      ->groupBy('id_motor');
+
     $query = Motor::with('merk', 'type', 'detailMotor')
       ->whereHas('mtrBestMotor', function ($q) {
         $q->where('id_best_motor', 7);
-      });
+      })
+      ->joinSub($lowestDpSubquery, 'lowest_dp', function ($join) {
+        $join->on('motor.id', '=', 'lowest_dp.id_motor');
+      })
+      ->leftJoinSub($diskonPromoSubquery, 'diskon_promos', function ($join) {
+        $join->on('motor.id', '=', 'diskon_promos.id_motor');
+      })
+      ->leftJoin('cicilan_motor', function ($join) {
+        $join->on('motor.id', '=', 'cicilan_motor.id_motor')
+          ->on('cicilan_motor.dp', '=', 'lowest_dp.min_dp');
+      })
+      ->select(
+        'motor.*',
+        'cicilan_motor.dp',
+        'cicilan_motor.cicilan',
+        'cicilan_motor.tenor',
+        'cicilan_motor.id_leasing',
+        'cicilan_motor.id_lokasi',
+        'diskon_promos.max_diskon_promo as diskon_promo' // Menambahkan diskon promo ke select
+      )
+      ->groupBy('motor.id');
 
-    // Filter berdasarkan lokasi dari session jika ada
-    if (Session::get('lokasiUser')) {
-      $kota = Session::get('lokasiUser');
-      $query->whereHas('motorKota', function ($q) use ($kota) {
-        $q->where('id_kota', $kota);
-      });
-    }
-
-    // Apply brand filter if specified
+    // ... (filter dan sorting) ...
+    // Filter berdasarkan merk
     if ($request->filled('id_merk')) {
-      $brandIds = $request->input('id_merk');
-      $query->whereHas('merk', function ($query) use ($brandIds) {
-        $query->whereIn('id', $brandIds);
+      $merkMotor = $request->input('id_merk');
+      $query->whereHas('merk', function ($q) use ($merkMotor) {
+        $q->whereIn('id', $merkMotor);
       });
     }
 
-    // Apply type filter if specified
+
+    // Filter berdasarkan jenis motor
     if ($request->filled('id_type')) {
-      $typeIds = $request->input('id_type');
-      $query->whereHas('type', function ($query) use ($typeIds) {
-        $query->whereIn('id', $typeIds);
+      $jenisMotor = $request->input('id_type');
+      $query->whereHas('type', function ($q) use ($jenisMotor) {
+        $q->whereIn('id', $jenisMotor);
       });
     }
 
-    // Apply price range filter if specified
+
+    // Filter berdasarkan range DP
     if ($request->filled('min_price') && $request->filled('max_price')) {
-      $query->whereBetween('harga', [$request->input('min_price'), $request->input('max_price')]);
+      $minDp = $request->input('min_price');
+      $maxDp = $request->input('max_price');
+      $query->whereHas('cicilanMotor', function ($q) use ($minDp, $maxDp) {
+        $q->whereBetween('dp', [$minDp, $maxDp]);
+      });
     }
+
 
     // Apply sorting based on the parameter
     if ($request->filled('sort')) {
@@ -62,11 +95,11 @@ class MotorTerbaruController extends Controller
         case 'newest':
           $query->orderBy('updated_at', 'desc');
           break;
-        case 'highest_price':
-          $query->orderBy('harga', 'desc');
+        case 'highest_dp':
+          $query->orderBy('cicilan_motor.dp', 'desc');
           break;
-        case 'lowest_price':
-          $query->orderBy('harga', 'asc');
+        case 'lowest_dp':
+          $query->orderBy('cicilan_motor.dp', 'asc');
           break;
       }
     } else {
@@ -74,11 +107,9 @@ class MotorTerbaruController extends Controller
       $query->orderBy('updated_at', 'desc');
     }
 
-    // Execute the query and get paginated results
-    $motorData = $query->paginate(8);
 
-    // Append current request's query parameters to the pagination links
-    $motorData->appends($request->all());
+
+    $motorData = $query->paginate(8);
 
     return view('user.motor_terbaru.index', [
       'data' => $motorData,
@@ -86,6 +117,9 @@ class MotorTerbaruController extends Controller
       'types' => Type::all(),
     ]);
   }
+
+
+
 
 
   /**
@@ -300,6 +334,89 @@ class MotorTerbaruController extends Controller
     $motorData->appends($request->all());
 
     // Return the view with data and additional filter data for form selections
+    return view('user.motor_terbaru.index', [
+      'data' => $motorData,
+      'merks' => Merk::all(),
+      'types' => Type::all(),
+    ]);
+  }
+
+  public function getlengkap(Request $request)
+  {
+    $request->flash();
+    $kotaId = Session::get('lokasiUser', 1);
+
+    // Inisialisasi query utama
+    $query = Motor::with('merk', 'type', 'detailMotor')
+      ->whereHas('mtrBestMotor', function ($q) {
+        $q->where('id_best_motor', 7); // Menggunakan ID 7 secara tetap
+      })
+      ->leftJoin('cicilan_motor', 'motor.id', '=', 'cicilan_motor.id_motor')
+      ->leftJoin('detail_motor', 'motor.id', '=', 'detail_motor.id_motor')
+      ->leftJoin('diskon_motor', 'motor.id', '=', 'diskon_motor.id_motor')
+      ->select(
+        'motor.*',
+        'cicilan_motor.dp',
+        'cicilan_motor.cicilan',
+        'cicilan_motor.tenor',
+        'cicilan_motor.id_leasing',
+        'cicilan_motor.id_lokasi',
+        'detail_motor.gambar',
+        'diskon_motor.diskon',
+        'diskon_motor.diskon_promo',
+        'diskon_motor.potongan_tenor'
+      );
+
+    // Filter berdasarkan lokasi dari session jika ada
+    if (Session::get('lokasiUser')) {
+      $query->whereHas('motorKota', function ($q) use ($kotaId) {
+        $q->where('id_kota', $kotaId);
+      });
+    }
+
+    // Apply brand filter if specified
+    if ($request->filled('id_merk')) {
+      $brandIds = $request->input('id_merk');
+      $query->whereHas('merk', function ($query) use ($brandIds) {
+        $query->whereIn('id', $brandIds);
+      });
+    }
+
+    // Apply type filter if specified
+    if ($request->filled('id_type')) {
+      $typeIds = $request->input('id_type');
+      $query->whereHas('type', function ($query) use ($typeIds) {
+        $query->whereIn('id', $typeIds);
+      });
+    }
+
+    // Apply price range filter if specified
+    if ($request->filled('min_price') && $request->filled('max_price')) {
+      $query->whereBetween('harga', [$request->input('min_price'), $request->input('max_price')]);
+    }
+
+    // Apply sorting based on the parameter
+    if ($request->filled('sort')) {
+      switch ($request->input('sort')) {
+        case 'newest':
+          $query->orderBy('updated_at', 'desc');
+          break;
+        case 'highest_price':
+          $query->orderBy('harga', 'desc');
+          break;
+        case 'lowest_price':
+          $query->orderBy('harga', 'asc');
+          break;
+      }
+    } else {
+      // Default sorting by newest if no sort parameter is provided
+      $query->orderBy('updated_at', 'desc');
+    }
+
+    // Execute the query and get paginated results
+    $motorData = $query->paginate(8);
+
+    // Mengembalikan data ke view dengan informasi tambahan
     return view('user.motor_terbaru.index', [
       'data' => $motorData,
       'merks' => Merk::all(),

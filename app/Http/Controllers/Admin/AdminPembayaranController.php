@@ -59,59 +59,67 @@ class AdminPembayaranController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request)
+	public function store(Request $request, $id_penjualan)
 	{
 		$validator = Validator::make($request->all(), [
 			'konsumen' => 'required',
+			'email' => 'required',
 			'sales' => 'required',
 			'dp' => 'required',
-			'id_penjualan' => 'required',
 		]);
 
+		$idSales = intval($request->input('sales'));
+		$idPenjualan = intval($id_penjualan);
+		$namaKonsumen = $request->input('konsumen');
+
 		if ($validator->fails()) {
-			flash()->addError("Inputkan semua data dengan benar!");
-			return redirect()->back()->withInput();
+			return response()->json(['pesan' => 'Inputkan semua data dengan benar!'], 400);
 		}
 
 		// dd($request->all());
 		DB::beginTransaction();
 		try {
-			$penjualan = Penjualan::where('id', $request->id_penjualan)
-				->where(function ($query) use ($request) {
-					$query->whereRaw('LOWER(nama_konsumen) = ?', [strtolower($request->konsumen)]);
+			$penjualan = Penjualan::where('id', $idPenjualan)
+				->where(function ($query) use ($namaKonsumen) {
+					$query->whereRaw('LOWER(nama_konsumen) = ?', [strtolower($namaKonsumen)]);
 				})
-				->where('id_sales', $request->sales)
+				->where('id_sales', $idSales)
 				->first();
 
-
 			if (!$penjualan) {
-				flash()->addError("Data penjualan tidak ditemukan!");
-				return redirect()->back()->withInput();
+				return response()->json(['pesan' => 'data penjualan tidak ditemukan'], 404);
 			}
 
 			// Menggunakan metode create untuk membuat pembayaran baru
 			$pembayaran = Pembayaran::create([
-				'id_penjualan' => $request->id_penjualan,
+				'id_penjualan' => $idPenjualan,
 				'harga' => $request->dp
 			]);
 
 			// Konfigurasi Midtrans
 			\Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-			\Midtrans\Config::$isProduction = false;
+			\Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
 			\Midtrans\Config::$isSanitized = true;
 			\Midtrans\Config::$is3ds = false;
 
 
-			// Mempersiapkan data transaksi
+			// Create a unique order_id by appending a timestamp or a unique string to id_penjualan
+			$uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
 
 			$transactionDetails = [
-				'order_id' => $pembayaran->id_penjualan,
+				'order_id' => $uniqueOrderId,
 				'gross_amount' => $pembayaran->harga,
+			];
+
+			$customerDetails = [
+				'first_name' => $namaKonsumen,
+				'email' => $request->input('email'),
 			];
 
 			// Membuat transaksi ke Midtrans
 			$transaction = [
 				'transaction_details' => $transactionDetails,
+				'customer_details' => $customerDetails,
 				// Anda dapat menambahkan data customer, item_details, dll.
 			];
 
@@ -119,12 +127,12 @@ class AdminPembayaranController extends Controller
 			$snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
 			DB::commit();
 
-			return redirect()->away($snapUrl);
+			// return redirect()->away($snapUrl);
+			return response()->json(['redirect_url' => $snapUrl]);
+			// return response()->json(['snap_token' => $snapToken]);
 		} catch (\Exception $e) {
 			DB::rollback();
-			throw $e;
-			flash()->addError("Data penjualan tidak ditemukan!");
-			return redirect()->back()->withInput();
+			return response()->json(['pesan' => 'Error coba beberapa saat lagi', 500]);
 		}
 	}
 
@@ -183,7 +191,7 @@ class AdminPembayaranController extends Controller
 		$data = json_decode($request->getContent(), true);
 
 		$orderIdParts = explode('-', $data['order_id']);
-    $idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
+		$idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
 
 		// Mencari pembayaran yang berkaitan
 		$pembayaran = Pembayaran::where('id_penjualan', $idPenjualan)->first();

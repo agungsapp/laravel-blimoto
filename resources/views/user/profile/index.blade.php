@@ -36,7 +36,8 @@
 												<img src="{{ asset('assets/images/profile/' . auth()->user()->path_image) }}" alt="default.png"
 														class="img-fluid rounded-circle w-50" srcset="">
 												<div>
-														<h2 class="text-dark fw-bold">{{ auth()->user()->nama }}</h2>
+														<h2 class="text-dark fw-bold mb-3 text-center">{{ auth()->user()->nama }}</h2>
+														<h4 class="text-secondary fw-bold text-center">+{{ auth()->user()->nomor_hp }}</h4>
 														<div class="d-flex justify-content-start align-items-baseline mt-2 gap-2">
 																<i class="fa fa-map-marker text-basic fs-3" aria-hidden="true"></i>
 																<p class="fs-4 text-dark">
@@ -116,6 +117,12 @@
 														<label for="email" class="form-label">Email</label>
 														<input type="email" class="form-control" id="email" name="email"
 																value="{{ auth()->user()->detailUser->email ?? '' }}" placeholder="blimoto@gmail.com" required>
+												</div>
+												{{-- nomr hp --}}
+												<div class="mb-3">
+														<label for="nomor_hp" class="form-label">Nomor Hp</label>
+														<input type="number" class="form-control" id="nomor_hp" name="nomor_hp"
+																value="{{ auth()->user()->nomor_hp }}" required>
 												</div>
 
 												<div class="mb-3">
