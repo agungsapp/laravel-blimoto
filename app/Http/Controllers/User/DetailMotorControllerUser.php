@@ -485,6 +485,7 @@ class DetailMotorControllerUser extends Controller
     ];
 
     // dd($data['rekomendasi']);
+    // dd($data);
 
 
 

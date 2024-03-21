@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
+use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
@@ -169,6 +170,10 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
         });
 
+        Route::prefix('laporan')->name('laporan.')->group(function () {
+            Route::resource('/penjualan-wilayah', AdminLaporanPenjualanWilayahController::class);
+        });
+
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
             Route::resource('motor', MotorController::class);
@@ -202,6 +207,10 @@ Route::prefix('app')->name('admin.')->group(function () {
                 Route::resource('hasil', AdminHasilController::class);
                 Route::resource('spk', AdminSPKController::class);
             });
+
+            // import penjualan
+            Route::post('penjualan/csv/import', [AdminPenjualanController::class, 'importCsv'])->name('penjualan.csv.import');
+
 
             Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
             Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
