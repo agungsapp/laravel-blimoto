@@ -88,11 +88,14 @@
 								<div class="owl-carousel-leasing d-flex align-items-center row mt-3 overflow-hidden">
 
 										@foreach ($data['cicilan_motor'] as $a)
-												<div class="card item" style=" margin-left: 10px;">
+												<div class="item card overflow-hidden" style="margin-left: 10px;">
+														<div class="{{ $a['best'] == true ? 'bg-sorot' : '' }} fw-bold py-2">
+																<p class="text-center text-white">Rekomendasi Untuk Anda</p>
+														</div>
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
-														<img style="min-height: 130px;" src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
-																class="card-img-top" alt="{{ $a['gambar'] }}">
-														<ul class="list-group list-group-flush">
+														<img style="min-height: 130px; " src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
+																class="card-img-top {{ $a['best'] == true ? 'sorot_x' : '' }}" alt="{{ $a['gambar'] }}">
+														<ul class="list-group list-group-flush {{ $a['best'] == true ? 'sorot_x' : '' }}">
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($a['dp']) }}</p>
@@ -118,7 +121,8 @@
 																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($a['total_bayar']) }}</p>
 																</li>
 														</ul>
-														<div class="card-body d-flex justify-content-center">
+														<div
+																class="card-body {{ $a['best'] == true ? 'sorot_x' : '' }} d-flex justify-content-center {{ $a['best'] == true ? 'sorotan_bot' : '' }} overflow-hidden">
 																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $data['motor']['merk'] }}%0AKategori%20:%20{{ $data['motor']['type'] }}%0AType%20:%20{{ $data['motor']['nama'] }}%0Aleasing%20:%20{{ $a['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $a['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($a['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>
@@ -219,10 +223,13 @@
 
 										@foreach ($r['cicilan_motor'] as $rc)
 												<div class="card item" style=" margin-left: 10px; ">
+														<div class="{{ $rc['best'] == true ? 'bg-sorot' : '' }} fw-bold py-2">
+																<p class="text-center text-white">Rekomendasi Untuk Anda</p>
+														</div>
 														{{-- background: url('{{ asset('assets') }}/images/custom/leasing/bg-leasing.webp'); --}}
 														<img style="min-height: 130px;" src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}"
-																class="card-img-top" alt="{{ $rc['gambar'] }}">
-														<ul class="list-group list-group-flush">
+																class="card-img-top {{ $rc['best'] == true ? 'sorot_x' : '' }}" alt="{{ $rc['gambar'] }}">
+														<ul class="list-group list-group-flush {{ $rc['best'] == true ? 'sorot_x' : '' }}">
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($rc['dp']) }}</p>
@@ -256,7 +263,8 @@
 																		<p style="font-weight: bold; color: red;">{{ Str::rupiah($rc['total_bayar']) }}</p>
 																</li>
 														</ul>
-														<div class="card-body d-flex justify-content-center">
+														<div
+																class="card-body {{ $rc['best'] == true ? 'sorotan_bot sorot_x' : '' }} d-flex justify-content-center">
 																<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $rm['merk'] }}%0AKategori%20:%20{{ $rm['type'] }}%0AType%20:%20{{ $rm['nama'] }}%0Aleasing%20:%20{{ $rc['nama_leasing'] }}%20,%20%0ATenor%20:%20{{ $rc['tenor'] }}%20bulan,%0ADP%20pembayaran%20:%20{{ Str::rupiah($rc['dp']) }}."
 																		target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
 																				class="ms-2">Ajukan Sekarang</span></a>

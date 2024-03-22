@@ -44,6 +44,7 @@ class AdminPenjualanController extends Controller
     ]);
   }
 
+
   /**
    * Show the form for creating a new resource.
    *
@@ -88,6 +89,8 @@ class AdminPenjualanController extends Controller
     $nomorPo = $request->nomor_po ?? null;
 
     try {
+
+
       $penjualan = Penjualan::create([
         'nama_konsumen' => $request->input('konsumen'),
         'jumlah' => $request->input('jumlah'),
@@ -340,5 +343,49 @@ class AdminPenjualanController extends Controller
         'message' => $e->getMessage()
       ], 404);
     }
+  }
+
+  // tambahan meethod import csv
+  public function importCsv(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'file' => 'required|file',
+    ]);
+
+    if ($validator->fails()) {
+      flash()->addError("Inputkan semua data dengan benar!");
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
+      fgetcsv($handle);
+
+      while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+        DB::table('penjualan')->insert([
+          'nama_konsumen' => $data[0],
+          'jumlah' => $data[1],
+          'catatan' => $data[2],
+          'tenor' => $data[3],
+          'metode_pembelian' => $data[4],
+          'metode_pembayaran' => $data[5],
+          'warna_motor' => $data[6],
+          'no_hp' => $data[7],
+          'bpkb' => $data[8],
+          'dp' => $data[9],
+          'diskon_dp' => $data[10],
+          'status_pembayaran_dp' => $data[11],
+          'tanggal_dibuat' => $data[12],
+          'no_po' => $data[13],
+          'id_sales' => $data[14],
+          'id_kota' => $data[15],
+          'id_hasil' => $data[16],
+          'id_motor' => $data[17],
+          'id_lising' => $data[18],
+        ]);
+      }
+      fclose($handle);
+    }
+    flash()->addSuccess("Data csv berhasil diimport");
+    return redirect()->back();
   }
 }

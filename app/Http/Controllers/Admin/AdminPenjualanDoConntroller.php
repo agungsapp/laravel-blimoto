@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
+use App\Models\Hasil;
+use App\Models\Kota;
+use App\Models\LeasingMotor;
 use App\Models\Motor;
 use App\Models\Penjualan;
+use App\Models\Sales;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class AdminPenjualanDoConntroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,22 +20,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = [
-            'motor' => Motor::all()->count(),
-            'blog' => Blog::all()->count(),
-            'proses' => Penjualan::where('id_hasil', 1)->count(),
-            'acc' => Penjualan::where('id_hasil', 2)->count(),
-            'riject' => Penjualan::where('id_hasil', 3)->count(),
-            'do' => Penjualan::where('id_hasil', 4)->count(),
-            'poling' => Penjualan::all()->count(),
-            'belum_bayar' => Penjualan::where('status_pembayaran_dp', '!=', 'success')
-                ->where('status_pembayaran_dp', '!=', 'cod')
-                ->count(),
-        ];
+        $hasil = Hasil::where('hasil', 'do')->first();
+        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+            ->where('id_hasil', $hasil->id)
+            ->orderBy('id', 'desc')
+            ->get();
 
-        // dd($data['motor']);
+        $kota = Kota::all();
+        $hasil = Hasil::all();
+        $motor = Motor::all();
+        $leasing = LeasingMotor::all();
+        $sales = Sales::all();
 
-        return view('admin.dashboard.index', $data);
+        return view('admin.penjualan.hasil.index', [
+            'penjualan' => $data,
+            'kota' => $kota,
+            'hasil' => $hasil,
+            'motor' => $motor,
+            'leasing' => $leasing,
+            'sales' => $sales,
+        ]);
     }
 
     /**

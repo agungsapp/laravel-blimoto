@@ -321,6 +321,16 @@ class CicilanMotorController extends Controller
     // $dpRange = $dp * 0.2;
     $cicilanRange = $averageAngsuran * 0.2;
 
+
+    $lowestAngsuran = min(array_column($data['cicilan_motor'], 'angsuran'));
+    foreach ($data['cicilan_motor'] as $key => &$cicilan) {
+      $cicilan['best'] = $cicilan['angsuran'] == $lowestAngsuran;
+    }
+
+    // apakah di sini ? 
+
+
+
     // $recommendationCicilan = CicilanMotor
     $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'id_leasing', 'id_motor')
       ->with([
@@ -403,6 +413,17 @@ class CicilanMotorController extends Controller
         $rekomendasiMotor[$motorId] = $item;
       }
     }
+
+    foreach ($rekomendasiMotor as &$rekomendasi) {
+      // Tentukan cicilan dengan angsuran terendah untuk setiap motor rekomendasi
+      $lowestAngsuranRekomendasi = min(array_column($rekomendasi['cicilan_motor'], 'angsuran'));
+      foreach ($rekomendasi['cicilan_motor'] as &$cicilan) {
+        $cicilan['best'] = $cicilan['angsuran'] == $lowestAngsuranRekomendasi;
+      }
+    }
+    unset($cicilan); // memutus referensi terakhir
+    unset($rekomendasi); // memutus referensi terakhir
+
 
     // Convert the associative array to a sequential array
     $rekomendasiMotor = array_values($rekomendasiMotor);

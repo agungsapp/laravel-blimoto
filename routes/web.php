@@ -21,10 +21,16 @@ use App\Http\Controllers\Admin\AdminDealerController;
 use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
+use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
+use App\Http\Controllers\Admin\AdminPenjualanAccConntroller;
 use App\Http\Controllers\Admin\AdminPenjualanController;
+use App\Http\Controllers\Admin\AdminPenjualanDoConntroller;
+use App\Http\Controllers\Admin\AdminPenjualanHasilController;
+use App\Http\Controllers\Admin\AdminPenjualanProsesConntroller;
+use App\Http\Controllers\Admin\AdminPenjualanRijectConntroller;
 use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSalesSettingController;
@@ -163,10 +169,19 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
+            // Route::get('data/hasil/{hasil}', [AdminPenjualanHasilController::class, 'index'])->name('data.hasil');
+            Route::resource('proses', AdminPenjualanProsesConntroller::class);
+            Route::resource('acc', AdminPenjualanAccConntroller::class);
+            Route::resource('riject', AdminPenjualanRijectConntroller::class);
+            Route::resource('do', AdminPenjualanDoConntroller::class);
             Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
             Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
+        });
+
+        Route::prefix('laporan')->name('laporan.')->group(function () {
+            Route::resource('/penjualan-wilayah', AdminLaporanPenjualanWilayahController::class);
         });
 
 
@@ -202,6 +217,10 @@ Route::prefix('app')->name('admin.')->group(function () {
                 Route::resource('hasil', AdminHasilController::class);
                 Route::resource('spk', AdminSPKController::class);
             });
+
+            // import penjualan
+            Route::post('penjualan/csv/import', [AdminPenjualanController::class, 'importCsv'])->name('penjualan.csv.import');
+
 
             Route::get('cetak-pdf', [AdminSPKController::class, 'cetakPDF'])->name('cetakPDF');
             Route::post('cicilan-motor/csv/import', [AdminCicilanMotorController::class, 'importCsv'])->name('cicilan.csv.import');
