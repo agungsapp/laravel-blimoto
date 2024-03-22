@@ -25,7 +25,12 @@ use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
+use App\Http\Controllers\Admin\AdminPenjualanAccConntroller;
 use App\Http\Controllers\Admin\AdminPenjualanController;
+use App\Http\Controllers\Admin\AdminPenjualanDoConntroller;
+use App\Http\Controllers\Admin\AdminPenjualanHasilController;
+use App\Http\Controllers\Admin\AdminPenjualanProsesConntroller;
+use App\Http\Controllers\Admin\AdminPenjualanRijectConntroller;
 use App\Http\Controllers\Admin\AdminPromoController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\AdminSalesSettingController;
@@ -164,6 +169,11 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('data', AdminPenjualanController::class);
+            // Route::get('data/hasil/{hasil}', [AdminPenjualanHasilController::class, 'index'])->name('data.hasil');
+            Route::resource('proses', AdminPenjualanProsesConntroller::class);
+            Route::resource('acc', AdminPenjualanAccConntroller::class);
+            Route::resource('riject', AdminPenjualanRijectConntroller::class);
+            Route::resource('do', AdminPenjualanDoConntroller::class);
             Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
             Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');

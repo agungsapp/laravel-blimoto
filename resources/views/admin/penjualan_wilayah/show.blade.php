@@ -13,15 +13,13 @@
 												<table id="data-kota-motor" class="table-bordered table-striped table">
 														<thead>
 																<tr role="row">
-																		<th>NO</th>
+																		<th>No</th>
 																		<th>Nama Motor</th>
 																		<th width="170px">Tanggal</th>
 																</tr>
 														</thead>
 														<tbody>
-
 																{{-- @dd($penjualanMotor) --}}
-
 																@foreach ($penjualanMotor as $penjualan)
 																		<tr>
 																				<td>{{ $loop->iteration }}</td>

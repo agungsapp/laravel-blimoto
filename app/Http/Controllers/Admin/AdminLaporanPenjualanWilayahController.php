@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use App\Models\Penjualan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminLaporanPenjualanWilayahController extends Controller
@@ -14,61 +15,46 @@ class AdminLaporanPenjualanWilayahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $idWilayah = $request->wilayah ?? 1; // Default ke 1 jika tidak ada input
+        $tanggalMulai = $request->tanggal_mulai ? Carbon::parse($request->tanggal_mulai) : null;
+        $tanggalSelesai = $request->tanggal_selesai ? Carbon::parse($request->tanggal_selesai) : null;
 
-        $laporanPenjualanPerKota = Kota::with(['penjualan' => function ($query) {
-            $query->select('id_kota', 'tanggal_dibuat', 'id_motor', 'status_pembayaran_dp')
-                ->whereIn('status_pembayaran_dp', ['success', 'cod'])
-                ->with(['motor']);
-        }])->get();
-        $dataLaporan = $laporanPenjualanPerKota->map(function ($kota) {
-            $jumlahPenjualan = $kota->penjualan->count();
-            $detailPenjualan = $kota->penjualan->map(function ($penjualan) {
-                return [
-                    'tanggal_dibuat' => $penjualan->tanggal_dibuat,
-                    'unit' => $penjualan->motor ? $penjualan->motor->nama : 'Tidak tersedia',
-                ];
-            });
-            return [
-                'id_kota' => $kota->id,
-                'nama_kota' => $kota->nama,
-                'jumlah_penjualan' => $jumlahPenjualan,
-                'detail_penjualan' => $detailPenjualan,
-            ];
-        });
+        $query = Penjualan::query();
 
+        // Filter berdasarkan wilayah jika ada
+        if ($idWilayah) {
+            $query->where('id_kota', $idWilayah);
+        }
 
-        // ========================== NO FILTER =================================================
-        // $laporanPenjualanPerKota = Kota::with(['penjualan' => function ($query) {
-        //     $query->select('id_kota', 'tanggal_dibuat', 'id_motor')
-        //         ->with('motor');
-        // }])->get();
-        // $dataLaporan = $laporanPenjualanPerKota->map(function ($kota) {
-        //     $jumlahPenjualan = $kota->penjualan->count();
-        //     $detailPenjualan = $kota->penjualan->map(function ($penjualan) {
-        //         return [
-        //             'tanggal_dibuat' => $penjualan->tanggal_dibuat,
-        //             'unit' => $penjualan->motor->nama,
-        //         ];
-        //     });
+        // Filter berdasarkan range tanggal jika ada
+        if ($tanggalMulai && $tanggalSelesai) {
+            $query->whereBetween('tanggal_dibuat', [$tanggalMulai, $tanggalSelesai]);
+        } else {
+            // Jika hanya ada salah satu dari tanggal mulai atau tanggal selesai
+            if ($tanggalMulai) {
+                $query->where('tanggal_dibuat', '>=', $tanggalMulai);
+            }
+            if ($tanggalSelesai) {
+                $query->where('tanggal_dibuat', '<=', $tanggalSelesai);
+            }
+        }
 
-        //     return [
-        //         'nama_kota' => $kota->nama,
-        //         'jumlah_penjualan' => $jumlahPenjualan,
-        //         'detail_penjualan' => $detailPenjualan,
-        //     ];
-        // });
+        $query->whereIn('status_pembayaran_dp', ['success', 'cod'])
+            ->with(['motor', 'kota']);
+
+        $penjualan = $query->get();
 
         $data = [
-            'laporans' => $dataLaporan
+            'laporans' => $penjualan, // Langsung kirim hasil query ke view
+            'kotas' => Kota::all()
         ];
 
-        // dd($dataLaporan);
+        // dd($data);
 
         return view('admin.penjualan_wilayah.index', $data);
     }
-
     /**
      * Show the form for creating a new resource.
      *
