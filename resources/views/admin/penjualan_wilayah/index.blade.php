@@ -60,7 +60,10 @@
 										</div>
 										<!-- /.card-header -->
 										<div class="card-body">
-
+												<div class="d-flex justify-content-end mb-3">
+														<a href="" class="btn btn-warning"><i class="right fas fa-print"></i><span class="ml-2">Cetak
+																		Laporan</span></a>
+												</div>
 												<table id="data-kota-motor" class="table-bordered table-striped table">
 														<thead>
 																<tr role="row">

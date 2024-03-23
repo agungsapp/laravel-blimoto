@@ -17,11 +17,17 @@ class Sales extends Model implements AuthenticatableContract
     'nip',
     'username',
     'password',
-    'status_online'
+    'status_online',
+    'id_dealer'
   ];
 
   public function penjualan()
   {
     return $this->hasMany(Penjualan::class, 'id_motor');
+  }
+
+  public function dealer()
+  {
+    return $this->belongsTo(Dealer::class, 'id_dealer');
   }
 }
