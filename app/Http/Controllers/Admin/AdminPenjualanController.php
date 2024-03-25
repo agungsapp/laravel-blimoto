@@ -357,35 +357,58 @@ class AdminPenjualanController extends Controller
       return redirect()->back()->withErrors($validator)->withInput();
     }
 
+    $skippedRows = []; // Array untuk menyimpan informasi baris yang dilewati
+    $rowNumber = 1; // Untuk menghitung nomor baris, dimulai dari 1 setelah header
+
     if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
-      fgetcsv($handle);
+      fgetcsv($handle); // Melewati header
 
       while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-        DB::table('penjualan')->insert([
-          'nama_konsumen' => $data[0],
-          'jumlah' => $data[1],
-          'catatan' => $data[2],
-          'tenor' => $data[3],
-          'metode_pembelian' => $data[4],
-          'metode_pembayaran' => $data[5],
-          'warna_motor' => $data[6],
-          'no_hp' => $data[7],
-          'bpkb' => $data[8],
-          'dp' => $data[9],
-          'diskon_dp' => $data[10],
-          'status_pembayaran_dp' => $data[11],
-          'tanggal_dibuat' => $data[12],
-          'no_po' => $data[13],
-          'id_sales' => $data[14],
-          'id_kota' => $data[15],
-          'id_hasil' => $data[16],
-          'id_motor' => $data[17],
-          'id_lising' => $data[18],
-        ]);
+        $rowNumber++; // Increment row number for each row
+
+        // Cek duplikasi nik di database
+        $existingNik = DB::table('penjualan')->where('nik', $data[19])->exists();
+
+        if (!$existingNik) {
+          DB::table('penjualan')->insert([
+            'nama_konsumen' => $data[0],
+            'jumlah' => $data[1],
+            'catatan' => $data[2],
+            'tenor' => $data[3],
+            'metode_pembelian' => $data[4],
+            'metode_pembayaran' => $data[5],
+            'warna_motor' => $data[6],
+            'no_hp' => $data[7],
+            'bpkb' => $data[8],
+            'dp' => $data[9],
+            'diskon_dp' => $data[10],
+            'status_pembayaran_dp' => $data[11],
+            'tanggal_dibuat' => $data[12],
+            'no_po' => $data[13],
+            'id_sales' => $data[14],
+            'id_kota' => $data[15],
+            'id_hasil' => $data[16],
+            'id_motor' => $data[17],
+            'id_lising' => $data[18],
+            'nik' => $data[19],
+            'tgl_lahir' => $data[20],
+          ]);
+        } else {
+          // Jika nik sudah ada, simpan nomor baris ke array $skippedRows
+          $skippedRows[] = $rowNumber;
+        }
       }
       fclose($handle);
     }
-    flash()->addSuccess("Data csv berhasil diimport");
+
+    // Cek apakah ada baris yang dilewati
+    if (!empty($skippedRows)) {
+      $skippedRowsString = implode(', ', $skippedRows);
+      flash()->addWarning("Baris yang dilewati karena nik duplikat: " . $skippedRowsString);
+    } else {
+      flash()->addSuccess("Data csv berhasil diimport");
+    }
+
     return redirect()->back();
   }
 }

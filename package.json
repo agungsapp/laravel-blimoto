@@ -1,4 +1,16 @@
 {
+    "contributors": [
+        {
+            "name": "Agung Saputra",
+            "url": "https://github.com/agungsapp"
+        },
+        {
+            "name": "Ramanda Ajisaka Asyraf",
+            "url": "https://github.com/itsmee3223"
+        }
+    ],
+    "homepage": "http://www.blimoto.com",
+    "copyright": "Copyright 2024 Blimoto.com",
     "private": true,
     "scripts": {
         "dev": "vite",

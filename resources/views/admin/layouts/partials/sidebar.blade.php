@@ -34,13 +34,14 @@
 
 				@php
 						$role = null;
-						$guards = ['admin', 'ceo', 'manager', 'area_manager'];
+						$guards = ['admin', 'manager', 'area_manager'];
 						foreach ($guards as $guard) {
 						    if (Auth::guard($guard)->check()) {
 						        $role = $guard;
 						        break;
 						    }
 						}
+						$isCeo = Auth::guard('ceo')->check();
 						$isSales = Auth::guard('sales')->check();
 				@endphp
 				<!-- Sidebar Menu -->
@@ -467,6 +468,83 @@
 																Data Promo
 														</p>
 												</a>
+										</li>
+
+										<li class="nav-item">
+												<a href="{{ route('admin.logout') }}" class="nav-link">
+														<i class="nav-icon fas fa-sign-out-alt"></i>
+														<p>
+																Logout
+														</p>
+												</a>
+										</li>
+
+								</ul>
+						@elseif($isCeo)
+								{{-- ceo akses --}}
+								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+										data-accordion="false">
+										{{-- master sales ceo --}}
+										<li class="nav-item {{ \Route::is('admin.sales.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-users"></i>
+														<p>
+																Master Sales
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.sales.index') }}"
+																		class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Akun Sales</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
+										{{-- refund dana ceo --}}
+										<li class="nav-item {{ \Route::is('admin.sales.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-users"></i>
+														<p>
+																Refund Dana
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.sales.index') }}"
+																		class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Status Refund</p>
+																</a>
+														</li>
+												</ul>
+
+
+
+										</li>
+
+										{{-- master laporan ceo --}}
+										<li class="nav-item {{ \Route::is('admin.laporan.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.laporan.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-print"></i>
+														<p>
+																Master Laporan
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan.penjualan-wilayah.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan.penjualan-wilayah.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Penjualan Wilayah</p>
+																</a>
+														</li>
+												</ul>
 										</li>
 
 										<li class="nav-item">
