@@ -61,8 +61,74 @@
 										<!-- /.card-header -->
 										<div class="card-body">
 												<div class="d-flex justify-content-end mb-3">
-														<a href="" class="btn btn-warning"><i class="right fas fa-print"></i><span class="ml-2">Cetak
-																		Laporan</span></a>
+
+														<!-- Button trigger print -->
+														<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#printModal">
+																<i class="right fas fa-print"></i><span class="ml-2">Cetak
+																		Laporan</span>
+														</button>
+
+
+														<!-- Modal print -->
+														<div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="printModalLabel" aria-hidden="true">
+																<div class="modal-dialog modal-dialog-centered">
+																		<div class="modal-content">
+																				<div class="modal-header">
+																						<h5 class="modal-title" id="printModalLabel">Cetak Laporan ? </h5>
+																						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																								<span aria-hidden="true">&times;</span>
+																						</button>
+																				</div>
+																				<form action="{{ route('admin.laporan.cetak') }}" method="post">
+																						@csrf
+																						<div class="modal-body">
+
+																								{{-- wilayah --}}
+																								<div class="form-group">
+																										<label for="wilayah">Wilayah</label>
+																										<select id="wilayah" name="wilayah"
+																												class="form-control select2 @error('wilayah') is-invalid @enderror" style="width: 100%;">
+																												<option value="">-- Pilih Wilayah --</option>
+																												@foreach ($kotas as $kota)
+																														<option value="{{ $kota->id }}" {{ old('wilayah') == $kota->id ? 'selected' : '' }}>
+																																{{ $kota->nama }}</option>
+																												@endforeach
+																										</select>
+																										@error('wilayah')
+																												<span class="text-danger">{{ $message }}</span>
+																										@enderror
+																								</div>
+
+																								{{--  dari tanggal --}}
+																								<div class="form-group">
+																										<label for="tanggal_mulai">Dari Tanggal</label>
+																										<input type="date" id="tanggal_mulai" name="tanggal_mulai"
+																												class="form-control @error('tanggal_mulai') is-invalid @enderror">
+																										@error('tanggal_mulai')
+																												<span class="text-danger">{{ $message }}</span>
+																										@enderror
+																								</div>
+
+																								{{-- sampai tanggal --}}
+																								<div class="form-group">
+																										<label for="tanggal_selesai">Sampai Tanggal</label>
+																										<input type="date" id="tanggal_selesai" name="tanggal_selesai"
+																												class="form-control @error('tanggal_selesai') is-invalid @enderror">
+																										@error('tanggal_selesai')
+																												<span class="text-danger">{{ $message }}</span>
+																										@enderror
+																								</div>
+
+																						</div>
+																						<div class="modal-footer">
+																								<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+																								<button type="submit" class="btn btn-warning">Cetak</button>
+																						</div>
+																				</form>
+
+																		</div>
+																</div>
+														</div>
 												</div>
 												<table id="data-kota-motor" class="table-bordered table-striped table">
 														<thead>

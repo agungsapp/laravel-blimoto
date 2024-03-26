@@ -2,7 +2,21 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "contributors": [
+        {
+            "name": "Agung Saputra",
+            "url": "https://github.com/agungsapp",
+            "wa": "https://wa.me/6285839023590"
+        },
+        {
+            "name": "Ramanda Ajisaka Asyraf",
+            "url": "https://github.com/itsmee3223"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
