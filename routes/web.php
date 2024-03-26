@@ -182,6 +182,8 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::resource('/penjualan-wilayah', AdminLaporanPenjualanWilayahController::class);
+            Route::post('/cetak-laporan', [AdminLaporanPenjualanWilayahController::class, 'cetakLaporan'])->name('cetak');
+            Route::get('/cetak-test', [AdminLaporanPenjualanWilayahController::class, 'testCetak'])->name('test-cetak');
         });
 
 
