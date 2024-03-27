@@ -69,7 +69,7 @@
 										@endforeach
 								@else
 										<tr>
-												<td colspan="4"> -- Data masih kosong -- </td>
+												<td colspan="4" style="text-align: center"> -- Data masih kosong -- </td>
 										</tr>
 								@endif
 						</tbody>

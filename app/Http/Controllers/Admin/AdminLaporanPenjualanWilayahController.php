@@ -200,6 +200,112 @@ class AdminLaporanPenjualanWilayahController extends Controller
         // Tampilkan PDF di browser
         return $pdf->stream('laporan_penjualan.pdf');
     }
+    public function cetakLaporanDom(Request $request)
+    {
+        // dd("test");
+        // Aturan validasi
+        $rules = [
+            'wilayah' => 'required',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ];
+
+        // Pesan kesalahan kustom untuk validasi
+        $messages = [
+            'wilayah.required' => 'Wilayah harus dipilih.',
+            'tanggal_mulai.required' => 'Tanggal mulai harus diisi.',
+            'tanggal_selesai.required' => 'Tanggal selesai harus diisi.',
+            'tanggal_selesai.after_or_equal' => 'Tanggal selesai harus sama atau setelah tanggal mulai.',
+        ];
+
+        // Membuat validasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Cek apakah validasi gagal
+        if ($validator->fails()) {
+            // Kembali ke halaman sebelumnya dengan pesan error validasi
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Jika validasi berhasil, lanjutkan proses pembuatan laporan
+        $idWilayah = $request->wilayah;
+
+        $kota = Kota::find($idWilayah);
+
+        $tanggalMulai = Carbon::parse($request->tanggal_mulai);
+        $tanggalSelesai = Carbon::parse($request->tanggal_selesai);
+
+        $penjualan = Penjualan::where('id_kota', $idWilayah)
+            ->whereBetween('tanggal_dibuat', [$tanggalMulai, $tanggalSelesai])
+            ->whereIn('status_pembayaran_dp', ['success', 'cod'])
+            ->with(['motor', 'kota'])
+            ->get();
+
+        // Buat view PDF dengan data yang telah difilter
+        $pdf = Pdf::loadView('admin.penjualan_wilayah.cetak', [
+            'penjualans' => $penjualan,
+            'kota' =>  $kota->nama,
+            'tanggal_m' => $request->tanggal_mulai,
+            'tanggal_s' => $request->tanggal_selesai,
+
+
+        ]);
+        // Tampilkan PDF di browser
+        return $pdf->stream('laporan_penjualan.pdf');
+    }
+    public function cetakLaporanDemo(Request $request)
+    {
+        // dd("test");
+        // Aturan validasi
+        $rules = [
+            'wilayah' => 'required',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ];
+
+        // Pesan kesalahan kustom untuk validasi
+        $messages = [
+            'wilayah.required' => 'Wilayah harus dipilih.',
+            'tanggal_mulai.required' => 'Tanggal mulai harus diisi.',
+            'tanggal_selesai.required' => 'Tanggal selesai harus diisi.',
+            'tanggal_selesai.after_or_equal' => 'Tanggal selesai harus sama atau setelah tanggal mulai.',
+        ];
+
+        // Membuat validasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Cek apakah validasi gagal
+        if ($validator->fails()) {
+            // Kembali ke halaman sebelumnya dengan pesan error validasi
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Jika validasi berhasil, lanjutkan proses pembuatan laporan
+        $idWilayah = $request->wilayah;
+
+        $kota = Kota::find($idWilayah);
+
+        $tanggalMulai = Carbon::parse($request->tanggal_mulai);
+        $tanggalSelesai = Carbon::parse($request->tanggal_selesai);
+
+        $penjualan = Penjualan::where('id_kota', $idWilayah)
+            ->whereBetween('tanggal_dibuat', [$tanggalMulai, $tanggalSelesai])
+            ->whereIn('status_pembayaran_dp', ['success', 'cod'])
+            ->with(['motor', 'kota'])
+            ->get();
+
+        // Buat view PDF dengan data yang telah difilter
+        $pdf = Pdf::loadView('admin.penjualan_wilayah.cetak', [
+            'penjualans' => $penjualan,
+            'kota' =>  $kota->nama,
+            'tanggal_m' => $request->tanggal_mulai,
+            'tanggal_s' => $request->tanggal_selesai,
+
+
+        ]);
+        // Tampilkan PDF di browser
+        return $pdf->stream('laporan_penjualan.pdf');
+    }
 
     public function testCetak()
     {
