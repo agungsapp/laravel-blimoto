@@ -67,7 +67,7 @@
 																				<td>{{ $p->dp }}</td>
 																				<td>{{ $p->diskon_dp }}</td>
 																				<td>{{ $p->dp - $p->diskon_dp }}</td>
-																				<td>{{ $p->leasing->id ?? 'cash' }}</td>
+																				<td>{{ $p->leasing->nama ?? 'cash' }}</td>
 																				<td>{{ $p->motor->nama }}</td>
 																				<td>{{ $p->warna_motor }}</td>
 																				<td>{{ $p->hasil->hasil }}</td>
@@ -797,6 +797,7 @@
 				});
 		</script>
 
+		{{-- sc modal detail --}}
 		<script>
 				$(document).on('click', '.load-detail-modal', function() {
 						var dataUrl = $(this).data('url');

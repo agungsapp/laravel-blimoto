@@ -319,7 +319,7 @@
 																				<td>{{ $p->dp }}</td>
 																				<td>{{ $p->diskon_dp }}</td>
 																				<td>{{ $p->dp - $p->diskon_dp }}</td>
-																				<td>{{ $p->leasing->id ?? 'cash' }}</td>
+																				<td>{{ $p->leasing->nama ?? 'CASH' }}</td>
 																				<td>{{ $p->motor->nama }}</td>
 																				<td>{{ $p->warna_motor }}</td>
 																				<td>{{ $p->hasil->hasil }}</td>
@@ -334,21 +334,22 @@
 																				<td>{{ $p->tanggal_hasil }}</td>
 																				<td class="no-export">
 																						<div>
-																								{{-- <button type="button" class="btn btn-success w-100 mb-1 load-print-modal" data-id="{{$p->id}}"
-                      data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal"
-                      data-target="#modalCetak">
-                      Cetak
-                    </button>
-                    <button type="button" class="btn btn-info w-100 mb-1 load-payment-modal" data-id="{{$p->id}}"
-                      data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
-                      data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal"
-                      data-target="#modalBayar">Bayar</button> --}}
 																								<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
 																										data-id="{{ $p->id }}"
 																										data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal"
 																										data-target="#modalDetail">
 																										Detail
 																								</button>
+
+																								@if ($p->status_pembayaran_dp == 'success')
+																										<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
+																												data-id="{{ $p->id }}"
+																												data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
+																												data-toggle="modal" data-target="#modalRefund">
+																												Refund
+																										</button>
+																								@endif
+
 																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
 																										<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
 																												data-id="{{ $p->id }}"
@@ -595,7 +596,8 @@
 
 		<!-- Modal detail -->
 		<section>
-				<div class="modal fade" id="modalDetail" role="dialog">
+				<div class="modal fade" id="modalDetail" role="dialog"
+						data-base-action-url="{{ route('admin.penjualan.data.update', ['data' => '__id__']) }}">
 						<div class="modal-dialog" role="document">
 								<div class="modal-content">
 										<div class="modal-header">
@@ -736,6 +738,56 @@
 						</div>
 				</div>
 		</section>
+
+		<!-- Modal REFUND -->
+		<section>
+				<div class="modal fade" id="modalRefund" role="dialog">
+						<div class="modal-dialog" role="document">
+								<div class="modal-content">
+										<div class="modal-header">
+												<h4 class="modal-title" id="myModalLabel">Ajukan pengembalian dana </h4>
+										</div>
+										<form id="modalRefundForm" action="" method="post">
+												@csrf
+												@method('POST')
+
+												<div class="modal-body">
+														<input type="hidden" name="idr">
+														<div class="form-group">
+																<div class="row">
+																		<div class="form-group col-md-6">
+																				<label for="konsumen">Nama Konsumen</label>
+																				<input name="konsumen" type="text" class="form-control" readonly>
+																		</div>
+																		<div class="form-group col-md-6">
+																				<label for="dp">DP</label>
+																				<input name="dp" type="text" class="form-control" readonly>
+																		</div>
+																</div>
+
+																<div class="row">
+																		<div class="form-group col-md-6">
+																				<label for="metode_pembayaran">Metode Pembayaran</label>
+																				<input name="metode_pembayaran" type="text" class="form-control" readonly>
+																		</div>
+																		<div class="form-group col-md-6">
+																				<label for="motor">Nama Motor</label>
+																				<input name="motor" type="text" class="form-control" readonly>
+																		</div>
+																</div>
+														</div>
+												</div>
+												<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+														<button type="submit" class="btn btn-success" data-dismiss="modal">Ajukan Refund</button>
+												</div>
+										</form>
+
+								</div>
+						</div>
+				</div>
+		</section>
+
 
 		<!-- Modal bayar -->
 		{{-- <div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
@@ -983,6 +1035,7 @@
 		</script>
 
 		<script>
+				// get data modal edit
 				$(document).on('click', '.load-update-modal', function() {
 						var dataUrl = $(this).data('url');
 						var modalId = '#modalEdit';
@@ -1051,6 +1104,7 @@
 				});
 		</script>
 
+		{{-- SC MODAL DETAIL --}}
 		<script>
 				$(document).on('click', '.load-detail-modal', function() {
 						var dataUrl = $(this).data('url');
@@ -1108,6 +1162,54 @@
 										}
 
 										// Show the modal
+										modal.modal('show');
+								},
+								error: function(xhr, status, error) {
+										alert('An error occurred: ' + error);
+								}
+						});
+				});
+		</script>
+
+		{{--  SC MODAL REFUND --}}
+		<script>
+				$(document).ready(function() {
+						$.ajaxSetup({
+								headers: {
+										'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+								}
+						});
+				});
+
+				$(document).on('click', '.load-refund-modal', function() {
+						var dataUrl = $(this).data('url');
+						var modalId = '#modalRefund';
+						var modal = $(modalId);
+						var baseActionUrl = modal.data('base-action-url');
+
+						$.ajax({
+								url: dataUrl,
+								type: 'GET',
+								dataType: 'json',
+								success: function(response) {
+										var data = response.data; // Ensure you are referencing the data object correctly
+										var dpValue = Number(data.dp);
+										// Populate the modal's form fields with the fetched data
+										modal.find('[name="konsumen"]').val(data.nama_konsumen);
+										modal.find('[name="dp"]').val(data.dp);
+										modal.find('[name="metode_pembayaran"]').val(data.metode_pembayaran);
+										modal.find('[name="motor"]').val(data.motor.nama);
+										modal.find('[name="dp"]').val(dpValue);
+										// Show the modal
+
+										// var actionUrl = baseActionUrl.replace('__idr__', data.id);
+										try {
+												modal.find('#modalRefundForm').attr('action', `/api/pengajuan-refund/${data.id}`);
+										} catch (error) {
+												console.log(error)
+										}
+										console.log(data.id)
+
 										modal.modal('show');
 								},
 								error: function(xhr, status, error) {
