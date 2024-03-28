@@ -7,6 +7,7 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Administrator BliMoto</title>
 
 		<!-- Google Font: Source Sans Pro -->
