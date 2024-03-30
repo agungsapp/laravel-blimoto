@@ -741,13 +741,13 @@
 
 		<!-- Modal REFUND -->
 		<section>
-				<div class="modal fade" id="modalRefund" role="dialog">
+				<div class="modal fade" id="modalRefund" role="dialog" {{-- data-base-refund-url="{{ route('api.pengajuan.refund', '__idr__') }}" --}}>
 						<div class="modal-dialog" role="document">
 								<div class="modal-content">
 										<div class="modal-header">
 												<h4 class="modal-title" id="myModalLabel">Ajukan pengembalian dana </h4>
 										</div>
-										<form id="modalRefundForm" action="" method="post">
+										<form id="modalRefundForm" action="{{ route('api.pengajuan.refund', '__idr__') }}" method="post">
 												@csrf
 												@method('POST')
 
@@ -779,7 +779,7 @@
 												</div>
 												<div class="modal-footer">
 														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-success" data-dismiss="modal">Ajukan Refund</button>
+														<button type="submit" class="btn btn-success">Ajukan Refund</button>
 												</div>
 										</form>
 
@@ -1185,7 +1185,7 @@
 						var dataUrl = $(this).data('url');
 						var modalId = '#modalRefund';
 						var modal = $(modalId);
-						var baseActionUrl = modal.data('base-action-url');
+						var baseActionUrl = modal.data('base-refund-url');
 
 						$.ajax({
 								url: dataUrl,
@@ -1199,17 +1199,11 @@
 										modal.find('[name="dp"]').val(data.dp);
 										modal.find('[name="metode_pembayaran"]').val(data.metode_pembayaran);
 										modal.find('[name="motor"]').val(data.motor.nama);
+										modal.find('[name="idr"]').val(data.id);
 										modal.find('[name="dp"]').val(dpValue);
 										// Show the modal
-
-										// var actionUrl = baseActionUrl.replace('__idr__', data.id);
-										try {
-												modal.find('#modalRefundForm').attr('action', `/api/pengajuan-refund/${data.id}`);
-										} catch (error) {
-												console.log(error)
-										}
-										console.log(data.id)
-
+										var actionUrl = baseActionUrl.replace('__idr__', data.id);
+										console.log(data.id, actionUrl)
 										modal.modal('show');
 								},
 								error: function(xhr, status, error) {
@@ -1217,6 +1211,37 @@
 								}
 						});
 				});
+
+
+				$(document).ready(function() {
+						$('#modalRefundForm').on('submit', function(e) {
+								console.log("form submit di trigger")
+								e.preventDefault(); // Menghentikan form dari submit secara default
+								var form = $(this);
+								var actionUrl =
+								'{{ route('api.pengajuan.refund', '__idr__') }}'; // Pastikan ini mendapatkan URL yang benar
+								// Log untuk debugging
+								console.log('Submitting form to: ', actionUrl);
+								var formData = new FormData(this);
+								$.ajax({
+										url: actionUrl,
+										type: 'POST',
+										data: formData,
+										contentType: false,
+										processData: false,
+										success: function(response) {
+												// Tutup modal setelah request sukses
+												console.log('sukses lurr')
+												$('#modalRefund').modal('hide');
+												// ... tambahan kode untuk handle response
+										},
+										error: function(xhr, status, error) {
+												console.log(error, "gagal lur")
+												// Handle jika terjadi error saat request
+										}
+								});
+						});
+				})
 		</script>
 
 		<script>
