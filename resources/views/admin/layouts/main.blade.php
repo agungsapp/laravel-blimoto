@@ -146,6 +146,8 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 		{{-- fancy box --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 		{{-- sweet alert --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 

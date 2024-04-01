@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
+use App\Http\Controllers\Admin\AdminPengajuanRefundController;
 use App\Http\Controllers\Admin\AdminPenjualanAccConntroller;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPenjualanDoConntroller;
@@ -186,6 +187,9 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::get('/cetak-test', [AdminLaporanPenjualanWilayahController::class, 'testCetak'])->name('test-cetak');
         });
 
+        Route::prefix('refund')->name('refund.')->group(function () {
+            Route::resource('/pengajuan-refund', AdminPengajuanRefundController::class);
+        });
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
             Route::resource('motor', MotorController::class);

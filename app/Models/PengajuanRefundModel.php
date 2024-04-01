@@ -17,3 +17,7 @@ class PengajuanRefundModel extends Model
         return $this->belongsTo(Penjualan::class, 'id_penjualan');
     }
 }
+
+
+
+// sejuh ini sudah di implement tapi belum di test , baru suinpen pengajuan data

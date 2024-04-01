@@ -505,25 +505,25 @@
 										</li>
 
 										{{-- refund dana ceo --}}
-										<li class="nav-item {{ \Route::is('admin.sales.*') ? 'menu-open' : '' }}">
-												<a href="#" class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+										<li class="nav-item {{ \Route::is('admin.refund.*') ? 'menu-open' : '' }}">
+
+												<a href="#" class="nav-link {{ \Route::is('admin.refund.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
 																Refund Dana
 																<i class="right fas fa-angle-left"></i>
 														</p>
 												</a>
+
 												<ul class="nav nav-treeview">
 														<li class="nav-item">
-																<a href="{{ route('admin.sales.index') }}"
-																		class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
+																<a href="{{ route('admin.refund.pengajuan-refund.index') }}"
+																		class="nav-link {{ \Route::is('admin.refund.pengajuan-refund.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Status Refund</p>
+																		<p>Data Pengajuan Refund</p>
 																</a>
 														</li>
 												</ul>
-
-
 
 										</li>
 

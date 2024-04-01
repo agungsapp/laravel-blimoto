@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penjualan');
             $table->integer("nominal");
             $table->string("status_pengajuan");
-            $table->text("catatan");
+            $table->string("metode_pembayaran");
+            $table->text("catatan")->nullable();
             $table->timestamps();
 
             $table->foreign('id_penjualan')->references('id')->on('penjualan')->onDelete('cascade');

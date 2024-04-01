@@ -217,7 +217,11 @@ class AdminPembayaranController extends Controller
 					break;
 				case 'settlement':
 					// Untuk tipe pembayaran selain kartu kredit
-					$pembayaran->update(['status_pembayaran' => 'success']);
+					// $pembayaran->update(['status_pembayaran' => 'success']);
+					$pembayaran->update([
+						'status_pembayaran' => 'success',
+						'metode_pembayaran' => $data['payment_type'] // Menyimpan metode pembayaran
+					]);
 					$penjualan->update(['status_pembayaran_dp' => 'success']);
 					break;
 				case 'pending':

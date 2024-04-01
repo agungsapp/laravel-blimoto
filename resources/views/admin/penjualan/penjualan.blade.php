@@ -760,19 +760,32 @@
 																				<input name="konsumen" type="text" class="form-control" readonly>
 																		</div>
 																		<div class="form-group col-md-6">
-																				<label for="dp">DP</label>
-																				<input name="dp" type="text" class="form-control" readonly>
+																				<label for="metode_pembayaran">Metode Pembayaran</label>
+																				<input name="metode_pembayaran" type="text" class="form-control" readonly>
 																		</div>
 																</div>
 
 																<div class="row">
 																		<div class="form-group col-md-6">
-																				<label for="metode_pembayaran">Metode Pembayaran</label>
-																				<input name="metode_pembayaran" type="text" class="form-control" readonly>
+																				<label for="dp">DP</label>
+																				<input id="dp" name="dp" type="text" class="form-control" readonly>
 																		</div>
+
 																		<div class="form-group col-md-6">
 																				<label for="motor">Nama Motor</label>
 																				<input name="motor" type="text" class="form-control" readonly>
+																		</div>
+																</div>
+																<div class="row mb-3">
+																		<div class="form-group col-12" style="margin: 0 25px 0 25px;">
+																				<input type="checkbox" class="form-check-input" id="opsiDp">
+																				<label class="form-check-label" for="opsiDp">Opsi dp berbeda</label>
+																		</div>
+																</div>
+																<div class="row">
+																		<div class="form-floating col-12">
+																				<label for="catatan">Catatan :</label>
+																				<textarea class="form-control" placeholder="Catatan untuk CEO" name="catatan" id="catatan"></textarea>
 																		</div>
 																</div>
 														</div>
@@ -1174,6 +1187,21 @@
 		{{--  SC MODAL REFUND --}}
 		<script>
 				$(document).ready(function() {
+
+						const dp = $('#dp');
+						const opsiDp = $('#opsiDp');
+						// Menangkap event 'change' pada checkbox
+						opsiDp.change(function() {
+								// Mengecek apakah checkbox ter-check atau tidak
+								if ($(this).is(':checked')) {
+										// Jika ter-check, hapus atribut 'readonly' pada dp
+										dp.removeAttr('readonly');
+								} else {
+										// Jika tidak ter-check, tambahkan atribut 'readonly' pada dp
+										dp.attr('readonly', 'readonly');
+								}
+						});
+
 						$.ajaxSetup({
 								headers: {
 										'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1219,7 +1247,7 @@
 								e.preventDefault(); // Menghentikan form dari submit secara default
 								var form = $(this);
 								var actionUrl =
-								'{{ route('api.pengajuan.refund', '__idr__') }}'; // Pastikan ini mendapatkan URL yang benar
+										'{{ route('api.pengajuan.refund', '__idr__') }}'; // Pastikan ini mendapatkan URL yang benar
 								// Log untuk debugging
 								console.log('Submitting form to: ', actionUrl);
 								var formData = new FormData(this);
@@ -1231,13 +1259,33 @@
 										processData: false,
 										success: function(response) {
 												// Tutup modal setelah request sukses
-												console.log('sukses lurr')
+												console.log('response ke BE simpan pengajuan refund sukses lurr')
+												// console.log(response.data)
+												console.log(response);
+												// alert(response.message)
 												$('#modalRefund').modal('hide');
-												// ... tambahan kode untuk handle response
+
+												Swal.fire({
+														title: "Berhasil",
+														text: response.message,
+														icon: "success"
+												});
 										},
-										error: function(xhr, status, error) {
-												console.log(error, "gagal lur")
-												// Handle jika terjadi error saat request
+										error: function(xhr, status, errorThrown) {
+												console.log(errorThrown, "gagal lur")
+												let errorMessage = xhr.responseJSON.error || "Terjadi kesalahan, silakan coba lagi.";
+												// Jika ada errors dari validasi
+												if (xhr.responseJSON.errors) {
+														const errors = xhr.responseJSON.errors;
+														const firstError = Object.keys(errors)[0];
+														errorMessage = errors[firstError][0]; // Ambil pesan error pertama
+												}
+
+												Swal.fire({
+														title: "Error",
+														text: errorMessage,
+														icon: "error"
+												});
 										}
 								});
 						});
