@@ -312,7 +312,7 @@ class AdminPenjualanController extends Controller
       // return response()->json(['snap_token' => $snapToken]);
     } catch (\Exception $e) {
       DB::rollback();
-      return response()->json(['pesan' => 'Error coba beberapa saat lagi', 500]);
+      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage(), 500]);
     }
   }
 

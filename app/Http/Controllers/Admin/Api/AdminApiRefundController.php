@@ -19,7 +19,6 @@ class AdminApiRefundController extends Controller
             'metode_pembayaran' => 'required',
             'motor' => 'required',
         ];
-
         // Melakukan validasi
         $validator = Validator::make($request->all(), $rules);
 
@@ -30,19 +29,28 @@ class AdminApiRefundController extends Controller
         }
 
 
-        try {
-            PengajuanRefundModel::create([
-                'id_penjualan' => $request->idr,
-                'nominal' => $request->dp,
-                'status_pengajuan' => 'waiting', // waiting, acc, proses, completed
-                'catatan' => $request->catatan
-            ]);
+        $cekPengajuanLalu = PengajuanRefundModel::where('id_penjualan', $request->idr)
+            ->where('status_pengajuan', 'menunggu')
+            ->get();
 
+        if ($cekPengajuanLalu->count() > 0) {
+            return response()->json(['error' => 'Pengajuan sebelumnya masih dalam proses mohon menunggu !'], 500);
+        }
+
+        try {
+            $pengajuan = new PengajuanRefundModel();
+            $pengajuan->id_penjualan = $request->idr;
+            $pengajuan->nominal = $request->dp;
+            $pengajuan->status_pengajuan = 'menunggu';
+            $pengajuan->metode_pembayaran = $request->metode_pembayaran;
+            if ($request->catatan) {
+                $pengajuan->catatan = $request->catatan;
+            }
+            $pengajuan->save();
 
             return response()->json(['message' => 'Pengajuan refund sedang menunggu di acc oleh CEO ! '], 201);
         } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json(['error' => 'Gagal terjadi kesalahan pada server'], 500);
+            return response()->json(['error' => 'Gagal terjadi kesalahan pada server: ' . $th->getMessage()], 500);
         }
     }
 }

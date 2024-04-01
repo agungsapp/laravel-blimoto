@@ -55,4 +55,9 @@ class Penjualan extends Model
   {
     return $this->belongsTo(Kota::class, 'id_kota');
   }
+
+  public function refund()
+  {
+    return $this->belongsTo(PengajuanRefundModel::class, 'id_penjualan');
+  }
 }
