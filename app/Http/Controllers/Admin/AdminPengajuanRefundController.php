@@ -74,7 +74,19 @@ class AdminPengajuanRefundController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $refund = PengajuanRefundModel::find($id);
+
+        try {
+            $refund->status_pengajuan = $request->status_pengajuan;
+            $refund->save();
+
+            flash()->addSuccess("Berhasil melakukan update status pengajuan menjadi " . $request->status_pengajuan);
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            flash()->addError("Update status pengajuan gagal, terjadi kesalahan di server.");
+            return redirect()->back();
+        }
     }
 
     /**

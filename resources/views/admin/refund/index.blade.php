@@ -91,9 +91,9 @@
 																								<div class="btn-group">
 																										<form action="{{ route('admin.sales.destroy', $refund->id) }}" method="post">
 																												<!-- Button trigger modal -->
-																												<button type="button" class="btn btn-primary" data-toggle="modal"
+																												<button type="button" class="btn btn-warning" data-toggle="modal"
 																														data-target="#modalEdit{{ $refund->id }}">
-																														Edit
+																														Update
 																												</button>
 																												@csrf
 																												@method('DELETE')
@@ -106,7 +106,7 @@
 																										<div class="modal-dialog" role="document">
 																												<div class="modal-content">
 																														<div class="modal-header">
-																																<h4 class="modal-title" id="myModalLabel">Edit data:
+																																<h4 class="modal-title" id="myModalLabel">Update status pengembalian
 																																		{{ $refund->penjualan->nama_konsumen }}</h4>
 																														</div>
 																														<form action="{{ route('admin.refund.pengajuan-refund.update', $refund->id) }}"
@@ -116,32 +116,6 @@
 																																<div class="modal-body">
 																																		<input type="hidden" name="idr">
 																																		<div class="form-group">
-																																				<div class="row">
-																																						<div class="form-group col-md-6">
-																																								<label for="konsumen">Nama Konsumen</label>
-																																								<input name="konsumen" type="text" class="form-control"
-																																										value="{{ $refund->penjualan->nama_konsumen }}" readonly>
-																																						</div>
-																																						<div class="form-group col-md-6">
-																																								<label for="metode_pembayaran">Metode Pembayaran</label>
-																																								<input name="metode_pembayaran" type="text" class="form-control"
-																																										value="{{ $refund->metode_pembayaran }}" readonly>
-																																						</div>
-																																				</div>
-
-																																				<div class="row">
-																																						<div class="form-group col-md-6">
-																																								<label for="dp">DP</label>
-																																								<input id="dp" name="dp" value="{{ $refund->nominal }}"
-																																										type="text" class="form-control" readonly>
-																																						</div>
-
-																																						<div class="form-group col-md-6">
-																																								<label for="motor">Nama Motor</label>
-																																								<input name="motor" value="{{ $refund->penjualan->motor->nama }}"
-																																										type="text" class="form-control" readonly>
-																																						</div>
-																																				</div>
 																																				<div class="row">
 																																						<div class="form-group col-12">
 																																								<select class="form-select form-control" aria-label="Default select example"
@@ -158,19 +132,12 @@
 																																								</select>
 																																						</div>
 																																				</div>
-
-																																				<div class="row">
-																																						<div class="form-floating col-12">
-																																								<label for="catatan">Catatan :</label>
-																																								<textarea class="form-control" placeholder="Catatan untuk CEO" name="catatan" id="catatan">{{ $refund->catatan }}</textarea>
-																																						</div>
-																																				</div>
 																																		</div>
 																																</div>
 																																<div class="modal-footer">
-																																		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																																		<button type="submit" class="btn btn-primary">Save
-																																				changes</button>
+																																		<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+																																		<button type="submit" class="btn btn-success">Update Status
+																																		</button>
 																																</div>
 																														</form>
 																												</div>
