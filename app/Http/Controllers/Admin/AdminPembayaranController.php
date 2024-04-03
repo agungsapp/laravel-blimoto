@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPembayaranController extends Controller
@@ -187,16 +188,31 @@ class AdminPembayaranController extends Controller
 			return response()->json(['message' => 'Invalid signature',], 403);
 		}
 
+
 		// Mengolah data notifikasi
 		$data = json_decode($request->getContent(), true);
 
+
+		// debug
+		// Menentukan path dan nama file
+		$filePath = storage_path('app/public/midtrans_webhook_data.json');
+
+		// Mengubah data menjadi string JSON
+		$dataString = json_encode($data, JSON_PRETTY_PRINT);
+		// Menyimpan data ke dalam file menggunakan Storage Facade
+		Storage::disk('public')->put('midtrans_webhook_data.json', $dataString);
+		// debug
+
+
 		$orderIdParts = explode('-', $data['order_id']);
+		// return $data;
 		$idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
 
 		// Mencari pembayaran yang berkaitan
 		$pembayaran = Pembayaran::where('id_penjualan', $idPenjualan)->first();
 		$penjualan = Penjualan::where('id', $idPenjualan)->first();
 
+		// return $data['payment_type'];
 		if (!$pembayaran) {
 			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
 		}
@@ -211,21 +227,27 @@ class AdminPembayaranController extends Controller
 				case 'capture':
 					// Untuk tipe pembayaran kartu kredit
 					if ($data['fraud_status'] == 'accept') {
-						$pembayaran->update(['status_pembayaran' => 'success']);
+						$pembayaran->update([
+							'status_pembayaran' => 'success',
+							'metode_pembayaran' => $data['payment_type'],
+							'paid_at' => $data['settlement_time']
+						]);
 						$penjualan->update(['status_pembayaran_dp' => 'success']);
 					}
 					break;
 				case 'settlement':
+					// return "oke";
 					// Untuk tipe pembayaran selain kartu kredit
 					// $pembayaran->update(['status_pembayaran' => 'success']);
 					$pembayaran->update([
 						'status_pembayaran' => 'success',
-						'metode_pembayaran' => $data['payment_type'] // Menyimpan metode pembayaran
+						'metode_pembayaran' => $data['payment_type'],
+						'paid_at' => $data['settlement_time']
 					]);
 					$penjualan->update(['status_pembayaran_dp' => 'success']);
 					break;
 				case 'pending':
-					$pembayaran->update(['status_pembayaran' => 'pending']);
+					$pembayaran->update(['status_pembayaran' => 'pending', 'paid_at' => $data['settlement_time']]);
 					$penjualan->update(['status_pembayaran_dp' => 'pending']);
 					break;
 				case 'deny':
@@ -260,7 +282,7 @@ class AdminPembayaranController extends Controller
 					$penjualan->update(['status_pembayaran_dp' => 'unknown']);
 					break;
 			}
-			return response()->json(['message' => 'Webhook berhasil diproses']);
+			return response()->json(['message' => 'Webhook berhasil diproses'], 200);
 		} catch (\Exception $e) {
 			Log::error('Midtrans Webhook Error: ' . $e->getMessage());
 			return response()->json(['message' => 'Terjadi kesalahan saat memproses webhook'], 500);

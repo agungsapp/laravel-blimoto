@@ -341,14 +341,20 @@
 																										Detail
 																								</button>
 
-																								@if ($p->status_pembayaran_dp == 'success')
-																										<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
-																												data-id="{{ $p->id }}"
-																												data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
-																												data-toggle="modal" data-target="#modalRefund">
-																												Refund
-																										</button>
+																								@if (optional($p->pembayaran)->id != null)
+																										@if ($p->refund->status_pengajuan === 'menunggu' || is_null($p->refund->status_pengajuan))
+																												<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
+																														data-id="{{ $p->id }}"
+																														data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
+																														data-toggle="modal" data-target="#modalRefund" disabled>
+																														{{ $p->refund->status_pengajuan ?? 'Refund' }}
+																												</button>
+																										@else
+																												<a class="btn btn-success" href="{{ route('admin.refund.status.index') }}">Refund
+																														status</a>
+																										@endif
 																								@endif
+
 
 																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
 																										<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"

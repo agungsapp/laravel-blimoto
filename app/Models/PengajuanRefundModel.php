@@ -16,6 +16,11 @@ class PengajuanRefundModel extends Model
     {
         return $this->belongsTo(Penjualan::class, 'id_penjualan');
     }
+
+    public function pembayaran()
+    {
+        return $this->belongsTo(Pembayaran::class, 'id_penjualan', 'id_penjualan');
+    }
 }
 
 

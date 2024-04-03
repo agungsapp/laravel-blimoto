@@ -24,7 +24,9 @@ Route::post('/midtrans/webhook', [AdminPembayaranController::class, 'midtransWeb
 
 Route::name('api.')->group(function () {
     Route::post('pengajuan-refund/{id}', [AdminApiRefundController::class, 'pengajuanRefund'])->name('pengajuan.refund');
+    Route::post('pengajuan-proses/', [AdminApiRefundController::class, 'proses'])->name('pengajuan.proses');
 });
 
 
-// belum terupdate untuk info metode pembayaranya
+// belum terupdate untuk info metode pembayaranya | done
+// halaman ceo tampilkan auto atau manual
