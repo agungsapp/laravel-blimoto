@@ -3,6 +3,26 @@
 		<section class="content">
 				<div class="row">
 						<div class="col-12">
+								<div class="callout callout-info">
+										<h5><i class="fas fa-info"></i> Catatan Pengembalian Dana:</h5>
+										<p>Pengembalian dana secara otomatis didukung untuk metode pembayaran <strong>Kartu Kredit, GoPay, ShopeePay,
+														QRIS, Kredivo, dan Akulaku</strong>.</p>
+										<ul>
+												<li><strong>Otomatis:</strong> Manfaatkan tombol pengembalian dana untuk memproses secara otomatis oleh
+														sistem.</li>
+												<li><strong>Manual:</strong> Pengembalian dana untuk metode pembayaran seperti transfer bank dan Virtual
+														Account (VA) dilakukan secara manual.</li>
+												<li><strong>QRIS:</strong> Untuk pembayaran melalui QRIS yang menggunakan AirPay (Shopee) dan ShopeePay, batas
+														waktu pengembalian dana adalah 24 jam. AirPay Shopee hanya menerima pengembalian dana dari pukul 06:00
+														sampai 23:30 GMT+7.</li>
+										</ul>
+										<p>Apabila waktu pengembalian dana melebihi batas waktu yang ditentukan di atas, maka proses pengembalian
+												dana—termasuk untuk metode pembayaran yang seharusnya didukung pengembalian dana otomatis harus dilakukan
+												secara manual. Hal ini mungkin memerlukan koordinasi langsung dengan konsumen.</p>
+								</div>
+						</div>
+
+						<div class="col-12">
 								<div class="card card-primary">
 										<div class="card-header">
 												<h3 class="card-title">Data Refund</h3>
@@ -47,18 +67,27 @@
 																						</td>
 
 																						<td>
-																								<button type="button"
-																										class="btn {{ $refund->status_pengajuan != 'menunggu' ? 'btn-secondary' : 'btn-success' }}"
-																										data-toggle="modal" data-target="#modalSetuju{{ $refund->id }}"
-																										{{ $refund->status_pengajuan != 'menunggu' ? 'disabled' : '' }}>
-																										Acc
-																								</button>
-																								<button type="button"
-																										class="btn {{ $refund->status_pengajuan != 'menunggu' ? 'btn-secondary' : 'btn-warning' }}"
-																										data-toggle="modal" data-target="#modalTolak{{ $refund->id }}"
-																										{{ $refund->status_pengajuan != 'menunggu' ? 'disabled' : '' }}>
-																										Tolak
-																								</button>
+																								@php
+																										$metodeDidukung = ['qris', 'credit_card', 'gopay', 'shopeepay', 'kredivo', 'akulaku'];
+																								@endphp
+
+																								@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung))
+																										<button type="button"
+																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-success' }} mb-2"
+																												data-toggle="modal" data-target="#modalSetuju{{ $refund->id }}"
+																												{{ $refund->status_pengajuan === 'menunggu' ? 'disabled' : '' }}>
+																												Auto Refund
+																										</button>
+																								@else
+																										<button type="button"
+																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-warning' }} mb-2"
+																												data-toggle="modal" data-target="#modalTolak{{ $refund->id }}"
+																												{{ $refund->status_pengajuan === 'menunggu' ? 'disabled' : '' }}>
+																												Proses Manual
+																										</button>
+																								@endif
+
+
 
 																								<!-- Modal setuju -->
 																								<div class="modal fade" id="modalSetuju{{ $refund->id }}" tabindex="-1" role="dialog"
@@ -131,34 +160,3 @@
 				</div>
 		</section>
 @endsection
-@push('script')
-		<script>
-				$(function() {
-						$("#data-sale").DataTable({
-								"responsive": true,
-								"lengthChange": false,
-								"autoWidth": false,
-								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
-						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
-				});
-				$(document).ready(function() {
-						$('.show_confirm').click(function(event) {
-								var form = $(this).closest("form");
-								var name = $(this).data("name");
-								event.preventDefault();
-								swal({
-												title: `Delete Data ?`,
-												text: "data yang di hapus tidak dapat dipulihkan!",
-												icon: "warning",
-												buttons: true,
-												dangerMode: true,
-										})
-										.then((willDelete) => {
-												if (willDelete) {
-														form.submit();
-												}
-										});
-						});
-				})
-		</script>
-@endpush

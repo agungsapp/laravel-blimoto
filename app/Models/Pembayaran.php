@@ -12,6 +12,7 @@ class Pembayaran extends Model
     'id_penjualan',
     'harga',
     'status_pembayaran',
+    'metode_pembayaran',
     'paid_at'
   ];
 

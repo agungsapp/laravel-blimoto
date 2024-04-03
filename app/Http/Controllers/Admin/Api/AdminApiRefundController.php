@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminApiRefundController extends Controller
 {
+
+    public function proses(Request $request)
+    {
+    }
+
     public function pengajuanRefund(Request $request, $id)
     {
         // Membuat rules validasi

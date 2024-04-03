@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\AdminSalesSettingController;
 use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
 use App\Http\Controllers\Admin\AdminStatusBiController;
+use App\Http\Controllers\Admin\AdminStatusRefund;
 use App\Http\Controllers\Admin\AdminTypeSlikController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
@@ -189,6 +190,7 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::prefix('refund')->name('refund.')->group(function () {
             Route::resource('/pengajuan-refund', AdminPengajuanRefundController::class);
+            Route::get('status', [AdminStatusRefund::class, 'index'])->name('status.index');
         });
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {

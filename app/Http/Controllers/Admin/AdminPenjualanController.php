@@ -24,9 +24,11 @@ class AdminPenjualanController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
       ->orderBy('id', 'desc')
       ->get();
+
+    // dd($data[0]->refund);
 
     $kota = Kota::all();
     $hasil = Hasil::all();

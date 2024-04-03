@@ -19,6 +19,8 @@ class AdminPengajuanRefundController extends Controller
             'refunds' => PengajuanRefundModel::all()
         ];
 
+        // dd($data['refunds'][0]->pembayaran->metode_pembayaran);
+
         return view('admin.refund.index', $data);
     }
 
