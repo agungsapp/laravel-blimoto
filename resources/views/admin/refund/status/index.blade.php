@@ -61,7 +61,7 @@
 																						<td>{{ $refund->pembayaran->metode_pembayaran }}</td>
 																						<td>
 																								<span
-																										class="badge rounded-pill {{ in_array($refund->pembayaran->metode_pembayaran, ['qris']) ? 'bg-success' : 'bg-danger' }}">
+																										class="badge rounded-pill {{ in_array($refund->pembayaran->metode_pembayaran, ['qris', 'credit_card', 'gopay', 'shopeepay', 'kredivo', 'akulaku']) ? 'bg-success' : 'bg-danger' }}">
 																										{{ in_array($refund->pembayaran->metode_pembayaran, ['qris', 'credit_card', 'gopay', 'shopeepay', 'kredivo', 'akulaku']) ? 'Auto Midtrans' : 'Manual Transfer' }}
 																								</span>
 																						</td>
@@ -73,9 +73,9 @@
 
 																								@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung))
 																										<button type="button"
-																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-success' }} mb-2"
-																												data-toggle="modal" data-target="#modalSetuju{{ $refund->id }}"
-																												{{ $refund->status_pengajuan === 'menunggu' ? 'disabled' : '' }}>
+																												class="btn btn-block {{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'btn-secondary' : 'btn-success' }} mb-2"
+																												data-toggle="modal" data-target="#modalAutoRefund{{ $refund->id }}"
+																												{{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'disabled' : '' }}>
 																												Auto Refund
 																										</button>
 																								@else
@@ -86,33 +86,31 @@
 																												Proses Manual
 																										</button>
 																								@endif
-
-
-
 																								<!-- Modal setuju -->
-																								<div class="modal fade" id="modalSetuju{{ $refund->id }}" tabindex="-1" role="dialog"
+																								<div class="modal fade" id="modalAutoRefund{{ $refund->id }}" tabindex="-1" role="dialog"
 																										aria-labelledby="myModalLabel">
 																										<div class="modal-dialog" role="document">
 																												<div class="modal-content">
 																														<div class="modal-header">
-																																<h4 class="modal-title" id="myModalLabel">Persetujuan pengembalian dana
+																																<h4 class="modal-title" id="myModalLabel">Auto Refund By Midtrans
 																																</h4>
 																														</div>
-																														<form action="{{ route('admin.refund.pengajuan-refund.update', $refund->id) }}"
-																																method="post">
+																														<form id="formRefundRequest" action="{{ route('api.pengajuan.proses') }}" method="post">
 																																@csrf
-																																@method('PUT')
+																																@method('POST')
 																																<div class="modal-body">
-																																		<input type="hidden" name="status_pengajuan" value="proses">
-																																		<p>Anda akan menyetujui proses pengembalian dana konsumen
-																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
-																																				<strong class="text-success">{{ Str::rupiah($refund->nominal) }}</strong> tindakan
-																																				ini tidak dapat dibatalkan.
+																																		<input type="hidden" name="idp" value="{{ $refund->id_penjualan }}">
+																																		<p>Anda hendak memproses permintaan pengembalian dana kepada konsumen
+																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> dengan nominal
+																																				<strong class="text-success">{{ Str::rupiah($refund->nominal) }}</strong>. Tindakan
+																																				ini bersifat final dan tidak dapat dibatalkan.
 																																		</p>
+																																		<p><span class="text-danger">*</span>Harap pastikan Anda telah memeriksa dan memastikan
+																																				semua ketentuan terpenuhi sebelum melanjutkan.</p>
 																																</div>
 																																<div class="modal-footer">
 																																		<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-																																		<button type="submit" class="btn btn-success">Ya, Setuju
+																																		<button type="submit" class="btn btn-success">Ya, Proses
 																																		</button>
 																																</div>
 																														</form>
@@ -160,3 +158,39 @@
 				</div>
 		</section>
 @endsection
+
+@push('script')
+		<script>
+				$(document).ready(function() {
+						$("#formRefundRequest").submit(function(event) {
+								event.preventDefault(); // Prevent the form from submitting through the browser.
+
+								var actionUrl = $(this).attr('action');
+								var formData = new FormData(this); // Create a FormData object, passing the form as a parameter
+
+								$.ajax({
+										url: actionUrl,
+										type: 'POST',
+										data: formData,
+										contentType: false, // This is required for FormData to work correctly
+										processData: false, // This is required for FormData to work correctly
+										success: function(response) {
+												console.log('Success:', response);
+												Swal.fire({
+														title: "Berhasil",
+														text: response.message,
+														icon: "success"
+												});
+
+												// window.location.reload();
+
+										},
+										error: function(xhr, status, error) {
+												console.error('Failure:', xhr.responseText);
+												// Actions to be performed when the request fails
+										}
+								});
+						});
+				});
+		</script>
+@endpush

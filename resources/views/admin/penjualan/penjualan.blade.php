@@ -342,18 +342,24 @@
 																								</button>
 
 																								@if (optional($p->pembayaran)->id != null)
-																										@if ($p->refund->status_pengajuan === 'menunggu' || is_null($p->refund->status_pengajuan))
+																										@php
+																												$refundStatus = optional($p->refund)->status_pengajuan;
+																										@endphp
+
+																										@if ($refundStatus === 'menunggu' || is_null($refundStatus))
 																												<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
 																														data-id="{{ $p->id }}"
 																														data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
-																														data-toggle="modal" data-target="#modalRefund" disabled>
-																														{{ $p->refund->status_pengajuan ?? 'Refund' }}
+																														data-toggle="modal" data-target="#modalRefund"
+																														{{ $refundStatus === 'menunggu' ? 'disabled' : '' }}>
+																														{{ $refundStatus ?? 'Refund' }}
 																												</button>
 																										@else
 																												<a class="btn btn-success" href="{{ route('admin.refund.status.index') }}">Refund
 																														status</a>
 																										@endif
 																								@endif
+
 
 
 																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
@@ -1276,6 +1282,8 @@
 														text: response.message,
 														icon: "success"
 												});
+
+												window.location.reload();
 										},
 										error: function(xhr, status, errorThrown) {
 												console.log(errorThrown, "gagal lur")
@@ -1287,11 +1295,11 @@
 														errorMessage = errors[firstError][0]; // Ambil pesan error pertama
 												}
 
-												Swal.fire({
-														title: "Error",
-														text: errorMessage,
-														icon: "error"
-												});
+													Swal.fire({
+															title: "Error",
+															text: errorMessage,
+															icon: "error"
+													});
 										}
 								});
 						});
