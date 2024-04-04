@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_penjualan');
+            $table->string('order_id');
             $table->decimal('harga', 15, 2);
             $table->string('status_pembayaran')->default('pending');
             $table->string('metode_pembayaran')->nullable();

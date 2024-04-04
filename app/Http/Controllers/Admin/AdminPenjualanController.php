@@ -28,7 +28,9 @@ class AdminPenjualanController extends Controller
       ->orderBy('id', 'desc')
       ->get();
 
-    // dd($data[0]->refund);
+    // $debug = optional($data[0]->refund->status_pengajuan);
+
+    // dd($debug);
 
     $kota = Kota::all();
     $hasil = Hasil::all();

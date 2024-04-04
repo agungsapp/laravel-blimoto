@@ -228,9 +228,10 @@ class AdminPembayaranController extends Controller
 					// Untuk tipe pembayaran kartu kredit
 					if ($data['fraud_status'] == 'accept') {
 						$pembayaran->update([
+							'order_id' => $data['order_id'],
 							'status_pembayaran' => 'success',
 							'metode_pembayaran' => $data['payment_type'],
-							'paid_at' => $data['settlement_time']
+							'paid_at' => $data['transaction_time']
 						]);
 						$penjualan->update(['status_pembayaran_dp' => 'success']);
 					}
@@ -240,6 +241,7 @@ class AdminPembayaranController extends Controller
 					// Untuk tipe pembayaran selain kartu kredit
 					// $pembayaran->update(['status_pembayaran' => 'success']);
 					$pembayaran->update([
+						'order_id' => $data['order_id'],
 						'status_pembayaran' => 'success',
 						'metode_pembayaran' => $data['payment_type'],
 						'paid_at' => $data['settlement_time']
@@ -247,7 +249,7 @@ class AdminPembayaranController extends Controller
 					$penjualan->update(['status_pembayaran_dp' => 'success']);
 					break;
 				case 'pending':
-					$pembayaran->update(['status_pembayaran' => 'pending', 'paid_at' => $data['settlement_time']]);
+					$pembayaran->update(['status_pembayaran' => 'pending', 'paid_at' => $data['settlement_time'], 'order_id' => $data['order_id']]);
 					$penjualan->update(['status_pembayaran_dp' => 'pending']);
 					break;
 				case 'deny':
@@ -281,6 +283,7 @@ class AdminPembayaranController extends Controller
 					$pembayaran->update(['status_pembayaran' => 'unknown']);
 					$penjualan->update(['status_pembayaran_dp' => 'unknown']);
 					break;
+					$pembayaran->update(['order_id' => $data['order_id']]);
 			}
 			return response()->json(['message' => 'Webhook berhasil diproses'], 200);
 		} catch (\Exception $e) {
