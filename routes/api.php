@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\Api\AdminApiRefundController;
 use Illuminate\Http\Request;
@@ -25,6 +26,8 @@ Route::post('/midtrans/webhook', [AdminPembayaranController::class, 'midtransWeb
 Route::name('api.')->group(function () {
     Route::post('pengajuan-refund/{id}', [AdminApiRefundController::class, 'pengajuanRefund'])->name('pengajuan.refund');
     Route::post('pengajuan-proses/', [AdminApiRefundController::class, 'proses'])->name('pengajuan.proses');
+    Route::get('get-bank/', [AdminBankController::class, 'getBank'])->name('get.bank');
+    Route::post('get-acc/', [AdminBankController::class, 'getBankAcc'])->name('get.acc');
 });
 
 

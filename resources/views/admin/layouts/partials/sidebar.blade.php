@@ -314,6 +314,35 @@
 												</ul>
 										</li>
 
+										{{-- data refund --}}
+										<li class="nav-item {{ \Route::is('admin.refund.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.refund.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-money-bill"></i>
+														<p>
+																Data Refund
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.refund.manual-refund.index') }}"
+																		class="nav-link {{ \Route::is('admin.refund.manual-refund.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Pengajuan Refund</p>
+																</a>
+														</li>
+												</ul>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.refund.status.index') }}"
+																		class="nav-link {{ \Route::is('admin.refund.status.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Status Refund</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
 										{{-- master price list --}}
 										<li class="nav-item {{ \Route::is('admin.cicilan.*') ? 'menu-open' : '' }}">
 												<a href="#" class="nav-link {{ \Route::is('admin.cicilan.*') ? 'active' : '' }}">
