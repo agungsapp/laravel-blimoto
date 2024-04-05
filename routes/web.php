@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
 use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminManagerController;
+use App\Http\Controllers\Admin\AdminManualRefundController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminPengajuanRefundController;
@@ -191,6 +192,8 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::prefix('refund')->name('refund.')->group(function () {
             Route::resource('/pengajuan-refund', AdminPengajuanRefundController::class);
             Route::get('status', [AdminStatusRefund::class, 'index'])->name('status.index');
+
+            Route::resource('/manual-refund', AdminManualRefundController::class);
         });
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {

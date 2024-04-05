@@ -61,10 +61,14 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 												<div class="col-sm-6">
 
 														@php
-																$currentRouteName = Route::currentRouteName();
-																$routeParts = explode('.', $currentRouteName);
-																$pageTitlePart = isset($routeParts[1]) ? $routeParts[1] : 'dashboard';
-																$pageTitle = ucwords(str_replace('-', ' ', $pageTitlePart));
+																if (isset($judulHalaman)) {
+																    $pageTitle = $judulHalaman;
+																} else {
+																    $currentRouteName = Route::currentRouteName();
+																    $routeParts = explode('.', $currentRouteName);
+																    $pageTitlePart = isset($routeParts[1]) ? $routeParts[1] : 'dashboard';
+																    $pageTitle = ucwords(str_replace('-', ' ', $pageTitlePart));
+																}
 														@endphp
 
 

@@ -27,11 +27,8 @@ class AdminPenjualanController extends Controller
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
       ->orderBy('id', 'desc')
       ->get();
-
     // $debug = optional($data[0]->refund->status_pengajuan);
-
     // dd($debug);
-
     $kota = Kota::all();
     $hasil = Hasil::all();
     $motor = Motor::all();

@@ -258,12 +258,10 @@
 		<section class="content">
 				<div class="row">
 						<div class="col-12">
-
 								<div class="card card-primary">
 										<div class="card-header">
 												<h3 class="card-title">Data Penjualan</h3>
 										</div>
-
 										<div class="card-body table-responsive">
 												<table border="0" cellspacing="5" cellpadding="5" class="mb-4">
 														<tbody>
@@ -340,12 +338,10 @@
 																										data-target="#modalDetail">
 																										Detail
 																								</button>
-
 																								@if (optional($p->pembayaran)->id != null)
 																										@php
 																												$refundStatus = optional($p->refund)->status_pengajuan;
 																										@endphp
-
 																										@if ($refundStatus === 'menunggu' || is_null($refundStatus))
 																												<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
 																														data-id="{{ $p->id }}"
@@ -355,13 +351,11 @@
 																														{{ $refundStatus ?? 'Refund' }}
 																												</button>
 																										@else
-																												<a class="btn btn-success" href="{{ route('admin.refund.status.index') }}">Refund
+																												<a class="btn btn-success btn-block mb-1"
+																														href="{{ route('admin.refund.status.index') }}">Refund
 																														status</a>
 																										@endif
 																								@endif
-
-
-
 																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
 																										<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
 																												data-id="{{ $p->id }}"
@@ -382,7 +376,6 @@
 														</tbody>
 												</table>
 										</div>
-
 								</div>
 						</div>
 				</div>
@@ -803,9 +796,18 @@
 														</div>
 												</div>
 												<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-success">Ajukan Refund</button>
+														<div class="d-flex justify-content-between col-12">
+																<div class="mr-auto">
+																		<a href="{{ route('admin.refund.manual-refund.index') }}" class="btn btn-outline-danger">Ajukan
+																				refund manual</a>
+																</div>
+																<div>
+																		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-success">Ajukan Refund</button>
+																</div>
+														</div>
 												</div>
+
 										</form>
 
 								</div>
@@ -1295,11 +1297,11 @@
 														errorMessage = errors[firstError][0]; // Ambil pesan error pertama
 												}
 
-													Swal.fire({
-															title: "Error",
-															text: errorMessage,
-															icon: "error"
-													});
+												Swal.fire({
+														title: "Error",
+														text: errorMessage,
+														icon: "error"
+												});
 										}
 								});
 						});
