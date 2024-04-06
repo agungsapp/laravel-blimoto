@@ -15,9 +15,9 @@
 						<div class="col-12">
 								<div class="card card-primary">
 										<div class="card-header with-border">
-												<h3 class="card-title">Data Bank</h3>
+												<h3 class="card-title">Data Bank Konsumen</h3>
 										</div>
-										<form action="{{ route('admin.penjualan.data.store') }}" method="post">
+										<form action="{{ route('admin.refund.manual-refund.store') }}" method="post">
 												@csrf
 												<div class="card-body">
 														<input type="hidden" name="idp" value="{{ $penjualan->id }}">
@@ -39,9 +39,26 @@
 																<div class="form-group col-md-6">
 																		<label for="norek">Nomor Rekening</label>
 																		<input name="norek" type="text" class="form-control" placeholder="masukan nomor rekening"
-																				id="norek" value="{{ old('bpkb') }}">
+																				id="norek" value="{{ old('norek') }}">
 																</div>
 														</div>
+
+
+														{{-- pengajuan area --}}
+														<div class="row">
+																<div class="form-group col-md-10">
+																		<label for="input-hasil">Nominal Refund</label>
+																		<input name="nominal" type="number" class="form-control" placeholder="Nama nominal"
+																				value="{{ old('nominal') ?? $penjualan->dp }}">
+																</div>
+																<div class="form-floating col-10">
+																		<label for="catatan">Catatan :</label>
+																		<textarea class="form-control" placeholder="Catatan untuk CEO" name="catatan" id="catatan"></textarea>
+																</div>
+														</div>
+
+														{{-- button --}}
+
 														<div class="row mt-5">
 																<div class="col-12">
 																		<div style="max-width: 50%" class="d-flex justify-content-center mx-auto">

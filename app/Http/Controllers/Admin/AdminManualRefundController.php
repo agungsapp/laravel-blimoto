@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ManualTransferModel;
+use App\Models\PengajuanRefundModel;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AdminManualRefundController extends Controller
 {
@@ -47,7 +51,49 @@ class AdminManualRefundController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd("test debug data ", $request->all());
+
+        $validator = Validator::make($request->all(), [
+            'konsumen' => 'required',
+            'bank' => 'required',
+            'norek' => 'required',
+            'nominal' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back();
+        }
+
+        DB::beginTransaction();
+        try {
+            $pengajuan = PengajuanRefundModel::create([
+                'id_penjualan' => $request->idp,
+                'nominal' => $request->nominal,
+                'metode_pembayaran' => 'bank_transfer',
+                'status_pengajuan' => 'menunggu',
+                'catatan' => $request->catatan,
+            ]);
+
+            $manual = ManualTransferModel::create([
+                'id_penjualan' => $request->idp,
+                'id_pengajuan' => $pengajuan->id,
+                'nama_rekening' => $request->konsumen,
+                'kode' => $request->bank,
+                'norek' => $request->norek,
+
+            ]);
+
+            flash()->addSuccess("Berhasil  membuat data pengajuan refund !");
+            return redirect()->back();
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            // throw $th;
+            DB::rollback();
+            flash()->addError("Terjadi kesalahan saat menyimpan data!");
+            return redirect()->back();
+        }
     }
 
     /**
@@ -58,14 +104,11 @@ class AdminManualRefundController extends Controller
      */
     public function show($id)
     {
-
         $data = [
             'penjualan' => Penjualan::find($id),
             'judulHalaman' => 'Form Data Bank Konsumen'
         ];
-
         // dd($data);
-
         return view('admin.refund.manual.show', $data);
     }
 
