@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PengajuanRefundModel extends Model
 {
@@ -20,6 +21,11 @@ class PengajuanRefundModel extends Model
     public function pembayaran()
     {
         return $this->belongsTo(Pembayaran::class, 'id_penjualan', 'id_penjualan');
+    }
+
+    public function manual()
+    {
+        return $this->belongsTo(ManualTransferModel::class, 'id', 'id_pengajuan');
     }
 }
 

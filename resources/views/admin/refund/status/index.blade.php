@@ -71,7 +71,7 @@
 																										$metodeDidukung = ['qris', 'credit_card', 'gopay', 'shopeepay', 'kredivo', 'akulaku'];
 																								@endphp
 
-																								@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung))
+																								@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung) && is_null($refund->manual))
 																										<button type="button"
 																												class="btn btn-block {{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'btn-secondary' : 'btn-success' }} mb-2"
 																												data-toggle="modal" data-target="#modalAutoRefund{{ $refund->id }}"
@@ -80,8 +80,8 @@
 																										</button>
 																								@else
 																										<button type="button"
-																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-warning' }} mb-2"
-																												data-toggle="modal" data-target="#modalTolak{{ $refund->id }}"
+																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-danger' }} mb-2"
+																												data-toggle="modal" data-target="#modalTransfer{{ $refund->id }}"
 																												{{ $refund->status_pengajuan === 'menunggu' ? 'disabled' : '' }}>
 																												Proses Manual
 																										</button>
@@ -117,35 +117,56 @@
 																												</div>
 																										</div>
 																								</div>
-																								<!-- Modal tolak -->
-																								<div class="modal fade" id="modalTolak{{ $refund->id }}" tabindex="-1" role="dialog"
-																										aria-labelledby="myModalLabel">
-																										<div class="modal-dialog" role="document">
-																												<div class="modal-content">
-																														<div class="modal-header">
-																																<h4 class="modal-title" id="myModalLabel">Tolak pengembalian dana</h4>
+																								<!-- Modal transfer -->
+																								@if (!is_null($refund->manual))
+																										<div class="modal fade" id="modalTransfer{{ $refund->id }}" tabindex="-1" role="dialog"
+																												aria-labelledby="myModalLabel">
+																												<div class="modal-dialog" role="document">
+																														<div class="modal-content">
+																																<div class="modal-header">
+																																		<h4 class="modal-title" id="myModalLabel">Transfer pengembalian dana</h4>
+																																</div>
+																																<form action="{{ route('admin.refund.pengajuan-refund.update', $refund->id) }}"
+																																		method="post" enctype="multipart/form-data">
+																																		@csrf
+																																		@method('PUT')
+																																		<div class="modal-body">
+																																				<input type="hidden" name="idr" value="{{ $refund->id }}">
+																																				<p>Silahkan lakukan transfer dana ke konsumen
+																																						<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
+																																						<strong class="text-danger">{{ Str::rupiah($refund->nominal) }}</strong> kemudian
+																																						upload bukti transfernya pada form di bawah ini.
+																																				</p>
+
+																																				{{-- form area --}}
+
+																																				<div class="mb-3">
+																																						<label for="konsumen" class="form-label">Nama Rekening</label>
+																																						<input type="text" name="konsumen" class="form-control" id="konsumen"
+																																								value="{{ $refund->manual->nama_rekening }}" readonly>
+																																				</div>
+																																				<div class="mb-3">
+																																						<label for="norek" class="form-label">Nomor Rekening</label>
+																																						<input type="number" name="norek" class="form-control" id="norek"
+																																								value="{{ $refund->manual->norek }}" readonly>
+																																				</div>
+																																				<div class="mb-3">
+																																						<label for="formFile" class="form-label">Upload bukti transfer</label>
+																																						<input class="form-control" name="bukti" type="file" id="formFile">
+																																				</div>
+
+																																		</div>
+																																		<div class="modal-footer">
+																																				<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+																																				<button type="submit" class="btn btn-danger">Konfirmasi transfer
+																																				</button>
+																																		</div>
+																																</form>
 																														</div>
-																														<form action="{{ route('admin.refund.pengajuan-refund.update', $refund->id) }}"
-																																method="post">
-																																@csrf
-																																@method('PUT')
-																																<div class="modal-body">
-																																		<input type="hidden" name="status_pengajuan" value="ditolak">
-																																		<p>Anda akan menolak proses pengembalian dana konsumen
-																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
-																																				<strong class="text-danger">{{ Str::rupiah($refund->nominal) }}</strong> tindakan
-																																				ini tidak dapat dibatalkan.
-																																		</p>
-																																</div>
-																																<div class="modal-footer">
-																																		<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-																																		<button type="submit" class="btn btn-danger">Ya, Tolak
-																																		</button>
-																																</div>
-																														</form>
 																												</div>
 																										</div>
-																								</div>
+																								@endif
+
 																						</td>
 																				</tr>
 																		@endforeach
