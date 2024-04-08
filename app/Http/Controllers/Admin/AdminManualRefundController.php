@@ -20,7 +20,7 @@ class AdminManualRefundController extends Controller
     public function index()
     {
 
-        $penjualan = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+        $penjualan = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'manual')
             ->where('status_pembayaran_dp', '=', 'success')
             ->orderBy('id', 'desc')
             ->get();
@@ -65,6 +65,18 @@ class AdminManualRefundController extends Controller
             return redirect()->back();
         }
 
+        // Cek apakah sudah ada pengajuan refund untuk penjualan ini
+        $cekPengajuan = PengajuanRefundModel::where('id_penjualan', $request->idp)->first();
+        if ($cekPengajuan) {
+            flash()->addError("Data refund sudah ada dan masih dalam status " . $cekPengajuan->status_pengajuan . "!");
+            return redirect()->back()->withInput();
+        }
+        $cekManual = ManualTransferModel::where('id_penjualan', $request->idp)->first();
+        if ($cekManual) {
+            flash()->addError("Data refund sudah ada !");
+            return redirect()->back()->withInput();
+        }
+
         DB::beginTransaction();
         try {
             $pengajuan = PengajuanRefundModel::create([
@@ -84,10 +96,9 @@ class AdminManualRefundController extends Controller
 
             ]);
 
+            DB::commit();
             flash()->addSuccess("Berhasil  membuat data pengajuan refund !");
             return redirect()->back();
-
-            DB::commit();
         } catch (\Throwable $th) {
             // throw $th;
             DB::rollback();
