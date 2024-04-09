@@ -65,4 +65,9 @@ class Penjualan extends Model
   {
     return $this->belongsTo(Pembayaran::class, 'id', 'id_penjualan');
   }
+
+  public function manual()
+  {
+    return $this->belongsTo(ManualTransferModel::class, 'id', 'id_penjualan');
+  }
 }

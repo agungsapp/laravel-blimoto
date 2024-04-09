@@ -192,6 +192,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::prefix('refund')->name('refund.')->group(function () {
             Route::resource('/pengajuan-refund', AdminPengajuanRefundController::class);
             Route::get('status', [AdminStatusRefund::class, 'index'])->name('status.index');
+            Route::post('status', [AdminStatusRefund::class, 'store'])->name('status.store');
 
             Route::resource('/manual-refund', AdminManualRefundController::class);
         });

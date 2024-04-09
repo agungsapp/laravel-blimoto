@@ -25,8 +25,11 @@ class AdminStatusRefund extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
-            'idr' => 'required|exists:refund,id', // Pastikan id refund valid dan ada di database
+            'idr' => 'required|exists:pengajuan_refund,id', // Pastikan id refund valid dan ada di database
             'bukti' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048', // Validasi file
         ]);
 
@@ -46,19 +49,26 @@ class AdminStatusRefund extends Controller
 
             // Temukan record pengajuan refund yang sesuai
             $manualTransfer = ManualTransferModel::where('id_pengajuan', $idr)->first();
+            $updatePengajuanRefund = PengajuanRefundModel::find($manualTransfer->id_pengajuan);
+
 
             if ($manualTransfer) {
                 // Simpan nama file ke dalam record
-                $manualTransfer->bukti_transfer = $filename;
+                $manualTransfer->image = $filename;
+                $manualTransfer->status = 'success';
                 $manualTransfer->save();
 
                 flash()->addSuccess("Bukti transfer berhasil diupload!");
+                $updatePengajuanRefund->status_pengajuan = 'completed';
+                $updatePengajuanRefund->save();
             } else {
                 flash()->addError("Data pengajuan refund tidak ditemukan.");
             }
         } else {
             flash()->addError("Harap sertakan bukti transfer.");
         }
+
+
 
         return redirect()->back();
     }
