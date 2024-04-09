@@ -20,8 +20,12 @@ return new class extends Migration
             $table->string("nama_rekening");
             $table->integer("kode");
             $table->string("norek");
+            $table->string('status')->nullable();
+            $table->string('image')->nullable();
+            $table->unsignedBigInteger('id_user')->nullable();
             $table->timestamps();
 
+            $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('id_penjualan')->references('id')->on('penjualan');
             $table->foreign('id_pengajuan')->references('id')->on('pengajuan_refund');
         });

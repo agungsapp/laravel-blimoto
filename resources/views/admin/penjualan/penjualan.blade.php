@@ -233,8 +233,8 @@
 																				<option value="" selected>-- Pilih status pembayaran --</option>
 																				<option value="pending" {{ old('status_pembayaran') == 'pending' ? 'selected' : '' }}>Pending
 																				</option>
-																				<option value="success" {{ old('status_pembayaran') == 'success' ? 'selected' : '' }}>Success
-																				</option>
+																				{{-- <option value="success" {{ old('status_pembayaran') == 'success' ? 'selected' : '' }}>Success
+																				</option> --}}
 																				<option value="cod" {{ old('status_pembayaran') == 'cod' ? 'selected' : '' }}>COD</option>
 																		</select>
 																</div>

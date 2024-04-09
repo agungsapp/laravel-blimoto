@@ -71,21 +71,29 @@
 																										$metodeDidukung = ['qris', 'credit_card', 'gopay', 'shopeepay', 'kredivo', 'akulaku'];
 																								@endphp
 
-																								@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung) && is_null($refund->manual))
-																										<button type="button"
-																												class="btn btn-block {{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'btn-secondary' : 'btn-success' }} mb-2"
-																												data-toggle="modal" data-target="#modalAutoRefund{{ $refund->id }}"
-																												{{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'disabled' : '' }}>
-																												Auto Refund
-																										</button>
+
+																								@if ($refund->status_pengajuan == 'completed')
+																										<button class="btn btn-success btn-block" disabled>Completed</button>
+																								@elseif($refund->status_pengajuan == 'ditolak')
+																										<button class="btn btn-danger btn-block" disabled>Di tolak</button>
 																								@else
-																										<button type="button"
-																												class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' ? 'btn-secondary' : 'btn-danger' }} mb-2"
-																												data-toggle="modal" data-target="#modalTransfer{{ $refund->id }}"
-																												{{ $refund->status_pengajuan === 'menunggu' ? 'disabled' : '' }}>
-																												Proses Manual
-																										</button>
+																										@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung) && is_null($refund->manual))
+																												<button type="button"
+																														class="btn btn-block {{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'btn-secondary' : 'btn-success' }} mb-2"
+																														data-toggle="modal" data-target="#modalAutoRefund{{ $refund->id }}"
+																														{{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'disabled' : '' }}>
+																														Auto Refund
+																												</button>
+																										@else
+																												<button type="button"
+																														class="btn btn-block {{ $refund->status_pengajuan === 'menunggu' || $refund->status_pengajuan === 'ditolak' ? 'btn-secondary' : 'btn-danger' }} mb-2"
+																														data-toggle="modal" data-target="#modalTransfer{{ $refund->id }}"
+																														{{ $refund->status_pengajuan === 'menunggu' || $refund->status_pengajuan === 'ditolak' ? 'disabled' : '' }}>
+																														Proses Manual
+																												</button>
+																										@endif
 																								@endif
+
 																								<!-- Modal setuju -->
 																								<div class="modal fade" id="modalAutoRefund{{ $refund->id }}" tabindex="-1" role="dialog"
 																										aria-labelledby="myModalLabel">
@@ -126,10 +134,10 @@
 																																<div class="modal-header">
 																																		<h4 class="modal-title" id="myModalLabel">Transfer pengembalian dana</h4>
 																																</div>
-																																<form action="{{ route('admin.refund.pengajuan-refund.update', $refund->id) }}"
-																																		method="post" enctype="multipart/form-data">
+																																<form action="{{ route('admin.refund.status.store', $refund->id) }}" method="post"
+																																		enctype="multipart/form-data">
 																																		@csrf
-																																		@method('PUT')
+																																		@method('POST')
 																																		<div class="modal-body">
 																																				<input type="hidden" name="idr" value="{{ $refund->id }}">
 																																				<p>Silahkan lakukan transfer dana ke konsumen
@@ -137,9 +145,7 @@
 																																						<strong class="text-danger">{{ Str::rupiah($refund->nominal) }}</strong> kemudian
 																																						upload bukti transfernya pada form di bawah ini.
 																																				</p>
-
 																																				{{-- form area --}}
-
 																																				<div class="mb-3">
 																																						<label for="konsumen" class="form-label">Nama Rekening</label>
 																																						<input type="text" name="konsumen" class="form-control" id="konsumen"
