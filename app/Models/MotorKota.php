@@ -11,7 +11,8 @@ class MotorKota extends Model
     protected $table = 'motor_kota';
     protected $fillable = [
         'id_kota',
-        'id_motor'
+        'id_motor',
+        'harga_otr'
     ];
 
     public function motor()
