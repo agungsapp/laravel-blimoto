@@ -102,7 +102,7 @@ class AdminPenjualanController extends Controller
         'warna_motor' => $warna_motor,
         'no_hp' => $request->input('no_hp') ?? null,
         'bpkb' => $request->input('bpkb') ?? null,
-        'dp' => $request->input('dp'),
+        'dp' => $request->input('dp') ?? 0,
         'diskon_dp' => $request->input('diskon_dp'),
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
         'tanggal_dibuat' => $tanggal_dibuat,

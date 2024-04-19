@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailMotor;
 use App\Models\Motor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class BrosurController extends Controller
 {
@@ -24,6 +26,8 @@ class BrosurController extends Controller
             'motors' => $motors,
             'pencarian' => $search
         ];
+        // dd($data['motors'][0]->motorKota[0]->harga_otr);
+        // dd($data['populer'][0]->motorKota[0]->harga_otr);
 
         return view('user.brosur.index', $data);
     }
@@ -96,9 +100,20 @@ class BrosurController extends Controller
 
     private function getMotorData($bestMotorId)
     {
-        $motors = Motor::with(['diskonMotor', 'brosurMotor'])
+        $kotaId = Session::get('lokasiUser');
+        // Set default value of $kotaId to 1 if it's empty
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
+        // dd($kotaId);
+        $motors = Motor::with(['diskonMotor', 'brosurMotor', 'motorKota' => function ($query) use ($kotaId) {
+            $query->where('id_kota', $kotaId);
+        }])
             ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
                 $query->where('id_best_motor', $bestMotorId);
+            })
+            ->whereHas('motorKota', function ($query) use ($kotaId) {
+                $query->whereColumn('motor_kota.id_motor', 'motor.id'); // Menyesuaikan kondisi relasi
             })
             ->get();
 
@@ -109,6 +124,8 @@ class BrosurController extends Controller
             // Lakukan null check sebelum mengakses properti 'nama_file'
             $motor->brosur = $motor->brosurMotor ? $motor->brosurMotor->nama_file : null;
         }
+
+        // dd($motors);
 
         return $motors;
     }

@@ -27,9 +27,6 @@
 																<div id="tab-1" class="tab-content active default">
 																		<div class="product-slide-5 product-m no-arrow">
 																				<!-- custom card produk box for loop -->
-
-																				{{-- {{ dd($best1) }} --}}
-
 																				@foreach ($best1 as $item1)
 																						<div>
 																								<div class="product-box">
@@ -49,7 +46,6 @@
 																												<a href="#">
 																														<h3>{{ $item1->nama }}</h3>
 																												</a>
-
 																												<div class="mt-2">
 																														<div class="d-flex justify-content-between">
 																																<p class="text-doff">Diskon promo </p>
@@ -67,12 +63,6 @@
 																														<button type="submit" class="btn btn-sm btn-danger d-block w-100 py-2">Lihat Diskon
 																																Terbaik</button>
 																												</form>
-
-																												{{-- <a href="/try" id="detail-link" class="btn btn-sm btn-danger rounded-3 mt-3">Lihat
-                            Detail</a>
-                          --}}
-																												{{-- <a href="/detail-motor/{{ $item1->id }}/{{ session('lokasiUser') }}" id="detail-link"
-                            class="btn btn-sm btn-danger rounded-3 mt-3">Lihat Detail</a> --}}
 																										</div>
 																								</div>
 																						</div>
@@ -158,7 +148,7 @@
 																														<div class="d-flex justify-content-between">
 																																<p class="text-doff">Harga OTR </p>
 																																<p class="text-basic fw-bold">
-																																		{{ Str::rupiah($item3->harga ?? '0') }}
+																																		{{ Str::rupiah($item3->motorKota[0]->harga_otr ?? '0') }}
 																																</p>
 																														</div>
 																														<div class="d-flex justify-content-between">
@@ -213,7 +203,7 @@
 																														<div class="d-flex justify-content-between">
 																																<p class="text-doff">Harga OTR </p>
 																																<p class="text-basic fw-bold">
-																																		{{ Str::rupiah($item4->harga) }}
+																																		{{ Str::rupiah($item4->motorKota[0]->harga_otr ?? 0) }}
 																																</p>
 																														</div>
 																														<div class="d-flex justify-content-between">

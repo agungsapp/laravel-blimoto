@@ -55,6 +55,7 @@ class MotorKotaController extends Controller
         $validator = Validator::make($request->all(), [
             'kota' => 'required',
             'motor' => 'required',
+            'harga' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -66,6 +67,7 @@ class MotorKotaController extends Controller
             $existingRecord = MotorKota::where([
                 'id_kota' => $request->input('kota'),
                 'id_motor' => $request->input('motor'),
+                'harga_otr' => $request->input('harga'),
             ])->first();
 
             if ($existingRecord) {
@@ -120,6 +122,7 @@ class MotorKotaController extends Controller
         $validator = Validator::make($request->all(), [
             'kota' => 'required',
             'motor' => 'required',
+            'harga' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -131,6 +134,7 @@ class MotorKotaController extends Controller
             $motorKota = MotorKota::findOrFail($id);
             $motorKota->id_kota = $request->input('kota');
             $motorKota->id_motor = $request->input('motor');
+            $motorKota->harga_otr = $request->input('harga');
             $motorKota->save();
             flash()->addSuccess("Berhasil merubah data!");
             return redirect()->back();

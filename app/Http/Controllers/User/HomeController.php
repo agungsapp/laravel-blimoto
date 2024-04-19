@@ -43,7 +43,8 @@ class HomeController extends Controller
 
         // dd(Session::get('lokasiUser'));
 
-        // dd($data['best1']);
+        // dd($data['best3'][0]);
+        // dd($data['best3'][0]->motorKota[0]->harga_otr);
 
         // dd($data['hooks']);
         return view('user.home.index', $data);
@@ -234,33 +235,47 @@ class HomeController extends Controller
         if (empty($kotaId)) {
             $kotaId = 1;
         }
-        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
-            $query->where('id_best_motor', $bestMotorId);
-        })
+        $motors = Motor::with(['motorKota' => function ($query) use ($kotaId) {
+            $query->where('id_kota', $kotaId);
+        }])
+            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+                $query->where('id_best_motor', $bestMotorId);
+            })
             ->whereHas('motorKota', function ($query) use ($kotaId) {
                 $query->where('id_kota', $kotaId);
             })
             ->get();
 
         foreach ($motors as $motor) {
+            // Ambil data dari setiap motorKota yang terkait
+            $motorKota = $motor->motorKota->first(); // Mengambil motorKota pertama dari koleksi
+            // Cek apakah ada data motorKota
+            if ($motorKota) {
+                // Mengambil harga dari relasi motorKota
+                $motor->harga = $motorKota->harga_otr ?? null;
+            } else {
+                // Atur harga menjadi null jika tidak ada data motorKota terkait
+                $motor->harga = null;
+            }
             // Mengambil gambar motor
             $motor->image = DetailMotor::where('id_motor', $motor->id)
                 ->pluck('gambar')->first();
-
             // Mengambil diskon motor tertinggi
             $maxDiskonPromo = DiskonMotor::where('id_motor', $motor->id)
                 ->max('diskon_promo');
-
             $maxDiskon = DiskonMotor::where('id_motor', $motor->id)
                 ->max('diskon');
             $motor->diskon_promo = $maxDiskonPromo;
             $motor->diskon = $maxDiskon;
         }
 
+
         // dd($motors);
 
         return $motors;
     }
+
+
 
 
 
@@ -289,11 +304,11 @@ class HomeController extends Controller
             ->groupBy('id_motor');
 
         // Query utama untuk mendapatkan motor bersama dengan tenor maksimal dan DP terendah
-        $motors = Motor::whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
-            $query->where('id_best_motor', $bestMotorId);
-        })
-            ->whereHas('motorKota', function ($query) use ($kotaId) {
-                $query->where('id_kota', $kotaId);
+        $motors = Motor::with(['motorKota' => function ($query) use ($kotaId) {
+            $query->where('id_kota', $kotaId);
+        }])
+            ->whereHas('mtrBestMotor', function ($query) use ($bestMotorId) {
+                $query->where('id_best_motor', $bestMotorId);
             })
             ->leftJoinSub($maxTenorSubquery, 'max_tenors', function ($join) {
                 $join->on('motor.id', '=', 'max_tenors.id_motor');
@@ -309,6 +324,17 @@ class HomeController extends Controller
 
         // Menambahkan informasi gambar dan diskon ke setiap motor
         foreach ($motors as $motor) {
+            // Ambil data dari setiap motorKota yang terkait
+            $motorKota = $motor->motorKota->first(); // Mengambil motorKota pertama dari koleksi
+            // Cek apakah ada data motorKota
+            if ($motorKota) {
+                // Mengambil harga dari relasi motorKota
+                $motor->harga = $motorKota->harga_otr ?? null;
+            } else {
+                // Atur harga menjadi null jika tidak ada data motorKota terkait
+                $motor->harga = null;
+            }
+
             // Mengambil gambar motor
             $motor->image = DetailMotor::where('id_motor', $motor->id)
                 ->pluck('gambar')->first();
@@ -321,7 +347,6 @@ class HomeController extends Controller
             $motor->diskon_promo = $maxDiskonPromo;
             $motor->diskon = $maxDiskon;
         }
-
 
         return $motors;
     }

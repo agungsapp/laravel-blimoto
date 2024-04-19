@@ -77,7 +77,15 @@ class Motor extends Model
     // logika data : 
     public static function getMotorsWithBrosur($search = null)
     {
-        $query = self::with(['diskonMotor', 'brosurMotor'])
+        $kotaId = Session::get('lokasiUser');
+        // Set default value of $kotaId to 1 if it's empty
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
+
+        $query = self::with(['diskonMotor', 'brosurMotor', 'motorKota' => function ($query) use ($kotaId) {
+            $query->where('id_kota', $kotaId);
+        }])
             ->whereHas('brosurMotor');
 
         if ($search) {

@@ -119,7 +119,7 @@
 																		alt="{{ $m->id }}" />
 																<div class="card-body">
 																		<h5 class="card-title">{{ $m->nama }}</h5>
-																		<p class="card-text">{{ Str::rupiah($m->harga) }}</p>
+																		<p class="card-text">{{ Str::rupiah($m->motorKota[0]->harga_otr) }}</p>
 																		<a href="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/download/{{ $m->brosur }}" target="_blank"
 																				class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
 																</div>
@@ -151,7 +151,7 @@
 																		alt="{{ $t->id }}" />
 																<div class="card-body">
 																		<h5 class="card-title">{{ $t->nama }}</h5>
-																		<p class="card-text">{{ Str::rupiah($t->harga) }}</p>
+																		<p class="card-text">{{ Str::rupiah($t->motorKota[0]->harga_otr) }}</p>
 																		<a href="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/uploads/download/{{ $t->brosur }}"
 																				target="_blank" class="btn bg-basic w-100 mt-2 text-white">Download Brosur</a>
 																</div>
@@ -176,7 +176,21 @@
 								<div class="col-12 slide-mitra-kami">
 
 										@php
-												$links = ['https://imgcdn.oto.com/brandlogo/motor/honda-1652082402.png', 'https://imgcdn.oto.com/brandlogo/motor/yamaha-1651737896.png', 'https://imgcdn.oto.com/brandlogo/motor/suzuki-1652082502.png', 'https://imgcdn.oto.com/brandlogo/motor/vespa-1652082723.png', 'https://imgcdn.oto.com/brandlogo/motor/royal-enfield-1651738163.png', 'https://imgcdn.oto.com/brandlogo/motor/triumph.png', 'https://imgcdn.oto.com/brandlogo/motor/bajaj.png', 'https://imgcdn.oto.com/brandlogo/motor/sym-1652082655.png', 'https://imgcdn.oto.com/brandlogo/motor/mv-agusta.png', 'https://imgcdn.oto.com/brandlogo/motor/kymco.png', 'https://imgcdn.oto.com/brandlogo/motor/piaggio-1652082560.png', 'https://imgcdn.oto.com/brandlogo/motor/diablo.png', 'https://imgcdn.oto.com/brandlogo/motor/sm-sport-1652082624.png'];
+												$links = [
+												    'https://imgcdn.oto.com/brandlogo/motor/honda-1652082402.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/yamaha-1651737896.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/suzuki-1652082502.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/vespa-1652082723.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/royal-enfield-1651738163.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/triumph.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/bajaj.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/sym-1652082655.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/mv-agusta.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/kymco.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/piaggio-1652082560.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/diablo.png',
+												    'https://imgcdn.oto.com/brandlogo/motor/sm-sport-1652082624.png',
+												];
 										@endphp
 
 										@foreach ($links as $link)
