@@ -8,9 +8,11 @@ use App\Models\DiskonMotor;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
+use App\Models\MotorKota;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 use function PHPUnit\Framework\isEmpty;
@@ -184,6 +186,7 @@ class CicilanMotorController extends Controller
           'tenor.required' => 'tenor harus dipilih terlebih dahulu',
         ]
       );
+
       if ($validator->fails()) {
         return redirect()->back()->withErrors($validator)->withInput();
       }
@@ -228,6 +231,16 @@ class CicilanMotorController extends Controller
     // $dp = $request->input('dp');
     $tenor = $request->input('tenor');
 
+
+    // $kotaId = Session::get('lokasiUser');
+    // // Set default value of $kotaId to 1 if it's empty
+    // if (!empty($kotaId)) {
+    //   $id_lokasi = $kotaId;
+    // }
+
+    $motorOtr = MotorKota::where('id_kota', $id_lokasi)->where('id_motor', $id_motor)->first(); // get otr motor
+
+
     $lokasi = Kota::find($id_lokasi);
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
@@ -239,6 +252,9 @@ class CicilanMotorController extends Controller
         },
         'detailMotor' => function ($query) {
           $query->select('id_motor', 'warna', 'gambar');
+        },
+        'motorKota' => function ($query) {
+          $query->select('harga_otr');
         },
       ])
       ->where('stock', 1)
@@ -271,7 +287,8 @@ class CicilanMotorController extends Controller
     $data = array(
       'motor' => array(
         'nama' => $motor->nama,
-        'otr' => $motor->harga,
+        'otr' => $motorOtr->harga_otr,
+        // 'otr' => $motor->harga,
         'merk' => $motor->merk->nama,
         'type' => $motor->type->nama,
         'detail_motor' => $motor->detailMotor,
@@ -301,12 +318,18 @@ class CicilanMotorController extends Controller
         $dpBayar = $cicilan->dp;
         $potonganTenor = 0;
       }
+      // dd($cicilan);
+      // $motorOtr = MotorKota::where('id_kota', $cicilan->id_lokasi)->where('id_motor', $cicilan->id_motor)->first();
+      // dd($motorOtr);
+
+      // lastup
 
       $data['cicilan_motor'][] = array(
         'nama_leasing' => $cicilan->nama,
         'dp' => $cicilan->dp,
         'diskon' => $diskon,
         'dp_bayar' => $dpBayar,
+        // 'harga_otr' => $motorOtr->harga_otr,
         'gambar' => $cicilan->gambar,
         'angsuran' => $cicilan->cicilan,
         'tenor' => $cicilan->tenor,
@@ -379,11 +402,15 @@ class CicilanMotorController extends Controller
       $dpBayar = $recommendation->dp - $diskon;
       $motorId = $recommendation->motor->id;
 
+      // dd($recommendation->motor->motorKota);
+
       $cicilanMotor = [
         'nama_leasing' => $recommendation->leasingMotor->nama,
         'dp' => $recommendation->dp,
         'diskon' => $diskon,
         'dp_bayar' => $dpBayar,
+        'harga_otr' => $recommendation->motorData,
+        // 'harga_otr' => $recommendation->motorData,
         'gambar' => $recommendation->leasingMotor->gambar,
         'angsuran' => $recommendation->cicilan,
         'tenor' => $recommendation->tenor,
@@ -402,7 +429,8 @@ class CicilanMotorController extends Controller
         $item = [
           'motor' => [
             'nama' => $recommendation->motor->nama,
-            'otr' => $recommendation->motor->harga,
+            'otr' => $motorOtr->harga_otr,
+            // 'otr' => $recommendation->motor->harga,
             'merk' => $recommendation->motor->merk->nama,
             'type' => $recommendation->motor->type->nama,
             'detail_motor' => $recommendation->motor->detailMotor,
@@ -414,15 +442,56 @@ class CicilanMotorController extends Controller
       }
     }
 
+
+
+
+
+    // Menentukan variabel untuk melacak apakah nama leasing adalah "FIF Group"
+    $isFIFGroup = false;
+
+    // Mencari data dari leasing dengan nama "FIF Group"
+    foreach ($rekomendasiMotor as &$rekomendasi) {
+      foreach ($rekomendasi['cicilan_motor'] as &$cicilan) {
+        if ($cicilan['nama_leasing'] === "FIF Group") {
+          $isFIFGroup = true;
+          break 2; // Keluar dari loop jika ditemukan nama leasing "FIF Group"
+        }
+      }
+    }
+    unset($rekomendasi); // memutus referensi terakhir
+    unset($cicilan); // memutus referensi terakhir
+
+    // Melakukan pengurutan berdasarkan kriteria tertentu
     foreach ($rekomendasiMotor as &$rekomendasi) {
       // Tentukan cicilan dengan angsuran terendah untuk setiap motor rekomendasi
       $lowestAngsuranRekomendasi = min(array_column($rekomendasi['cicilan_motor'], 'angsuran'));
+      $bestSet = false; // Variabel untuk melacak apakah nilai best sudah diatur sebelumnya
+
       foreach ($rekomendasi['cicilan_motor'] as &$cicilan) {
-        $cicilan['best'] = $cicilan['angsuran'] == $lowestAngsuranRekomendasi;
+        // Tentukan nilai best berdasarkan apakah angsuran pada baris ini sama dengan angka terendah
+        if (!$bestSet && $cicilan['angsuran'] == $lowestAngsuranRekomendasi) {
+          $cicilan['best'] = true;
+          $bestSet = true; // Set variabel bestSet menjadi true untuk menandakan nilai best sudah diatur
+        } else {
+          $cicilan['best'] = false;
+        }
       }
+
+      // Jika nama leasing "FIF Group" ditemukan, maka prioritas akan diberikan kepada leasing "FIF Group"
+      usort($rekomendasi['cicilan_motor'], function ($a, $b) use ($isFIFGroup) {
+        // Jika nama leasing "FIF Group" ditemukan, maka berikan prioritas kepada leasing "FIF Group"
+        if ($isFIFGroup) {
+          return $a['nama_leasing'] === "FIF Group" ? -1 : 1;
+        }
+        // Jika tidak ditemukan, urutkan berdasarkan total bayar
+        return $a['total_bayar'] - $b['total_bayar'];
+      });
     }
-    unset($cicilan); // memutus referensi terakhir
     unset($rekomendasi); // memutus referensi terakhir
+    unset($cicilan); // memutus referensi terakhir
+
+
+
 
 
     // Convert the associative array to a sequential array
@@ -433,6 +502,8 @@ class CicilanMotorController extends Controller
       'rekomendasi' => $rekomendasiMotor,
     ];
 
+    // $data
+    // dd($data['data']);
     // return response()->json($data);
     return view('user.cari_diskon.index', $data);
   }

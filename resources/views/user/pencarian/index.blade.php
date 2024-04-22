@@ -153,9 +153,11 @@
 																																<h4 class="fw-bold text-doff fw-bold mt-2 text-center">{{ $d->nama }}</h4>
 
 																																<h3>Harga Mulai</h3>
-																																<h5>
-																																		{{ Str::rupiah($d->harga) }}
-																																</h5>
+																																{{-- @dd($d->motorKota[0]->harga_otr) --}}
+																																@if ($d->motorKota->isNotEmpty())
+																																		<h5>{{ Str::rupiah($d->motorKota[0]->harga_otr) }}</h5>
+																																@endif
+
 																																<form action="{{ route('detail-motor') }}" method="GET">
 																																		@csrf
 																																		<input type="hidden" name="id_lokasi" value="">

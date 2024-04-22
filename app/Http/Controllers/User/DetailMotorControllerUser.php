@@ -10,6 +10,7 @@ use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
 class DetailMotorControllerUser extends Controller
@@ -207,6 +208,13 @@ class DetailMotorControllerUser extends Controller
     $lokasiId = $request->input('id_lokasi');
     $pembayaran = $request->input('pembayaran');
 
+
+    $kotaId = Session::get('lokasiUser');
+    // Set default value of $kotaId to 1 if it's empty
+    if (empty($kotaId)) {
+      $kotaId = $lokasiId ?? 1;
+    }
+
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
         'merk' => function ($query) {
@@ -218,6 +226,9 @@ class DetailMotorControllerUser extends Controller
         'detailMotor' => function ($query) {
           $query->select('id_motor', 'warna', 'gambar');
         },
+        'motorKota' => function ($query) use ($kotaId) {
+          $query->where('id_kota', $kotaId);
+        }
       ])
       ->where('stock', 1)
       ->find($motorId);
@@ -247,7 +258,8 @@ class DetailMotorControllerUser extends Controller
     $data = array(
       'motor' => array(
         'nama' => $motor->nama,
-        'otr' => $motor->harga,
+        'otr' => $motor->motorKota[0]->harga_otr,
+        // 'otr' => $motor->harga,
         'merk' => $motor->merk->nama,
         'type' => $motor->type->nama,
         'detail_motor' => $motor->detailMotor,
@@ -342,6 +354,7 @@ class DetailMotorControllerUser extends Controller
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
     $cicilanRange = $averageAngsuran * 0.2;
 
+
     $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'id_leasing', 'id_motor')
       ->with([
         'motor' => function ($query) {
@@ -356,7 +369,17 @@ class DetailMotorControllerUser extends Controller
             },
             'type' => function ($query) {
               $query->select('id', 'nama');
-            }
+            },
+            // 'motorKota' => function ($query) use ($kotaId) {
+            //   $query->where('id_kota', $kotaId);
+            // }
+
+
+            // ===========================================================================================================
+            // ============================ LAST DI SINI BAGAIMANA INI MENGAMBIL  HARGA OTR DI MOTOR KOTA  ===============
+            // ===========================================================================================================
+
+
           ]);
         },
         'leasingmotor' => function ($query) {
@@ -414,6 +437,7 @@ class DetailMotorControllerUser extends Controller
           'motor' => [
             'nama' => $recommendation->motor->nama,
             'otr' => $recommendation->motor->harga,
+            // 'otr' => $recommendation->motor->harga,
             'merk' => $recommendation->motor->merk->nama,
             'type' => $recommendation->motor->type->nama,
             'detail_motor' => $recommendation->motor->detailMotor,
@@ -484,7 +508,7 @@ class DetailMotorControllerUser extends Controller
       'pembayaran' => $pembayaran
     ];
 
-    // dd($data['rekomendasi']);
+    // dd($data['data']);
     // dd($data);
 
 

@@ -96,6 +96,7 @@
 														<img style="min-height: 130px; " src="{{ asset('assets') }}/images/custom/leasing/{{ $a['gambar'] }}"
 																class="card-img-top {{ $a['best'] == true ? 'sorot_x' : '' }}" alt="{{ $a['gambar'] }}">
 														<ul class="list-group list-group-flush {{ $a['best'] == true ? 'sorot_x' : '' }}">
+
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($a['dp']) }}</p>
@@ -230,6 +231,7 @@
 														<img style="min-height: 130px;" src="{{ asset('assets') }}/images/custom/leasing/{{ $rc['gambar'] }}"
 																class="card-img-top {{ $rc['best'] == true ? 'sorot_x' : '' }}" alt="{{ $rc['gambar'] }}">
 														<ul class="list-group list-group-flush {{ $rc['best'] == true ? 'sorot_x' : '' }}">
+
 																<li class="list-group-item d-flex justify-content-between">
 																		<p>DP</p>
 																		<p>{{ Str::rupiah($rc['dp']) }}</p>
