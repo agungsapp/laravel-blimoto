@@ -192,24 +192,37 @@ class HomeController extends Controller
     public function getSearchMotor(Request $request)
     {
         $kotaId = Session::get('lokasiUser');
+        // Set default value of $kotaId to 1 if it's empty
+        if (empty($kotaId)) {
+            $kotaId = 1;
+        }
+
         $motorNama = $request->input('motor');
         $idLokasi = intval($request->input('id_lokasi'));
         $typeMotor = intval($request->input('kategori'));
 
-        $results = Motor::with([
-            'motorKota',
+        $query = Motor::with([
             'merk',
             'type',
-            'detailMotor'
-        ])
-            ->whereHas('type', function ($query) use ($typeMotor) {
-                $query->where('id', '=', $typeMotor);
-            })
-            ->whereHas('motorKota', function ($query) use ($kotaId) {
-                $query->where('id_kota', '=', $kotaId);
-            })
-            ->whereRaw("MATCH(motor.nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama])
-            ->get();
+            'detailMotor',
+            'motorKota' => function ($query) use ($kotaId) {
+                $query->where('id_kota', $kotaId);
+            }
+        ]);
+
+        // Check if search keyword is provided
+        if (!empty($motorNama)) {
+            $query->whereRaw("MATCH(nama) AGAINST(? IN NATURAL LANGUAGE MODE)", [$motorNama]);
+        }
+
+        // Check if typeMotor is provided
+        if (!empty($typeMotor)) {
+            $query->whereHas('type', function ($query) use ($typeMotor) {
+                $query->where('id', $typeMotor);
+            });
+        }
+
+        $results = $query->get();
 
         $data = [
             'data' => $results,
@@ -218,14 +231,15 @@ class HomeController extends Controller
             'merks' => Merk::all(),
             'types' => Type::all(),
             'kategori' => $typeMotor,
-            'keyword' => $motorNama
+            'lokasiUser' => $kotaId // Pass the $kotaId to the view
         ];
 
+        // dd($data['data']);
+        // dd($data['data'][0]->motorKota[0]);
 
-        // return response()->json($data);
-        // dd($data['lokasi']);
         return view('user.pencarian.index', $data);
     }
+
 
     // get gambar pada detail :
     private function getMotorData($bestMotorId)
