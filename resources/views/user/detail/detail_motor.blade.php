@@ -30,6 +30,9 @@
 		@endphp
 		<div class="container-fluid mt-5">
 				<div class="row px-4">
+						<div class="col-12 d-flex justify-content-center mb-4">
+								<h4 class="text-black">Informasi Harga Untuk Kota {{ $lokasi }}</h4>
+						</div>
 						<div class="col-12 col-md-4 col-lg-4 col-xl-3">
 								<div class="row bg-white px-2 py-3" style="max-width: 450px">
 										<h3 class="fw-bold text-black">{{ $motor['nama'] }}</h3>

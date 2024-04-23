@@ -17,6 +17,11 @@
 																		<a class="text-white" href="javascript:void(0)">cari diskon</a>
 																</li>
 														</ul>
+														<ul class="mt-4">
+																<li>
+																		<p class="text-white">Motor dengan diskon terbaik untuk area {{ $lokasi }}.</p>
+																</li>
+														</ul>
 												</div>
 										</div>
 								</div>
