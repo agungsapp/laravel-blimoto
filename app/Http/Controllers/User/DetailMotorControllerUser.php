@@ -338,26 +338,26 @@ class DetailMotorControllerUser extends Controller
           $bestDiscountKey = $key;
         }
       }
-
       // Tandai cicilan terbaik
       if ($bestDiscountKey !== null) {
         $data['cicilan_motor'][$bestDiscountKey]['best'] = true;
       }
     }
-
     // logic highlight leasing untuk data motor pertama di detail end
-
     // dd($data);
-
     // return response()->json($data);
     // area rekomendasi
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
     $cicilanRange = $averageAngsuran * 0.2;
 
+    // $kotaId = Session::get('lokasiUser');
+    // if (empty($kotaId)) {
+    //   $kotaId = $lokasiId ?? 1;
+    // }
 
     $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'id_leasing', 'id_motor')
       ->with([
-        'motor' => function ($query) {
+        'motor' => function ($query) use ($kotaId) {
           $query->select('id', 'id_merk', 'id_type', 'nama', 'harga')
             ->where('stock', 1);
           $query->with([
@@ -370,16 +370,12 @@ class DetailMotorControllerUser extends Controller
             'type' => function ($query) {
               $query->select('id', 'nama');
             },
-            // 'motorKota' => function ($query) use ($kotaId) {
-            //   $query->where('id_kota', $kotaId);
-            // }
-
-
+            'motorKota' => function ($query) use ($kotaId) {
+              $query->where('id_kota', $kotaId);
+            }
             // ===========================================================================================================
-            // ============================ LAST DI SINI BAGAIMANA INI MENGAMBIL  HARGA OTR DI MOTOR KOTA  ===============
+            // ======================= LAST DI SINI BAGAIMANA INI MENGAMBIL  HARGA OTR DI MOTOR KOTA  ====================
             // ===========================================================================================================
-
-
           ]);
         },
         'leasingmotor' => function ($query) {
@@ -433,10 +429,12 @@ class DetailMotorControllerUser extends Controller
           $rekomendasiMotor[$motorId]['cicilan_motor'][] = $cicilanMotor;
         }
       } else {
+
+
         $item = [
           'motor' => [
             'nama' => $recommendation->motor->nama,
-            'otr' => $recommendation->motor->harga,
+            'otr' => $recommendation->motor->motorKota[0]->harga_otr,
             // 'otr' => $recommendation->motor->harga,
             'merk' => $recommendation->motor->merk->nama,
             'type' => $recommendation->motor->type->nama,
@@ -507,12 +505,8 @@ class DetailMotorControllerUser extends Controller
       'rekomendasi' => $rekomendasiMotor,
       'pembayaran' => $pembayaran
     ];
-
-    // dd($data['data']);
+    // dd($data['rekomendasi']);
     // dd($data);
-
-
-
     // return response()->json($data);
     return view('user.detail.detail_motor', $data);
   }

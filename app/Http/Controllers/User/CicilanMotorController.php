@@ -500,6 +500,7 @@ class CicilanMotorController extends Controller
       'lokasi' => $lokasi->nama,
       'data' => $data,
       'rekomendasi' => $rekomendasiMotor,
+
     ];
 
     // $data

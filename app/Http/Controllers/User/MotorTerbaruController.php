@@ -85,8 +85,11 @@ class MotorTerbaruController extends Controller
       $maxDp = $request->input('max_price');
       $query->whereHas('cicilanMotor', function ($q) use ($minDp, $maxDp) {
         $q->whereBetween('dp', [$minDp, $maxDp]);
+        // dd($q->toSql());
+        // $q->whereBetween('dp', [3800000, 4000000]);
       });
     }
+    // dd($query->get());
 
 
     // Apply sorting based on the parameter
@@ -107,6 +110,8 @@ class MotorTerbaruController extends Controller
       $query->orderBy('updated_at', 'desc');
     }
 
+    // return response()->json($query->get());
+    // dd($query->toSql());
 
 
     $motorData = $query->paginate(8);
