@@ -191,6 +191,7 @@ class HomeController extends Controller
 
     public function getSearchMotor(Request $request)
     {
+
         $kotaId = Session::get('lokasiUser');
         // Set default value of $kotaId to 1 if it's empty
         if (empty($kotaId)) {
