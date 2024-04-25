@@ -181,9 +181,6 @@
 								"autoWidth": false,
 								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
 						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
-
-
-
 						//Initialize Select2 Elements
 						$('.select2').select2()
 				})
@@ -206,6 +203,18 @@
 												}
 										});
 						});
+				})
+
+				// THSFK - fixing pencarian data
+				$(document).ready(function() {
+						$("#dataMotorKota").DataTable({
+								"responsive": true,
+								"lengthChange": false,
+								"autoWidth": false,
+								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
+						}).buttons().container().appendTo('#data_motor_kota_wrapper .col-md-6:eq(0)');
+						//Initialize Select2 Elements
+						$('.select2').select2()
 				})
 		</script>
 @endpush

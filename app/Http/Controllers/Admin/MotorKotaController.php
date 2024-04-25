@@ -34,6 +34,21 @@ class MotorKotaController extends Controller
         ]);
     }
 
+    // THSFK - perbaikan pencarian
+    public function getMotorKotaData()
+    {
+        $motorKotaData = MotorKota::join('kota', 'motor_kota.id_kota', '=', 'kota.id')
+            ->join('motor', 'motor_kota.id_motor', '=', 'motor.id')
+            ->select('motor_kota.*', 'kota.nama as kota_nama', 'motor.nama as motor_nama')
+            ->orderByDesc('motor_kota.id')
+            ->get();
+
+        $kota = Kota::all();
+        $motor = Motor::all();
+
+        return response()->json($kota, $motor);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
