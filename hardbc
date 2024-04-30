@@ -1,0 +1,57 @@
+    // proses penentuan rekomendasi highlight leasing terbaik start
+    foreach ($rekomendasiMotor as $motorId => &$motorInfo) {
+
+      $lowestTotalBayar = PHP_INT_MAX;
+      $bestLeasingKey = null;
+
+      if ($motorId == 6) {
+        // Set the 'best' label for the first leasing option
+        if (!isset($motorInfo['cicilan_motor'][0]['best'])) {
+          $motorInfo['cicilan_motor'][0]['best'] = true;
+          $motorInfo['cicilan_motor'][0]['target'] = true;
+        }
+
+        // Continue processing other motors
+        continue;
+      }
+
+
+      // Temukan leasing dengan total bayar terendah
+      foreach ($motorInfo['cicilan_motor'] as $key => $cicilan) {
+        $totalBayar = $cicilan['total_bayar'];
+        if ($totalBayar < $lowestTotalBayar || ($totalBayar == $lowestTotalBayar && $cicilan['nama_leasing'] == "FIF Group")) {
+          $lowestTotalBayar = $totalBayar;
+          $bestLeasingKey = $key;
+        }
+      }
+
+      // Pastikan setiap motor memiliki minimal satu label 'best'
+      if (count($motorInfo['cicilan_motor']) >= 1) {
+        // Tandai leasing terbaik
+        if ($bestLeasingKey !== null) {
+          $motorInfo['cicilan_motor'][$bestLeasingKey]['best'] = true;
+        } else {
+          $motorInfo['cicilan_motor'][0]['best'] = true;
+        }
+
+        // Setel ulang label 'best' di leasing lainnya jika tidak sama dengan leasing terbaik
+        foreach ($motorInfo['cicilan_motor'] as &$cicilan) {
+          if (!isset($cicilan['best'])) {
+            $cicilan['best'] = false;
+          }
+        }
+      } else {
+        // Jika tidak ada data cicilan_motor, set true
+        // return "eksekusi";
+        $motorInfo['cicilan_motor'][0]['best'] = true;
+      }
+      // return response()->json($motorInfo['cicilan_motor']);
+
+    }
+
+
+
+    // return response()->json($rekomendasiMotor);
+
+    unset($motorInfo); // Memutus referensi pada elemen terakhir 
+    // proses penentuan rekomendasi highlight leasing terbaik end 

@@ -340,15 +340,31 @@ class CicilanMotorController extends Controller
     }
 
 
+
+
     $averageAngsuran = array_sum($averageAngsuran) / count($averageAngsuran);
     // $dpRange = $dp * 0.2;
     $cicilanRange = $averageAngsuran * 0.2;
 
 
     $lowestAngsuran = min(array_column($data['cicilan_motor'], 'angsuran'));
-    foreach ($data['cicilan_motor'] as $key => &$cicilan) {
-      $cicilan['best'] = $cicilan['angsuran'] == $lowestAngsuran;
+
+    // Setel semua nilai "best" ke false
+    foreach ($data['cicilan_motor'] as &$cicilan) {
+      $cicilan['best'] = false;
     }
+
+    // Cari dan tandai cicilan terbaik
+    foreach ($data['cicilan_motor'] as &$cicilan) {
+      if ($cicilan['angsuran'] == $lowestAngsuran) {
+        $cicilan['best'] = true;
+        // Hanya tandai satu cicilan terbaik, kemudian keluar dari loop
+        break;
+      }
+    }
+    // THST
+    //  return response()->json($data); // saya ingin perbaikan data ini. data cicilan_motor.
+
 
     // apakah di sini ? 
 
@@ -491,6 +507,8 @@ class CicilanMotorController extends Controller
     unset($cicilan); // memutus referensi terakhir
 
 
+
+    // return response()->json($data);
 
 
 
