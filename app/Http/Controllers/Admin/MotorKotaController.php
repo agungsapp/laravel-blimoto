@@ -34,20 +34,6 @@ class MotorKotaController extends Controller
         ]);
     }
 
-    // THSFK - perbaikan pencarian
-    public function getMotorKotaData()
-    {
-        $motorKotaData = MotorKota::join('kota', 'motor_kota.id_kota', '=', 'kota.id')
-            ->join('motor', 'motor_kota.id_motor', '=', 'motor.id')
-            ->select('motor_kota.*', 'kota.nama as kota_nama', 'motor.nama as motor_nama')
-            ->orderByDesc('motor_kota.id')
-            ->get();
-
-        $kota = Kota::all();
-        $motor = Motor::all();
-
-        return response()->json($kota, $motor);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -159,6 +145,75 @@ class MotorKotaController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
+
+    // THSFK - 
+    public function storeCustom(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'kota' => 'required',
+            'motor' => 'required',
+            'harga' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $existingRecord = MotorKota::where([
+                'id_kota' => $request->input('kota'),
+                'id_motor' => $request->input('motor'),
+                'harga_otr' => $request->input('harga'),
+            ])->first();
+
+            if ($existingRecord) {
+                flash()->addError("Data motor dan kota sudah ada!");
+                return redirect()->back()->withInput();
+            }
+
+            MotorKota::firstOrCreate([
+                'id_kota' => $request->input('kota'),
+                'id_motor' => $request->input('motor'),
+            ]);
+
+            flash()->addSuccess("Motor berhasil ditambahkan ke kota");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            flash()->addError("Gagal membuat data, pastikan sudah benar!");
+            return redirect()->back();
+        }
+    }
+
+    // THSFK
+    public function updateCustom(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'kota' => 'required',
+            'motor' => 'required',
+            'harga' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->addError("Inputkan semua data dengan benar!");
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $motorKota = MotorKota::findOrFail($id);
+            $motorKota->id_kota = $request->input('kota');
+            $motorKota->id_motor = $request->input('motor');
+            $motorKota->harga_otr = $request->input('harga');
+            $motorKota->save();
+            flash()->addSuccess("Berhasil merubah data!");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+            flash()->addError("Gagal merubah data!");
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

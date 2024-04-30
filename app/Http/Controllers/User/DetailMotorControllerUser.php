@@ -393,22 +393,22 @@ class DetailMotorControllerUser extends Controller
 
     $rekomendasiMotor = [];
     // dd($recommendationCicilan);
+
+
+
+
     foreach ($recommendationCicilan as $recommendation) {
       if (!$recommendation->motor) {
         continue; // Skip if recommendation doesn't have motor
       }
-
       $dpBayar = $recommendation->dp;
       $foundDiscount = $diskonMotor->first(function ($item) use ($recommendation) {
         return $item->id_leasing === $recommendation->leasingMotor->id;
       });
-
       $diskon = $foundDiscount ? $foundDiscount->diskon_promo : 0;
       $potonganTenor = $foundDiscount ? $diskonMotor[0]->potongan_tenor : 0;
       $dpBayar = $recommendation->dp - $diskon;
-
       $motorId = $recommendation->motor->id;
-
       $cicilanMotor = [
         'nama_leasing' => $recommendation->leasingMotor->nama,
         'dp' => $recommendation->dp,
@@ -421,16 +421,12 @@ class DetailMotorControllerUser extends Controller
         'total_tenor' => $recommendation->tenor - $potonganTenor,
         'total_bayar' => ($recommendation->tenor - $potonganTenor) * $recommendation->cicilan + $dpBayar,
       ];
-
       if (isset($rekomendasiMotor[$motorId])) {
         $existingLeasing = array_column($rekomendasiMotor[$motorId]['cicilan_motor'], 'nama_leasing');
-
         if (!in_array($recommendation->leasingMotor->nama, $existingLeasing)) {
           $rekomendasiMotor[$motorId]['cicilan_motor'][] = $cicilanMotor;
         }
       } else {
-
-
         $item = [
           'motor' => [
             'nama' => $recommendation->motor->nama,
@@ -442,61 +438,79 @@ class DetailMotorControllerUser extends Controller
           ],
           'cicilan_motor' => [$cicilanMotor],
         ];
-
         $rekomendasiMotor[$motorId] = $item;
       }
     }
 
 
+
+
+
+
+    // return response()->json($rekomendasiMotor);
+
+
+    // HARD START
+
+    $hitungJumlahCicilan = [];
     // proses penentuan rekomendasi highlight leasing terbaik start
     foreach ($rekomendasiMotor as $motorId => &$motorInfo) {
-      $isAllSame = true;
-      $prevDpBayar = null;
-      $prevTotalBayar = null;
-      $prevAngsuran = null;
-      $fifKey = null;
-
-      // Cek apakah semua data sama
-      foreach ($motorInfo['cicilan_motor'] as $key => &$cicilan) {
-        if ($prevDpBayar !== null && ($cicilan['dp_bayar'] != $prevDpBayar || $cicilan['total_bayar'] != $prevTotalBayar || $cicilan['angsuran'] != $prevAngsuran)) {
-          $isAllSame = false;
-        }
-
-        if ($cicilan['nama_leasing'] == "FIF Group") {
-          $fifKey = $key;
-        }
-
-        $prevDpBayar = $cicilan['dp_bayar'];
-        $prevTotalBayar = $cicilan['total_bayar'];
-        $prevAngsuran = $cicilan['angsuran'];
-        $cicilan['best'] = false; // Default ke false
-      }
-
-      // Jika semua data sama, tandai FIF Group sebagai terbaik
-      if ($isAllSame && $fifKey !== null) {
-        $motorInfo['cicilan_motor'][$fifKey]['best'] = true;
-        continue;
-      }
-
-      // Cari cicilan dengan angsuran terendah
-      $lowestAngsuran = PHP_INT_MAX;
-      $bestDiscountKey = null;
+      $lowestTotalBayar = PHP_INT_MAX;
+      $bestLeasingKey = null;
+      // if ($motorId == 6) {
+      //   // Set the 'best' label for the first leasing option
+      //   if (!isset($motorInfo['cicilan_motor'][0]['best'])) {
+      //     $motorInfo['cicilan_motor'][0]['best'] = true;
+      //     $motorInfo['cicilan_motor'][0]['target'] = true;
+      //   }
+      //   // Continue processing other motors
+      //   continue;
+      // }
+      $hitungJumlahCicilan[] = count($motorInfo['cicilan_motor']);
+      // Temukan leasing dengan total bayar terendah
       foreach ($motorInfo['cicilan_motor'] as $key => $cicilan) {
-        if ($cicilan['angsuran'] < $lowestAngsuran) {
-          $lowestAngsuran = $cicilan['angsuran'];
-          $bestDiscountKey = $key;
+        $totalBayar = $cicilan['total_bayar'];
+        if ($totalBayar < $lowestTotalBayar || ($totalBayar == $lowestTotalBayar && $cicilan['nama_leasing'] == "FIF Group")) {
+          $lowestTotalBayar = $totalBayar;
+          $bestLeasingKey = $key;
         }
       }
-
-      // Tandai cicilan terbaik
-      if ($bestDiscountKey !== null) {
-        $motorInfo['cicilan_motor'][$bestDiscountKey]['best'] = true;
+      if (count($motorInfo['cicilan_motor']) === 1) {
+        $motorInfo['cicilan_motor'][0]['best'] = true;
+        continue; // Keluar dari loop foreach
       }
+      // Pastikan setiap motor memiliki minimal satu label 'best'
+      if (count($motorInfo['cicilan_motor']) >= 1) {
+        // Tandai leasing terbaik
+        if ($bestLeasingKey !== null) {
+          $motorInfo['cicilan_motor'][$bestLeasingKey]['best'] = true;
+        } else {
+          $motorInfo['cicilan_motor'][0]['best'] = true;
+        }
+        // Setel ulang label 'best' di leasing lainnya jika tidak sama dengan leasing terbaik
+        foreach ($motorInfo['cicilan_motor'] as &$cicilan) {
+          if (!isset($cicilan['best'])) {
+            $cicilan['best'] = false;
+          }
+        }
+      } else {
+        // Jika tidak ada data cicilan_motor, set true
+        // return "eksekusi";
+        $motorInfo['cicilan_motor'][0]['best'] = true;
+      }
+      // return response()->json($motorInfo['cicilan_motor']);
     }
-    unset($motorInfo); // Memutus referensi pada elemen terakhir 
+    // return response()->json($hitungJumlahCicilan);
+    // return response()->json($rekomendasiMotor);
+
+
+    unset($motorInfo);
+    // Memutus referensi pada elemen terakhir 
     // proses penentuan rekomendasi highlight leasing terbaik end 
 
-    $rekomendasiMotor = array_values($rekomendasiMotor);
+    // HARD END
+
+    // $rekomendasiMotor = array_values($rekomendasiMotor);
     $lokasi = Kota::find($lokasiId);
 
     $data = [
@@ -507,7 +521,9 @@ class DetailMotorControllerUser extends Controller
     ];
     // dd($data['rekomendasi']);
     // dd($data);
-    // return response()->json($data);
+    if ($request->input('debug')) {
+      return response()->json($data);
+    }
     return view('user.detail.detail_motor', $data);
   }
 
