@@ -284,8 +284,7 @@
 
 				}
 
-
-
+				// ROMBAK START
 				// request ke server untuk melakukan update session lokasi user 
 				function updateLokasi(lokasiUser) {
 						$.ajax({
@@ -296,12 +295,15 @@
 										_token: '{{ csrf_token() }}'
 								},
 								success: function(response) {
-										isDev && console.log('Data berhasil dikirim ke server');
-
+										console.log('Data berhasil dikirim ke server');
+								},
+								error: function(xhr, status, error) {
+										console.error('Terjadi kesalahan:', error);
 								}
 						});
-
 				}
+				// ROMBAK END
+
 
 				// manipulasi navigasi
 				$(document).ready(function() {
@@ -341,17 +343,11 @@
 										}
 								});
 						});
-
-
-
-
 				});
 
 
 				function watchTextChanges() {
-						// Simpan teks awal
 						var previousText = $('#lokasiTextShow').text();
-
 						// Set interval untuk memeriksa perubahan setiap detik
 						setInterval(function() {
 								// Periksa apakah teks telah berubah
@@ -362,8 +358,6 @@
 								}
 						}, 1000); // Interval dapat disesuaikan sesuai kebutuhan
 				}
-
-
 
 				$(document).ready(function() {
 						$('#kategoriPencarian').on('invalid', function() {
@@ -377,7 +371,7 @@
 		@stack('script')
 
 
-		<script src="{{ asset('assets/js/nohack.js') }}"></script>
+		{{-- <script src="{{ asset('assets/js/nohack.js') }}"></script> --}}
 
 
 		<!-- botman -->
