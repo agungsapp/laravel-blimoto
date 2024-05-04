@@ -64,20 +64,20 @@
 																		<ul id="select-lokasi-user" class="select-lokasi-user">
 																				{{-- old --}}
 
-
+																				{{-- 
 																				@php
 																						$lokasis = Str::getLokasiData();
 																				@endphp
 
 																				@foreach ($lokasis as $lkr)
 																						<li><a href="#" data-id="{{ $lkr->id }}">{{ $lkr->nama }}</a></li>
-																				@endforeach
+																				@endforeach --}}
 
-																				{{-- <li><a href="#" data-id="1">Jakarta Selatan</a></li>
+																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Bogor</a></li>
 																				<li><a href="#" data-id="3">Depok</a></li>
 																				<li><a href="#" data-id="4">Tangerang</a></li>
-																				<li><a href="#" data-id="5">Bekasi</a></li> --}}
+																				<li><a href="#" data-id="5">Bekasi</a></li>
 																				{{-- update fetch get-kota untuk mendapatkan lokasi hanya yang ada saja. --}}
 																		</ul>
 																</li>
