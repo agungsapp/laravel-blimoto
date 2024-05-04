@@ -10,6 +10,7 @@
 				content="Blimoto adalah startup pembelian motor baru dengan harga terbaik, proses cepat dan mudah serta terpercaya untuk wilayah jabodetabek " />
 		<meta name="keywords" content="Blimoto" />
 		<meta name="author" content="Blimoto" />
+		<meta name="google-site-verification" content="k1ziQJbp0ogvxEck-5eDye2pedBi5-8CHPUkvjdfN94" />
 		<link rel="icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
 		<link rel="shortcut icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
 		<!--Google font-->
