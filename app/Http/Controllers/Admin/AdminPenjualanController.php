@@ -64,6 +64,9 @@ class AdminPenjualanController extends Controller
    */
   public function store(Request $request)
   {
+
+
+
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
@@ -103,7 +106,7 @@ class AdminPenjualanController extends Controller
         'no_hp' => $request->input('no_hp') ?? null,
         'bpkb' => $request->input('bpkb') ?? null,
         'dp' => $request->input('dp') ?? 0,
-        'diskon_dp' => $request->input('diskon_dp'),
+        'diskon_dp' => $request->input('diskon_dp') ?? 0,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
         'tanggal_dibuat' => $tanggal_dibuat,
         'no_po' => $nomorPo,
@@ -114,7 +117,17 @@ class AdminPenjualanController extends Controller
         'id_lising' => $request->input('leasing') ?? null,
       ]);
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
-      return redirect()->back();
+      // return redirect()->back();
+
+
+      // revisi logika baru redirect sesuai data hasil
+      try {
+        $hasil_id = $request->input('hasil');
+        $getHasilName =  Hasil::find($hasil_id);
+        return redirect()->to(route("admin.penjualan." . strtolower($getHasilName->hasil) . ".index"));
+      } catch (\Throwable $th) {
+        return redirect()->back();
+      }
     } catch (\Throwable $th) {
       throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");

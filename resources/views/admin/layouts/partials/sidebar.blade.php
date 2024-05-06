@@ -251,7 +251,7 @@
 																<a href="{{ route('admin.penjualan.data.index') }}"
 																		class="nav-link {{ \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Data Penjualan</p>
+																		<p>Input Data Penjualan</p>
 																</a>
 														</li>
 														<li class="nav-item">
@@ -415,6 +415,15 @@
 																<i class="right fas fa-angle-left"></i>
 														</p>
 												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan.penjualan-semua.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan.penjualan-semua.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Semua Penjualan</p>
+																</a>
+														</li>
+												</ul>
 												<ul class="nav nav-treeview">
 														<li class="nav-item">
 																<a href="{{ route('admin.laporan.penjualan-wilayah.index') }}"
@@ -590,22 +599,52 @@
 								{{-- master sales --}}
 								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
 										data-accordion="false">
+										{{-- master penjualan --}}
 										<li
-												class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'menu-open' : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
-														<i class="nav-icon fas fa-city"></i>
+														class="nav-link {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-users"></i>
 														<p>
-																Master Sales
+																Master Penjualan
 																<i class="right fas fa-angle-left"></i>
 														</p>
 												</a>
 												<ul class="nav nav-treeview">
+
 														<li class="nav-item">
 																<a href="{{ route('admin.penjualan.data.index') }}"
 																		class="nav-link {{ \Route::is('admin.penjualan.data.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Data Penjualan</p>
+																		<p>Input Data Penjualan</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.proses.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.proses.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Proses</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.acc.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.acc.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Acc</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.riject.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.riject.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Riject</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.do.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Do</p>
 																</a>
 														</li>
 												</ul>

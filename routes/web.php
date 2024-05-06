@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminDiskonMotorController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHasilController;
 use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
+use App\Http\Controllers\Admin\AdminLaporanSemuaPenjualanController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminManualRefundController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
@@ -184,6 +185,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         });
 
         Route::prefix('laporan')->name('laporan.')->group(function () {
+            Route::resource('/penjualan-semua', AdminLaporanSemuaPenjualanController::class);
             Route::resource('/penjualan-wilayah', AdminLaporanPenjualanWilayahController::class);
             Route::post('/cetak-laporan', [AdminLaporanPenjualanWilayahController::class, 'cetakLaporan'])->name('cetak');
             Route::get('/cetak-test', [AdminLaporanPenjualanWilayahController::class, 'testCetak'])->name('test-cetak');

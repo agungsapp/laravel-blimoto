@@ -17,7 +17,7 @@ class AdminDataPembayaranController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
       ->where('status_pembayaran_dp', '=', 'success')
       ->orderBy('id', 'desc')
       ->get();
@@ -28,6 +28,8 @@ class AdminDataPembayaranController extends Controller
 
   public function belumBayar(Request $request)
   {
+    // dd(env('MIDTRANS_CLIENT_KEY'));
+
     $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->whereNotIn('status_pembayaran_dp', ['success', 'cod'])
       ->orderBy('id', 'desc')

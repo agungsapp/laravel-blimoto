@@ -307,6 +307,10 @@ class AdminLaporanPenjualanWilayahController extends Controller
         return $pdf->stream('laporan_penjualan.pdf');
     }
 
+    public function allPenjualan()
+    {
+    }
+
     public function testCetak()
     {
         return view('admin.penjualan_wilayah.cetak');
