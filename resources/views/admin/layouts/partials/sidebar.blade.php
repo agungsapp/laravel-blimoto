@@ -610,6 +610,65 @@
 														</li>
 												</ul>
 										</li>
+
+										{{-- master pembayaran sales --}}
+										<li
+												class="nav-item {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'menu-open' : '' }}">
+												<a href="#"
+														class="nav-link {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-archive"></i>
+														<p>
+																Data Pembayaran
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.belum-bayar') }}"
+																		class="nav-link {{ \Route::is('admin.belum-bayar') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Belum Bayar</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.sudah-bayar') }}"
+																		class="nav-link {{ \Route::is('admin.sudah-bayar') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Sudah Bayar</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
+										{{-- data refund sales --}}
+										<li class="nav-item {{ \Route::is('admin.refund.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.refund.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-money-bill"></i>
+														<p>
+																Data Refund
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.refund.manual-refund.index') }}"
+																		class="nav-link {{ \Route::is('admin.refund.manual-refund.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Pengajuan Refund</p>
+																</a>
+														</li>
+												</ul>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.refund.status.index') }}"
+																		class="nav-link {{ \Route::is('admin.refund.status.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Status Refund</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
 										<li class="nav-item">
 												<a href="{{ route('admin.sales-settings.index') }}"
 														class="nav-link {{ \Route::is('admin.sales-settings.*') ? 'active' : '' }}">
