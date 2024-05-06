@@ -105,6 +105,11 @@ class UserLoginController extends Controller
 
 
         $nomor = $this->formatNohp($request->input('nohp'));
+
+        // dd($nomor);
+
+
+
         $otp = $this->generateOTP();
         // dd($nomor);
         try {

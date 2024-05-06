@@ -111,7 +111,8 @@ class SendWhatsappOtpController extends Controller
                 'countryCode' => '62', //optional
             ),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: p#hR2Qj5B8EX8ERrx5YV' //change TOKEN to your actual token
+                'Authorization: P-9!+K5R7WAVcKBygaKY'
+                // 'Authorization: p#hR2Qj5B8EX8ERrx5YV'
             ),
         ));
 
