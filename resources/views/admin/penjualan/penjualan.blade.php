@@ -62,13 +62,13 @@
 														<div class="row">
 																<div class="form-group col-md-4">
 																		<label for="input-hasil">Nama Konsumen</label>
-																		<input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen"
-																				value="{{ old('konsumen') }}">
+																		<input id="nama_konsumen" name="konsumen" type="text" class="form-control"
+																				placeholder="Masukan nama konsumen" value="{{ old('konsumen') }}">
 																</div>
 																<div class="form-group col-md-4">
 																		<label for="input-hasil">NIK Konsumen (Opsional)</label>
-																		<input name="nik" type="text" class="form-control" placeholder="Masukan nik konsumen"
-																				value="{{ old('nik') }}">
+																		<input id="nik" name="nik" type="number" max="5" maxlength="16" class="form-control"
+																				placeholder="Masukan nik konsumen" value="{{ old('nik') }}">
 																</div>
 																<div class="form-group col-md-4">
 																		<label>Sales</label>
@@ -89,7 +89,7 @@
 														<div class="row">
 																<div class="form-group col-md-6">
 																		<label for="input-bpkb">BPKB/STNK a.n</label>
-																		<input name="bpkb" type="text" class="form-control"
+																		<input id="bpkb" name="bpkb" type="text" class="form-control"
 																				placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
 																</div>
 																<div class="form-group col-md-6">
@@ -102,13 +102,14 @@
 														<div class="row">
 																<div class="form-group col-md-6">
 																		<label>Metode Pembelian</label>
-																		<select id="pembelian-input" name="metode_pembelian" class="form-control select2" style="width: 100%;">
+																		<select id="pembelian-input" name="metode_pembelian" class="form-control select2"
+																				style="width: 100%;">
 																				<option value="" selected>-- Pilih pembelian --</option>
 																				<option value="cash" {{ old('metode_pembelian') == 'cash' ? 'selected' : '' }}>Cash</option>
 																				<option value="kredit" {{ old('metode_pembelian') == 'kredit' ? 'selected' : '' }}>Kredit</option>
 																		</select>
 																</div>
-																<div class="form-group col-md-6">
+																<div class="form-group col-md-6" id="tenor_wrapper">
 																		<label for="input-tenor">Tenor</label>
 																		<input name="tenor" type="text" class="form-control" placeholder="Masukan tenor"
 																				id="input-tenor" value="{{ old('tenor') }}">
@@ -116,19 +117,17 @@
 														</div>
 
 														<div class="row">
-																<div class="form-group col-md-6">
-																		<label for="input-dp">DP</label>
-																		<input name="dp" type="number" class="form-control" placeholder="Masukan DP" id="input-dp"
-																				value="{{ old('dp') }}">
+																<div class="form-group col-md-6" id="dp_wrapper">
+																		<label id="dp_label" for="input-dp">DP</label>
+																		<input name="dp" type="number" min="0" class="form-control" placeholder="Masukan DP"
+																				id="input-dp" value="{{ old('dp') ?? 0 }}">
 																</div>
 																<div class="form-group col-md-6">
 																		<label for="input-diskon-dp">Diskon DP</label>
 																		<input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP"
 																				id="input-diskon-dp" value="{{ old('diskon_dp') }}">
 																</div>
-														</div>
 
-														<div class="row">
 																<div class="form-group col-md-6">
 																		<label>Kabupaten</label>
 																		@if ($kota == null)
@@ -260,5 +259,42 @@
 @push('script')
 		<script>
 				$('.select2').select2()
+
+				// auto fill nama BPKB
+				const autoFillBpkb = () => {
+						$('#bpkb').val($('#nama_konsumen').val())
+				}
+				$('#nama_konsumen').on('keyup', function() {
+						setInterval(() => {
+								autoFillBpkb()
+						}, 1000);
+				})
+
+				// limit input NIK
+				$('#nik').on('input', function() {
+						if ($(this).val().length > 16) {
+								$(this).val($(this).val().slice(0, 16));
+						}
+				});
+
+				// logic onchange metode pembayaran
+				const displayDPTenor = (metode) => {
+						const tenor = $('#tenor_wrapper');
+						// const dp = $('#dp_wrapper');
+						const dpLabel = $('#dp_label')
+						if (metode == 'cash') {
+								tenor.addClass('d-none');
+								dpLabel.text("Tanda Jadi")
+						} else {
+								tenor.removeClass('d-none');
+								dpLabel.text("DP")
+						}
+				};
+
+
+				$('#pembelian-input').on('change', function() {
+						console.log($(this).val());
+						displayDPTenor($(this).val());
+				});
 		</script>
 @endpush
