@@ -15,6 +15,7 @@
 use App\Http\Controllers\Admin\AdminAreaManagerController;
 use App\Http\Controllers\Admin\AdminCeoController;
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
+use App\Http\Controllers\Admin\AdminColorController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
 use App\Http\Controllers\Admin\AdminDataPembayaranController;
 use App\Http\Controllers\Admin\AdminDealerController;
@@ -25,10 +26,12 @@ use App\Http\Controllers\Admin\AdminLaporanPenjualanWilayahController;
 use App\Http\Controllers\Admin\AdminLaporanSemuaPenjualanController;
 use App\Http\Controllers\Admin\AdminManagerController;
 use App\Http\Controllers\Admin\AdminManualRefundController;
+use App\Http\Controllers\Admin\AdminMotorColorController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminPengajuanRefundController;
 use App\Http\Controllers\Admin\AdminPenjualanAccConntroller;
+use App\Http\Controllers\Admin\AdminPenjualanCancelController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPenjualanDoConntroller;
 use App\Http\Controllers\Admin\AdminPenjualanHasilController;
@@ -178,11 +181,18 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('acc', AdminPenjualanAccConntroller::class);
             Route::resource('riject', AdminPenjualanRijectConntroller::class);
             Route::resource('do', AdminPenjualanDoConntroller::class);
+            Route::resource('cancel', AdminPenjualanCancelController::class);
             Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
             Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
         });
+
+        Route::prefix('color')->name('color.')->group(function () {
+            Route::resource('color', AdminColorController::class);
+            Route::resource('motor', AdminMotorColorController::class);
+        });
+
 
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::resource('/penjualan-semua', AdminLaporanSemuaPenjualanController::class);

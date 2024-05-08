@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PengajuanRefundModel;
+use App\Models\Hasil;
+use App\Models\Kota;
+use App\Models\LeasingMotor;
+use App\Models\Motor;
+use App\Models\Penjualan;
+use App\Models\Sales;
 use Illuminate\Http\Request;
 
-class AdminPengajuanRefundController extends Controller
+class AdminPenjualanCancelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +20,26 @@ class AdminPengajuanRefundController extends Controller
      */
     public function index()
     {
-        $data = [
-            'refunds' => PengajuanRefundModel::orderBy('created_at', 'desc')->get()->reverse()
-        ];
+        $hasil = Hasil::where('hasil', 'cancel')->first();
+        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+            ->where('id_hasil', $hasil->id)
+            ->orderBy('id', 'desc')
+            ->get();
 
-        // dd($data['refunds'][0]->pembayaran->metode_pembayaran);
+        $kota = Kota::all();
+        $hasil = Hasil::all();
+        $motor = Motor::all();
+        $leasing = LeasingMotor::all();
+        $sales = Sales::all();
 
-        return view('admin.refund.index', $data);
+        return view('admin.penjualan.hasil.index', [
+            'penjualan' => $data,
+            'kota' => $kota,
+            'hasil' => $hasil,
+            'motor' => $motor,
+            'leasing' => $leasing,
+            'sales' => $sales,
+        ]);
     }
 
     /**
@@ -42,6 +60,7 @@ class AdminPengajuanRefundController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -75,19 +94,7 @@ class AdminPengajuanRefundController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $refund = PengajuanRefundModel::find($id);
-
-        try {
-            $refund->status_pengajuan = $request->status_pengajuan;
-            $refund->save();
-
-            flash()->addSuccess("Berhasil melakukan update status pengajuan menjadi " . $request->status_pengajuan);
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            //throw $th;
-            flash()->addError("Update status pengajuan gagal, terjadi kesalahan di server.");
-            return redirect()->back();
-        }
+        //
     }
 
     /**

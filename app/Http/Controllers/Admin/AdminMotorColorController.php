@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PengajuanRefundModel;
 use Illuminate\Http\Request;
 
-class AdminPengajuanRefundController extends Controller
+class AdminMotorColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +14,7 @@ class AdminPengajuanRefundController extends Controller
      */
     public function index()
     {
-        $data = [
-            'refunds' => PengajuanRefundModel::orderBy('created_at', 'desc')->get()->reverse()
-        ];
-
-        // dd($data['refunds'][0]->pembayaran->metode_pembayaran);
-
-        return view('admin.refund.index', $data);
+        //
     }
 
     /**
@@ -42,6 +35,7 @@ class AdminPengajuanRefundController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -75,19 +69,7 @@ class AdminPengajuanRefundController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $refund = PengajuanRefundModel::find($id);
-
-        try {
-            $refund->status_pengajuan = $request->status_pengajuan;
-            $refund->save();
-
-            flash()->addSuccess("Berhasil melakukan update status pengajuan menjadi " . $request->status_pengajuan);
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            //throw $th;
-            flash()->addError("Update status pengajuan gagal, terjadi kesalahan di server.");
-            return redirect()->back();
-        }
+        //
     }
 
     /**
