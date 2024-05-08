@@ -40,7 +40,7 @@
 																				<td>{{ $p->diskon_dp }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
 																				<td>{{ $p->kota->nama }}</td>
-																				<td>{{ $p->leasing->nama }}</td>
+																				<td>{{ $p->leasing->nama ?? 'undefine' }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				<td>{{ $p->tanggal_hasil }}</td>
 																				<td>
