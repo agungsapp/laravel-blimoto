@@ -6,8 +6,13 @@
 								<div class="callout callout-info">
 										<h5><i class="fas fa-info"></i> Catatan:</h5>
 										<p>Lakukan import/update data dengan import file CSV dengan format yang telah ditentukan. Silakan unduh format
-												file CSV <a href="{{ asset('csv/template_penjualan.xlsx') }}" download>di sini</a>. <br>
-												Data dengan nik yang sama atau tanggal lahir sama akan otomatis di skip oleh sistem.</p>
+												file CSV <a href="{{ asset('csv/template_penjualan.xlsx') }}" download>di sini</a>.
+												<br>
+												Data dengan nik yang sama atau tanggal lahir sama akan otomatis di skip oleh sistem.
+												<br>
+												Harap lakukan import dengan hati - hati dan pastikan semua data sesuai.
+
+										</p>
 								</div>
 						</div>
 						<div class="col-12 mb-3">
@@ -67,7 +72,7 @@
 																</div>
 																<div class="form-group col-md-4">
 																		<label for="input-hasil">NIK Konsumen (Opsional)</label>
-																		<input id="nik" name="nik" type="number" max="5" maxlength="16" class="form-control"
+																		<input id="nik" name="nik" type="number" class="form-control"
 																				placeholder="Masukan nik konsumen" value="{{ old('nik') }}">
 																</div>
 																<div class="form-group col-md-4">
@@ -159,7 +164,7 @@
 														</div>
 
 														<div class="row">
-																<div class="form-group col-md-6">
+																<div class="form-group col-md-6" id="leasing_wrapper">
 																		<label>Leasing</label>
 																		@if ($leasing == null)
 																				<p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
@@ -265,9 +270,7 @@
 						$('#bpkb').val($('#nama_konsumen').val())
 				}
 				$('#nama_konsumen').on('keyup', function() {
-						setInterval(() => {
-								autoFillBpkb()
-						}, 1000);
+						autoFillBpkb()
 				})
 
 				// limit input NIK
@@ -276,22 +279,29 @@
 								$(this).val($(this).val().slice(0, 16));
 						}
 				});
+				// limit input nomor hp
+				$('#input-nomor-hp').on('input', function() {
+						if ($(this).val().length > 14) {
+								$(this).val($(this).val().slice(0, 16));
+						}
+				});
 
 				// logic onchange metode pembayaran
 				const displayDPTenor = (metode) => {
 						const tenor = $('#tenor_wrapper');
+						const leasingWrapper = $('#leasing_wrapper');
 						// const dp = $('#dp_wrapper');
 						const dpLabel = $('#dp_label')
 						if (metode == 'cash') {
 								tenor.addClass('d-none');
-								dpLabel.text("Tanda Jadi")
+								dpLabel.text("Tanda Jadi");
+								leasingWrapper.addClass('d-none');
 						} else {
 								tenor.removeClass('d-none');
+								leasingWrapper.removeClass('d-none');
 								dpLabel.text("DP")
 						}
 				};
-
-
 				$('#pembelian-input').on('change', function() {
 						console.log($(this).val());
 						displayDPTenor($(this).val());

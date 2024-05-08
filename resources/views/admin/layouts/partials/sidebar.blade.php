@@ -129,6 +129,37 @@
 												</a>
 										</li>
 
+
+										{{-- master color --}}
+										<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
+												<a href="#"
+														class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-podcast"></i>
+														<p>
+																Master Warna
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.kota.index') }}"
+																		class="nav-link {{ \Route::is('admin.kota.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tambah Data Warna</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.kota-motor.index') }}"
+																		class="nav-link {{ \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tambah Warna Motor</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
+
+
 										{{-- master motor --}}
 										<li
 												class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
@@ -201,7 +232,8 @@
 										</li>
 
 										{{-- master kota --}}
-										<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
+										<li
+												class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
 												<a href="#"
 														class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-city"></i>
@@ -280,6 +312,13 @@
 																		class="nav-link {{ \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Data Do</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.cancel.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.cancel.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Cancel</p>
 																</a>
 														</li>
 												</ul>
