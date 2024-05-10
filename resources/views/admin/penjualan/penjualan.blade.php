@@ -202,9 +202,21 @@
 																		@endif
 																</div>
 																<div class="form-group col-md-4">
-																		<label for="warna_motor">Warna Motor</label>
+																		{{-- <label for="warna_motor">Warna Motor</label>
 																		<input name="warna_motor" type="text" class="form-control"
-																				placeholder="Masukan warna motor (Tidak wajib)" value="{{ old('warna_motor') }}">
+																				placeholder="Masukan warna motor (Tidak wajib)" value="{{ old('warna_motor') }}"> --}}
+																		<label> Warna Motor</label>
+																		@if ($colors == null)
+																				<p class="text-danger">Tidak ada data warna motor silahkan buat terlebih dahulu !</p>
+																		@else
+																				<select id="motor-input" name="warna_motor" class="form-control select2" style="width: 100%;">
+																						<option value="" selected>-- Pilih warna motor --</option>
+																						@foreach ($colors as $c)
+																								<option value="{{ $c->nama }}" {{ old('motor') == $c->nama ? 'selected' : '' }}>
+																										{{ $c->nama }}</option>
+																						@endforeach
+																				</select>
+																		@endif
 																</div>
 																<div class="form-group col-md-4">
 																		<label for="input-hasil">Jumlah</label>

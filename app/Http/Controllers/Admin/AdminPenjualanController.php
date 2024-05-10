@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ColorModel;
 use App\Models\Hasil;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
@@ -34,6 +35,7 @@ class AdminPenjualanController extends Controller
     $motor = Motor::all();
     $leasing = LeasingMotor::all();
     $sales = Sales::all();
+    $colors = ColorModel::all();
 
     return view('admin.penjualan.penjualan', [
       'penjualan' => $data,
@@ -42,6 +44,7 @@ class AdminPenjualanController extends Controller
       'motor' => $motor,
       'leasing' => $leasing,
       'sales' => $sales,
+      'colors' => $colors
     ]);
   }
 
@@ -97,6 +100,9 @@ class AdminPenjualanController extends Controller
 
       $penjualan = Penjualan::create([
         'nama_konsumen' => $request->input('konsumen'),
+        // field baru
+        'nik' => $request->input('nik'),
+        // field baru
         'jumlah' => $request->input('jumlah'),
         'catatan' => $catatan,
         'tenor' => $tenor,

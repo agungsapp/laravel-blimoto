@@ -23,6 +23,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "botman/botman": "^2.8",
         "botman/driver-web": "^1.5",
+        "doctrine/dbal": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
