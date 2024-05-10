@@ -190,7 +190,7 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::prefix('color')->name('color.')->group(function () {
             Route::resource('color', AdminColorController::class);
-            Route::resource('motor', AdminMotorColorController::class);
+            // Route::resource('motor', AdminMotorColorController::class);
         });
 
 

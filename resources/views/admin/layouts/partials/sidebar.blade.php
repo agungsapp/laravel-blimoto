@@ -131,9 +131,8 @@
 
 
 										{{-- master color --}}
-										<li class="nav-item {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'menu-open' : '' }}">
-												<a href="#"
-														class="nav-link {{ \Route::is('admin.kota.*') || \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
+										<li class="nav-item {{ \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-podcast"></i>
 														<p>
 																Master Warna
@@ -142,19 +141,19 @@
 												</a>
 												<ul class="nav nav-treeview">
 														<li class="nav-item">
-																<a href="{{ route('admin.kota.index') }}"
-																		class="nav-link {{ \Route::is('admin.kota.*') ? 'active' : '' }}">
+																<a href="{{ route('admin.color.color.index') }}"
+																		class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Tambah Data Warna</p>
 																</a>
 														</li>
-														<li class="nav-item">
+														{{-- <li class="nav-item">
 																<a href="{{ route('admin.kota-motor.index') }}"
 																		class="nav-link {{ \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Tambah Warna Motor</p>
 																</a>
-														</li>
+														</li> --}}
 												</ul>
 										</li>
 

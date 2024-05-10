@@ -30,6 +30,7 @@ class Penjualan extends Model
     'id_motor',
     'id_kota',
     'id_hasil',
+    'nik',
   ];
 
   public function sales()
