@@ -97,21 +97,7 @@ class BandingkanController extends Controller
         ]);
     }
 
-    public function getMotor(Request $request)
-    {
-        $idMotor1 = $request->input('id_motor1');
-        $idMotor2 = $request->input('id_motor2');
 
-        $motor1 = Motor::with('detailMotor', 'merk', 'type', 'cicilanMotor')->find($idMotor1);
-
-        $motor2 = Motor::with('detailMotor', 'merk', 'type', 'cicilanMotor')->find($idMotor2);
-
-
-        return response()->json([
-            'motor1' => $motor1,
-            'motor2' => $motor2
-        ], 200);
-    }
 
     private function getDiskonMotor($motorId)
     {

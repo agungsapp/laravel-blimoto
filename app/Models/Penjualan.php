@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Penjualan extends Model
 {
-  public $timestamps = false;
+  public $timestamps = true;
   protected $table = 'penjualan';
   protected $fillable = [
     'nama_konsumen',
@@ -70,5 +70,9 @@ class Penjualan extends Model
   public function manual()
   {
     return $this->belongsTo(ManualTransferModel::class, 'id', 'id_penjualan');
+  }
+  public function detailPembayaran()
+  {
+    return $this->hasMany(DetailPembayaranModel::class, `id`, 'id_penjualan');
   }
 }

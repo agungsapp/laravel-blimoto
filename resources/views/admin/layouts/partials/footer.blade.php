@@ -4,6 +4,6 @@
 				Anything you want
 				</div>
 				<!-- Default to the left -->
-				<strong>Copyright BliMoto &copy; 2023 <a href="https://www.blimoto.com">blimoto.com</a>.</strong> All rights
+				<strong>Copyright BliMoto &copy; 2024 <a href="https://www.blimoto.com">blimoto.com</a>.</strong> All rights
 				reserved.
 				</footer>

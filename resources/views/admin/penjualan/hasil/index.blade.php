@@ -27,6 +27,7 @@
 														<thead>
 																<tr role="row">
 																		<th>ID</th>
+																		<th>Kode Transaksi</th>
 																		<th>Nama Konsumen</th>
 																		<th>Nama Sales</th>
 																		<th class="no-visible">No HP</th>
@@ -56,6 +57,7 @@
 																@foreach ($penjualan as $index => $p)
 																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																				<td>{{ $p->id }}</td>
+																				<td>{{ $p->kode_transaksi }}</td>
 																				<td>{{ $p->nama_konsumen }}</td>
 																				<td>{{ $p->sales->nama }}</td>
 																				<td>{{ $p->no_hp }}</td>

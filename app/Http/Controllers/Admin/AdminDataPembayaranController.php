@@ -17,7 +17,7 @@ class AdminDataPembayaranController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund', 'detailPembayaran')
       ->where('status_pembayaran_dp', '=', 'success')
       ->orderBy('id', 'desc')
       ->get();
@@ -96,7 +96,7 @@ class AdminDataPembayaranController extends Controller
    */
   public function show($id)
   {
-    //
+    // return 
   }
 
   /**

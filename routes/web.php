@@ -158,7 +158,6 @@ Route::get('/search-motor', [HomeController::class, 'getSearchMotor'])->name('se
 // cari dan rekomendasi motor
 Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend'])->name('cari-cicilan');
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
-Route::get('/get-motor', [BandingkanController::class, 'getMotor']);
 Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMotor']);
 // datatables
 Route::get('/serverSideCicilanMotor', [AdminCicilanMotorController::class, 'dataTable'])->name('serverSideCicilanMotor');
@@ -293,4 +292,9 @@ Route::get('/spk', function () {
     return view('admin.spk.spk');
 });
 
+Route::get('fixing', [AdminPenjualanController::class, 'fixing']);
 // done repo pindah
+
+
+
+// LANJUTKAN DETAIL PEMBAYARAN UNTUK MELAKUAN PEMBAYARAN SEBERNARNYA.

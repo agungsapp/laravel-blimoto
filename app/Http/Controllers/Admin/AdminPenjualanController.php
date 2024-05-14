@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ColorModel;
+use App\Models\DetailPembayaranModel;
 use App\Models\Hasil;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
@@ -69,7 +70,6 @@ class AdminPenjualanController extends Controller
   {
 
 
-
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
@@ -95,38 +95,92 @@ class AdminPenjualanController extends Controller
     $catatan = $request->catatan ?? '-';
     $nomorPo = $request->nomor_po ?? null;
 
+    DB::beginTransaction();
     try {
+      // create ke tabel penjualan start
+      $penjualan = new Penjualan;
+      $penjualan->nama_konsumen = $request->input('konsumen');
+      // field baru
+      $penjualan->nik = $request->input('nik');
+      // field baru
+      $penjualan->jumlah = $request->input('jumlah');
+      $penjualan->catatan = $catatan;
+      $penjualan->tenor = $tenor;
+      $penjualan->metode_pembelian = $pembelian;
+      $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
+      $penjualan->warna_motor = $warna_motor;
+      $penjualan->no_hp = $request->input('no_hp') ?? null;
+      $penjualan->bpkb = $request->input('bpkb') ?? null;
+      if ($pembelian == 'cash') {
+        $motor = Motor::find($request->input('motor'));
+        // return $motor->harga;
+        $penjualan->dp = $motor->harga;
+      } else {
+        $penjualan->dp = $request->input('dp') ?? 0;
+      }
+      $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
+      $penjualan->status_pembayaran_dp = $request->input('status_pembayaran');
+      $penjualan->tanggal_dibuat = $tanggal_dibuat;
+      $penjualan->no_po = $nomorPo;
+      $penjualan->id_sales = $request->input('sales');
+      $penjualan->id_kota = $request->input('kabupaten');
+      $penjualan->id_hasil = $request->input('hasil');
+      $penjualan->id_motor = $request->input('motor');
+      $penjualan->id_lising = $request->input('leasing') ?? null;
+      $penjualan->save();
+
+      // Membuat kode transaksi
+      $bulan = date('m', strtotime($penjualan->created_at));
+      $tahun = date('y', strtotime($penjualan->created_at));
+      $tanggal = date('d', strtotime($penjualan->created_at));
+      $kode_transaksi = "BM-$bulan-$tahun-$tanggal-" . $penjualan->id;
+      $penjualan->kode_transaksi = $kode_transaksi;
+      $penjualan->save();
+      // create ke tabel penjualan end
 
 
-      $penjualan = Penjualan::create([
-        'nama_konsumen' => $request->input('konsumen'),
-        // field baru
-        'nik' => $request->input('nik'),
-        // field baru
-        'jumlah' => $request->input('jumlah'),
-        'catatan' => $catatan,
-        'tenor' => $tenor,
-        'metode_pembelian' => $pembelian,
-        'metode_pembayaran' => $request->input('metode_pembayaran'),
-        'warna_motor' => $warna_motor,
-        'no_hp' => $request->input('no_hp') ?? null,
-        'bpkb' => $request->input('bpkb') ?? null,
-        'dp' => $request->input('dp') ?? 0,
-        'diskon_dp' => $request->input('diskon_dp') ?? 0,
-        'status_pembayaran_dp' => $request->input('status_pembayaran'),
-        'tanggal_dibuat' => $tanggal_dibuat,
-        'no_po' => $nomorPo,
-        'id_sales' => $request->input('sales'),
-        'id_kota' => $request->input('kabupaten'),
-        'id_hasil' => $request->input('hasil'),
-        'id_motor' => $request->input('motor'),
-        'id_lising' => $request->input('leasing') ?? null,
-      ]);
+      // create ke tabel detail transaksi start
+      $detailPembayaran = new DetailPembayaranModel();
+      $detailPembayaran->id_penjualan = $penjualan->id;
+      // untuk bagian ini ada update jadi kode bayar adalah kode transaksi "-" . urutan increment yang di reset perbulan
+      // contoh jika kode transaksi adalah : BM-05-24-20
+      // dengan rumus kode transaksi seperti sebelumnya : BM-{bulan}-{2 digit akhir tahun}-{tanggal 20}-
+      // maka generate kode_bayar jadi BM-05-24-20-1 <-- ini bernilai satu karna di tabel detail pembayaran ini adalah pembayarn pertama di bulan 05
+      // jadi jika ada  transaksi baru lagi maka akan menjadi = BM-06-24-20-2 dan seterusnya 
+      // namun jika ternyata sekarang sudah memasuki bulan 06 . maka akan direset lagi menjadi 1 . contoh : BM-06-24-20-1
+      // dengan begini harapanya tidak akan ada kode bayar yang sama. atau  bersifat uniq
+
+
+      // Generate kode bayar dengan urutan increment yang direset setiap bulan
+      $bulanSekarang = date('m');
+      $tahunSekarang = date('Y');
+      $lastDetail = DetailPembayaranModel::whereMonth('created_at', $bulanSekarang)
+        ->whereYear('created_at', $tahunSekarang)
+        ->orderBy('created_at', 'desc')
+        ->first();
+      $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
+      $detailPembayaran->kode_bayar = "$kode_transaksi-$urutan";
+
+      $detailPembayaran->jumlah_bayar = $request->input('tj');
+      // Menentukan periode
+      $lastDetail = DetailPembayaranModel::where('id_penjualan', $penjualan->id)
+        ->orderBy('periode', 'desc')
+        ->first();
+      if ($lastDetail) {
+        $periode = $lastDetail->periode + 1;
+      } else {
+        $periode = 1;
+      }
+      $detailPembayaran->periode = $periode;
+      $detailPembayaran->status = 'tanda';
+      $detailPembayaran->save();
+      // create ke tabel detail transaksi end
+
+      DB::commit();
       flash()->addSuccess("Penjualan $penjualan->nama_sales berhasil dibuat");
       // return redirect()->back();
-
-
       // revisi logika baru redirect sesuai data hasil
+
       try {
         $hasil_id = $request->input('hasil');
         $getHasilName =  Hasil::find($hasil_id);
@@ -135,7 +189,8 @@ class AdminPenjualanController extends Controller
         return redirect()->back();
       }
     } catch (\Throwable $th) {
-      throw $th;
+      DB::rollBack();
+      // throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");
       return redirect()->back();
     }
@@ -430,5 +485,20 @@ class AdminPenjualanController extends Controller
     }
 
     return redirect()->back();
+  }
+
+  public function fixing()
+  {
+    $penjualans = Penjualan::all();
+    foreach ($penjualans as $penjualan) {
+      $bulan = date('m', strtotime($penjualan->created_at));
+      $tahun = date('y', strtotime($penjualan->created_at));
+      $tanggal = date('d', strtotime($penjualan->created_at));
+
+      $kode_transaksi = "BM-$bulan-$tahun-$tanggal-" . $penjualan->id;
+      $penjualan->kode_transaksi = $kode_transaksi;
+      $penjualan->save();
+    }
+    return "selesai";
   }
 }
