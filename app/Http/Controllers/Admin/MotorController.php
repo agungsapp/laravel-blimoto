@@ -182,7 +182,7 @@ class MotorController extends Controller
         try {
             $motor = Motor::findOrFail($id);
             $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
-    
+
             $motor->nama = $request->nama;
             $motor->harga = $request->harga;
             $motor->deskripsi = $request->deskripsi_motor;
@@ -192,7 +192,7 @@ class MotorController extends Controller
             $motor->id_type = $request->tipe_motor;
             $motor->stock = $stock;
             $kategoriBestMotor->id_best_motor = $kategori_best_motor;
-    
+
             $motor->save();
             $kategoriBestMotor->save();
             flash()->addSuccess("Berhasil merubah motor!");
@@ -237,6 +237,32 @@ class MotorController extends Controller
             return response()->json([
                 'message' => 'fail motor not found',
             ], 404);
+        }
+    }
+
+    public function getMotorById(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                ['error' => "Kirimkan id dengan benar!"],
+                401
+            );
+        }
+
+        try {
+            $getMinimal = Motor::find($request->id);
+
+            if (empty($getMinimal)) {
+                return response()->json(['message' => "data motor dengan id $request->id tidak ditemukan"], 404);
+            }
+
+            return response()->json($getMinimal, 200);
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }

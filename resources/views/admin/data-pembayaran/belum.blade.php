@@ -44,19 +44,21 @@
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				<td>{{ $p->tanggal_hasil }}</td>
 																				<td>
-																						<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
+																						<button type="button" class="btn btn-secondary btn-block load-detail-modal mb-1"
 																								data-id="{{ $p->id }}"
 																								data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal"
 																								data-target="#modalDetail">
 																								Detail
 																						</button>
-																						<button type="button" class="btn btn-success w-100 load-print-modal mb-1"
+																						<a href="{{ route('admin.pembayaran.show', $p->id) }}"
+																								class="btn btn-info btn-block mb-1">History</a>
+																						<button type="button" class="btn btn-success btn-block load-print-modal mb-1"
 																								data-id="{{ $p->id }}"
 																								data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal"
 																								data-target="#modalCetak">
 																								Cetak
 																						</button>
-																						<button type="button" class="btn btn-info w-100 load-payment-modal mb-1"
+																						<button type="button" class="btn btn-warning btn-block load-payment-modal mb-1"
 																								data-id="{{ $p->id }}"
 																								data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
 																								data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal"

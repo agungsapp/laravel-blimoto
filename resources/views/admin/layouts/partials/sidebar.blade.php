@@ -121,7 +121,7 @@
 
 										<li class="nav-item">
 												<a href="{{ route('admin.company-profile.index') }}"
-														class="nav-link {{ \Route::is('admin.company-profile.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('app.peserta.*') ? 'active' : '' }}">
 														<i class="nav-icon fa fa-user-md"></i>
 														<p>
 																Company Profile

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPembayaranModel;
 use App\Models\Hasil;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
@@ -145,7 +146,13 @@ class AdminPembayaranController extends Controller
 	 */
 	public function show($id)
 	{
-		//
+		$data = [
+			'dpembayarans' => DetailPembayaranModel::where('id_penjualan', $id)->get()
+		];
+
+		// dd($data);
+
+		return view('admin.pembayaran.show', $data);
 	}
 
 	/**
