@@ -73,6 +73,6 @@ class Penjualan extends Model
   }
   public function detailPembayaran()
   {
-    return $this->hasMany(DetailPembayaranModel::class, `id`, 'id_penjualan');
+    return $this->hasMany(DetailPembayaranModel::class, 'id_penjualan', 'id');
   }
-}
+  }

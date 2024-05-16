@@ -225,48 +225,63 @@
 								<div class="modal-header">
 										<h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
 								</div>
-								<form action="" method="post">
-										@csrf
-										<input type="hidden" name="sales" id="id-sales">
-										<input type="hidden" name="motor" id="motor">
-										<input type="hidden" name="kode_bayar" id="kode_bayar">
-										<input type="hidden" name="id_detail_pembayaran" id="id_detail_pembayaran">
-										<div class="modal-body">
 
-												<div class="form-group col-md-12">
-														<label for="nama-sales">Nama Sales</label>
-														<input type="text" class="form-control" id="nama-sales" readonly>
-												</div>
-												<div class="form-group col-md-12">
-														<label for="nama-konsumen">Nama Konsumen</label>
-														<input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
-												</div>
-												<div class="form-group col-md-12">
-														<label for="dp">DP</label>
-														<input type="text" class="form-control" id="dp" readonly name="dp">
-												</div>
-												<div class="form-group col-md-12">
-														<label for="email">Email Notifikasi</label>
-														<input type="text" class="form-control" id="email" name="email"
-																placeholder="Masukan email untuk dikirimkan invoice pembayaran">
-												</div>
-												<label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
-												<div id="tujuan" class="btn-group" data-toggle="buttons">
-														<label class="btn btn-outline-primary active">
-																<input type="radio" name="tujuan" value="t" id="option1" autocomplete="off" checked> Tanda
-																Jadi
-														</label>
-														<label class="btn btn-outline-primary">
-																<input type="radio" name="tujuan" value="p" id="option2" autocomplete="off"> Pelunasan
-														</label>
-												</div>
+								<div class="modal-body">
+
+
+										<!-- Tab links -->
+										<div class="tab">
+												<button class="tablinks active" onclick="openTabs(event, 'tagihan')">Tagihan</button>
+												<button class="tablinks" onclick="openTabs(event, 'tandajadi')">Tanda Jadi</button>
+												<button class="tablinks" onclick="openTabs(event, 'pelunasan')">Pelunasan</button>
+										</div>
+
+										<!-- Tab content -->
+										<div id="tagihan" class="tabcontent">
+
+												<p class="mb-3 mt-3">Tagihan saat ini yang harus di bayarkan</p>
+												{{-- modal form  --}}
+												<form action="" method="post">
+														<input type="hidden" name="sales" id="id-sales">
+														<input type="hidden" name="motor" id="motor">
+														@csrf
+														<div class="form-group col-md-12">
+																<label for="nama-sales">Nama Sales</label>
+																<input type="text" class="form-control" id="nama-sales" readonly>
+														</div>
+														<div class="form-group col-md-12">
+																<label for="nama-konsumen">Nama Konsumen</label>
+																<input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
+														</div>
+														<div class="form-group col-md-12">
+																<label for="dp">DP</label>
+																<input type="text" class="form-control" id="dp" readonly name="dp">
+														</div>
+														<div class="form-group col-md-12">
+																<label for="email">Email Notifikasi</label>
+																<input type="text" class="form-control" id="email" name="email"
+																		placeholder="Masukan email untuk dikirimkan invoice pembayaran">
+														</div>
+														<button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
+												</form>
 
 										</div>
-										<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
+
+										<div id="tandajadi" class="tabcontent">
+												<h3>Tanda Jadi</h3>
+												<p>Tambahkan tanda jadi untuk data penjualan ini.</p>
 										</div>
-								</form>
+
+										<div id="pelunasan" class="tabcontent">
+												<h3>Pelunasan</h3>
+												<p>Pelunasan akan di lakukan.</p>
+										</div>
+
+								</div>
+								<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">button</button>
+								</div>
 						</div>
 				</div>
 		</div>
@@ -371,6 +386,50 @@
 		</div>
 @endsection
 @push('script')
+		{{-- modal tabs --}}
+		<script>
+				document.addEventListener("DOMContentLoaded", function() {
+						// Sembunyikan semua tabcontent
+						var tabcontent = document.getElementsByClassName("tabcontent");
+						for (var i = 0; i < tabcontent.length; i++) {
+								tabcontent[i].style.display = "none";
+						}
+
+						// Tampilkan tabcontent 'tagihan' secara default
+						document.getElementById("tagihan").style.display = "block";
+
+						// Tambahkan kelas "active" pada tombol tab "Tagihan"
+						var defaultTab = document.getElementById("defaultTab");
+						defaultTab.className += " active";
+				});
+
+				function openTabs(evt, cityName) {
+						evt.preventDefault();
+
+						// Declare all variables
+						var i, tabcontent, tablinks;
+
+						// Get all elements with class="tabcontent" and hide them
+						tabcontent = document.getElementsByClassName("tabcontent");
+						for (i = 0; i < tabcontent.length; i++) {
+								tabcontent[i].style.display = "none";
+						}
+
+						// Get all elements with class="tablinks" and remove the class "active"
+						tablinks = document.getElementsByClassName("tablinks");
+						for (i = 0; i < tablinks.length; i++) {
+								tablinks[i].className = tablinks[i].className.replace(" active", "");
+						}
+
+						// Show the current tab, and add an "active" class to the button that opened the tab
+						document.getElementById(cityName).style.display = "block";
+						evt.currentTarget.className += " active";
+				}
+		</script>
+
+
+
+
 		<script>
 				$(function() {
 						$("#data-kota").DataTable({
@@ -392,15 +451,12 @@
 								type: 'GET',
 								dataType: 'json',
 								success: function(data) {
-										console.log(data)
 										$('#modalBayar form').attr('action', actionUrl);
 										$('#id-sales').val(data.sales.id);
 										$('#nama-sales').val(data.sales.nama);
-										$('#kode_bayar').val(data.detail_pembayaran[0].kode_bayar);
-										$('#id_detail_pembayaran').val(data.detail_pembayaran[0].id);
 										$('#nama-konsumen').val(data.nama_konsumen);
 										$('#motor').val(data.motor.nama);
-										$('#dp').val(Number(data.detail_pembayaran[0].jumlah_bayar) - Number(data.diskon_dp));
+										$('#dp').val(Number(data.dp) - Number(data.diskon_dp));
 								},
 								error: function(xhr, status, error) {
 										swal({
@@ -579,17 +635,45 @@
 				});
 		</script>
 @endpush
+
+
 @push('css')
 		<style>
-				/* Style untuk menghilangkan tampilan bulat pada tombol radio */
-				.btn-group-toggle .btn input[type="radio"] {
-						clip: rect(0, 0, 0, 0);
-						position: absolute;
+				/* Style the tab */
+				.tab {
+						overflow: hidden;
+						border: 1px solid #ccc;
+						background-color: #ffffff;
 				}
 
-				.btn-group-toggle .btn input[type="radio"]+label {
-						border-radius: 0;
-						/* Menghilangkan sudut bulat pada label */
+				/* Style the buttons that are used to open the tab content */
+				.tab button {
+						background-color: inherit;
+						float: left;
+						border: none;
+						outline: none;
+						cursor: pointer;
+						padding: 14px 16px;
+						transition: 0.3s;
+				}
+
+				/* Change background color of buttons on hover */
+				.tab button:hover {
+						background-color: #ddd;
+				}
+
+				/* Create an active/current tablink class */
+				.tab button.active {
+						background-color: #1d34ff;
+						color: white
+				}
+
+				/* Style the tab content */
+				.tabcontent {
+						display: none;
+						padding: 6px 12px;
+						/* border: 1px solid #ccc;
+																																																														border-top: none; */
 				}
 		</style>
 @endpush

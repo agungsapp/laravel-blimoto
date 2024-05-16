@@ -26,9 +26,7 @@ class AdminPenjualanController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
-      ->orderBy('id', 'desc')
-      ->get();
+
     // $debug = optional($data[0]->refund->status_pengajuan);
     // dd($debug);
     $kota = Kota::all();
@@ -39,7 +37,7 @@ class AdminPenjualanController extends Controller
     $colors = ColorModel::all();
 
     return view('admin.penjualan.penjualan', [
-      'penjualan' => $data,
+      // 'penjualan' => $data,
       'kota' => $kota,
       'hasil' => $hasil,
       'motor' => $motor,
@@ -307,17 +305,23 @@ class AdminPenjualanController extends Controller
 
   public function bayar(Request $request, $id_penjualan)
   {
+
+
     $validator = Validator::make($request->all(), [
+      'kode_bayar' => 'required',
       'konsumen' => 'required',
       'email' => 'required',
       'sales' => 'required',
       'dp' => 'required',
+      'id_detail_pembayaran' => 'required',
     ]);
-
+    // tangkap req
+    $kode_bayar = intval($request->input('kode_bayar'));
     $idSales = intval($request->input('sales'));
     $idPenjualan = intval($id_penjualan);
+    $idDetailPembayaran = intval($request->input('id_detail_pembayaran'));
     $namaKonsumen = $request->input('konsumen');
-
+    // validator
     if ($validator->fails()) {
       return response()->json(['pesan' => 'Inputkan semua data dengan benar!'], 400);
     }
@@ -336,27 +340,31 @@ class AdminPenjualanController extends Controller
         return response()->json(['pesan' => 'data penjualan tidak ditemukan'], 404);
       }
 
+
+      $getDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $idPenjualan)->first();
+
       // Menggunakan metode create untuk membuat pembayaran baru
       $pembayaran = Pembayaran::create([
-        'id_penjualan' => $idPenjualan,
-        'harga' => $request->dp
+        'id_detail_pembayaran' => $getDetailPembayaran->id,
+        'harga' => $request->dp,
+        'order_id' => $getDetailPembayaran->kode_bayar
       ]);
+
+      // return response()->json($pembayaran->toSql());
+
 
       // Konfigurasi Midtrans
       \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
       \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
       \Midtrans\Config::$isSanitized = true;
       \Midtrans\Config::$is3ds = false;
-
-
       // Create a unique order_id by appending a timestamp or a unique string to id_penjualan
-      $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
-
+      $uniqueOrderId = intval($request->input('kode_bayar'));
+      // $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
       $transactionDetails = [
-        'order_id' => $uniqueOrderId,
+        'order_id' => $getDetailPembayaran->kode_bayar,
         'gross_amount' => $pembayaran->harga,
       ];
-
       $customerDetails = [
         'first_name' => $namaKonsumen,
         'email' => $request->input('email'),
@@ -387,13 +395,17 @@ class AdminPenjualanController extends Controller
       // return response()->json(['snap_token' => $snapToken]);
     } catch (\Exception $e) {
       DB::rollback();
-      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage(), 500]);
+      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage()], 500);
     }
   }
 
   public function getPaymentData($id)
   {
     $penjualan = Penjualan::with('sales', 'motor')->findOrFail($id);
+    $penjualan->load(['detailPembayaran' => function ($query) use ($id) {
+      $query->where('id_penjualan', $id)->orderByDesc('periode')->first();
+    }]);
+
     // Tambahkan logika untuk mengambil data tambahan jika diperlukan
     return response()->json($penjualan);
   }
@@ -500,5 +512,17 @@ class AdminPenjualanController extends Controller
       $penjualan->save();
     }
     return "selesai";
+  }
+
+  // hanya untuk testing debug 
+  public function testing($id)
+  {
+    $penjualan = Penjualan::with('sales', 'motor')->findOrFail($id);
+    $penjualan->load(['detailPembayaran' => function ($query) use ($id) {
+      $query->where('id_penjualan', $id)->orderByDesc('periode')->limit(1);
+    }]);
+
+    // dd($penjualan->toSql());
+    return response()->json($penjualan);
   }
 }

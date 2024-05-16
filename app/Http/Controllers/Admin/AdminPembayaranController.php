@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+
 class AdminPembayaranController extends Controller
 {
 	/**
@@ -187,19 +188,121 @@ class AdminPembayaranController extends Controller
 	{
 	}
 
+
 	public function midtransWebhook(Request $request)
+	{
+		Log::info('Webhook received', $request->all());
+
+		// Validasi Signature Key (opsional, untuk keamanan tambahan)
+		$signatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . env('MIDTRANS_SERVER_KEY'));
+		if ($signatureKey != $request->signature_key) {
+			Log::warning('Invalid signature key', ['generated' => $signatureKey, 'received' => $request->signature_key]);
+			return response()->json(['message' => 'Invalid signature'], 403);
+		}
+
+		// Mengolah data notifikasi
+		$data = json_decode($request->getContent(), true);
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			Log::error('JSON Decoding Error: ' . json_last_error_msg());
+			return response()->json(['message' => 'Invalid JSON payload'], 400);
+		}
+
+		Log::info('Decoded Midtrans Webhook Data', $data);
+
+		// Menentukan path dan nama file
+		$filePath = storage_path('app/public/midtrans_webhook_data.json');
+		$dataString = json_encode($data, JSON_PRETTY_PRINT);
+		Storage::disk('public')->put('midtrans_webhook_data.json', $dataString);
+
+		$orderIdParts = explode('-', $data['order_id']);
+		$idPenjualan = $orderIdParts[4];
+		$kode_bayar = $data['order_id'];
+		Log::info('id DEtail pembayaran ', ['ini' => $kode_bayar]);
+
+		$pembayaran = Pembayaran::where('order_id', $kode_bayar)->first();
+		$penjualan = Penjualan::where('id', $idPenjualan)->first();
+
+		if (!$pembayaran) {
+			return response()->json(['message' => 'Pembayaran tidak ditemukan'], 404);
+		}
+
+		if (!$penjualan) {
+			return response()->json(['message' => 'Penjualan tidak ditemukan'], 404);
+		}
+
+		try {
+			switch ($data['transaction_status']) {
+				case 'capture':
+					if ($data['fraud_status'] == 'accept') {
+						$pembayaran->update([
+							'status_pembayaran' => 'success',
+							'metode_pembayaran' => $data['payment_type'],
+							'paid_at' => $data['transaction_time']
+						]);
+						$penjualan->update(['status_pembayaran_dp' => 'success']);
+					}
+					break;
+				case 'settlement':
+					Log::info('id DEtail pembayaran ', ['pesan' => 'settelement di proses']);
+					$pembayaran->update([
+						'order_id' => $data['order_id'],
+						'status_pembayaran' => 'success',
+						'metode_pembayaran' => $data['payment_type'],
+						'paid_at' => $data['settlement_time']
+					]);
+					$penjualan->update(['status_pembayaran_dp' => 'success']);
+					break;
+				case 'pending':
+					Log::info('id DEtail pembayaran ', ['pesan' => 'pending di proses']);
+					$pembayaran->update(['status_pembayaran' => 'pending', 'paid_at' => $data['transaction_time'], 'order_id' => $data['order_id']]);
+					$penjualan->update(['status_pembayaran_dp' => 'pending']);
+					break;
+				case 'deny':
+					$pembayaran->update(['status_pembayaran' => 'denied']);
+					$penjualan->update(['status_pembayaran_dp' => 'denied']);
+					break;
+				case 'expire':
+					$pembayaran->update(['status_pembayaran' => 'expired']);
+					$penjualan->update(['status_pembayaran_dp' => 'expired']);
+					break;
+				case 'cancel':
+					$pembayaran->update(['status_pembayaran' => 'cancelled']);
+					$penjualan->update(['status_pembayaran_dp' => 'cancelled']);
+					break;
+				case 'refund':
+					$pembayaran->update(['status_pembayaran' => 'refunded']);
+					$penjualan->update(['status_pembayaran_dp' => 'refunded']);
+					break;
+				case 'partial_refund':
+					$pembayaran->update(['status_pembayaran' => 'partially_refunded']);
+					$penjualan->update(['status_pembayaran_dp' => 'partially_refunded']);
+					break;
+				case 'chargeback':
+					$pembayaran->update(['status_pembayaran' => 'chargeback']);
+					$penjualan->update(['status_pembayaran_dp' => 'chargeback']);
+					break;
+				default:
+					$pembayaran->update(['status_pembayaran' => 'unknown']);
+					$penjualan->update(['status_pembayaran_dp' => 'unknown']);
+					break;
+			}
+			return response()->json(['message' => 'Webhook berhasil diproses'], 200);
+		} catch (\Exception $e) {
+			Log::error('Midtrans Webhook Error: ' . $e->getMessage());
+			return response()->json(['message' => 'Terjadi kesalahan saat memproses webhook'], 500);
+		}
+	}
+
+
+	public function midtransWebhookOld(Request $request)
 	{
 		// Validasi Signature Key (opsional, untuk keamanan tambahan)
 		$signatureKey = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . env('MIDTRANS_SERVER_KEY'));
 		if ($signatureKey != $request->signature_key) {
 			return response()->json(['message' => 'Invalid signature',], 403);
 		}
-
-
 		// Mengolah data notifikasi
 		$data = json_decode($request->getContent(), true);
-
-
 		// debug
 		// Menentukan path dan nama file
 		$filePath = storage_path('app/public/midtrans_webhook_data.json');
@@ -209,14 +312,12 @@ class AdminPembayaranController extends Controller
 		// Menyimpan data ke dalam file menggunakan Storage Facade
 		Storage::disk('public')->put('midtrans_webhook_data.json', $dataString);
 		// debug
-
-
 		$orderIdParts = explode('-', $data['order_id']);
 		// return $data;
-		$idPenjualan = $orderIdParts[0]; // Ambil bagian pertama sebagai id_penjualan
+		$idPenjualan = $orderIdParts[4]; // Ambil bagian pertama sebagai id_penjualan
 
 		// Mencari pembayaran yang berkaitan
-		$pembayaran = Pembayaran::where('id_penjualan', $idPenjualan)->first();
+		$pembayaran = Pembayaran::where('id_detail_pembayaran', $idPenjualan)->first();
 		$penjualan = Penjualan::where('id', $idPenjualan)->first();
 
 		// return $data['payment_type'];
@@ -235,7 +336,7 @@ class AdminPembayaranController extends Controller
 					// Untuk tipe pembayaran kartu kredit
 					if ($data['fraud_status'] == 'accept') {
 						$pembayaran->update([
-							'order_id' => $data['order_id'],
+							// 'order_id' => $data['order_id'],
 							'status_pembayaran' => 'success',
 							'metode_pembayaran' => $data['payment_type'],
 							'paid_at' => $data['transaction_time']

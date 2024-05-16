@@ -38,8 +38,7 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 
 		<!-- lightbox -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-
-
+		@stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
