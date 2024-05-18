@@ -52,7 +52,7 @@
 																										Detail
 																								</button>
 																						</div>
-																						@if (optional($p->pembayaran)->id != null)
+																						{{-- @if (optional($p->detailPembayaran->pembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
 																								@endphp
@@ -68,7 +68,7 @@
 																												href="{{ route('admin.refund.status.index') }}">Refund
 																												status</a>
 																								@endif
-																						@endif
+																						@endif --}}
 																				</td>
 																		</tr>
 																@endforeach

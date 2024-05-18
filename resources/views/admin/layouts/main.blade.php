@@ -38,10 +38,52 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 
 		<!-- lightbox -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+
+
+		<style>
+				.loader-wrapper {
+						position: fixed;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						background: rgba(255, 255, 255, 0.8);
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						z-index: 9999;
+				}
+
+				.loader {
+						border: 16px solid #f3f3f3;
+						border-radius: 50%;
+						border-top: 16px solid #3498db;
+						width: 120px;
+						height: 120px;
+						animation: spin 2s linear infinite;
+				}
+
+				@keyframes spin {
+						0% {
+								transform: rotate(0deg);
+						}
+
+						100% {
+								transform: rotate(360deg);
+						}
+				}
+		</style>
+
+
 		@stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
+		{{-- loader --}}
+		<div class="loader-wrapper">
+				<div class="loader"></div>
+		</div>
+
 		<div class="wrapper">
 
 				<!-- Navbar -->
@@ -110,6 +152,14 @@ This is a sangkuriang project 🔥 must be fast to build ges.
 		</div>
 		<!-- ./wrapper -->
 
+
+		<script>
+				document.addEventListener("DOMContentLoaded", function() {
+						// Hapus loader setelah halaman selesai dimuat
+						const loaderWrapper = document.querySelector('.loader-wrapper');
+						loaderWrapper.style.display = 'none';
+				});
+		</script>
 
 
 		<!-- REQUIRED SCRIPTS -->

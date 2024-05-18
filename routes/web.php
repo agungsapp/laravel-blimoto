@@ -233,6 +233,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('promo', AdminPromoController::class);
             Route::resource('pembayaran', AdminPembayaranController::class);
             Route::get('data-pembayaran', [AdminDataPembayaranController::class, 'index'])->name('sudah-bayar');
+            Route::get('data-pembayaran-tanda-jadi', [AdminDataPembayaranController::class, 'sudahBayarTj'])->name('sudah-bayartj');
             Route::get('data-pembayaran-belum', [AdminDataPembayaranController::class, 'belumBayar'])->name('belum-bayar');
 
             Route::prefix('penjualan')->name('penjualan.')->group(function () {

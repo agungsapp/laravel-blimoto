@@ -15,4 +15,9 @@ class DetailPembayaranModel extends Model
     {
         return $this->belongsTo(Penjualan::class,  'id_penjualan', 'id'); // Definisikan relasi terbalik
     }
+
+    public function pembayaran()
+    {
+        return $this->belongsTo(Pembayaran::class,  'id', 'id_detail_pembayaran');
+    }
 }
