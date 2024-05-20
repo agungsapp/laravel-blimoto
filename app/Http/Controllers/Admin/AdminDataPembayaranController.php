@@ -68,7 +68,8 @@ class AdminDataPembayaranController extends Controller
     //   ->orderBy('id', 'desc')
     //   ->get();
     return view('admin.data-pembayaran.index', [
-      'penjualan' => $data
+      'penjualan' => $data,
+      'judulHalaman' => 'Sudah Bayar Tanda Jadi'
     ]);
   }
 

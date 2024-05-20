@@ -123,6 +123,11 @@ return [
             'path' => storage_path('logs/penjualan.log'),
             'level' => 'debug',
         ],
+        'tanda' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/penjualan.log'),
+            'level' => 'debug',
+        ],
     ],
 
 ];

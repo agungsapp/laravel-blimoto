@@ -74,7 +74,6 @@ class AdminPenjualanController extends Controller
       'konsumen' => 'required',
       'sales' => 'required',
       'metode_pembelian' => 'required',
-      'dp' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
@@ -169,21 +168,31 @@ class AdminPenjualanController extends Controller
       $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
       $detailPembayaran->kode_bayar = "$kode_transaksi-$urutan";
 
-      $detailPembayaran->jumlah_bayar = $request->input('tj');
-
-      // logika get cicilan
-      $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
-        ->where('id_lokasi', $request->input('kabupaten'))
-        ->where('id_leasing', $request->input('leasing'))
-        ->where('tenor', $request->input('tenor'))->first();
-
-      Log::channel('penjualan')->info('DEBUG KODE_TRANSAKSI : ', ['pesan' => $kode_transaksi]);
-      Log::channel('penjualan')->info('DEBUG DATA CICILAN : ', ['pesan' => $cicilan]);
-
-      if (empty($cicilan)) {
-        flash()->addError("Data cicilan tidak ditemukan !");
-        return redirect()->back()->withInput();
+      if ($pembelian == 'cash') {
+        $detailPembayaran->jumlah_bayar = $request->input('tj');
+        // return $motor->harga;
+        $detailPembayaran->jumlah_bayar = $request->input('tj');
+      } else {
+        $detailPembayaran->jumlah_bayar = $request->input('dp') ?? 0;
       }
+
+      // hanya saat kredit
+      if ($pembelian == 'kredit') {
+        // logika get cicilan
+        $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
+          ->where('id_lokasi', $request->input('kabupaten'))
+          ->where('id_leasing', $request->input('leasing'))
+          ->where('tenor', $request->input('tenor'))->first();
+
+        Log::channel('penjualan')->info('DEBUG KODE_TRANSAKSI : ', ['pesan' => $kode_transaksi]);
+        Log::channel('penjualan')->info('DEBUG DATA CICILAN : ', ['pesan' => $cicilan]);
+
+        if (empty($cicilan)) {
+          flash()->addError("Data cicilan tidak ditemukan !");
+          return redirect()->back()->withInput();
+        }
+      }
+
 
       if ($pembelian == 'cash') {
         $isLunas = $motor->harga == $request->input('tj');
@@ -342,6 +351,11 @@ class AdminPenjualanController extends Controller
       return redirect()->back();
     }
   }
+
+  public function tambahPelunasan(Request $request)
+  {
+  }
+
 
   public function bayar(Request $request, $id_penjualan)
   {
