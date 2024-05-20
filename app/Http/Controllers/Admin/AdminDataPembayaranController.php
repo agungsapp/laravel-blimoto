@@ -8,6 +8,7 @@ use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class AdminDataPembayaranController extends Controller
 {
   /**
@@ -17,10 +18,19 @@ class AdminDataPembayaranController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund', 'detailPembayaran')
-      ->where('status_pembayaran_dp', '=', 'success')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+      ->whereHas('detailPembayaran', function ($query) {
+        $query->where('status', 'pelunasan')
+          ->whereHas('pembayaran', function ($query) {
+            $query->where('status_pembayaran', 'success');
+          });
+      })
       ->orderBy('id', 'desc')
       ->get();
+    // $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund', 'detailPembayaran')
+    //   ->where('status_pembayaran_dp', '=', 'success')
+    //   ->orderBy('id', 'desc')
+    //   ->get();
     return view('admin.data-pembayaran.index', [
       'penjualan' => $data
     ]);
@@ -36,6 +46,30 @@ class AdminDataPembayaranController extends Controller
       ->get();
     return view('admin.data-pembayaran.belum', [
       'penjualan' => $data
+    ]);
+  }
+
+  public function sudahBayarTj()
+  {
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+      ->whereHas('detailPembayaran', function ($query) {
+        $query->where('status', 'tanda')
+          ->whereHas('pembayaran', function ($query) {
+            $query->where('status_pembayaran', 'success');
+          });
+      })
+      ->whereDoesntHave('detailPembayaran', function ($query) {
+        $query->where('status', 'pelunasan');
+      })
+      ->orderBy('id', 'desc')
+      ->get();
+    // $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund', 'detailPembayaran')
+    //   ->where('status_pembayaran_dp', '=', 'success')
+    //   ->orderBy('id', 'desc')
+    //   ->get();
+    return view('admin.data-pembayaran.index', [
+      'penjualan' => $data,
+      'judulHalaman' => 'Sudah Bayar Tanda Jadi'
     ]);
   }
 

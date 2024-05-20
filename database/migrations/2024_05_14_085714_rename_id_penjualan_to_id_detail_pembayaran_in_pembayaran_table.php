@@ -18,7 +18,7 @@ return new class extends Migration
             // Rename the column
             $table->renameColumn('id_penjualan', 'id_detail_pembayaran');
             // Add foreign key constraint to the new column name
-            $table->foreign('id_detail_pembayaran')->references('id')->on('penjualan')->onDelete('cascade');
+            $table->foreign('id_detail_pembayaran')->references('id')->on('detail_pembayaran')->onDelete('cascade');
         });
     }
 

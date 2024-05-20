@@ -3,7 +3,7 @@
 		<section class="content">
 				<div class="row">
 						<div class="col-12">
-								<div class="card card-primary">
+								<div class="card card-danger">
 										<div class="card-header">
 												<h3 class="card-title">Data Sudah Bayar</h3>
 										</div>
@@ -52,7 +52,16 @@
 																										Detail
 																								</button>
 																						</div>
-																						@if (optional($p->pembayaran)->id != null)
+																						<div>
+																								<button type="button" class="btn btn-warning btn-block load-payment-modal mb-1"
+																										data-id="{{ $p->id }}"
+																										data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
+																										data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal"
+																										data-target="#modalBayar">
+																										Bayar
+																								</button>
+																						</div>
+																						{{-- @if (optional($p->detailPembayaran->pembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
 																								@endphp
@@ -68,7 +77,7 @@
 																												href="{{ route('admin.refund.status.index') }}">Refund
 																												status</a>
 																								@endif
-																						@endif
+																						@endif --}}
 																				</td>
 																		</tr>
 																@endforeach
@@ -79,6 +88,62 @@
 						</div>
 				</div>
 		</section>
+
+		{{-- modal bayar --}}
+		<div class="modal fade" id="modalBayar" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+						<div class="modal-content">
+								<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
+								</div>
+								<form action="" method="post">
+										@csrf
+										<input type="hidden" name="sales" id="id-sales">
+										<input type="hidden" name="motor" id="motor">
+										<input type="hidden" name="kode_bayar" id="kode_bayar">
+										<input type="hidden" name="id_detail_pembayaran" id="id_detail_pembayaran">
+										<div class="modal-body">
+
+												<div class="form-group col-md-12">
+														<label for="nama-sales">Nama Sales</label>
+														<input type="text" class="form-control" id="nama-sales" readonly>
+												</div>
+												<div class="form-group col-md-12">
+														<label for="nama-konsumen">Nama Konsumen</label>
+														<input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
+												</div>
+												<div class="form-group col-md-12">
+
+														<label for="dp">DP</label>
+														<input type="number" class="form-control" id="dp" name="dp" aria-describedby="dpHelp">
+														<div id="dpHelp" class="form-text">Tagihan yang harus di lunasi konsumen <strong id="nakon"></strong>
+																adalah sebesar <strong id="takon" class="text-danger"></strong>.</div>
+												</div>
+												<div class="form-group col-md-12">
+														<label for="email">Email Notifikasi</label>
+														<input type="text" class="form-control" id="email" name="email"
+																placeholder="Masukan email untuk dikirimkan invoice pembayaran">
+												</div>
+												<label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
+												<div id="tujuan" class="btn-group" data-toggle="buttons">
+														<label class="btn btn-outline-primary active">
+																<input type="radio" name="tujuan" value="t" id="option1" autocomplete="off" checked> Tanda
+																Jadi
+														</label>
+														<label class="btn btn-outline-primary">
+																<input type="radio" name="tujuan" value="p" id="option2" autocomplete="off"> Pelunasan
+														</label>
+												</div>
+
+										</div>
+										<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
+										</div>
+								</form>
+						</div>
+				</div>
+		</div>
 
 		<!-- Modal detail -->
 		<section>
@@ -305,6 +370,96 @@
 						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
 				});
 		</script>
+
+
+
+
+
+		{{-- pembayaran --}}
+		<script>
+				$(document).on('click', '.load-payment-modal', function() {
+						var url = $(this).data('url');
+						var actionUrl = $(this).data('action-url');
+
+						$.ajax({
+								url: url,
+								type: 'GET',
+								dataType: 'json',
+								success: function(data) {
+										console.log(data)
+										var formattedDp = parseFloat(data.dp).toLocaleString('id-ID', {
+												style: 'currency',
+												currency: 'IDR'
+										});
+										$('#modalBayar form').attr('action', actionUrl);
+										$('#id-sales').val(data.sales.id);
+										$('#nama-sales').val(data.sales.nama);
+										$('#kode_bayar').val(data.detail_pembayaran[0].kode_bayar);
+										$('#id_detail_pembayaran').val(data.detail_pembayaran[0].id);
+										$('#nama-konsumen').val(data.nama_konsumen);
+										$('#motor').val(data.motor.nama);
+										$('#dp').val(Number(data.detail_pembayaran[0].sisa_bayar));
+
+
+										$('#dp').attr('max', data.detail_pembayaran[0].sisa_bayar);
+										$('#nakon').text(data.nama_konsumen);
+										$('#takon').text(formattedDp);
+								},
+								error: function(xhr, status, error) {
+										swal({
+												title: `Error`,
+												text: error,
+												icon: "error",
+												buttons: true,
+												dangerMode: true,
+										})
+								}
+						});
+				});
+		</script>
+		<script>
+				$(document).on('click', '#pay-button', function(e) {
+						e.preventDefault();
+
+						var form = $(this).closest('form');
+						var formData = new FormData(form.get(0));
+
+						fetch(form.attr('action'), {
+										method: 'POST',
+										headers: {
+												'X-CSRF-TOKEN': '{{ csrf_token() }}',
+												'Accept': 'application/json',
+										},
+										body: formData
+								})
+								.then(response => response.json())
+								.then(data => {
+										if (data.redirect_url) {
+												// Open the Midtrans payment page in a new tab
+												window.open(data.redirect_url, '_blank');
+										} else {
+												swal({
+														title: `Error`,
+														text: data.pesan,
+														icon: "error",
+														buttons: true,
+														dangerMode: true,
+												})
+										}
+								})
+								.catch(error => {
+										console.error('Error:', error);
+								});
+				});
+		</script>
+
+
+
+
+
+
+
+
 
 		{{--  SC MODAL REFUND --}}
 		<script>

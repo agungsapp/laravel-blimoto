@@ -28,6 +28,8 @@
 																		<th>ID</th>
 																		<th>Kode Bayar</th>
 																		<th>Jumlah Bayar</th>
+																		<th>Sisa Bayar</th>
+																		<th>Total Tagihan</th>
 																		<th>Periode</th>
 																		<th>Status Pembayaran</th>
 																		<th>Tanggal Transaksi</th>
@@ -40,8 +42,10 @@
 																				<td>{{ $p->id }}</td>
 																				<td>{{ $p->kode_bayar }}</td>
 																				<td>{{ Str::rupiah($p->jumlah_bayar) }}</td>
+																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
+																				<td>{{ Str::rupiah($p->total_lunas) }}</td>
 																				<td>{{ $p->periode }}</td>
-																				<td>{{ $p->status == 'tanda' ? 'tanda jadi' : $p->status }}</td>
+																				<td class="text-capitalize">{{ $p->status == 'tanda' ? 'tanda jadi' : $p->status }}</td>
 																				<td>{{ $p->created_at }}</td>
 																				<td class="no-export">
 																						<div class="btn-group">

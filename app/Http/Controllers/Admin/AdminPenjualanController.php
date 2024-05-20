@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CicilanMotor;
 use App\Models\ColorModel;
 use App\Models\DetailPembayaranModel;
 use App\Models\Hasil;
@@ -15,6 +16,7 @@ use App\Models\Sales;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPenjualanController extends Controller
@@ -26,9 +28,7 @@ class AdminPenjualanController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'pembayaran', 'refund')
-      ->orderBy('id', 'desc')
-      ->get();
+
     // $debug = optional($data[0]->refund->status_pengajuan);
     // dd($debug);
     $kota = Kota::all();
@@ -39,7 +39,7 @@ class AdminPenjualanController extends Controller
     $colors = ColorModel::all();
 
     return view('admin.penjualan.penjualan', [
-      'penjualan' => $data,
+      // 'penjualan' => $data,
       'kota' => $kota,
       'hasil' => $hasil,
       'motor' => $motor,
@@ -74,7 +74,6 @@ class AdminPenjualanController extends Controller
       'konsumen' => 'required',
       'sales' => 'required',
       'metode_pembelian' => 'required',
-      'dp' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
@@ -82,6 +81,11 @@ class AdminPenjualanController extends Controller
       'status_pembayaran' => 'required',
       'metode_pembayaran' => 'required',
     ]);
+
+    // $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
+    //   ->where('id_leasing', $request->input('leasing'))
+    //   ->where('tenor', $request->input('tenor'))->first();
+    // dd($cicilan);
 
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
@@ -111,8 +115,9 @@ class AdminPenjualanController extends Controller
       $penjualan->warna_motor = $warna_motor;
       $penjualan->no_hp = $request->input('no_hp') ?? null;
       $penjualan->bpkb = $request->input('bpkb') ?? null;
+      // find motor
+      $motor = Motor::find($request->input('motor'));
       if ($pembelian == 'cash') {
-        $motor = Motor::find($request->input('motor'));
         // return $motor->harga;
         $penjualan->dp = $motor->harga;
       } else {
@@ -134,6 +139,8 @@ class AdminPenjualanController extends Controller
       $tahun = date('y', strtotime($penjualan->created_at));
       $tanggal = date('d', strtotime($penjualan->created_at));
       $kode_transaksi = "BM-$bulan-$tahun-$tanggal-" . $penjualan->id;
+
+
       $penjualan->kode_transaksi = $kode_transaksi;
       $penjualan->save();
       // create ke tabel penjualan end
@@ -161,7 +168,42 @@ class AdminPenjualanController extends Controller
       $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
       $detailPembayaran->kode_bayar = "$kode_transaksi-$urutan";
 
-      $detailPembayaran->jumlah_bayar = $request->input('tj');
+      if ($pembelian == 'cash') {
+        $detailPembayaran->jumlah_bayar = $request->input('tj');
+        // return $motor->harga;
+        $detailPembayaran->jumlah_bayar = $request->input('tj');
+      } else {
+        $detailPembayaran->jumlah_bayar = $request->input('dp') ?? 0;
+      }
+
+      // hanya saat kredit
+      if ($pembelian == 'kredit') {
+        // logika get cicilan
+        $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
+          ->where('id_lokasi', $request->input('kabupaten'))
+          ->where('id_leasing', $request->input('leasing'))
+          ->where('tenor', $request->input('tenor'))->first();
+
+        Log::channel('penjualan')->info('DEBUG KODE_TRANSAKSI : ', ['pesan' => $kode_transaksi]);
+        Log::channel('penjualan')->info('DEBUG DATA CICILAN : ', ['pesan' => $cicilan]);
+
+        if (empty($cicilan)) {
+          flash()->addError("Data cicilan tidak ditemukan !");
+          return redirect()->back()->withInput();
+        }
+      }
+
+
+      if ($pembelian == 'cash') {
+        $isLunas = $motor->harga == $request->input('tj');
+        $detailPembayaran->sisa_bayar = $motor->harga - $request->input('tj');
+        $detailPembayaran->total_lunas = $motor->harga;
+      } else {
+        $isLunas = $cicilan->dp == $request->input('dp');
+        $detailPembayaran->sisa_bayar = $cicilan->dp - $request->input('dp');
+        $detailPembayaran->total_lunas = $cicilan->dp;
+      }
+
       // Menentukan periode
       $lastDetail = DetailPembayaranModel::where('id_penjualan', $penjualan->id)
         ->orderBy('periode', 'desc')
@@ -172,7 +214,9 @@ class AdminPenjualanController extends Controller
         $periode = 1;
       }
       $detailPembayaran->periode = $periode;
-      $detailPembayaran->status = 'tanda';
+      $isLunas ? $detailPembayaran->status = 'pelunasan' :
+        $detailPembayaran->status = 'tanda';
+
       $detailPembayaran->save();
       // create ke tabel detail transaksi end
 
@@ -189,9 +233,12 @@ class AdminPenjualanController extends Controller
         return redirect()->back();
       }
     } catch (\Throwable $th) {
+      Log::channel('penjualan')->info('Store Input Penjualan Error ! : ', ['pesan' => $th]);
       DB::rollBack();
       // throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");
+
+
       return redirect()->back();
     }
   }
@@ -305,19 +352,30 @@ class AdminPenjualanController extends Controller
     }
   }
 
+  public function tambahPelunasan(Request $request)
+  {
+  }
+
+
   public function bayar(Request $request, $id_penjualan)
   {
+
+
     $validator = Validator::make($request->all(), [
+      'kode_bayar' => 'required',
       'konsumen' => 'required',
       'email' => 'required',
       'sales' => 'required',
       'dp' => 'required',
+      'id_detail_pembayaran' => 'required',
     ]);
-
+    // tangkap req
+    $kode_bayar = intval($request->input('kode_bayar'));
     $idSales = intval($request->input('sales'));
     $idPenjualan = intval($id_penjualan);
+    $idDetailPembayaran = intval($request->input('id_detail_pembayaran'));
     $namaKonsumen = $request->input('konsumen');
-
+    // validator
     if ($validator->fails()) {
       return response()->json(['pesan' => 'Inputkan semua data dengan benar!'], 400);
     }
@@ -336,27 +394,31 @@ class AdminPenjualanController extends Controller
         return response()->json(['pesan' => 'data penjualan tidak ditemukan'], 404);
       }
 
+
+      $getDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $idPenjualan)->first();
+
       // Menggunakan metode create untuk membuat pembayaran baru
       $pembayaran = Pembayaran::create([
-        'id_penjualan' => $idPenjualan,
-        'harga' => $request->dp
+        'id_detail_pembayaran' => $getDetailPembayaran->id,
+        'harga' => $request->dp,
+        'order_id' => $getDetailPembayaran->kode_bayar
       ]);
+
+      // return response()->json($pembayaran->toSql());
+
 
       // Konfigurasi Midtrans
       \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
       \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
       \Midtrans\Config::$isSanitized = true;
       \Midtrans\Config::$is3ds = false;
-
-
       // Create a unique order_id by appending a timestamp or a unique string to id_penjualan
-      $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
-
+      $uniqueOrderId = intval($request->input('kode_bayar'));
+      // $uniqueOrderId = $pembayaran->id_penjualan . '-' . time();
       $transactionDetails = [
-        'order_id' => $uniqueOrderId,
+        'order_id' => $getDetailPembayaran->kode_bayar,
         'gross_amount' => $pembayaran->harga,
       ];
-
       $customerDetails = [
         'first_name' => $namaKonsumen,
         'email' => $request->input('email'),
@@ -387,13 +449,17 @@ class AdminPenjualanController extends Controller
       // return response()->json(['snap_token' => $snapToken]);
     } catch (\Exception $e) {
       DB::rollback();
-      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage(), 500]);
+      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage()], 500);
     }
   }
 
   public function getPaymentData($id)
   {
     $penjualan = Penjualan::with('sales', 'motor')->findOrFail($id);
+    $penjualan->load(['detailPembayaran' => function ($query) use ($id) {
+      $query->where('id_penjualan', $id)->orderByDesc('periode')->first();
+    }]);
+
     // Tambahkan logika untuk mengambil data tambahan jika diperlukan
     return response()->json($penjualan);
   }
@@ -500,5 +566,25 @@ class AdminPenjualanController extends Controller
       $penjualan->save();
     }
     return "selesai";
+  }
+
+  // hanya untuk testing debug 
+  public function testing($id)
+  {
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+      ->whereHas('detailPembayaran', function ($query) {
+        $query->where('status', 'pelunasan') // Filter detailPembayaran dengan status = 'pelunasan'
+          ->whereHas('pembayaran', function ($query) {
+            $query->where('status_pembayaran', 'success'); // Pastikan ada pembayaran sukses
+          });
+      })
+      ->orderBy('id', 'desc')
+      ->get();
+
+
+
+
+    // dd($data->toSql());
+    return response()->json($data);
   }
 }

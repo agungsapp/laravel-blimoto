@@ -9,7 +9,7 @@ class Pembayaran extends Model
   protected $table = 'pembayaran';
 
   protected $fillable = [
-    'id_penjualan',
+    'id_detail_pembayaran',
     'order_id',
     'harga',
     'status_pembayaran',
@@ -26,5 +26,10 @@ class Pembayaran extends Model
   public function penjualan()
   {
     return $this->belongsTo(Penjualan::class, 'id_penjualan');
+  }
+
+  public function detailPembayaran()
+  {
+    return $this->belongsTo(DetailPembayaranModel::class, 'id', 'id_detailPembayaran');
   }
 }

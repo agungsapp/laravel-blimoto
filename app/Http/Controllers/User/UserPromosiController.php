@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class UserPromosiController extends Controller
@@ -16,13 +17,14 @@ class UserPromosiController extends Controller
     public function index()
     {
 
-        //
+        $data = [
+            'promos' => Promo::all(),
+            //'recents' => Promo::orderBy('created_at', 'desc')->limit(5)->get(),
+        ];
+        // dd($data['promo']);
 
 
-
-        // dd($data['events']);
-
-        return view('user.promosi.index');
+        return view('user.promosi.index', $data);
     }
 
     /**
@@ -54,7 +56,15 @@ class UserPromosiController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [
+            'promo' => Promo::where('id', $id)->first(),
+            'recents' => Promo::whereNotIn('id', [$id])->get()
+            //'recents' => Promo::orderBy('created_at', 'desc')->limit(5)->get(),
+        ];
+
+        // dd($data);
+
+        return view('user.promosi.show', $data);
     }
 
     /**

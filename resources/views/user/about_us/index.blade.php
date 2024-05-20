@@ -1,4 +1,6 @@
-@extends('user.layouts.main') @section('content')
+@extends('user.layouts.main')
+
+@section('content')
 		<!-- breadcrumb start -->
 		<div class="breadcrumb-main bg-dark">
 				<div class="container">
@@ -24,8 +26,11 @@
 		</div>
 		<!-- breadcrumb End -->
 
-		<section id="hero">
-				<div style="height: 600px;" class="hero-about"></div>
+		<section>
+				<div>
+						<img style="object-fit: contain !important; object-position: center !important; width: 100%"
+								src="{{ asset('assets/images/about/blimotomock.png') }}" alt="Blimoto Mock Image" />
+				</div>
 		</section>
 
 		<section class="bg-white px-5">
@@ -39,14 +44,10 @@
 														<p>
 																Sebuah platform yang mempermudah anda dalam mencari informasi terkait harga, angsuran hingga diskon yang
 																sesungguhnya dari sebuah produk kendaraan yang sedang anda cari. Blimoto menyediakan fitur yang membuat
-																anda
-																cukup diam ditempat tanpa harus mengunjungi dealer konfensional hanya untuk mencari informasi terkait,
-																Blimoto
-																juga memberikan pelayanan untuk anda agar dapat melakukan pembelian kendaraan tanpa harus beranjak dari
-																tempat
-																anda berada.
-
-																karena BLIMOTO solusi kita bersma.
+																anda cukup diam ditempat tanpa harus mengunjungi dealer konvensional hanya untuk mencari informasi
+																terkait, Blimoto juga memberikan pelayanan untuk anda agar dapat melakukan pembelian kendaraan tanpa harus
+																beranjak dari tempat anda berada.
+																karena BLIMOTO solusi kita bersama.
 														</p>
 												</div>
 										</div>
@@ -67,8 +68,7 @@
 																		<h5 class="text-black">DP Termurah!</h5>
 																		<p class="text-black">Miliki motor impian dengan DP terjangkau hanya di Blimoto!</p>
 																		<a href="{{ route('home.index') }}" style="background-color: #00EB27; color: white;"
-																				class="btn btn-fitur-kami">Lihat
-																				DP</a>
+																				class="btn btn-fitur-kami">Lihat DP</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
@@ -76,8 +76,7 @@
 																		<h5 class="text-black">Harga Terbawah!</h5>
 																		<p class="text-black">Temukan harga terbaik untuk motor pilihanmu hanya di Blimoto!</p>
 																		<a href="{{ route('home.index') }}" style="background-color: #FC0; color: white;"
-																				class="btn btn-fitur-kami">Lihat
-																				Harga</a>
+																				class="btn btn-fitur-kami">Lihat Harga</a>
 																</div>
 														</div>
 														<div class="col-12 col-md-6 p-2">
@@ -85,12 +84,10 @@
 																		<h5 class="text-black">Angsuran Ringan!</h5>
 																		<p class="text-black">Nikmati angsuran ringan untuk memudahkan kepemilikan motor di Blimoto!</p>
 																		<a href="{{ route('home.index') }}" style="background-color: #9747FF; color: white;"
-																				class="btn btn-fitur-kami">Lihat
-																				Angsuran</a>
+																				class="btn btn-fitur-kami">Lihat Angsuran</a>
 																</div>
 														</div>
 												</div>
-
 										</div>
 								</div>
 						</div>
@@ -98,18 +95,14 @@
 								<div class="col-12">
 										<h3 class="mb-3 text-black">Sejarah</h3>
 										<p class="about-text text-black">Blimoto diluncurkan pada tanggal 23 bulan November 2023 dengan tujuan untuk
-												memberikan
-												informasi yang paling
-												relevan mengenai semua kendaraan roda dua yang tersedia pada satu tempat.</p>
+												memberikan informasi yang paling relevan mengenai semua kendaraan roda dua yang tersedia pada satu tempat.</p>
 								</div>
 						</div>
 						<div class="row mt-5">
 								<div class="col-12">
 										<h3 class="mb-3 text-black">Alamat</h3>
 										<p class="about-text text-black">Jl. Dr. Saharjo Jl. Tebet Raya No.319, RT.10/RW.1, Tebet Bar., Kec. Tebet, Kota
-												Jakarta
-												Selatan, Daerah
-												Khusus Ibukota Jakarta 12810</p>
+												Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810</p>
 								</div>
 						</div>
 						<div class="row mt-5 py-5">
@@ -123,7 +116,6 @@
 												<i class="fa fa-envelope" aria-hidden="true"></i>
 												<span>blimotoindnesia@gmail.com</span>
 										</div>
-
 								</div>
 						</div>
 				</div>
