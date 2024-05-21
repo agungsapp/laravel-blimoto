@@ -352,9 +352,131 @@ class AdminPenjualanController extends Controller
     }
   }
 
-  public function tambahPelunasan(Request $request)
+  public function tambahPelunasan(Request $request, $id_penjualan)
   {
+    $validator = Validator::make($request->all(), [
+      'dp' => 'required', // Pastikan input 'dp' ada dan valid
+      'id_detail_pembayaran' => 'required',
+      'email' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json(['pesan' => 'Inputkan semua data dengan benar!'], 400);
+    }
+
+    $idPenjualan = intval($id_penjualan);
+    $idDetailPembayaran = intval($request->input('id_detail_pembayaran'));
+
+    DB::beginTransaction();
+    try {
+      // Ambil detail pembayaran terakhir untuk penjualan ini
+      $lastDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $idPenjualan)
+        ->orderBy('periode', 'desc')
+        ->first();
+
+      if (!$lastDetailPembayaran) {
+        return response()->json(['pesan' => 'Data pembayaran sebelumnya tidak ditemukan'], 404);
+      }
+
+      // Ambil data penjualan terkait
+      $penjualan = $lastDetailPembayaran->penjualan;
+      $namaKonsumen = $penjualan->nama_konsumen;
+
+      // validasi input pembayaran tidak melebihi sisa pembayaran seharusnya 
+      $cekKelebihan = (int) $request->dp > (int) $lastDetailPembayaran->sisa_bayar;
+      // return response()->json($lastDetailPembayaran->sisa_bayar);
+      if ($cekKelebihan) {
+        return response()->json(['pesan' => 'Input tidak boleh melebihi tagihan konsumen.' . $cekKelebihan], 400);
+      }
+
+      // Hitung sisa bayar setelah pembayaran ini
+      $sisaBayar = $lastDetailPembayaran->sisa_bayar - $request->dp;
+
+      // Tentukan status pembayaran
+      $status = ($sisaBayar == 0) ? 'pelunasan' : 'tanda';
+
+      $konteks = $status == 'pelunasan' ? 'Pelunasan' : "Pembayaran tanda jadi tahap-" . $lastDetailPembayaran->periode + 1;
+
+      // Ambil kode transaksi dari penjualan
+      $kodeTransaksi = $penjualan->kode_transaksi;
+
+      // Generate kode bayar baru sesuai aturan
+      $bulanSekarang = date('m');
+      $tahunSekarang = date('Y');
+      $lastDetail = DetailPembayaranModel::where('kode_bayar', 'like', "$kodeTransaksi%")
+        ->whereMonth('created_at', $bulanSekarang)
+        ->whereYear('created_at', $tahunSekarang)
+        ->orderBy('created_at', 'desc')
+        ->first();
+      $urutan = $lastDetail ? ((int) substr(
+        $lastDetail->kode_bayar,
+        strrpos($lastDetail->kode_bayar, '-') + 1
+      )) + 1 : 1;
+      $kodeBayarBaru = "$kodeTransaksi-$urutan";
+
+
+      // Buat detail pembayaran baru
+      $detailPembayaran = DetailPembayaranModel::create([
+        'id_penjualan' => $idPenjualan,
+        'kode_bayar' => $kodeBayarBaru, // Gunakan kode bayar baru
+        'jumlah_bayar' => $request->dp,
+        'sisa_bayar' => $sisaBayar,
+        'total_lunas' => $lastDetailPembayaran->total_lunas, // Total lunas tetap sama
+        'periode' => $lastDetailPembayaran->periode + 1,
+        'status' => $status
+      ]);
+
+      // Buat pembayaran baru
+      $pembayaran = Pembayaran::create([
+        'id_detail_pembayaran' => $detailPembayaran->id,
+        'harga' => $request->dp,
+        'order_id' => $kodeBayarBaru
+      ]);
+
+      // ... (Konfigurasi Midtrans, pembuatan transaksi, dll. - sama seperti di method bayar())
+      // Konfigurasi Midtrans
+      \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+      \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
+      \Midtrans\Config::$isSanitized = true;
+      \Midtrans\Config::$is3ds = false;
+
+
+      $transactionDetails = [
+        'order_id' => $kodeBayarBaru,
+        'gross_amount' => $pembayaran->harga,
+      ];
+      $customerDetails = [
+        'first_name' => $namaKonsumen,
+        'email' => $request->input('email'),
+      ];
+
+      $productDetails = [
+        [
+          'id' => $idPenjualan,
+          'quantity' => 1,
+          'price' => $pembayaran->harga,
+          'name' => $konteks . ' motor ' . $request->input('motor'),
+        ],
+      ];
+
+      // Membuat transaksi ke Midtrans
+      $transaction = [
+        'transaction_details' => $transactionDetails,
+        'item_details' => $productDetails,
+        'customer_details' => $customerDetails,
+      ];
+
+      $snapToken = \Midtrans\Snap::getSnapToken($transaction);
+      $snapUrl = \Midtrans\Snap::createTransaction($transaction)->redirect_url;
+      DB::commit();
+      // ... (Kembalikan respons - sama seperti di method bayar())
+      return response()->json(['redirect_url' => $snapUrl]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage()], 500);
+    }
   }
+
 
 
   public function bayar(Request $request, $id_penjualan)
@@ -571,20 +693,21 @@ class AdminPenjualanController extends Controller
   // hanya untuk testing debug 
   public function testing($id)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
-      ->whereHas('detailPembayaran', function ($query) {
-        $query->where('status', 'pelunasan') // Filter detailPembayaran dengan status = 'pelunasan'
-          ->whereHas('pembayaran', function ($query) {
-            $query->where('status_pembayaran', 'success'); // Pastikan ada pembayaran sukses
-          });
-      })
-      ->orderBy('id', 'desc')
-      ->get();
+    // Generate kode bayar baru sesuai aturan
+    $bulanSekarang = date('m');
+    $tahunSekarang = date('Y');
+    $lastDetail = DetailPembayaranModel::where('kode_bayar', 'like', "$id%")
+      ->whereMonth('created_at', $bulanSekarang)
+      ->whereYear('created_at', $tahunSekarang)
+      ->orderBy('created_at', 'desc')
+      ->first();
+    $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
+    $kodeBayarBaru = "$id-$urutan";
 
 
 
 
     // dd($data->toSql());
-    return response()->json($data);
+    return response()->json($kodeBayarBaru);
   }
 }
