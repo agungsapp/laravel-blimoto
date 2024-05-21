@@ -36,7 +36,7 @@
 																				<td>{{ $p->sales->nama }}</td>
 																				<td>{{ $p->motor->nama }}</td>
 																				<td>{{ $p->jumlah }}</td>
-																				<td>{{ $p->dp }}</td>
+																				<td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->diskon_dp }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
 																				<td>{{ $p->kota->nama }}</td>
@@ -52,15 +52,18 @@
 																										Detail
 																								</button>
 																						</div>
-																						<div>
-																								<button type="button" class="btn btn-warning btn-block load-payment-modal mb-1"
-																										data-id="{{ $p->id }}"
-																										data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
-																										data-action-url="{{ route('admin.penjualan.bayar-dp', ['id' => $p->id]) }}" data-toggle="modal"
-																										data-target="#modalBayar">
-																										Bayar
-																								</button>
-																						</div>
+																						@if (\Route::is('admin.sudah-bayartj'))
+																								<div>
+																										<button type="button" class="btn btn-warning btn-block load-payment-modal mb-1"
+																												data-id="{{ $p->id }}"
+																												data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
+																												data-action-url="{{ route('admin.penjualan.tambahPelunasan', ['id' => $p->id]) }}"
+																												data-toggle="modal" data-target="#modalBayar">
+																												Bayar
+																										</button>
+																								</div>
+																						@endif
+
 																						{{-- @if (optional($p->detailPembayaran->pembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
@@ -124,7 +127,9 @@
 														<input type="text" class="form-control" id="email" name="email"
 																placeholder="Masukan email untuk dikirimkan invoice pembayaran">
 												</div>
-												<label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
+
+
+												{{-- <label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
 												<div id="tujuan" class="btn-group" data-toggle="buttons">
 														<label class="btn btn-outline-primary active">
 																<input type="radio" name="tujuan" value="t" id="option1" autocomplete="off" checked> Tanda
@@ -133,7 +138,7 @@
 														<label class="btn btn-outline-primary">
 																<input type="radio" name="tujuan" value="p" id="option2" autocomplete="off"> Pelunasan
 														</label>
-												</div>
+												</div> --}}
 
 										</div>
 										<div class="modal-footer">
@@ -387,7 +392,7 @@
 								dataType: 'json',
 								success: function(data) {
 										console.log(data)
-										var formattedDp = parseFloat(data.dp).toLocaleString('id-ID', {
+										var formattedDp = parseFloat(data.detail_pembayaran[0].sisa_bayar).toLocaleString('id-ID', {
 												style: 'currency',
 												currency: 'IDR'
 										});

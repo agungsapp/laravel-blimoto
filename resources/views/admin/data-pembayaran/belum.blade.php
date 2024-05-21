@@ -250,7 +250,7 @@
 														<input type="text" class="form-control" id="email" name="email"
 																placeholder="Masukan email untuk dikirimkan invoice pembayaran">
 												</div>
-												<label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
+												{{-- <label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
 												<div id="tujuan" class="btn-group" data-toggle="buttons">
 														<label class="btn btn-outline-primary active">
 																<input type="radio" name="tujuan" value="t" id="option1" autocomplete="off" checked> Tanda
@@ -259,7 +259,7 @@
 														<label class="btn btn-outline-primary">
 																<input type="radio" name="tujuan" value="p" id="option2" autocomplete="off"> Pelunasan
 														</label>
-												</div>
+												</div> --}}
 
 										</div>
 										<div class="modal-footer">

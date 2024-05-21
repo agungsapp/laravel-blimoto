@@ -185,6 +185,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
             Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
+            Route::post('bayar/tambahPelunasan/{id}', [AdminPenjualanController::class, 'tambahPelunasan'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('tambahPelunasan');
         });
 
         Route::prefix('color')->name('color.')->group(function () {
@@ -295,6 +296,25 @@ Route::get('/spk', function () {
 
 Route::get('fixing', [AdminPenjualanController::class, 'fixing']);
 Route::get('testing/{id}', [AdminPenjualanController::class, 'testing']);
+
+
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/clearAll', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+
+    return "Cache, config, route, dan view berhasil dihapus!";
+});
+
+
+
+
+
+
 // done repo pindah
 
 // 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭
