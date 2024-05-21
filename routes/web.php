@@ -184,6 +184,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
             Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
+            Route::get('/penjualan/{id}/getDetail', [AdminPenjualanController::class, 'getDetailPembayaran'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('getDetail');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
             Route::post('bayar/tambahPelunasan/{id}', [AdminPenjualanController::class, 'tambahPelunasan'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('tambahPelunasan');
         });
