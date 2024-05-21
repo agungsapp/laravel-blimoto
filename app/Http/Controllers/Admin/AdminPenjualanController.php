@@ -592,6 +592,23 @@ class AdminPenjualanController extends Controller
     return response()->json($penjualan);
   }
 
+
+  public function getDetailPembayaran($id)
+  {
+    try {
+      $sale = DetailPembayaranModel::where('id_penjualan', $id)->get();
+      return response()->json([
+        'status' => 'success',
+        'data'   => $sale
+      ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ], 404);
+    }
+  }
+
   public function getDataPenjualan($id)
   {
     try {
