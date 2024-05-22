@@ -225,10 +225,18 @@
 																								id="input-diskon-dp" value="{{ old('diskon_dp') }}">
 																				</div>
 																				{{-- tenor --}}
+																				{{-- @dd($tenors) --}}
 																				<div class="form-group col-md-6" id="tenor_wrapper">
 																						<label for="input-tenor">Tenor</label>
-																						<input name="tenor" type="text" class="form-control" placeholder="Masukan tenor"
-																								id="input-tenor" value="{{ old('tenor') }}">
+																						{{-- <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor"
+																								id="input-tenor" value="{{ old('tenor') }}"> --}}
+																						<select name="tenor" class="form-select form-control" aria-label="Default select example">
+																								<option selected>-- pilih tenor --</option>
+																								@foreach ($tenors as $tenor)
+																										<option {{ old('tenor') == $tenor ? 'selected' : '' }} value="{{ $tenor }}">
+																												{{ $tenor }}</option>
+																								@endforeach
+																						</select>
 																				</div>
 																				{{-- leasing --}}
 																				<div class="form-group col-md-6" id="leasing_wrapper">
