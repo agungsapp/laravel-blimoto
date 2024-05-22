@@ -3,10 +3,10 @@
 		<section class="content">
 				<div class="row">
 						<div class="col-12">
-
+								{{-- @dd($penjualan) --}}
 								<div class="card card-primary">
 										<div class="card-header">
-												<h3 class="card-title">Data Penjualan Hasil {{ ucfirst($penjualan[0]->hasil->hasil) }}</h3>
+												<h3 class="card-title">Data Penjualan Hasil {{ ucfirst($penjualan[0]->hasil->hasil ?? '') }}</h3>
 
 										</div>
 
@@ -54,61 +54,65 @@
 																</tr>
 														</thead>
 														<tbody>
-																@foreach ($penjualan as $index => $p)
-																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
-																				<td>{{ $p->id }}</td>
-																				<td>{{ $p->kode_transaksi }}</td>
-																				<td>{{ $p->nama_konsumen }}</td>
-																				<td>{{ $p->sales->nama }}</td>
-																				<td>{{ $p->no_hp }}</td>
-																				<td>{{ $p->bpkb }}</td>
-																				<td>{{ $p->metode_pembelian }}</td>
-																				<td>{{ $p->status_pembayaran_dp }}</td>
-																				<td>{{ $p->dp }}</td>
-																				<td>{{ $p->diskon_dp }}</td>
-																				<td>{{ $p->dp - $p->diskon_dp }}</td>
-																				<td>{{ $p->leasing->nama ?? 'cash' }}</td>
-																				<td>{{ $p->motor->nama }}</td>
-																				<td>{{ $p->warna_motor }}</td>
-																				<td>{{ $p->hasil->hasil }}</td>
-																				<td>{{ $p->metode_pembayaran }}</td>
-																				<td>{{ $p->no_po }}</td>
-																				<td>{{ $p->tenor }}</td>
-																				<td>{{ $p->jumlah }}</td>
-																				<td>{{ $p->kota->nama }}</td>
-																				<td>{{ $p->hasil->hasil }}</td>
-																				<td>{{ $p->catatan }}</td>
-																				<td>{{ $p->tanggal_dibuat }}</td>
-																				<td>{{ $p->tanggal_hasil }}</td>
-																				<td class="no-export">
-																						<div>
+																@if (!empty($penjualan))
+																		@foreach ($penjualan as $index => $p)
+																				<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
+																						<td>{{ $p->id }}</td>
+																						<td>{{ $p->kode_transaksi }}</td>
+																						<td>{{ $p->nama_konsumen }}</td>
+																						<td>{{ $p->sales->nama }}</td>
+																						<td>{{ $p->no_hp }}</td>
+																						<td>{{ $p->bpkb }}</td>
+																						<td>{{ $p->metode_pembelian }}</td>
+																						<td>{{ $p->status_pembayaran_dp }}</td>
+																						<td>{{ $p->dp }}</td>
+																						<td>{{ $p->diskon_dp }}</td>
+																						<td>{{ $p->dp - $p->diskon_dp }}</td>
+																						<td>{{ $p->leasing->nama ?? 'cash' }}</td>
+																						<td>{{ $p->motor->nama }}</td>
+																						<td>{{ $p->warna_motor }}</td>
+																						<td>{{ $p->hasil->hasil }}</td>
+																						<td>{{ $p->metode_pembayaran }}</td>
+																						<td>{{ $p->no_po }}</td>
+																						<td>{{ $p->tenor }}</td>
+																						<td>{{ $p->jumlah }}</td>
+																						<td>{{ $p->kota->nama }}</td>
+																						<td>{{ $p->hasil->hasil }}</td>
+																						<td>{{ $p->catatan }}</td>
+																						<td>{{ $p->tanggal_dibuat }}</td>
+																						<td>{{ $p->tanggal_hasil }}</td>
+																						<td class="no-export">
+																								<div>
 
-																								<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
-																										data-id="{{ $p->id }}"
-																										data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal"
-																										data-target="#modalDetail">
-																										Detail
-																								</button>
-
-																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
-																										<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
+																										<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
 																												data-id="{{ $p->id }}"
 																												data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal"
-																												data-target="#modalEdit" {{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>
-																												Edit
+																												data-target="#modalDetail">
+																												Detail
 																										</button>
-																										<form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
-																												@csrf
-																												@method('DELETE')
-																												<button type="submit" class="btn btn-danger show_confirm w-100"
-																														{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>Delete</button>
-																										</form>
-																								@endif
 
-																						</div>
-																				</td>
-																		</tr>
-																@endforeach
+																										@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
+																												<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
+																														data-id="{{ $p->id }}"
+																														data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
+																														data-toggle="modal" data-target="#modalEdit"
+																														{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>
+																														Edit
+																												</button>
+																												<form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
+																														@csrf
+																														@method('DELETE')
+																														<button type="submit" class="btn btn-danger show_confirm w-100"
+																																{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>Delete</button>
+																												</form>
+																										@endif
+
+																								</div>
+																						</td>
+																				</tr>
+																		@endforeach
+																@endif
+
 														</tbody>
 												</table>
 										</div>
@@ -231,7 +235,7 @@
 																						<div class="form-group col-md-6">
 																								<label for="input-hasil">Jumlah</label>
 																								<input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor"
-																										value="{{ $p->jumlah }}">
+																										value="{{ $p->jumlah ?? 1 }}">
 																						</div>
 																				</div>
 
