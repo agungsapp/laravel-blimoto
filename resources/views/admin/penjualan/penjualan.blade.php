@@ -76,23 +76,23 @@
 																		{{-- end body data konsumen --}}
 																		<div class="row">
 																				<div class="form-group col-md-6">
-																						<label for="input-hasil">Nama Konsumen</label>
+																						<label for="input-hasil">Nama Konsumen <span class="text-danger">*</span></label>
 																						<input id="nama_konsumen" name="konsumen" type="text" class="form-control"
 																								placeholder="Masukan nama konsumen" value="{{ old('konsumen') }}">
 																				</div>
 																				<div class="form-group col-md-6">
-																						<label for="input-hasil">NIK Konsumen (Opsional)</label>
-																						<input id="nik" name="nik" type="number" class="form-control"
+																						<label for="input-hasil">NIK Konsumen <span class="text-danger">*</span></label>
+																						<input id="nik" name="nik" type="number" class="form-control" required
 																								placeholder="Masukan nik konsumen" value="{{ old('nik') }}">
 																				</div>
 																				<div class="form-group col-md-6">
-																						<label for="input-bpkb">BPKB/STNK a.n</label>
+																						<label for="input-bpkb">BPKB/STNK a.n <span class="text-danger">*</span></label>
 																						<input id="bpkb" name="bpkb" type="text" class="form-control"
 																								placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
 																				</div>
 																				<div class="form-group col-md-6">
-																						<label for="input-nomor-hp">Nomor HP</label>
-																						<input name="no_hp" type="number" class="form-control"
+																						<label for="input-nomor-hp">Nomor HP <span class="text-danger">*</span></label>
+																						<input name="no_hp" type="number" class="form-control" required
 																								placeholder="Masukan nomor HP (Tidak wajib)" id="input-nomor-hp" value="{{ old('no_hp') }}">
 																				</div>
 																		</div>
