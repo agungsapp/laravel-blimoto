@@ -160,6 +160,13 @@
 										</div>
 										<div class="modal-body">
 												{{-- LAST DI SINI TAMBAHAIN PAGI NANTI --}}
+
+
+												<ul class="list-group list-group-flush" id="payment-list">
+														<!-- Generated list items will be inserted here -->
+												</ul>
+
+
 										</div>
 										<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -452,8 +459,84 @@
 		</script>
 
 
-		{{-- modal detail --}}
+		{{-- modal detail new --}}
+
 		<script>
+				$(document).on('click', '.load-detail-modal', function() {
+						var dataUrl = $(this).data('url');
+						var modalId = '#modalDetail';
+						var modal = $(modalId);
+
+						$.ajax({
+								url: dataUrl,
+								type: 'GET',
+								dataType: 'json',
+								success: function(response) {
+										var payments = response.data; // Assuming this is an array of payment objects
+										var paymentList = modal.find('#payment-list');
+
+										// Clear previous list items
+										paymentList.empty();
+
+										// Loop through payments and append to the list
+										payments.forEach(function(payment) {
+												var tandaIcon = payment.status === 'tanda' ? 'fa-plus-circle' : '';
+												var lunasIcon = payment.status === 'pelunasan' ? 'fa-money' : '';
+												var paymentType = payment.status === 'tanda' ? 'Pembayaran Tanda jadi ke-' :
+														'Pelunasan pada periode ke-';
+
+												let isLunas = payment.status === 'pelunasan' ?
+														`<li class="list-group-item"><div class="w-100 bg-success rounded-3 py-2"><h2 class="text-center text-white">LUNAS</h2></div></li>` :
+														'';
+
+												var listItem = `
+                        <li class="list-group-item">
+                            <div class="w-100 row">
+                                <div class="fs-6 col-1 d-flex align-items-center">
+                                    ${tandaIcon ? `<i class="fa-3x fa text-success ${tandaIcon}" aria-hidden="true"></i>` : ''}
+                                    ${lunasIcon ? `<i class="fa fa-3x text-success fa-check-circle" aria-hidden="true"></i>` : ''}
+                                </div>
+                                <div class="col-11">
+                                    <div class="d-flex justify-content-between">
+                                        <h3>${paymentType}<span>${payment.periode}</span></h3>
+                                        <h4>RP.${payment.jumlah_bayar.toLocaleString()}</h4>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p><span>${formatDate(payment.created_at)}</span> . <span>waktu</span></p>
+                                        <div class="btn btn-success">${payment.pembayaran.metode_pembayaran}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+												paymentList.append(listItem);
+
+												if (payment.status == 'pelunasan') {
+														paymentList.append(isLunas)
+												}
+										});
+
+										function formatDate(dateString) {
+												var options = {
+														year: 'numeric',
+														month: '2-digit',
+														day: '2-digit'
+												};
+												return new Date(dateString).toLocaleDateString('en-US', options);
+										}
+
+										// Show the modal
+										modal.modal('show');
+								},
+								error: function(xhr, status, error) {
+										alert('An error occurred: ' + error);
+								}
+						});
+				});
+		</script>
+
+		{{-- modal detail --}}
+		{{-- <script>
 				$(document).on('click', '.load-detail-modal', function() {
 						var dataUrl = $(this).data('url');
 						var modalId = '#modalDetail';
@@ -518,5 +601,5 @@
 								}
 						});
 				});
-		</script>
+		</script> --}}
 @endpush

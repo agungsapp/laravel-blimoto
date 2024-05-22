@@ -596,7 +596,7 @@ class AdminPenjualanController extends Controller
   public function getDetailPembayaran($id)
   {
     try {
-      $sale = DetailPembayaranModel::where('id_penjualan', $id)->get();
+      $sale = DetailPembayaranModel::with(['pembayaran'])->where('id_penjualan', $id)->get();
       return response()->json([
         'status' => 'success',
         'data'   => $sale
