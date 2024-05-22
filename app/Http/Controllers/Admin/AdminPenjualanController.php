@@ -37,6 +37,8 @@ class AdminPenjualanController extends Controller
     $leasing = LeasingMotor::all();
     $sales = Sales::all();
     $colors = ColorModel::all();
+    $tenorOptions = CicilanMotor::distinct('tenor')->pluck('tenor');
+
 
     return view('admin.penjualan.penjualan', [
       // 'penjualan' => $data,
@@ -45,7 +47,9 @@ class AdminPenjualanController extends Controller
       'motor' => $motor,
       'leasing' => $leasing,
       'sales' => $sales,
-      'colors' => $colors
+      'colors' => $colors,
+      'tenors' => $tenorOptions
+
     ]);
   }
 
