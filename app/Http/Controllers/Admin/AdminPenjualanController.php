@@ -196,12 +196,12 @@ class AdminPenjualanController extends Controller
 
       if ($pembelian == 'cash') {
         $isLunas = $motor->harga == $request->input('tj');
-        $detailPembayaran->sisa_bayar = $motor->harga - $request->input('tj');
-        $detailPembayaran->total_lunas = $motor->harga;
+        $detailPembayaran->sisa_bayar = ($motor->harga - $request->input('diskon_dp') ?? 0) - $request->input('tj');
+        $detailPembayaran->total_lunas = $motor->harga - $request->input('diskon_dp') ?? 0;
       } else {
         $isLunas = $cicilan->dp == $request->input('dp');
-        $detailPembayaran->sisa_bayar = $cicilan->dp - $request->input('dp');
-        $detailPembayaran->total_lunas = $cicilan->dp;
+        $detailPembayaran->sisa_bayar = ($cicilan->dp - $request->input('diskon_dp') ?? 0) - $request->input('dp');
+        $detailPembayaran->total_lunas = $cicilan->dp - $request->input('diskon_dp') ?? 0;
       }
 
       // Menentukan periode
