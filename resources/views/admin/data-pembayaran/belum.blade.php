@@ -400,7 +400,7 @@
 										$('#id_detail_pembayaran').val(data.detail_pembayaran[0].id);
 										$('#nama-konsumen').val(data.nama_konsumen);
 										$('#motor').val(data.motor.nama);
-										$('#dp').val(Number(data.detail_pembayaran[0].jumlah_bayar) - Number(data.diskon_dp));
+										$('#dp').val(Number(data.detail_pembayaran[0].jumlah_bayar));
 								},
 								error: function(xhr, status, error) {
 										swal({
