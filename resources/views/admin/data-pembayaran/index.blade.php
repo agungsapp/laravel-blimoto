@@ -20,8 +20,8 @@
 																		<th>Jumlah</th>
 																		{{-- <th>DP</th>
 																		<th>Diskon DP</th> --}}
-																		<th>Status Pembayaran</th>
-																		<th>Kota</th>
+																		<th>Status Pembayaran Terakhir</th>
+																		<th>Sisa Tagihan</th>
 																		<th>Leasing</th>
 																		<th>Tanggal Dibuat</th>
 																		{{-- <th>Tanggal Hasil</th> --}}
@@ -30,6 +30,7 @@
 														</thead>
 														<tbody>
 																@foreach ($penjualan as $index => $p)
+																		{{-- @dd($p->detail_pembayaran) --}}
 																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																				<td>{{ $loop->iteration }}</td>
 																				<td>{{ $p->nama_konsumen }}</td>
@@ -39,7 +40,7 @@
 																				{{-- <td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->diskon_dp }}</td> --}}
 																				<td>{{ $p->status_pembayaran_dp }}</td>
-																				<td>{{ $p->kota->nama }}</td>
+																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
 																				<td>{{ $p->leasing->nama ?? 'CASH' }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				{{-- <td>{{ $p->tanggal_hasil }}</td> --}}
@@ -502,8 +503,8 @@
                                         <h4>RP.${payment.jumlah_bayar.toLocaleString()}</h4>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <p><span>${formatDate(payment.created_at)}</span> . <span>waktu</span></p>
-                                        <div class="btn btn-success">${payment.pembayaran.metode_pembayaran}</div>
+                                        <p><span>${formatDate(payment.created_at)}</span> . <span>${formatTime(payment.created_at)}</span></p>
+                                        <span class="btn btn-success">${payment.pembayaran.metode_pembayaran}</span>
                                     </div>
                                 </div>
                             </div>
@@ -515,6 +516,18 @@
 														paymentList.append(isLunas)
 												}
 										});
+
+										function formatTime(created_at) {
+
+												const createdDate = new Date(created_at);
+												const formattedTime = createdDate.toLocaleTimeString([], {
+														hour: '2-digit',
+														minute: '2-digit'
+												});
+												return formattedTime;
+
+
+										}
 
 										function formatDate(dateString) {
 												var options = {

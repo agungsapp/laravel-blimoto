@@ -353,7 +353,7 @@
 																<a href="{{ route('admin.sudah-bayar') }}"
 																		class="nav-link {{ \Route::is('admin.sudah-bayar') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Sudah Bayar</p>
+																		<p>Sudah Lunas</p>
 																</a>
 														</li>
 												</ul>
