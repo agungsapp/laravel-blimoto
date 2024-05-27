@@ -91,14 +91,29 @@
 																												Detail
 																										</button>
 
-																										@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
-																												<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
-																														data-id="{{ $p->id }}"
-																														data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
-																														data-toggle="modal" data-target="#modalEdit"
-																														{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>
-																														Edit
+																										{{-- for debug --}}
+																										{{-- <button class="btn btn-secondary">{{ $p->is_edit }}</button> --}}
+
+																										@if ($p->is_edit == false)
+																												<!-- Button trigger modal pengajuan -->
+																												<button type="button" class="btn btn-block btn-primary load_pengajuan_modal mb-1"
+																														data-toggle="modal" data-id="{{ $p->id }}"
+																														data-url="{{ route('admin.penjualan.pengajuan-akses.store') }}"
+																														data-target="#pengajuanEdit">
+																														Ajukan Edit
 																												</button>
+																										@endif
+
+																										@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
+																												@if ($p->is_edit == true)
+																														<button type="button" class="btn btn-warning w-100 load-update-modal mb-1"
+																																data-id="{{ $p->id }}"
+																																data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
+																																data-toggle="modal" data-target="#modalEdit"
+																																{{ $p->status_pembayaran_dp == 'refunded' || $p->is_edit == false ? 'disabled' : '' }}>
+																																Edit
+																														</button>
+																												@endif
 																												<form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
 																														@csrf
 																														@method('DELETE')
@@ -117,6 +132,52 @@
 												</table>
 										</div>
 
+								</div>
+						</div>
+				</div>
+		</section>
+
+
+		<!-- Modal pengajuan -->
+		<section>
+				<div class="modal fade" id="pengajuanEdit" tabindex="-1" aria-labelledby="pengajuanEditLabel" aria-hidden="true">
+						<div class="modal-dialog">
+								<div class="modal-content">
+										<div class="modal-header">
+												<h5 class="modal-title" id="pengajuanEditLabel">Pengjuan edit data</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+												</button>
+										</div>
+										<form action="">
+												@csrf
+												<div class="modal-body">
+														{{-- hidden id penjualan --}}
+														<input type="hidden" name="id_penjualan" id="id_penjualan">
+														<div class="form-group">
+																<label for="tujuan">Data apa yang ingin di edit</label>
+																<select class="form-control form-select" id="tujuan" name="tujuan[]" multiple="multiple">
+																		<option value="">-- pilih tujuan --</option>
+																		<option value="nik">NIK</option>
+																		<option value="nomor po">Nomor PO</option>
+																		<option value="nama konsumen">Nama Konsumen</option>
+																		<option value="nama bpkb">Nama BPKB</option>
+																		<option value="warna motor">Warna Motor</option>
+																		<option value="nomor handphone">Nomor Handphone</option>
+																		<option value="data hasil">Data Hasil</option>
+																</select>
+														</div>
+
+														<div class="form-group">
+																<label for="catatan">Alasan : </label>
+																<textarea class="form-control" name="catatan" id="catatan" rows="3"></textarea>
+														</div>
+												</div>
+												<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button type="button" id="btn_ajukan" class="btn btn-primary">Ajukan</button>
+												</div>
+										</form>
 								</div>
 						</div>
 				</div>
@@ -145,7 +206,8 @@
 																				<div class="row">
 																						<div class="form-group col-md-6">
 																								<label for="input-hasil">Nama Konsumen</label>
-																								<input name="konsumen" type="text" class="form-control" placeholder="Masukan nama konsumen">
+																								<input name="konsumen" type="text" class="form-control"
+																										placeholder="Masukan nama konsumen">
 																						</div>
 																						<div class="form-group col-md-6">
 																								<label>Sales</label>
@@ -165,7 +227,8 @@
 																						<div class="form-group col-md-6">
 																								<label for="input-bpkb">BPKB/STNK a.n</label>
 																								<input name="bpkb" type="text" class="form-control"
-																										placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
+																										placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb"
+																										value="{{ old('bpkb') }}">
 																						</div>
 																						<div class="form-group col-md-6">
 																								<label for="input-nomor-hp">Nomor HP</label>
@@ -565,6 +628,52 @@
 								jangkaWaktuInput.style.display = 'block';
 						}
 				}
+
+
+				$(document).on('click', '.load_pengajuan_modal', function() {
+						const id = $(this).data('id');
+						const dataUrl = $(this).data('url');
+						const modalId = '#pengajuanEdit';
+
+						$('#tujuan').select2();
+						$('#id_penjualan').val(id);
+						$('#pengajuanEdit form').attr('action', dataUrl);
+				});
+
+				$(document).on('click', '#btn_ajukan', function(e) {
+						e.preventDefault();
+
+						const form = $('#pengajuanEdit form');
+						const formData = new FormData(form[0]);
+						$.ajax({
+								url: form.attr('action'),
+								type: 'POST',
+								data: formData,
+								processData: false,
+								contentType: false,
+								success: function(response) {
+										console.log(response);
+										Swal.fire({
+												title: "Berhasil",
+												text: "pengajuanmu sedang di tinjau.",
+												icon: "success",
+										});
+										$('#pengajuanEdit').modal('hide');
+								},
+								error: function(xhr, status, error) {
+										// console.error(xhr.responseText);
+										// console.log(xhr.responseJSON.message);
+										Swal.fire({
+												title: "Error",
+												text: xhr.responseJSON.message,
+												icon: "error",
+										});
+								}
+						});
+
+
+				})
+
 
 				// When the 'Cetak' button is clicked, this event handler will fetch the data
 				// and populate the print modal fields.

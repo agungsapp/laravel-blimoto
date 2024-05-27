@@ -109,13 +109,14 @@
 																</div>
 																<div class="card-body">
 																		<div class="row">
+																				{{-- motor --}}
 																				<div class="form-group col-md-6">
-																						<label>Motor</label>
+																						<label>Motor <span class="text-danger">*</span></label>
 																						@if ($motor == null)
 																								<p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
 																						@else
 																								<select id="motor-input" name="motor" class="form-control select2" style="width: 100%;">
-																										<option value="" selected>-- Pilih motor --</option>
+																										<option value="">-- Pilih motor --</option>
 																										@foreach ($motor as $m)
 																												<option value="{{ $m->id }}" {{ old('motor') == $m->id ? 'selected' : '' }}>
 																														{{ $m->nama }}</option>
@@ -123,14 +124,15 @@
 																								</select>
 																						@endif
 																				</div>
+																				{{-- warna motor --}}
 																				<div class="form-group col-md-6">
 
-																						<label> Warna Motor</label>
+																						<label> Warna Motor <span class="text-danger">*</span></label>
 																						@if ($colors == null)
 																								<p class="text-danger">Tidak ada data warna motor silahkan buat terlebih dahulu !</p>
 																						@else
 																								<select id="motor-input" name="warna_motor" class="form-control select2" style="width: 100%;">
-																										<option value="" selected>-- Pilih warna motor --</option>
+																										<option value="">-- Pilih warna motor --</option>
 																										@foreach ($colors as $c)
 																												<option value="{{ $c->nama }}" {{ old('motor') == $c->nama ? 'selected' : '' }}>
 																														{{ $c->nama }}</option>
@@ -138,18 +140,20 @@
 																								</select>
 																						@endif
 																				</div>
+																				{{-- jumlah --}}
 																				<div class="form-group col-md-6">
-																						<label for="input-hasil">Jumlah</label>
+																						<label for="input-hasil">Jumlah <span class="text-danger">*</span></label>
 																						<input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor"
 																								value="{{ old('jumlah', '1') }}">
 																				</div>
+																				{{-- kabupaten --}}
 																				<div class="form-group col-md-6">
-																						<label>Kabupaten</label>
+																						<label>Kabupaten <span class="text-danger">*</span></label>
 																						@if ($kota == null)
 																								<p class="text-danger">Tidak ada data kabupaten silahkan buat terlebih dahulu !</p>
 																						@else
 																								<select id="kabupaten-input" name="kabupaten" class="form-control select2" style="width: 100%;">
-																										<option value="" selected>-- Pilih kabupaten --</option>
+																										<option value="">-- Pilih kabupaten --</option>
 																										@foreach ($kota as $k)
 																												<option value="{{ $k->id }}" {{ old('kabupaten') == $k->id ? 'selected' : '' }}>
 																														{{ $k->nama }}</option>
@@ -172,10 +176,10 @@
 																		<div class="row">
 																				{{-- metode pembelian --}}
 																				<div class="form-group col-md-6">
-																						<label>Metode Pembelian</label>
+																						<label>Metode Pembelian <span class="text-danger">*</span></label>
 																						<select id="pembelian-input" name="metode_pembelian" class="form-control select2"
 																								style="width: 100%;">
-																								<option value="" selected>-- Pilih pembelian --</option>
+																								<option value="">-- Pilih pembelian --</option>
 																								<option value="cash" {{ old('metode_pembelian') == 'cash' ? 'selected' : '' }}>Cash</option>
 																								<option value="kredit" {{ old('metode_pembelian') == 'kredit' ? 'selected' : '' }}>Kredit
 																								</option>
@@ -183,13 +187,13 @@
 																				</div>
 																				{{-- sales --}}
 																				<div class="form-group col-md-6">
-																						<label>Sales</label>
+																						<label>Sales <span class="text-danger">*</span></label>
 																						@if ($sales == null)
 																								<p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
 																						@else
 																								<select id="sales-input-input" name="sales" class="form-control select2"
 																										style="width: 100%;">
-																										<option value="" selected>-- Pilih sales --</option>
+																										<option value="">-- Pilih sales --</option>
 																										@foreach ($sales as $s)
 																												<option value="{{ $s->id }}" {{ old('sales') == $s->id ? 'selected' : '' }}>
 																														{{ $s->nama }} | {{ $s->dealer->nama }}</option>
@@ -199,7 +203,7 @@
 																				</div>
 																				{{-- dp --}}
 																				<div class="form-group col-md-6" id="dp_wrapper">
-																						<label id="dp_label" for="input-dp">DP</label>
+																						<label id="dp_label" for="input-dp">DP <span class="text-danger">*</span></label>
 																						<input name="dp" type="number" min="0" class="form-control"
 																								placeholder="Masukan DP" id="input-dp" value="{{ old('dp') ?? 0 }}"
 																								aria-describedby="dpHelp">
@@ -209,7 +213,7 @@
 																				</div>
 																				{{-- tanda jadi --}}
 																				<div class="form-group col-md-6 d-none" id="tj_wrapper">
-																						<label id="tj_label" for="input-dp">Tanda Jadi</label>
+																						<label id="tj_label" for="input-dp">Tanda Jadi <span class="text-danger">*</span></label>
 																						<input name="tj" type="number" min="0" class="form-control"
 																								placeholder="Masukan tanda jadi " id="input-dp" value="{{ old('tj') }}"
 																								aria-describedby="tjHelp">
@@ -227,7 +231,7 @@
 																				{{-- tenor --}}
 																				{{-- @dd($tenors) --}}
 																				<div class="form-group col-md-6" id="tenor_wrapper">
-																						<label for="input-tenor">Tenor</label>
+																						<label for="input-tenor">Tenor <span class="text-danger">*</span></label>
 																						{{-- <input name="tenor" type="text" class="form-control" placeholder="Masukan tenor"
 																								id="input-tenor" value="{{ old('tenor') }}"> --}}
 																						<select name="tenor" class="form-select form-control" aria-label="Default select example">
@@ -240,7 +244,7 @@
 																				</div>
 																				{{-- leasing --}}
 																				<div class="form-group col-md-6" id="leasing_wrapper">
-																						<label>Leasing</label>
+																						<label>Leasing <span class="text-danger">*</span></label>
 																						@if ($leasing == null)
 																								<p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
 																						@else
@@ -255,7 +259,7 @@
 																				</div>
 																				{{-- metode pembayaran --}}
 																				<div class="form-group col-md-4">
-																						<label>Metode Pembayaran</label>
+																						<label>Metode Pembayaran <span class="text-danger">*</span></label>
 																						<select id="metodePembayaranInput" name="metode_pembayaran"
 																								class="form-control select2 metodePembayaran" style="width: 100%;">
 																								<option value="" selected>-- Pilih metode pembayaran --</option>
@@ -272,7 +276,7 @@
 																				</div>
 																				{{-- status pembayaran --}}
 																				<div class="form-group col-md-4">
-																						<label>Status Pembayaran DP</label>
+																						<label>Status Pembayaran DP <span class="text-danger">*</span></label>
 																						<select id="status_pembayaran_input" name="status_pembayaran" class="form-control select2"
 																								style="width: 100%;">
 																								<option value="" selected>-- Pilih status pembayaran --</option>
@@ -284,7 +288,7 @@
 																				</div>
 																				{{-- hasil --}}
 																				<div class="form-group col-md-4">
-																						<label>Hasil</label>
+																						<label>Hasil <span class="text-danger">*</span></label>
 																						@if ($hasil == null)
 																								<p class="text-danger">Tidak ada data hasil silahkan buat terlebih dahulu !</p>
 																						@else

@@ -20,8 +20,8 @@
 																		<th>Jumlah</th>
 																		<th>DP</th>
 																		<th>Diskon DP</th>
+																		<th>Sisa Tagihan</th>
 																		<th>Status Pembayaran</th>
-																		<th>Kota</th>
 																		<th>Leasing</th>
 																		<th>Tanggal Dibuat</th>
 																		<th>Tanggal Hasil</th>
@@ -38,8 +38,8 @@
 																				<td>{{ $p->jumlah }}</td>
 																				<td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ Str::rupiah($p->diskon_dp) }}</td>
+																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
-																				<td>{{ $p->kota->nama }}</td>
 																				<td>{{ $p->leasing->nama ?? 'Cash' }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				<td>{{ $p->tanggal_hasil }}</td>
@@ -50,8 +50,8 @@
 																								data-target="#modalDetail">
 																								Detail
 																						</button>
-																						<a href="{{ route('admin.pembayaran.show', $p->id) }}"
-																								class="btn btn-info btn-block mb-1">History</a>
+																						{{-- <a href="{{ route('admin.pembayaran.show', $p->id) }}"
+																								class="btn btn-info btn-block mb-1">History</a> --}}
 																						<button type="button" class="btn btn-success btn-block load-print-modal mb-1"
 																								data-id="{{ $p->id }}"
 																								data-url="{{ route('admin.penjualan.print-data', ['id' => $p->id]) }}" data-toggle="modal"

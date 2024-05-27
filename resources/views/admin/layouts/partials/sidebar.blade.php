@@ -353,7 +353,7 @@
 																<a href="{{ route('admin.sudah-bayar') }}"
 																		class="nav-link {{ \Route::is('admin.sudah-bayar') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Sudah Bayar</p>
+																		<p>Sudah Lunas</p>
 																</a>
 														</li>
 												</ul>
@@ -589,7 +589,6 @@
 
 										{{-- refund dana ceo --}}
 										<li class="nav-item {{ \Route::is('admin.refund.*') ? 'menu-open' : '' }}">
-
 												<a href="#" class="nav-link {{ \Route::is('admin.refund.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
@@ -607,7 +606,25 @@
 																</a>
 														</li>
 												</ul>
+										</li>
+										<li class="nav-item {{ \Route::is('admin.pengajuan.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.pengajuan.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-users"></i>
+														<p>
+																Hak Akses
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
 
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.pengajuan.hak-akses.index') }}"
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Pengajuan Akses</p>
+																</a>
+														</li>
+												</ul>
 										</li>
 
 										{{-- master laporan ceo --}}

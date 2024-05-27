@@ -96,6 +96,18 @@ class AdminPenjualanController extends Controller
       return redirect()->back()->withInput();
     }
 
+    $cekDp = $request->dp;
+    $cekTj = $request->tj;
+
+    // dd($cekDp, $cekTj);
+
+    // find motor
+    $motor = Motor::find($request->input('motor'));
+    if ($cekDp <= $motor->minimal_dp || $cekTj <= $motor->minimal_dp) {
+      flash()->addError("DP/Tanda Jadi minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
+      return redirect()->back()->withInput();
+    }
+
     $tanggal_dibuat = Carbon::today();
     $pembelian = $request->input('metode_pembelian');
     $warna_motor = $request->input('warna_motor') ?? null;
@@ -119,8 +131,7 @@ class AdminPenjualanController extends Controller
       $penjualan->warna_motor = $warna_motor;
       $penjualan->no_hp = $request->input('no_hp') ?? null;
       $penjualan->bpkb = $request->input('bpkb') ?? null;
-      // find motor
-      $motor = Motor::find($request->input('motor'));
+
       if ($pembelian == 'cash') {
         // return $motor->harga;
         $penjualan->dp = $motor->harga;

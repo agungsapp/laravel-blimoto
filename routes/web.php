@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\AdminManualRefundController;
 use App\Http\Controllers\Admin\AdminMotorColorController;
 use App\Http\Controllers\Admin\AdminMtrBestMotorController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
+use App\Http\Controllers\Admin\AdminPengajuanAksesPenjualan;
 use App\Http\Controllers\Admin\AdminPengajuanRefundController;
 use App\Http\Controllers\Admin\AdminPenjualanAccConntroller;
 use App\Http\Controllers\Admin\AdminPenjualanCancelController;
@@ -174,6 +175,7 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
+            Route::resource('pengajuan-akses', AdminPengajuanAksesPenjualan::class);
             Route::resource('data', AdminPenjualanController::class);
             // Route::get('data/hasil/{hasil}', [AdminPenjualanHasilController::class, 'index'])->name('data.hasil');
             Route::resource('proses', AdminPenjualanProsesConntroller::class);
@@ -194,6 +196,11 @@ Route::prefix('app')->name('admin.')->group(function () {
             // Route::resource('motor', AdminMotorColorController::class);
         });
 
+        Route::prefix('/pengajuan')->name('pengajuan.')->group(function () {
+            Route::resource('hak-akses', AdminPengajuanAksesPenjualan::class);
+            Route::post('setuju/{id}', [AdminPengajuanAksesPenjualan::class, 'setuju'])->name('setuju');
+            Route::post('tolak/{id}', [AdminPengajuanAksesPenjualan::class, 'tolak'])->name('tolak');
+        });
 
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::resource('/penjualan-semua', AdminLaporanSemuaPenjualanController::class);
@@ -343,3 +350,12 @@ Route::get('/clearAll', function () {
 // PEMBAYARAN SEBELUMNYA HARUS LUNAS TERLEBIH DAHULU  .
 
 // PR HALAMAN DATA PEMBAYARAN ERROR DI SEBABKAN RELASI BARU 
+
+
+
+
+
+
+// 24 mei 2024 jumat sore, : 
+// next : 
+// lanjutan membuat pengajuan , kemarin baru sampai membuat modal dan memunculkan data id motor pada form untuk di store ke tabel akses penjualan

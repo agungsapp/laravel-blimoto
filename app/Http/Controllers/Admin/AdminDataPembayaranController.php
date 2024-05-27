@@ -40,10 +40,30 @@ class AdminDataPembayaranController extends Controller
   {
     // dd(env('MIDTRANS_CLIENT_KEY'));
 
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+    $data = Penjualan::with(
+      'motor',
+      'leasing',
+      'hasil',
+      'kota',
+      'sales'
+    )
       ->whereNotIn('status_pembayaran_dp', ['success', 'cod'])
+      ->whereHas('detailPembayaran', function ($query) {
+        $query->select('sisa_bayar', 'id_penjualan')
+          ->orderByDesc('periode') // Urutkan berdasarkan periode descending
+          ->limit(1); // Ambil hanya satu hasil (periode terbaru)
+      })
       ->orderBy('id', 'desc')
       ->get();
+
+
+    $data = $data->map(function ($penjualan) {
+      $penjualan->sisa_bayar = $penjualan->detailPembayaran->first()->sisa_bayar;
+      unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
+      return $penjualan;
+    });
+
+    // return response()->json($data);
     return view('admin.data-pembayaran.belum', [
       'penjualan' => $data
     ]);
@@ -51,22 +71,33 @@ class AdminDataPembayaranController extends Controller
 
   public function sudahBayarTj()
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
       ->whereHas('detailPembayaran', function ($query) {
         $query->where('status', 'tanda')
           ->whereHas('pembayaran', function ($query) {
             $query->where('status_pembayaran', 'success');
-          });
+          })
+          ->select('sisa_bayar', 'id_penjualan'); // Select sisa_bayar dan id_penjualan
       })
       ->whereDoesntHave('detailPembayaran', function ($query) {
         $query->where('status', 'pelunasan');
       })
       ->orderBy('id', 'desc')
       ->get();
+
+    // Ubah struktur data agar sisa_bayar menjadi atribut dari penjualan
+    $data = $data->map(function ($penjualan) {
+      $penjualan->sisa_bayar = $penjualan->detailPembayaran->first()->sisa_bayar;
+      unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
+      return $penjualan;
+    });
     // $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund', 'detailPembayaran')
     //   ->where('status_pembayaran_dp', '=', 'success')
     //   ->orderBy('id', 'desc')
     //   ->get();
+
+    // return response()->json($data);
+
     return view('admin.data-pembayaran.index', [
       'penjualan' => $data,
       'judulHalaman' => 'Sudah Bayar Tanda Jadi'
