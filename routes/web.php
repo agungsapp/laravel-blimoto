@@ -196,6 +196,11 @@ Route::prefix('app')->name('admin.')->group(function () {
             // Route::resource('motor', AdminMotorColorController::class);
         });
 
+        Route::prefix('/pengajuan')->name('pengajuan.')->group(function () {
+            Route::resource('hak-akses', AdminPengajuanAksesPenjualan::class);
+            Route::post('setuju/{id}', [AdminPengajuanAksesPenjualan::class, 'setuju'])->name('setuju');
+            Route::post('tolak/{id}', [AdminPengajuanAksesPenjualan::class, 'tolak'])->name('tolak');
+        });
 
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::resource('/penjualan-semua', AdminLaporanSemuaPenjualanController::class);

@@ -10,4 +10,10 @@ class AksesPenjualanModel extends Model
     use HasFactory;
     protected $table = 'akses_penjualan';
     protected $guarded = ['id'];
+
+
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class, 'id_penjualan', 'id');
+    }
 }

@@ -151,20 +151,20 @@
 										</div>
 										<form action="">
 												@csrf
-
 												<div class="modal-body">
+														{{-- hidden id penjualan --}}
 														<input type="hidden" name="id_penjualan" id="id_penjualan">
 														<div class="form-group">
 																<label for="tujuan">Data apa yang ingin di edit</label>
-																<select class="form-control form-select" name="tujuan" id="tujuan">
+																<select class="form-control form-select" id="tujuan" name="tujuan[]" multiple="multiple">
 																		<option value="">-- pilih tujuan --</option>
 																		<option value="nik">NIK</option>
-																		<option value="nomor_po">Nomor PO</option>
-																		<option value="nama_konsumen">Nama Konsumen</option>
-																		<option value="nama_bpkb">Nama BPKB</option>
-																		<option value="warna_motor">Warna Motor</option>
-																		<option value="nomor_handphone">Nomor Handphone</option>
-																		<option value="data_hasil">Data Hasil</option>
+																		<option value="nomor po">Nomor PO</option>
+																		<option value="nama konsumen">Nama Konsumen</option>
+																		<option value="nama bpkb">Nama BPKB</option>
+																		<option value="warna motor">Warna Motor</option>
+																		<option value="nomor handphone">Nomor Handphone</option>
+																		<option value="data hasil">Data Hasil</option>
 																</select>
 														</div>
 
@@ -175,7 +175,7 @@
 												</div>
 												<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-														<button type="button" class="btn btn-primary">Ajukan</button>
+														<button type="button" id="btn_ajukan" class="btn btn-primary">Ajukan</button>
 												</div>
 										</form>
 								</div>
@@ -635,9 +635,45 @@
 						const dataUrl = $(this).data('url');
 						const modalId = '#pengajuanEdit';
 
+						$('#tujuan').select2();
 						$('#id_penjualan').val(id);
 						$('#pengajuanEdit form').attr('action', dataUrl);
 				});
+
+				$(document).on('click', '#btn_ajukan', function(e) {
+						e.preventDefault();
+
+						const form = $('#pengajuanEdit form');
+						const formData = new FormData(form[0]);
+						$.ajax({
+								url: form.attr('action'),
+								type: 'POST',
+								data: formData,
+								processData: false,
+								contentType: false,
+								success: function(response) {
+										console.log(response);
+										Swal.fire({
+												title: "Berhasil",
+												text: "pengajuanmu sedang di tinjau.",
+												icon: "success",
+										});
+										$('#pengajuanEdit').modal('hide');
+								},
+								error: function(xhr, status, error) {
+										// console.error(xhr.responseText);
+										// console.log(xhr.responseJSON.message);
+										Swal.fire({
+												title: "Error",
+												text: xhr.responseJSON.message,
+												icon: "error",
+										});
+								}
+						});
+
+
+				})
+
 
 				// When the 'Cetak' button is clicked, this event handler will fetch the data
 				// and populate the print modal fields.
