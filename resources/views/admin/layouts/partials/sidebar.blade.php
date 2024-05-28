@@ -663,9 +663,9 @@
 										data-accordion="false">
 										{{-- master penjualan --}}
 										<li
-												class="nav-item {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') || \Route::is('admin.penjualan.cancel.*') ? 'menu-open' : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') || \Route::is('admin.penjualan.cancel.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
 																Master Penjualan
@@ -707,6 +707,13 @@
 																		class="nav-link {{ \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Data Do</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.penjualan.cancel.index') }}"
+																		class="nav-link {{ \Route::is('admin.penjualan.cancel.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Cancel</p>
 																</a>
 														</li>
 												</ul>

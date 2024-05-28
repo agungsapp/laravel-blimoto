@@ -9,6 +9,7 @@
 														<thead>
 																<tr>
 																		<th scope="col">#</th>
+																		<th scope="col">Nama Sales</th>
 																		<th scope="col">Nama Konsumen</th>
 																		<th scope="col">Status</th>
 																		<th scope="col">Tujuan</th>
@@ -22,8 +23,9 @@
 																@foreach ($pengajuans as $pengajuan)
 																		<tr>
 																				<th scope="row">{{ $loop->iteration }}</th>
-																				<td>{{ $pengajuan->penjualan->nama_konsumen }}</td>
-																				<td><span class="badge badge-info">{{ $pengajuan->status }}</span></td>
+																				<td class="text-capitalize">{{ $pengajuan->penjualan->sales->nama }}</td>
+																				<td class="text-capitalize">{{ $pengajuan->penjualan->nama_konsumen }}</td>
+																				<td><span class="badge {{ $pengajuan->status == 'tolak' ? 'badge-danger' : 'badge-info' }} ">{{ $pengajuan->status }}</span></td>
 																				<td>
 																						@foreach (json_decode($pengajuan->tujuan, true) as $tujuan)
 																								{{-- {{ $tujuan }}<br> --}}

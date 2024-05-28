@@ -287,6 +287,26 @@ class AdminPenjualanController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
+
+
+  public function formatNomorTelepon($nomor)
+  {
+    // Hapus karakter selain angka
+    $nomor = preg_replace('/[^0-9]/', '', $nomor);
+
+    // Cek apakah nomor dimulai dengan '08'
+    if (substr($nomor, 0, 2) == '08') {
+      // Ganti '08' dengan '628'
+      $nomor = '628' . substr($nomor, 2);
+    }
+
+    return $nomor;
+  }
+
+
+
+
+
   public function update(Request $request, $id)
   {
     $validator = Validator::make($request->all(), [
@@ -307,7 +327,53 @@ class AdminPenjualanController extends Controller
       return redirect()->back();
     }
 
+
     $penjualan = Penjualan::findOrFail($id);
+
+    // send wa notif cancel via fonnte
+    if ($request->input('hasil') == 8) {
+      // return $request->input('hasil');
+      try {
+        $nomor = $this->formatNomorTelepon($penjualan->no_hp);
+        // pesan
+        $message = "Halo $penjualan->nama_konsumen, konfirmasi pembatalan order:\n\n" .
+          "Nama Konsumen: $penjualan->nama_konsumen\n" .
+          "NIK: $penjualan->nik\n" .
+          "Motor: {$penjualan->motor?->nama}\n\n\n" .
+          "Jika data di atas benar, mohon berikan konfirmasi dengan membalas YA";
+
+
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://api.fonnte.com/send',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => array(
+            'target' => $nomor,
+            'message' => $message,
+            'countryCode' => '62', //optional
+          ),
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: P-9!+K5R7WAVcKBygaKY'
+            // 'Authorization: p#hR2Qj5B8EX8ERrx5YV'
+          ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
+      } catch (\Throwable $th) {
+        //throw $th;
+        Log::info('Notifikasi Wa FAIL', $th);
+      }
+    }
+
+
 
     $tanggal_dibuat = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_dibuat'))->format('Y-m-d');
     $tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;

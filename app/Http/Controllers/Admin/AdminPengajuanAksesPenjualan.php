@@ -69,6 +69,11 @@ class AdminPengajuanAksesPenjualan extends Controller
             $pengajuanAkses->status = 'tolak';
             $pengajuanAkses->save();
 
+            $idPenjualan = $pengajuanAkses->id_penjualan;
+            $penjualan = Penjualan::findOrFail($idPenjualan);
+            $penjualan->is_edit = false;
+            $penjualan->save();
+
             DB::commit();
             flash()->addSuccess('berhasil menolak akses edit pada sales.');
             return redirect()->back();

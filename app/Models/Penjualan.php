@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Penjualan extends Model
 {
@@ -75,4 +76,9 @@ class Penjualan extends Model
   {
     return $this->hasMany(DetailPembayaranModel::class, 'id_penjualan', 'id');
   }
+
+  public function pengajuanAkses()
+  {
+    return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan');
   }
+}
