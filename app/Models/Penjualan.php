@@ -81,4 +81,11 @@ class Penjualan extends Model
   {
     return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan');
   }
+
+  public function pengajuanAksesBy($status)
+  {
+    return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan')
+    ->where('status', $status); // Tambahkan kondisi where di sini
+  }
+
 }

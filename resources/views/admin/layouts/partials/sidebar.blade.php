@@ -607,8 +607,10 @@
 														</li>
 												</ul>
 										</li>
-										<li class="nav-item {{ \Route::is('admin.pengajuan.*') ? 'menu-open' : '' }}">
-												<a href="#" class="nav-link {{ \Route::is('admin.pengajuan.*') ? 'active' : '' }}">
+										<li
+												class="nav-item {{ \Route::is('admin.pengajuan.*') || \Route::is('admin.pengajuan.hak-akses.disetujui') || \Route::is('admin.pengajuan.hak-akses.ditolak') || \Route::is('admin.pengajuan.hak-akses.done') ? 'menu-open' : '' }}">
+												<a href="#"
+														class="nav-link {{ \Route::is('admin.pengajuan.*') || \Route::is('admin.pengajuan.hak-akses.disetujui') || \Route::is('admin.pengajuan.hak-akses.ditolak') || \Route::is('admin.pengajuan.hak-akses.done') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
 																Hak Akses
@@ -619,9 +621,30 @@
 												<ul class="nav nav-treeview">
 														<li class="nav-item">
 																<a href="{{ route('admin.pengajuan.hak-akses.index') }}"
-																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.*') ? 'active' : '' }}">
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.index') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Data Pengajuan Akses</p>
+																		<p>Data Pengajuan</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.pengajuan.hak-akses.disetujui') }}"
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.disetujui') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Di Setujui</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.pengajuan.hak-akses.ditolak') }}"
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.ditolak') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Di Tolak</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.pengajuan.hak-akses.done') }}"
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.done') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Selesai Edit</p>
 																</a>
 														</li>
 												</ul>

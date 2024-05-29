@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AksesPenjualanModel;
 use App\Models\CicilanMotor;
 use App\Models\ColorModel;
 use App\Models\DetailPembayaranModel;
@@ -330,19 +331,26 @@ class AdminPenjualanController extends Controller
 
     $penjualan = Penjualan::findOrFail($id);
 
+    $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->first();
+    $pengajuanAkses->status = 'done';
+    $pengajuanAkses->save();
+
+
     // send wa notif cancel via fonnte
     if ($request->input('hasil') == 8) {
       // return $request->input('hasil');
       try {
         $nomor = $this->formatNomorTelepon($penjualan->no_hp);
         // pesan
-        $message = "Halo $penjualan->nama_konsumen, konfirmasi pembatalan order:\n\n" .
-          "Nama Konsumen: $penjualan->nama_konsumen\n" .
+        $message = "Halo " . ucwords(strtolower($penjualan->nama_konsumen)) . ",\n\n" .
+          "Kami ingin mengonfirmasi pembatalan pesanan Anda dengan detail sebagai berikut:\n\n" .
+          "Nomor Transaksi: $penjualan->kode_transaksi\n" .
+          "Nama Konsumen: " . ucwords(strtolower($penjualan->nama_konsumen)) . "\n" .
           "NIK: $penjualan->nik\n" .
-          "Motor: {$penjualan->motor?->nama}\n\n\n" .
-          "Jika data di atas benar, mohon berikan konfirmasi dengan membalas YA";
-
-
+          "Motor: {$penjualan->motor?->nama}\n\n" .
+          "Jika Anda setuju dengan pembatalan ini, Anda dapat mengabaikan pesan ini.\n" .
+          "Jika Anda tidak merasa melakukan pembatalan ini atau ada kesalahan, mohon balas dengan 'TIDAK' atau hubungi layanan pelanggan kami untuk klarifikasi lebih lanjut.\n\n" .
+          "Terima kasih atas perhatian Anda.";
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -406,6 +414,7 @@ class AdminPenjualanController extends Controller
     $penjualan->bpkb = $bpkb;
     $penjualan->no_hp = $no_hp;
     $penjualan->warna_motor = $warna;
+    $penjualan->is_edit = 0;
 
     $penjualan->save();
 

@@ -198,6 +198,9 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::prefix('/pengajuan')->name('pengajuan.')->group(function () {
             Route::resource('hak-akses', AdminPengajuanAksesPenjualan::class);
+            Route::get('hak-akses-disetujui', [AdminPengajuanAksesPenjualan::class, 'disetujui'])->name('hak-akses.disetujui');
+            Route::get('hak-akses-ditolak', [AdminPengajuanAksesPenjualan::class, 'ditolak'])->name('hak-akses.ditolak');
+            Route::get('hak-akses-done', [AdminPengajuanAksesPenjualan::class, 'done'])->name('hak-akses.done');
             Route::post('setuju/{id}', [AdminPengajuanAksesPenjualan::class, 'setuju'])->name('setuju');
             Route::post('tolak/{id}', [AdminPengajuanAksesPenjualan::class, 'tolak'])->name('tolak');
         });
