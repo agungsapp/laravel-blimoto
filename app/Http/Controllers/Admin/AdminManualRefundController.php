@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPembayaranModel;
 use App\Models\ManualTransferModel;
 use App\Models\PengajuanRefundModel;
 use App\Models\Penjualan;
@@ -19,19 +20,81 @@ class AdminManualRefundController extends Controller
      */
     public function index()
     {
-
-        $penjualan = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'manual')
-            ->where('status_pembayaran_dp', '=', 'success')
+        $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
+            ->whereHas('detailPembayaran', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('status', 'tanda')
+                        ->whereHas('pembayaran', function ($q2) {
+                            $q2->where('status_pembayaran', 'success');
+                        });
+                })
+                    ->orWhere(function ($q) {
+                        $q->where('status', 'pelunasan')
+                            ->whereHas('pembayaran', function ($q2) {
+                                $q2->where('status_pembayaran', 'success');
+                            });
+                    });
+            })
             ->orderBy('id', 'desc')
             ->get();
 
-        $data = [
+        // Mengubah struktur data jika diperlukan (misalnya, menambahkan atribut `sisa_bayar`)
+        $data = $data->map(function ($penjualan) {
+            $tandaBayar = $penjualan->detailPembayaran->where('status', 'tanda')->first();
+            $pelunasan = $penjualan->detailPembayaran->where('status', 'pelunasan')->first();
+
+            if ($tandaBayar) {
+                $penjualan->sisa_bayar = $tandaBayar->sisa_bayar;
+            } elseif ($pelunasan) {
+                $penjualan->sisa_bayar = 0; // atau nilai yang sesuai untuk pelunasan
+            }
+
+            unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
+            return $penjualan;
+        });
+
+        // return response()->json($data);
+        return view('admin.refund.manual.index', [
             'judulHalaman' => 'Refund dana manual transfer',
-            'penjualan' => $penjualan
+            'penjualan' => $data
+        ]);
+    }
+    // public function index()
+    // {
+
+    //     $penjualan = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'manual')
+    //         ->where('status_pembayaran_dp', '=', 'success')
+    //         ->orderBy('id', 'desc')
+    //         ->get();
+
+    //     $data = [
+    //         'judulHalaman' => 'Refund dana manual transfer',
+    //         'penjualan' => $penjualan
+    //     ];
+
+    //     return view('admin.refund.manual.index', $data);
+    // }
+
+
+
+    public function riwayatTransaksi(string $id)
+    {
+
+        $detailTransaksi = DetailPembayaranModel::where('id_penjualan', $id)->get();
+        // return response()->json($detailTransaksi);
+
+        $data = [
+            'judulHalaman' => 'Riwayat Transaksi Pembayaran',
+            'pembayarans' => $detailTransaksi
         ];
 
-        return view('admin.refund.manual.index', $data);
+        return view('admin.refund.riwayat-transaksi', $data);
     }
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.

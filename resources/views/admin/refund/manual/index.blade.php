@@ -53,12 +53,14 @@
 																				<td>{{ $p->diskon_dp }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
 																				<td>{{ $p->kota->nama }}</td>
-																				<td>{{ $p->leasing->nama }}</td>
+																				{{-- @dd($p->leasing->nama) --}}
+																				<td>{{ $p->leasing->nama ?? 'cash' }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				<td>{{ $p->tanggal_hasil }}</td>
 																				<td>
-
-																						@if (optional($p->pembayaran)->id != null)
+																						<a href="{{ route('admin.refund.riwayat.transaksi', $p->id) }}" class="btn btn-success">Riwayat
+																								Transaksi</a>
+																						{{-- @if (optional($p->detailPembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
 																								@endphp
@@ -72,7 +74,7 @@
 																										<a class="btn btn-success" href="{{ route('admin.refund.status.index') }}">Refund
 																												status</a>
 																								@endif
-																						@endif
+																						@endif --}}
 
 																						<div>
 																								<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"

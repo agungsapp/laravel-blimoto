@@ -58,10 +58,10 @@ class Penjualan extends Model
     return $this->belongsTo(Kota::class, 'id_kota');
   }
 
-  public function refund()
-  {
-    return $this->belongsTo(PengajuanRefundModel::class, 'id', 'id_penjualan');
-  }
+  // public function refund()
+  // {
+  //   return $this->belongsTo(PengajuanRefundModel::class, 'id', 'id_penjualan');
+  // }
 
   public function pembayaran()
   {
@@ -85,7 +85,6 @@ class Penjualan extends Model
   public function pengajuanAksesBy($status)
   {
     return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan')
-    ->where('status', $status); // Tambahkan kondisi where di sini
+      ->where('status', $status); // Tambahkan kondisi where di sini
   }
-
 }

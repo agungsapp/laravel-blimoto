@@ -331,9 +331,12 @@ class AdminPenjualanController extends Controller
 
     $penjualan = Penjualan::findOrFail($id);
 
-    $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->first();
-    $pengajuanAkses->status = 'done';
-    $pengajuanAkses->save();
+    $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->where('status', 'setuju')->first();
+    if (!empty($pengajuanAkses)) {
+      # code...
+      $pengajuanAkses->status = 'done';
+      $pengajuanAkses->save();
+    }
 
 
     // send wa notif cancel via fonnte

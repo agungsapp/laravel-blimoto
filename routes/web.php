@@ -218,6 +218,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::post('status', [AdminStatusRefund::class, 'store'])->name('status.store');
 
             Route::resource('/manual-refund', AdminManualRefundController::class);
+            Route::get('riwayat/{id}', [AdminManualRefundController::class, 'riwayatTransaksi'])->name('riwayat.transaksi');
         });
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
