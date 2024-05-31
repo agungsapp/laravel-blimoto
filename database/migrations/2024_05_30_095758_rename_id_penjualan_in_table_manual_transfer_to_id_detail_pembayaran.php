@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('manual_transfer', function (Blueprint $table) {
-            $table->dropForeign(['id_penjualan']);
+            // $table->dropForeign(['id_penjualan']);
             $table->renameColumn('id_penjualan', 'id_detail_pembayaran');
             $table->foreign('id_detail_pembayaran')->references('id')->on('detail_pembayaran')->onDelete('cascade');
         });
@@ -29,7 +29,7 @@ return new class extends Migration
         Schema::table('manual_transfer', function (Blueprint $table) {
             $table->dropForeign(['id_detail_pembayaran']);
             $table->renameColumn('id_detail_pembayaran', 'id_penjualan');
-            $table->foreign('id_penjualan')->references('id')->on('penjualan');
+            // $table->foreign('id_penjualan')->references('id')->on('penjualan');
         });
     }
 };

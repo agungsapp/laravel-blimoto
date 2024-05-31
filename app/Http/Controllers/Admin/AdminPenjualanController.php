@@ -702,6 +702,30 @@ class AdminPenjualanController extends Controller
     }
   }
 
+
+
+  public function getDataRefund($id)
+  {
+    try {
+      $refund = DetailPembayaranModel::with(['penjualan' => function ($q) {
+        $q->with('motor');
+      }])->find($id);
+      return response()->json([
+        'status' => 'success',
+        'data'   => $refund
+      ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ], 404);
+    }
+  }
+
+
+
+
+
   public function getDataPenjualan($id)
   {
     try {

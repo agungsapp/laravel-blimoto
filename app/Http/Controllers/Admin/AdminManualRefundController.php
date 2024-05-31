@@ -20,7 +20,7 @@ class AdminManualRefundController extends Controller
      */
     public function index()
     {
-        $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
+        $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales'])
             ->whereHas('detailPembayaran', function ($query) {
                 $query->where(function ($q) {
                     $q->where('status', 'tanda')
@@ -81,11 +81,17 @@ class AdminManualRefundController extends Controller
     {
 
         $detailTransaksi = DetailPembayaranModel::where('id_penjualan', $id)->get();
-        // return response()->json($detailTransaksi);
+        $dataRefund = Penjualan::with('motor')
+            ->withSum('detailPembayaran', 'jumlah_bayar')
+            ->find($id);
+
+
+        // return response()->json($dataRefund);
 
         $data = [
             'judulHalaman' => 'Riwayat Transaksi Pembayaran',
-            'pembayarans' => $detailTransaksi
+            'pembayarans' => $detailTransaksi,
+            'penuh' => $dataRefund
         ];
 
         return view('admin.refund.riwayat-transaksi', $data);
@@ -129,7 +135,9 @@ class AdminManualRefundController extends Controller
         }
 
         // Cek apakah sudah ada pengajuan refund untuk penjualan ini
-        $cekPengajuan = PengajuanRefundModel::where('id_penjualan', $request->idp)->first();
+        $cekPengajuan = DetailPembayaranModel::where('id_penjualan', $request->idp)
+            ->whereHas('refund')
+            ->first();
         if ($cekPengajuan) {
             flash()->addError("Data refund sudah ada dan masih dalam status " . $cekPengajuan->status_pengajuan . "!");
             return redirect()->back()->withInput();

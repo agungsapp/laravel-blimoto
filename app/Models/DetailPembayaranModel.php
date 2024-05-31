@@ -20,4 +20,8 @@ class DetailPembayaranModel extends Model
     {
         return $this->belongsTo(Pembayaran::class,  'id', 'id_detail_pembayaran');
     }
+    public function refund()
+    {
+        return $this->belongsTo(PengajuanRefundModel::class,  'id', 'id_detail_pembayaran');
+    }
 }

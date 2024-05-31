@@ -95,7 +95,6 @@ class AdminDataPembayaranController extends Controller
     //   ->where('status_pembayaran_dp', '=', 'success')
     //   ->orderBy('id', 'desc')
     //   ->get();
-
     // return response()->json($data);
 
     return view('admin.data-pembayaran.index', [
