@@ -22,7 +22,6 @@ class AuthenticateRole
         return $next($request);
       }
     }
-
-    return redirect('app/login'); // Adjust to your login route
+    return redirect('app/login');
   }
 }

@@ -95,7 +95,6 @@ class SendWhatsappOtpController extends Controller
 
 
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://api.fonnte.com/send',
             CURLOPT_RETURNTRANSFER => true,
@@ -115,9 +114,7 @@ class SendWhatsappOtpController extends Controller
                 // 'Authorization: p#hR2Qj5B8EX8ERrx5YV'
             ),
         ));
-
         $response = curl_exec($curl);
-
         curl_close($curl);
         echo $response;
     }

@@ -11,4 +11,10 @@ class ManualTransferModel extends Model
 
     protected $table = 'manual_transfer';
     protected $guarded = ['id'];
+
+
+    public function detailPembayaran()
+    {
+        return $this->belongsTo(DetailPembayaranModel::class, 'id', 'id_detailPembayaran');
+    }
 }

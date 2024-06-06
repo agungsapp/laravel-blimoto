@@ -90,27 +90,47 @@
 																												data-target="#modalDetail">
 																												Detail
 																										</button>
+																										{{-- <span class="btn btn-success">
+																												@if ($p->pengajuanAksesBy('pengajuan')->exists())
+																														<span
+																																class="btn btn-success">{{ $p->pengajuanAksesBy('pengajuan')->first()->status }}</span>
+																												@endif
+																										</span> --}}
 
 																										{{-- for debug --}}
 																										{{-- <button class="btn btn-secondary">{{ $p->is_edit }}</button> --}}
 
-																										@if ($p->is_edit == false)
-																												<!-- Button trigger modal pengajuan -->
-																												<button type="button" class="btn btn-block btn-primary load_pengajuan_modal mb-1"
-																														data-toggle="modal" data-id="{{ $p->id }}"
-																														data-url="{{ route('admin.penjualan.pengajuan-akses.store') }}"
-																														data-target="#pengajuanEdit">
-																														Ajukan Edit
-																												</button>
+																										@php
+																												$isAdmin = Auth::guard('admin')->check();
+																										@endphp
+
+																										@if (Route::is('admin.penjualan.do.index'))
+																												@if (!$isAdmin && $p->is_edit == false)
+																														@if ($p->pengajuanAkses?->status == 'done')
+																														@else
+																																<!-- Button trigger modal pengajuan -->
+																																<button type="button" class="btn btn-block btn-primary load_pengajuan_modal mb-1"
+																																		data-toggle="modal" data-id="{{ $p->id }}"
+																																		data-url="{{ route('admin.penjualan.pengajuan-akses.store') }}"
+																																		data-target="#pengajuanEdit"
+																																		{{ !$isAdmin && $p->pengajuanAkses?->status == 'pengajuan' ? 'disabled' : '' }}
+																																		@if ($p->pengajuanAkses?->status == 'pengajuan') title="sedang menunggu persetujuan ceo" @endif>
+																																		Ajukan Edit
+																																</button>
+																														@endif
+																												@endif
 																										@endif
 
 																										@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
-																												@if ($p->is_edit == true)
+																												@if (!Route::is('admin.penjualan.do.index') || (Auth::guard('admin')->check() || $p->is_edit == true))
 																														<button type="button" class="btn btn-warning w-100 load-update-modal mb-1"
 																																data-id="{{ $p->id }}"
 																																data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
 																																data-toggle="modal" data-target="#modalEdit"
-																																{{ $p->status_pembayaran_dp == 'refunded' || $p->is_edit == false ? 'disabled' : '' }}>
+																																{{ Route::is('admin.penjualan.do.index') &&
+																																(!$isAdmin && ($p->status_pembayaran_dp == 'refunded' || $p->is_edit == false))
+																																    ? 'disabled'
+																																    : '' }}>
 																																Edit
 																														</button>
 																												@endif

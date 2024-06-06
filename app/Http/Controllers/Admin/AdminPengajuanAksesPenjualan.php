@@ -21,7 +21,35 @@ class AdminPengajuanAksesPenjualan extends Controller
 
         $data = [
             'judulHalaman' => 'Pengajuan Akses Edit',
-            'pengajuans' => AksesPenjualanModel::all(),
+            'pengajuans' => AksesPenjualanModel::where('status', 'pengajuan')->get(),
+        ];
+
+        return view('admin.pengajuan-akses.index', $data);
+    }
+
+    public function disetujui()
+    {
+        $data = [
+            'judulHalaman' => 'Pengajuan akses yang telah disetujui',
+            'pengajuans' => AksesPenjualanModel::where('status', 'setuju')->get(),
+        ];
+
+        return view('admin.pengajuan-akses.index', $data);
+    }
+    public function ditolak()
+    {
+        $data = [
+            'judulHalaman' => 'Pengajuan Akses yang di tolak',
+            'pengajuans' => AksesPenjualanModel::where('status', 'tolak')->get(),
+        ];
+
+        return view('admin.pengajuan-akses.index', $data);
+    }
+    public function done()
+    {
+        $data = [
+            'judulHalaman' => 'Pengajuan yang telah selesai di edit.',
+            'pengajuans' => AksesPenjualanModel::where('status', 'done')->get(),
         ];
 
         return view('admin.pengajuan-akses.index', $data);
@@ -68,6 +96,11 @@ class AdminPengajuanAksesPenjualan extends Controller
             $pengajuanAkses = AksesPenjualanModel::findOrFail($id);
             $pengajuanAkses->status = 'tolak';
             $pengajuanAkses->save();
+
+            $idPenjualan = $pengajuanAkses->id_penjualan;
+            $penjualan = Penjualan::findOrFail($idPenjualan);
+            $penjualan->is_edit = false;
+            $penjualan->save();
 
             DB::commit();
             flash()->addSuccess('berhasil menolak akses edit pada sales.');

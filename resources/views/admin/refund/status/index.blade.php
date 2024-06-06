@@ -48,7 +48,7 @@
 																		@foreach ($refunds as $index => $refund)
 																				<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																						<td>{{ $loop->iteration }}</td>
-																						<td>{{ $refund->penjualan->nama_konsumen }}</td>
+																						<td>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</td>
 																						<td>{{ Str::rupiah($refund->nominal) }}</td>
 
 																						<td>
@@ -109,7 +109,8 @@
 																																<div class="modal-body">
 																																		<input type="hidden" name="idp" value="{{ $refund->id_penjualan }}">
 																																		<p>Anda hendak memproses permintaan pengembalian dana kepada konsumen
-																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> dengan nominal
+																																				<strong>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</strong> dengan
+																																				nominal
 																																				<strong class="text-success">{{ Str::rupiah($refund->nominal) }}</strong>. Tindakan
 																																				ini bersifat final dan tidak dapat dibatalkan.
 																																		</p>
@@ -141,7 +142,7 @@
 																																		<div class="modal-body">
 																																				<input type="hidden" name="idr" value="{{ $refund->id }}">
 																																				<p>Silahkan lakukan transfer dana ke konsumen
-																																						<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
+																																						<strong>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</strong> sejumlah
 																																						<strong class="text-danger">{{ Str::rupiah($refund->nominal) }}</strong> kemudian
 																																						upload bukti transfernya pada form di bawah ini.
 																																				</p>

@@ -18,7 +18,7 @@ class AdminDataPembayaranController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->whereHas('detailPembayaran', function ($query) {
         $query->where('status', 'pelunasan')
           ->whereHas('pembayaran', function ($query) {
@@ -71,7 +71,7 @@ class AdminDataPembayaranController extends Controller
 
   public function sudahBayarTj()
   {
-    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
+    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales'])
       ->whereHas('detailPembayaran', function ($query) {
         $query->where('status', 'tanda')
           ->whereHas('pembayaran', function ($query) {
@@ -95,7 +95,6 @@ class AdminDataPembayaranController extends Controller
     //   ->where('status_pembayaran_dp', '=', 'success')
     //   ->orderBy('id', 'desc')
     //   ->get();
-
     // return response()->json($data);
 
     return view('admin.data-pembayaran.index', [
@@ -103,6 +102,52 @@ class AdminDataPembayaranController extends Controller
       'judulHalaman' => 'Sudah Bayar Tanda Jadi'
     ]);
   }
+
+
+  public function getAllPayments()
+  {
+    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
+      ->whereHas('detailPembayaran', function ($query) {
+        $query->where(function ($q) {
+          $q->where('status', 'tanda')
+            ->whereHas('pembayaran', function ($q2) {
+              $q2->where('status_pembayaran', 'success');
+            });
+        })
+          ->orWhere(function ($q) {
+            $q->where('status', 'pelunasan')
+              ->whereHas('pembayaran', function ($q2) {
+                $q2->where('status_pembayaran', 'success');
+              });
+          });
+      })
+      ->orderBy('id', 'desc')
+      ->get();
+
+    // Mengubah struktur data jika diperlukan (misalnya, menambahkan atribut `sisa_bayar`)
+    $data = $data->map(function ($penjualan) {
+      $tandaBayar = $penjualan->detailPembayaran->where('status', 'tanda')->first();
+      $pelunasan = $penjualan->detailPembayaran->where('status', 'pelunasan')->first();
+
+      if ($tandaBayar) {
+        $penjualan->sisa_bayar = $tandaBayar->sisa_bayar;
+      } elseif ($pelunasan) {
+        $penjualan->sisa_bayar = 0; // atau nilai yang sesuai untuk pelunasan
+      }
+
+      unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
+      return $penjualan;
+    });
+
+    return response()->json($data);
+
+    return view('admin.data-pembayaran.index', [
+      'penjualan' => $data,
+      'judulHalaman' => 'Semua Pembayaran'
+    ]);
+  }
+
+
 
   /**
    * Show the form for creating a new resource.

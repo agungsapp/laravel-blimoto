@@ -185,7 +185,8 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('cancel', AdminPenjualanCancelController::class);
             Route::get('/penjualan/{id}/payment-data', [AdminPenjualanController::class, 'getPaymentData'])->name('payment-data');
             Route::get('/penjualan/{id}/print-data', [AdminPenjualanController::class, 'getPrintData'])->name('print-data');
-            Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->name('getPenjualan');
+            Route::get('/penjualan/{id}/getData', [AdminPenjualanController::class, 'getDataPenjualan'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('getPenjualan');
+            Route::get('/penjualan/{id}/get-refund-data', [AdminPenjualanController::class, 'getDataRefund'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('getDataRefund');
             Route::get('/penjualan/{id}/getDetail', [AdminPenjualanController::class, 'getDetailPembayaran'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('getDetail');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
             Route::post('bayar/tambahPelunasan/{id}', [AdminPenjualanController::class, 'tambahPelunasan'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('tambahPelunasan');
@@ -198,6 +199,9 @@ Route::prefix('app')->name('admin.')->group(function () {
 
         Route::prefix('/pengajuan')->name('pengajuan.')->group(function () {
             Route::resource('hak-akses', AdminPengajuanAksesPenjualan::class);
+            Route::get('hak-akses-disetujui', [AdminPengajuanAksesPenjualan::class, 'disetujui'])->name('hak-akses.disetujui');
+            Route::get('hak-akses-ditolak', [AdminPengajuanAksesPenjualan::class, 'ditolak'])->name('hak-akses.ditolak');
+            Route::get('hak-akses-done', [AdminPengajuanAksesPenjualan::class, 'done'])->name('hak-akses.done');
             Route::post('setuju/{id}', [AdminPengajuanAksesPenjualan::class, 'setuju'])->name('setuju');
             Route::post('tolak/{id}', [AdminPengajuanAksesPenjualan::class, 'tolak'])->name('tolak');
         });
@@ -215,6 +219,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::post('status', [AdminStatusRefund::class, 'store'])->name('status.store');
 
             Route::resource('/manual-refund', AdminManualRefundController::class);
+            Route::get('riwayat/{id}', [AdminManualRefundController::class, 'riwayatTransaksi'])->name('riwayat.transaksi');
         });
 
         Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {

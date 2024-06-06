@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Penjualan extends Model
 {
@@ -57,10 +58,10 @@ class Penjualan extends Model
     return $this->belongsTo(Kota::class, 'id_kota');
   }
 
-  public function refund()
-  {
-    return $this->belongsTo(PengajuanRefundModel::class, 'id', 'id_penjualan');
-  }
+  // public function refund()
+  // {
+  //   return $this->belongsTo(PengajuanRefundModel::class, 'id', 'id_penjualan');
+  // }
 
   public function pembayaran()
   {
@@ -75,4 +76,15 @@ class Penjualan extends Model
   {
     return $this->hasMany(DetailPembayaranModel::class, 'id_penjualan', 'id');
   }
+
+  public function pengajuanAkses()
+  {
+    return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan');
   }
+
+  public function pengajuanAksesBy($status)
+  {
+    return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan')
+      ->where('status', $status); // Tambahkan kondisi where di sini
+  }
+}

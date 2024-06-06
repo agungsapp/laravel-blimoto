@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AksesPenjualanModel;
 use App\Models\CicilanMotor;
 use App\Models\ColorModel;
 use App\Models\DetailPembayaranModel;
@@ -287,6 +288,26 @@ class AdminPenjualanController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
+
+
+  public function formatNomorTelepon($nomor)
+  {
+    // Hapus karakter selain angka
+    $nomor = preg_replace('/[^0-9]/', '', $nomor);
+
+    // Cek apakah nomor dimulai dengan '08'
+    if (substr($nomor, 0, 2) == '08') {
+      // Ganti '08' dengan '628'
+      $nomor = '628' . substr($nomor, 2);
+    }
+
+    return $nomor;
+  }
+
+
+
+
+
   public function update(Request $request, $id)
   {
     $validator = Validator::make($request->all(), [
@@ -307,7 +328,63 @@ class AdminPenjualanController extends Controller
       return redirect()->back();
     }
 
+
     $penjualan = Penjualan::findOrFail($id);
+
+    $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->where('status', 'setuju')->first();
+    if (!empty($pengajuanAkses)) {
+      # code...
+      $pengajuanAkses->status = 'done';
+      $pengajuanAkses->save();
+    }
+
+
+    // send wa notif cancel via fonnte
+    if ($request->input('hasil') == 8) {
+      // return $request->input('hasil');
+      try {
+        $nomor = $this->formatNomorTelepon($penjualan->no_hp);
+        // pesan
+        $message = "Halo " . ucwords(strtolower($penjualan->nama_konsumen)) . ",\n\n" .
+          "Kami ingin mengonfirmasi pembatalan pesanan Anda dengan detail sebagai berikut:\n\n" .
+          "Nomor Transaksi: $penjualan->kode_transaksi\n" .
+          "Nama Konsumen: " . ucwords(strtolower($penjualan->nama_konsumen)) . "\n" .
+          "NIK: $penjualan->nik\n" .
+          "Motor: {$penjualan->motor?->nama}\n\n" .
+          "Jika Anda setuju dengan pembatalan ini, Anda dapat mengabaikan pesan ini.\n" .
+          "Jika Anda tidak merasa melakukan pembatalan ini atau ada kesalahan, mohon balas dengan 'TIDAK' atau hubungi layanan pelanggan kami untuk klarifikasi lebih lanjut.\n\n" .
+          "Terima kasih atas perhatian Anda.";
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://api.fonnte.com/send',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => array(
+            'target' => $nomor,
+            'message' => $message,
+            'countryCode' => '62', //optional
+          ),
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: P-9!+K5R7WAVcKBygaKY'
+            // 'Authorization: p#hR2Qj5B8EX8ERrx5YV'
+          ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
+      } catch (\Throwable $th) {
+        //throw $th;
+        Log::info('Notifikasi Wa FAIL', $th);
+      }
+    }
+
+
 
     $tanggal_dibuat = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_dibuat'))->format('Y-m-d');
     $tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;
@@ -340,6 +417,7 @@ class AdminPenjualanController extends Controller
     $penjualan->bpkb = $bpkb;
     $penjualan->no_hp = $no_hp;
     $penjualan->warna_motor = $warna;
+    $penjualan->is_edit = 0;
 
     $penjualan->save();
 
@@ -623,6 +701,30 @@ class AdminPenjualanController extends Controller
       ], 404);
     }
   }
+
+
+
+  public function getDataRefund($id)
+  {
+    try {
+      $refund = DetailPembayaranModel::with(['penjualan' => function ($q) {
+        $q->with('motor');
+      }])->find($id);
+      return response()->json([
+        'status' => 'success',
+        'data'   => $refund
+      ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => $e->getMessage()
+      ], 404);
+    }
+  }
+
+
+
+
 
   public function getDataPenjualan($id)
   {

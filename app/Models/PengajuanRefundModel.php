@@ -13,19 +13,24 @@ class PengajuanRefundModel extends Model
     protected $guarded = ['id'];
 
 
-    public function penjualan()
-    {
-        return $this->belongsTo(Penjualan::class, 'id_penjualan');
-    }
+    // public function penjualan()
+    // {
+    //     return $this->belongsTo(Penjualan::class, 'id_penjualan');
+    // }
 
     public function pembayaran()
     {
-        return $this->belongsTo(Pembayaran::class, 'id_penjualan', 'id_penjualan');
+        return $this->belongsTo(Pembayaran::class, 'id_detail_pembayaran', 'id_detail_pembayaran');
     }
 
     public function manual()
     {
         return $this->belongsTo(ManualTransferModel::class, 'id', 'id_pengajuan');
+    }
+
+    public function detailPembayaran()
+    {
+        return $this->belongsTo(DetailPembayaranModel::class,  'id_detail_pembayaran', 'id');
     }
 }
 
