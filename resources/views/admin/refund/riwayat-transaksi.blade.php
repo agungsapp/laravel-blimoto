@@ -11,11 +11,18 @@
 												</div>
 										</div>
 										<div class="card-body">
-												<form action="" method="post">
+												<form action="{{ route('admin.refund.manual-refund.store') }}" method="POST">
+														@csrf
+														{{-- input hidden --}}
+														<input type="hidden" name="status_refund" value="refund_penuh">
+														<input type="hidden" name="idp" value="{{ $penuh->id }}">
+														{{-- input hidden end --}}
+
 														<div class="row">
 																<div class="form-group col-md-6">
-																		<label for="konsumen">Nama Konsumen</label>
-																		<input name="konsumen" value="{{ $penuh->nama_konsumen }}" type="text" class="form-control" readonly>
+																		<label for="namaKonsumen">Nama Konsumen</label>
+																		<input name="namaKonsumen" value="{{ $penuh->nama_konsumen }}" type="text" class="form-control"
+																				readonly>
 																</div>
 																<div class="form-group col-md-6">
 																		<label for="metode_pembayaran">Metode Pembayaran</label>
@@ -42,13 +49,45 @@
 																		<label class="form-check-label" for="opsiDp">Opsi dp berbeda</label>
 																</div>
 														</div>
+
+
+
 														<div class="row">
+																<div class="form-group col-md-4">
+																		<label for="input-hasil">Nama Rekening Bank</label>
+																		<input name="konsumen" type="text" class="form-control" placeholder="Nama konsumen"
+																				value="{{ old('konsumen') }}" readonly>
+																</div>
+																<div class="form-group col-md-4">
+																		<label>Rekening Bank</label>
+																		<select id="bank-select" name="bank" class="form-control select2" style="width: 100%;">
+																				<option value="" selected>-- Pilih bank --</option>
+																				<option value=""></option>
+																		</select>
+																</div>
+																<div class="form-group col-md-4">
+																		<label for="norek">Nomor Rekening</label>
+																		<input name="norek" type="text" class="form-control" placeholder="masukan nomor rekening"
+																				id="norek" value="{{ old('norek') }}">
+																</div>
+														</div>
+														{{-- pengajuan area --}}
+														<div class="row">
+																{{-- <div class="form-group col-md-10">
+																		<label for="input-hasil">Nominal Refund</label>
+																		<input name="nominal" type="number" class="form-control" placeholder="Nama nominal"
+																				value="{{ old('nominal') ?? $pembayaran->jumlah_bayar }}">
+																</div> --}}
 																<div class="form-floating col-12">
 																		<label for="catatan">Catatan :</label>
 																		<textarea class="form-control" placeholder="Catatan untuk CEO" name="catatan" id="catatan"></textarea>
 																</div>
 														</div>
-														<button class="btn btn-success btn-block mt-3">Ajukan</button>
+
+
+
+														<button class="btn btn-success btn-block mt-3" disabled type="button"
+																onclick="alert('fitur ini belum tersedia 🙏')">Ajukan</button>
 												</form>
 										</div>
 								</div>
@@ -73,11 +112,19 @@
 																		<th>Periode</th>
 																		<th>Tujuan</th>
 																		<th>Tanggal Pembayaran</th>
-																		<th width=100px">Action</th>
+																		<th width="150px">Action</th>
 																</tr>
 														</thead>
 														<tbody>
+																@php
+																		$totalBayar = 0;
+																		$lastTagihan = 0;
+																@endphp
 																@foreach ($pembayarans as $index => $p)
+																		@php
+																				$totalBayar += (int) $p->jumlah_bayar;
+																				$lastTagihan = $p->sisa_bayar;
+																		@endphp
 																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																				<td>{{ $loop->iteration }}</td>
 																				<td>{{ $p->kode_bayar }}</td>
@@ -88,17 +135,24 @@
 																				<td>{{ $p->created_at->isoFormat('D MMMM YYYY, HH.mm') }}</td>
 																				<td>
 
+																						@if ($p->refund?->count() == 1)
+																								<span class="btn btn-success">{{ $p->refund->status_pengajuan }}</span>
+																						@else
+																								<a href="{{ route('admin.refund.manual-refund.show', $p->id) }}"
+																										class="btn btn-block btn-warning mb-2">
+																										refund </a>
+																						@endif
 
-
-																						@if (optional($p->pembayaran)->id != null)
+																						{{-- @if (optional($p->pembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
 																								@endphp
 																								@if ($refundStatus === 'menunggu' || is_null($refundStatus))
 																										<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
 																												data-id="{{ $p->id }}"
-																												data-url="{{ route('admin.penjualan.getDataRefund', ['id' => $p->id]) }}" data-toggle="modal"
-																												data-target="#modalRefund" {{ $refundStatus === 'menunggu' ? 'disabled' : '' }}>
+																												data-url="{{ route('admin.penjualan.getDataRefund', ['id' => $p->id]) }}"
+																												data-toggle="modal" data-target="#modalRefund"
+																												{{ $refundStatus === 'menunggu' ? 'disabled' : '' }}>
 																												{{ $refundStatus ?? 'Refund' }}
 																										</button>
 																								@else
@@ -106,11 +160,31 @@
 																												href="{{ route('admin.refund.status.index') }}">Refund
 																												status</a>
 																								@endif
-																						@endif
+																						@endif --}}
 
 																				</td>
 																		</tr>
 																@endforeach
+
+																<tr>
+																		<td colspan="2"> <strong>
+																						Total dibayarkan :
+																				</strong>
+																		</td>
+																		<td colspan="2"> <strong>
+																						{{ Str::rupiah($totalBayar) }}
+																				</strong>
+																		</td>
+																		<td colspan="2"> <strong>
+																						Sisa Tagihan :
+																				</strong>
+																		</td>
+																		<td colspan="2"> <strong>
+																						{{ Str::rupiah($lastTagihan) }}
+																				</strong>
+																		</td>
+																</tr>
+
 														</tbody>
 												</table>
 										</div>
@@ -172,14 +246,14 @@
 												</div>
 												<div class="modal-footer">
 														<div class="d-flex justify-content-between col-12">
-																<div class="mr-auto">
+																{{-- <div class="mr-auto">
 																		<a href="{{ route('admin.refund.manual-refund.index') }}" class="btn btn-outline-danger">Ajukan
 																				refund manual</a>
 																</div>
 																<div>
-																		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																		<button type="submit" class="btn btn-success">Ajukan Refund</button>
-																</div>
+																</div> --}}
+																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-success">Ajukan Refund</button>
 														</div>
 												</div>
 
@@ -193,6 +267,90 @@
 
 
 @push('script')
+		{{-- sc get api rekening --}}
+		<script>
+				$(document).ready(function() {
+
+						$('.select2').select2()
+						// Fetch bank data
+						$.ajax({
+								url: "/api/get-bank",
+								type: "GET",
+								success: function(response) {
+										if (response.status) {
+												response.data.forEach(function(bank) {
+														$('#bank-select').append($('<option>', {
+																value: bank.kodeBank,
+																text: bank.namaBank
+														}));
+												});
+										} else {
+												$('#bank-select').append($('<option>', {
+														value: "",
+														text: "data bank tidak ditemukan"
+												}));
+												alert("Gagal mengambil data bank, periksa koneksi internet anda !");
+										}
+								},
+								error: function(e) {
+										alert("Error saat menghubungi API: " + e.message);
+								}
+						});
+
+						// Disable submit button initially
+						$('button[type="submit"]').prop('disabled', true);
+
+						// Function to check account
+						function checkAccount() {
+								var bank = $('#bank-select').val();
+								var norek = $('#norek').val();
+
+								if (bank && norek) {
+										$.ajax({
+												url: "/api/get-acc",
+												type: "POST",
+												data: {
+														bank: bank,
+														norek: norek
+												},
+												headers: {
+														'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+												},
+												success: function(response) {
+														if (response.status && response.data) {
+																// Fill the consumer name with account name from response
+																$('input[name="konsumen"]').val(response.data.accountname);
+																// Enable submit button if there's a consumer name
+																$('button[type="submit"]').prop('disabled', false);
+														}
+												},
+												error: function(xhr, status, error) {
+														console.error("Error: " + status + " " + error);
+												}
+										});
+								}
+						}
+
+						// Event handler for bank selection change
+						$('#bank-select').change(function() {
+								checkAccount();
+						});
+
+						// Typing delay for norek input
+						var typingTimer;
+						var doneTypingInterval = 1000; // 1 second
+
+						// Event handlers for norek input
+						$('#norek').on('keyup', function() {
+								clearTimeout(typingTimer);
+								typingTimer = setTimeout(checkAccount, doneTypingInterval);
+						}).on('keydown', function() {
+								clearTimeout(typingTimer);
+						});
+				});
+		</script>
+
+
 		{{--  SC MODAL REFUND --}}
 		<script>
 				$(document).ready(function() {

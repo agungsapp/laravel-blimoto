@@ -30,7 +30,7 @@
 														</thead>
 														<tbody>
 																@foreach ($penjualan as $index => $p)
-																		{{-- @dd($p->detail_pembayaran) --}}
+																		{{-- @dd($p->detailPembayaran) --}}
 																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																				<td>{{ $loop->iteration }}</td>
 																				<td>{{ $p->nama_konsumen }}</td>
@@ -65,7 +65,8 @@
 																								</div>
 																						@endif
 
-																						@if (optional($p->detailPembayaran->pembayaran)->id != null)
+																						{{-- note : fitur refund dimatikan di pindah ke detail karna berkaitan has many transaksi --}}
+																						{{-- @if (optional($p->detailPembayaran[0]->pembayaran)->id != null)
 																								@php
 																										$refundStatus = optional($p->refund)->status_pengajuan;
 																								@endphp
@@ -81,7 +82,7 @@
 																												href="{{ route('admin.refund.status.index') }}">Refund
 																												status</a>
 																								@endif
-																						@endif
+																						@endif --}}
 																				</td>
 																		</tr>
 																@endforeach

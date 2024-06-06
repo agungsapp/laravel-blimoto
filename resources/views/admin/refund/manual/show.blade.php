@@ -20,7 +20,7 @@
 										<form action="{{ route('admin.refund.manual-refund.store') }}" method="post">
 												@csrf
 												<div class="card-body">
-														<input type="hidden" name="idp" value="{{ $penjualan->id }}">
+														<input type="text" name="idp" value="{{ $pembayaran->id }}">
 														<div class="row">
 																<div class="form-group col-md-10">
 																		<label for="input-hasil">Nama Lengkap Konsumen</label>
@@ -49,7 +49,7 @@
 																<div class="form-group col-md-10">
 																		<label for="input-hasil">Nominal Refund</label>
 																		<input name="nominal" type="number" class="form-control" placeholder="Nama nominal"
-																				value="{{ old('nominal') ?? $penjualan->dp }}">
+																				value="{{ old('nominal') ?? $pembayaran->jumlah_bayar }}">
 																</div>
 																<div class="form-floating col-10">
 																		<label for="catatan">Catatan :</label>

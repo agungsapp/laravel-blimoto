@@ -16,7 +16,9 @@ class AdminPengajuanRefundController extends Controller
     public function index()
     {
         $data = [
-            'refunds' => PengajuanRefundModel::orderBy('created_at', 'desc')->get()->reverse()
+            'refunds' => PengajuanRefundModel::with(['detailPembayaran' => function ($q) {
+                $q->with('penjualan');
+            }])->orderBy('created_at', 'desc')->get()->reverse()
         ];
 
         // dd($data['refunds'][0]->pembayaran->metode_pembayaran);

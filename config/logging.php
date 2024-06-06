@@ -128,6 +128,11 @@ return [
             'path' => storage_path('logs/penjualan.log'),
             'level' => 'debug',
         ],
+        'refund' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/refund.log'),
+            'level' => 'debug',
+        ],
     ],
 
 ];

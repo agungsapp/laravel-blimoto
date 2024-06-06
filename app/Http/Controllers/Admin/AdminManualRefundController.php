@@ -9,6 +9,7 @@ use App\Models\PengajuanRefundModel;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminManualRefundController extends Controller
@@ -80,13 +81,15 @@ class AdminManualRefundController extends Controller
     public function riwayatTransaksi(string $id)
     {
 
-        $detailTransaksi = DetailPembayaranModel::where('id_penjualan', $id)->get();
+
+
+        $detailTransaksi = DetailPembayaranModel::with('refund')->where('id_penjualan', $id)->get();
         $dataRefund = Penjualan::with('motor')
             ->withSum('detailPembayaran', 'jumlah_bayar')
             ->find($id);
 
 
-        // return response()->json($dataRefund);
+        // return response()->json($detailTransaksi);
 
         $data = [
             'judulHalaman' => 'Riwayat Transaksi Pembayaran',
@@ -135,14 +138,14 @@ class AdminManualRefundController extends Controller
         }
 
         // Cek apakah sudah ada pengajuan refund untuk penjualan ini
-        $cekPengajuan = DetailPembayaranModel::where('id_penjualan', $request->idp)
+        $cekPengajuan = DetailPembayaranModel::where('id', $request->idp)
             ->whereHas('refund')
             ->first();
         if ($cekPengajuan) {
             flash()->addError("Data refund sudah ada dan masih dalam status " . $cekPengajuan->status_pengajuan . "!");
             return redirect()->back()->withInput();
         }
-        $cekManual = ManualTransferModel::where('id_penjualan', $request->idp)->first();
+        $cekManual = ManualTransferModel::where('id_detail_pembayaran', $request->idp)->first();
         if ($cekManual) {
             flash()->addError("Data refund sudah ada !");
             return redirect()->back()->withInput();
@@ -150,21 +153,22 @@ class AdminManualRefundController extends Controller
 
         DB::beginTransaction();
         try {
-            $pengajuan = PengajuanRefundModel::create([
-                'id_penjualan' => $request->idp,
-                'nominal' => $request->nominal,
-                'metode_pembayaran' => 'bank_transfer',
-                'status_pengajuan' => 'menunggu',
-                'catatan' => $request->catatan,
-            ]);
+            $pengajuan = new PengajuanRefundModel();
+            $pengajuan->id_detail_pembayaran = $request->idp;
+            $pengajuan->nominal = $request->nominal;
+            $pengajuan->metode_pembayaran = 'bank_transfer';
+            $pengajuan->status_pengajuan = 'menunggu';
+            $pengajuan->status_refund = $request->status_refund ?? 'refund_sebagian';
+            $pengajuan->catatan = $request->catatan;
+            $pengajuan->save();
 
             $manual = ManualTransferModel::create([
-                'id_penjualan' => $request->idp,
+                'id_detail_pembayaran' => $request->idp,
                 'id_pengajuan' => $pengajuan->id,
                 'nama_rekening' => $request->konsumen,
+                'status' => 'pending',
                 'kode' => $request->bank,
                 'norek' => $request->norek,
-
             ]);
 
             DB::commit();
@@ -172,6 +176,7 @@ class AdminManualRefundController extends Controller
             return redirect()->back();
         } catch (\Throwable $th) {
             // throw $th;
+            Log::channel('refund')->info('ERROR PENGAJUAN MANUAL REFUND : ' . $th->getMessage());
             DB::rollback();
             flash()->addError("Terjadi kesalahan saat menyimpan data!");
             return redirect()->back();
@@ -187,7 +192,7 @@ class AdminManualRefundController extends Controller
     public function show($id)
     {
         $data = [
-            'penjualan' => Penjualan::find($id),
+            'pembayaran' => DetailPembayaranModel::find($id),
             'judulHalaman' => 'Form Data Bank Konsumen'
         ];
         // dd($data);

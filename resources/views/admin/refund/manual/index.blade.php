@@ -38,7 +38,7 @@
 																		<th>Leasing</th>
 																		<th>Tanggal Dibuat</th>
 																		<th>Tanggal Hasil</th>
-																		<th width=100px">Action</th>
+																		<th width="150px">Action</th>
 																</tr>
 														</thead>
 														<tbody>
@@ -58,7 +58,8 @@
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				<td>{{ $p->tanggal_hasil }}</td>
 																				<td>
-																						<a href="{{ route('admin.refund.riwayat.transaksi', $p->id) }}" class="btn btn-success">Riwayat
+																						<a href="{{ route('admin.refund.riwayat.transaksi', $p->id) }}"
+																								class="btn btn-block btn-success mb-1">Detail
 																								Transaksi</a>
 																						{{-- @if (optional($p->detailPembayaran)->id != null)
 																								@php

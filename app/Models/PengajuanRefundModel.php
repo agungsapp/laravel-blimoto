@@ -30,7 +30,7 @@ class PengajuanRefundModel extends Model
 
     public function detailPembayaran()
     {
-        return $this->belongsTo(DetailPembayaranModel::class, 'id', 'id_detailPembayaran');
+        return $this->belongsTo(DetailPembayaranModel::class,  'id_detail_pembayaran', 'id');
     }
 }
 

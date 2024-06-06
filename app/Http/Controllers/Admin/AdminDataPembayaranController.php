@@ -18,7 +18,7 @@ class AdminDataPembayaranController extends Controller
    */
   public function index(Request $request)
   {
-    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund')
+    $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
       ->whereHas('detailPembayaran', function ($query) {
         $query->where('status', 'pelunasan')
           ->whereHas('pembayaran', function ($query) {
@@ -71,7 +71,7 @@ class AdminDataPembayaranController extends Controller
 
   public function sudahBayarTj()
   {
-    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales', 'refund'])
+    $data = Penjualan::with(['motor', 'leasing', 'hasil', 'kota', 'sales'])
       ->whereHas('detailPembayaran', function ($query) {
         $query->where('status', 'tanda')
           ->whereHas('pembayaran', function ($query) {

@@ -1,3 +1,4 @@
+{{-- @dd($refunds) --}}
 @extends('admin.layouts.main')
 @section('content')
 		<section class="content">
@@ -28,7 +29,7 @@
 																		@foreach ($refunds as $index => $refund)
 																				<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																						<td>{{ $loop->iteration }}</td>
-																						<td>{{ $refund->penjualan->nama_konsumen }}</td>
+																						<td>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</td>
 																						<td>{{ Str::rupiah($refund->nominal) }}</td>
 
 																						<td>
@@ -76,7 +77,7 @@
 																																<div class="modal-body">
 																																		<input type="hidden" name="status_pengajuan" value="proses">
 																																		<p>Anda akan menyetujui proses pengembalian dana konsumen
-																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
+																																				<strong>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</strong> sejumlah
 																																				<strong class="text-success">{{ Str::rupiah($refund->nominal) }}</strong> tindakan
 																																				ini tidak dapat dibatalkan.
 																																		</p>
@@ -105,7 +106,7 @@
 																																<div class="modal-body">
 																																		<input type="hidden" name="status_pengajuan" value="ditolak">
 																																		<p>Anda akan menolak proses pengembalian dana konsumen
-																																				<strong>{{ $refund->penjualan->nama_konsumen }}</strong> sejumlah
+																																				<strong>{{ $refund->detailPembayaran->penjualan->nama_konsumen }}</strong> sejumlah
 																																				<strong class="text-danger">{{ Str::rupiah($refund->nominal) }}</strong> tindakan
 																																				ini tidak dapat dibatalkan.
 																																		</p>
