@@ -37,13 +37,27 @@
 														{{ $promo->judul }}.
 												</h3>
 												<ul class="post-social">
-														<li>{{ date('d F Y', strtotime($promo->tanggal_promo)) }} | Admin <a href="/"
-																		target="_blank">blimoto.com</a></li>
+														<li>
+																@if ($promo->tanggal_promo)
+																		Berlaku dari tanggal
+																		<strong>{{ \Carbon\Carbon::parse($promo->tanggal_promo)->translatedFormat('d F Y') }}</strong> <br />
+																		hingga <strong>{{ \Carbon\Carbon::parse($promo->tanggal_berakhir)->translatedFormat('d F Y') }}</strong>
+																@else
+																		Tanggal tidak tersedia
+																@endif
+
+														</li>
+
 												</ul>
 												<div class="body">
 														{!! $promo->deskripsi !!}
 												</div>
-
+												<div class="footer mt-5">
+														<a href="https://wa.me/{{ $promo->nomor ?? '6282322222023' }}?text=Halo%20Admin,%20apakah%20promo%20ini%20masih%20ada?"
+																target="_blank" class="btn btn-danger"><i class="fa fa-whatsapp" aria-hidden="true"></i> <span
+																		class="ms-2">Hubungi
+																		Sekarang</span></a>
+												</div>
 										</div>
 								</div>
 						</div>
@@ -54,7 +68,7 @@
 		<!-- recent blog start -->
 		<section class="section-big-py-space blog-page">
 				<div class="container">
-						<h2 class="title8 mb-2">Promo Terbaru</h2>
+						<h2 class="title8 mb-2">Promo Yang Lain</h2>
 						<div class="col-xl-12">
 
 								@foreach ($recents as $recent)
@@ -71,7 +85,7 @@
 												<div class="col-xl-6 col-sm-12">
 														<div class="blog-right">
 																<div>
-																		<a href="javascript:void(0)">
+																		<a href="{{ route('promosi.show', $recent->id) }}">
 																				<h4>
 																						{{ $recent->judul }}
 																				</h4>
