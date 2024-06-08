@@ -14,5 +14,6 @@ class Promo extends Model
     'thumbnail',
     'tanggal_promo',
     'tanggal_berakhir',
+    'nomor'
   ];
 }

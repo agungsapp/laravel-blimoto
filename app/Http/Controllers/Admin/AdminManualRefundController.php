@@ -88,7 +88,6 @@ class AdminManualRefundController extends Controller
             ->withSum('detailPembayaran', 'jumlah_bayar')
             ->find($id);
 
-
         // return response()->json($detailTransaksi);
 
         $data = [

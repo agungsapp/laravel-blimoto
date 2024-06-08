@@ -48,6 +48,7 @@ class AdminPromoController extends Controller
       'tanggal_promo' => 'required',
       'tanggal_berakhir' => 'required',
       'deskripsi' => 'required',
+      'nomor' => 'required',
       'gambar_promo' => 'required|mimes:jpeg,png,jpg,webp',
     ]);
 
@@ -84,6 +85,7 @@ class AdminPromoController extends Controller
         'thumbnail' => $gambarName,
         'tanggal_promo' => $tanggalPromo,
         'tanggal_berakhir' => $tanggalBerakhir,
+        'nomor' => $request->input('nomor'),
       ]);
 
       $gambar->move(public_path('assets/images/custom/promo/'), $gambarName);
@@ -132,6 +134,7 @@ class AdminPromoController extends Controller
       'judul' => 'required',
       'tanggal_promo' => 'required',
       'tanggal_berakhir' => 'required',
+      'nomor' => 'required',
       'deskripsi' => 'required',
     ]);
 
@@ -176,6 +179,7 @@ class AdminPromoController extends Controller
         'tanggal_promo' => $tanggalPromo,
         'tanggal_berakhir' => $tanggalBerakhir,
         'deskripsi' => $request->input('deskripsi'),
+        'nomor' => $request->input('nomor'),
       ]);
 
       flash()->addSuccess("Promo $gambar_promo->judul berhasil diperbarui");
