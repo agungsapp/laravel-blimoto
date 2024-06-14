@@ -53,10 +53,10 @@ class UserBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(string $slug)
     {
         $data = [
-            'blog' => Blog::where('id', $id)->first(),
+            'blog' => Blog::where('slug', $slug)->first(),
             'recents' => Blog::orderBy('created_at', 'desc')->limit(5)->get(),
         ];
 
