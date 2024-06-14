@@ -35,7 +35,7 @@
 												<div class="row blog-media">
 														<div class="col-xl-6">
 																<div class="blog-left">
-																		<a href="{{ route('blog.show', $blog->id) }}"><img
+																		<a href="{{ route('blog.show', $blog->slug) }}"><img
 																						src="{{ asset('assets') }}/images/thumbnail-blog/{{ $blog->thumbnail }}" class="img-fluid w-100"
 																						alt="{{ $blog->thumbnail }}" /></a>
 																		<div class="date-label">26 nov 2019</div>
@@ -44,7 +44,7 @@
 														<div class="col-xl-6">
 																<div class="blog-right">
 																		<div>
-																				<a href="{{ route('blog.show', $blog->id) }}">
+																				<a href="{{ route('blog.show', $blog->slug) }}">
 																						<h4>
 																								{{ $blog->judul }}
 																						</h4>
@@ -73,7 +73,7 @@
 																@foreach ($recents as $recent)
 																		<li>
 																				<div class="media">
-																						<a href="{{ route('blog.show', $recent->id) }}">
+																						<a href="{{ route('blog.show', $recent->slug) }}">
 																								<img class="img-fluid" src="{{ asset('assets') }}/images/thumbnail-blog/{{ $recent->thumbnail }}"
 																										alt="{{ $recent->thumbnail }}" />
 																						</a>
