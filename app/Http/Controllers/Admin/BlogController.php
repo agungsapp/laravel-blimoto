@@ -47,11 +47,13 @@ class BlogController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'slug' => 'required',
             'cuplikan' => 'required',
             'deskripsi' => 'required',
             'thumbnail' => 'required',
         ], [
             'judul.required' => 'judul postingan tidak boleh kosong !',
+            'slug.required' => 'slug postingan tidak boleh kosong !',
             'cuplikan.required' => 'cuplikan postingan tidak boleh kosong !',
             'deskripsi.required' => 'deskripsi postingan tidak boleh kosong !',
             'thumbnail.required' => 'thumbnail postingan tidak boleh kosong !',
@@ -85,6 +87,7 @@ class BlogController extends Controller
 
             $blog = Blog::create([
                 'judul' => $request->judul,
+                'slug' => $request->slug,
                 'deskripsi' => $deskripsi,
                 'cuplikan' => $request->cuplikan,
                 'thumbnail' => $gambarName,
@@ -105,10 +108,10 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(string $slug)
     {
         $data = [
-            'blog' => Blog::where('id', $id)->first(),
+            'blog' => Blog::where('slug', $slug)->first(),
         ];
 
         // dd($data['blog'][0]);
@@ -149,10 +152,12 @@ class BlogController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'slug' => 'required',
             'cuplikan' => 'required',
             'deskripsi' => 'required',
         ], [
             'judul.required' => 'Judul postingan tidak boleh kosong!',
+            'slug.required' => 'slug postingan tidak boleh kosong!',
             'cuplikan.required' => 'cuplikan postingan tidak boleh kosong !',
             'deskripsi.required' => 'Deskripsi postingan tidak boleh kosong!',
         ]);
@@ -200,6 +205,7 @@ class BlogController extends Controller
         }
 
         $blog->judul = $request->input('judul');
+        $blog->slug = $request->input('slug');
         $blog->cuplikan = $request->input('cuplikan');
         $blog->deskripsi = $deskripsi;
         $blog->save();

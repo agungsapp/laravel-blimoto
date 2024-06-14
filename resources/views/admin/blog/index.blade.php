@@ -20,6 +20,13 @@
 																name="judul" placeholder="masukan judul postingan ...">
 												</div>
 
+												{{-- slug post --}}
+												<div class="form-group">
+														<label for="slug">Slug Postingan</label>
+														<input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
+																placeholder="masukan slug postingan ..." required readonly>
+												</div>
+
 												{{-- cuplikan --}}
 												<div class="form-group">
 														<label for="cuplikan">Cuplikan Postingan</label>
@@ -91,7 +98,7 @@
 																		<td>
 																				<div class="d-flex justify-content-between">
 																						<a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-warning">Edit</a>
-																						<a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-success">Lihat</a>
+																						<a href="{{ route('admin.blog.show', $blog->slug) }}" class="btn btn-success">Lihat</a>
 																						<form action="{{ route('admin.blog.destroy', $blog->id) }}" method="post">
 																								@csrf
 																								@method('DELETE')
@@ -150,6 +157,19 @@
 				});
 
 				$(document).ready(function() {
+						$('#judul').on('input', function() {
+								let judul = $(this).val();
+								let slug = judul.toLowerCase();
+
+								// Hapus karakter yang tidak diinginkan
+								slug = slug.replace(/[^\w\s-]/g, ''); // Hapus karakter selain huruf, angka, spasi, dan tanda hubung
+								slug = slug.replace(/[\s-]+/g, '-'); // Ganti spasi dan tanda hubung berlebih dengan tanda hubung tunggal
+
+								$('#slug').val(slug);
+						});
+
+
+
 						$('.show_confirm').click(function(event) {
 								var form = $(this).closest("form");
 								var name = $(this).data("name");

@@ -60,16 +60,16 @@
 										<div class="row blog-media">
 												<div class="col-xl-6 col-sm-12">
 														<div class="blog-left">
-																<a href="{{ route('blog.show', $recent->id) }}"><img
+																<a href="{{ route('blog.show', $recent->slug) }}"><img
 																				src="{{ asset('assets') }}/images/thumbnail-blog/{{ $recent->thumbnail }}" class="img-fluid w-100"
 																				alt="{{ $recent->thumbnail }}" /></a>
-																<div class="date-label">26 nov 2019</div>
+																<div class="date-label">{{ $recent->created_at->isoFormat('D MMMM YYYY') }}</div>
 														</div>
 												</div>
 												<div class="col-xl-6 col-sm-12">
 														<div class="blog-right">
 																<div>
-																		<a href="javascript:void(0)">
+																		<a href="{{ route('blog.show', $recent->slug) }}">
 																				<h4>
 																						{{ $recent->judul }}
 																				</h4>
