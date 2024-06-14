@@ -553,6 +553,19 @@
 												</a>
 										</li>
 
+
+										@if (Auth::guard('admin')->check())
+												<li class="nav-item">
+														<a href="{{ route('admin.artisan.index') }}"
+																class="nav-link {{ \Route::is('admin.artisan.*') ? 'active' : '' }}">
+																<i class="fa fa-cogs nav-icon" aria-hidden="true"></i>
+																<p>
+																		Artisan Command
+																</p>
+														</a>
+												</li>
+										@endif
+
 										<li class="nav-item">
 												<a href="{{ route('admin.logout') }}" class="nav-link">
 														<i class="nav-icon fas fa-sign-out-alt"></i>
@@ -594,6 +607,8 @@
 														<p>
 																Refund Dana
 																<i class="right fas fa-angle-left"></i>
+																{{-- <span class="right badge badge-danger"></span> --}}
+
 														</p>
 												</a>
 
@@ -809,6 +824,8 @@
 														</p>
 												</a>
 										</li>
+
+
 										<li class="nav-item">
 												<a href="{{ route('admin.logout') }}" class="nav-link">
 														<i class="nav-icon fas fa-sign-out-alt"></i>

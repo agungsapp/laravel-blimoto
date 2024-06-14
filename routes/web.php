@@ -13,6 +13,7 @@
 // admin
 
 use App\Http\Controllers\Admin\AdminAreaManagerController;
+use App\Http\Controllers\Admin\AdminArtisanController;
 use App\Http\Controllers\Admin\AdminCeoController;
 use App\Http\Controllers\Admin\AdminCicilanMotorController;
 use App\Http\Controllers\Admin\AdminColorController;
@@ -171,6 +172,23 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::get('login', [LoginAdminController::class, 'index']);
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
+
+
+
+    // artisan area
+    Route::prefix('artisan')->name('artisan.')->group(function () {
+        Route::get('index', [AdminArtisanController::class, 'index'])->name('index');
+        Route::get('cache', [AdminArtisanController::class, 'cache'])->name('cache');
+        Route::get('view', [AdminArtisanController::class, 'view'])->name('view');
+        Route::get('route', [AdminArtisanController::class, 'route'])->name('route');
+        Route::get('config', [AdminArtisanController::class, 'config'])->name('config');
+        Route::get('storage', [AdminArtisanController::class, 'storage'])->name('storage');
+        Route::get('all', [AdminArtisanController::class, 'all'])->name('all');
+    });
+    // artisan area
+
+
+
 
     Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
         Route::resource('dashboard', DashboardController::class);
