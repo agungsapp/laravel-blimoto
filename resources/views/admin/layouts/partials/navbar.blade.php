@@ -19,6 +19,15 @@
 				<!-- Messages Dropdown Menu -->
 
 				<!-- Notifications Dropdown Menu -->
+				@if (Auth::guard('ceo')->check())
+						<x-notifikasi-lonceng></x-notifikasi-lonceng>
+				@endif
+				<!-- Notifications Dropdown Menu End -->
+
+
+
+
+
 
 				<li class="nav-item">
 						<a class="nav-link" data-widget="fullscreen" href="#" role="button">
