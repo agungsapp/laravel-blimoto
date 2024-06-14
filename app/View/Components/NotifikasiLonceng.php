@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\AksesPenjualanModel;
+use App\Models\PengajuanRefundModel;
 use Illuminate\View\Component;
 
 class NotifikasiLonceng extends Component
@@ -26,11 +27,14 @@ class NotifikasiLonceng extends Component
     {
         $total = 0;
         $pengajuanAkses = AksesPenjualanModel::where('status', 'pengajuan')->get();
+        $pengajuanRefund = PengajuanRefundModel::where('status_pengajuan', 'menunggu')->get();
         $total += $pengajuanAkses->count();
+        $total += $pengajuanRefund->count();
 
         return view('components.notifikasi-lonceng', [
             'total' => $total,
-            'pengajuans' => $pengajuanAkses,
+            'akses' => $pengajuanAkses,
+            'refund' => $pengajuanAkses,
         ]);
     }
 }

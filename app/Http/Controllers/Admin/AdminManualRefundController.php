@@ -172,7 +172,7 @@ class AdminManualRefundController extends Controller
 
             DB::commit();
             flash()->addSuccess("Berhasil  membuat data pengajuan refund !");
-            return redirect()->back();
+            return redirect()->to(route('admin.refund.status.index'));
         } catch (\Throwable $th) {
             // throw $th;
             Log::channel('refund')->info('ERROR PENGAJUAN MANUAL REFUND : ' . $th->getMessage());
