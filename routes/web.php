@@ -46,6 +46,8 @@ use App\Http\Controllers\Admin\AdminSlikController;
 use App\Http\Controllers\Admin\AdminSPKController;
 use App\Http\Controllers\Admin\AdminStatusBiController;
 use App\Http\Controllers\Admin\AdminStatusRefund;
+use App\Http\Controllers\Admin\AdminTagihanController;
+use App\Http\Controllers\Admin\AdminTagihanSudahBayarController;
 use App\Http\Controllers\Admin\AdminTypeSlikController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
@@ -229,6 +231,12 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('/penjualan-wilayah', AdminLaporanPenjualanWilayahController::class);
             Route::post('/cetak-laporan', [AdminLaporanPenjualanWilayahController::class, 'cetakLaporan'])->name('cetak');
             Route::get('/cetak-test', [AdminLaporanPenjualanWilayahController::class, 'testCetak'])->name('test-cetak');
+            Route::post('/export/excel', [AdminLaporanPenjualanWilayahController::class, 'exportLaporanExcel'])->name('export-laporan-excel');
+        });
+
+        Route::prefix('laporan-tagihan')->name('laporan-tagihan.')->group(function () {
+            Route::resource('belum-bayar', AdminTagihanController::class);
+            Route::resource('sudah-bayar', AdminTagihanSudahBayarController::class);
         });
 
         Route::prefix('refund')->name('refund.')->group(function () {

@@ -134,7 +134,7 @@
 																								<select id="motor-input" name="warna_motor" class="form-control select2" style="width: 100%;">
 																										<option value="">-- Pilih warna motor --</option>
 																										@foreach ($colors as $c)
-																												<option value="{{ $c->nama }}" {{ old('motor') == $c->nama ? 'selected' : '' }}>
+																												<option value="{{ $c->nama }}" {{ old('warna_motor') == $c->nama ? 'selected' : '' }}>
 																														{{ $c->nama }}</option>
 																										@endforeach
 																								</select>

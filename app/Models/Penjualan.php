@@ -87,4 +87,45 @@ class Penjualan extends Model
     return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan')
       ->where('status', $status); // Tambahkan kondisi where di sini
   }
+
+
+
+
+  // Method untuk mengambil cicilan yang sesuai
+  public function cicilanMotor()
+  {
+    // Ambil hanya cicilan yang sesuai dengan kriteria
+    return $this->motor->cicilanMotor()
+      ->where('tenor', $this->tenor)
+      ->where('id_leasing', $this->id_lising)
+      ->where('id_lokasi', $this->id_kota)
+      ->where('id_motor', $this->id_motor)
+      ->first(); // Mengambil hanya cicilan yang sesuai
+  }
+
+  // Accessor untuk mengambil cicilan yang sesuai
+  public function getCicilanYangSesuaiAttribute()
+  {
+    // Menggunakan method cicilanMotor untuk mendapatkan cicilan yang sesuai
+    return $this->cicilanMotor();
+  }
+
+
+
+  public function diskonMotor()
+  {
+    // Ambil hanya cicilan yang sesuai dengan kriteria
+    return $this->motor->diskonMotor()
+      ->where('tenor', $this->tenor)
+      ->where('id_leasing', $this->id_lising)
+      ->where('id_lokasi', $this->id_kota)
+      ->where('id_motor', $this->id_motor)
+      ->first(); // Mengambil hanya cicilan yang sesuai
+  }
+
+  public function getDiskonMotorYangSesuaiAttribute()
+  {
+    // Menggunakan method cicilanMotor untuk mendapatkan cicilan yang sesuai
+    return $this->diskonMotor();
+  }
 }

@@ -83,24 +83,7 @@
 																										data-target="#modalDetail">
 																										Detail
 																								</button>
-																								@if (optional($p->pembayaran)->id != null)
-																										@php
-																												$refundStatus = optional($p->refund)->status_pengajuan;
-																										@endphp
-																										@if ($refundStatus === 'menunggu' || is_null($refundStatus))
-																												<button type="button" class="btn btn-warning w-100 load-refund-modal mb-1"
-																														data-id="{{ $p->id }}"
-																														data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
-																														data-toggle="modal" data-target="#modalRefund"
-																														{{ $refundStatus === 'menunggu' ? 'disabled' : '' }}>
-																														{{ $refundStatus ?? 'Refund' }}
-																												</button>
-																										@else
-																												<a class="btn btn-success btn-block mb-1"
-																														href="{{ route('admin.refund.status.index') }}">Refund
-																														status</a>
-																										@endif
-																								@endif
+
 																								@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
 																										<button type="button" class="btn btn-primary w-100 load-update-modal mb-1"
 																												data-id="{{ $p->id }}"
@@ -169,8 +152,7 @@
 																						<div class="form-group col-md-6">
 																								<label for="input-bpkb">BPKB/STNK a.n</label>
 																								<input name="bpkb" type="text" class="form-control"
-																										placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb"
-																										value="{{ old('bpkb') }}">
+																										placeholder="Masukan BPKB/STNK a.n (Tidak wajib)" id="input-bpkb" value="{{ old('bpkb') }}">
 																						</div>
 																						<div class="form-group col-md-6">
 																								<label for="input-nomor-hp">Nomor HP</label>

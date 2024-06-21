@@ -75,32 +75,32 @@ class Motor extends Model
 
 
     // logika data : 
-    public static function getMotorsWithBrosur($search = null)
-    {
-        $kotaId = Session::get('lokasiUser');
-        // Set default value of $kotaId to 1 if it's empty
-        if (empty($kotaId)) {
-            $kotaId = 1;
-        }
+    // public static function getMotorsWithBrosur($search = null)
+    // {
+    //     $kotaId = Session::get('lokasiUser');
+    //     // Set default value of $kotaId to 1 if it's empty
+    //     if (empty($kotaId)) {
+    //         $kotaId = 1;
+    //     }
 
-        $query = self::with(['diskonMotor', 'brosurMotor', 'motorKota' => function ($query) use ($kotaId) {
-            $query->where('id_kota', $kotaId);
-        }])
-            ->whereHas('brosurMotor');
+    //     $query = self::with(['diskonMotor', 'brosurMotor', 'motorKota' => function ($query) use ($kotaId) {
+    //         $query->where('id_kota', $kotaId);
+    //     }])
+    //         ->whereHas('brosurMotor');
 
-        if ($search) {
-            $query->where('nama', 'like', '%' . $search . '%');
-        }
+    //     if ($search) {
+    //         $query->where('nama', 'like', '%' . $search . '%');
+    //     }
 
-        $motors = $query->get();
+    //     $motors = $query->get();
 
-        foreach ($motors as $motor) {
-            $motor->image = DetailMotor::where('id_motor', $motor->id)
-                ->pluck('gambar')->first();
+    //     foreach ($motors as $motor) {
+    //         $motor->image = DetailMotor::where('id_motor', $motor->id)
+    //             ->pluck('gambar')->first();
 
-            $motor->brosur = $motor->brosurMotor ? $motor->brosurMotor->nama_file : null;
-        }
+    //         $motor->brosur = $motor->brosurMotor ? $motor->brosurMotor->nama_file : null;
+    //     }
 
-        return $motors;
-    }
+    //     return $motors;
+    // }
 }
