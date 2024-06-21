@@ -92,6 +92,8 @@ class AdminPenjualanController extends Controller
     //   ->where('tenor', $request->input('tenor'))->first();
     // dd($cicilan);
 
+    // dd($request->all());
+
     if ($validator->fails()) {
       flash()->addError("Inputkan semua data dengan benar!");
       return redirect()->back()->withInput();
@@ -103,11 +105,9 @@ class AdminPenjualanController extends Controller
     // dd($cekDp, $cekTj);
 
     // find motor
-    $motor = Motor::find($request->input('motor'));
-    if ($cekDp <= $motor->minimal_dp || $cekTj <= $motor->minimal_dp) {
-      flash()->addError("DP/Tanda Jadi minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
-      return redirect()->back()->withInput();
-    }
+    // dd("dp  : " . $cekDp, "minimal  : " . $motor->minimal_dp, $cekDp < $motor->minimal_dp);
+
+
 
     $tanggal_dibuat = Carbon::today();
     $pembelian = $request->input('metode_pembelian');
@@ -115,6 +115,23 @@ class AdminPenjualanController extends Controller
     $tenor = $pembelian === 'cash' ? 0 : $request->tenor;
     $catatan = $request->catatan ?? '-';
     $nomorPo = $request->nomor_po ?? null;
+
+
+    $motor = Motor::find($request->input('motor'));
+
+    if ($pembelian == 'cash') {
+      // Pembayaran kredit: Validasi DP
+      if ($cekDp && $cekDp < $motor->minimal_dp) {
+        flash()->addError("DP minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
+        return redirect()->back()->withInput();
+      }
+    } else {
+      if ($cekTj && $cekTj < $motor->minimal_dp) {
+        flash()->addError("Tanda Jadi minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
+        return redirect()->back()->withInput();
+      }
+    }
+
 
     DB::beginTransaction();
     try {

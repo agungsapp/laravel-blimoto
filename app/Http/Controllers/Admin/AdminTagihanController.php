@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CicilanMotor;
 use App\Models\Hasil;
 use App\Models\Kota;
-use App\Models\LeasingMotor;
 use App\Models\Motor;
 use App\Models\Penjualan;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class AdminLaporanSemuaPenjualanController extends Controller
+use function PHPUnit\Framework\returnCallback;
+
+class AdminTagihanController extends Controller
 {
+    public function sudahBayar()
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,26 +26,38 @@ class AdminLaporanSemuaPenjualanController extends Controller
      */
     public function index()
     {
-        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
-            ->orderBy('id', 'desc')
+        $penjualan = Penjualan::where('metode_pembelian', 'kredit')
+            ->whereHas('detailPembayaran', function ($query) {
+                $query->where('status', '!=', 'pelunasan');
+            })
+            ->with([
+                'motor',
+                'detailPembayaran'
+            ])
+            ->withSum('detailPembayaran', 'jumlah_bayar')
             ->get();
-        $kota = Kota::all();
-        $hasil = Hasil::all();
-        $motor = Motor::all();
-        $leasing = LeasingMotor::all();
-        $sales = Sales::all();
 
-        return view(
-            'admin.laporan_semua.index',
-            [
-                'penjualan' => $data,
-                'sales' => $sales,
-                'kota' => $kota,
-                'hasil' => $hasil,
-                'motor' => $motor,
-                'leasing' => $leasing
-            ]
-        );
+        foreach ($penjualan as $p) {
+            $p->cicilan = $p->cicilan_yang_sesuai;
+            $p->diskon_motor = $p->diskon_motor_yang_sesuai;
+            // $p->tanggal = $p->detail_pembayaran->created_at;
+            // Memeriksa apakah ada detail pembayaran
+            $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
+        }
+
+
+
+        // return response()->json($penjualan);
+
+        $data = [
+            'sales' => Sales::all(),
+            'kota' => Kota::all(),
+            'hasil' => Hasil::all(),
+            'motor' => Motor::all(),
+            'penjualan' => $penjualan // Tambahkan data penjualan yang sudah difilter
+        ];
+
+        return view('admin.laporan_tagihan.belum_bayar.index', $data);
     }
 
     /**

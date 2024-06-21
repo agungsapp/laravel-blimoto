@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ExportLaporanWilayah;
 use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use App\Models\Penjualan;
@@ -9,6 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -21,14 +23,14 @@ class AdminLaporanPenjualanWilayahController extends Controller
      */
     public function index(Request $request)
     {
-        $idWilayah = $request->wilayah ?? 1; // Default ke 1 jika tidak ada input
+        $idWilayah = $request->wilayah ?? ''; // Default ke string kosong jika tidak ada input
         $tanggalMulai = $request->tanggal_mulai ? Carbon::parse($request->tanggal_mulai) : null;
         $tanggalSelesai = $request->tanggal_selesai ? Carbon::parse($request->tanggal_selesai) : null;
 
         $query = Penjualan::query();
 
-        // Filter berdasarkan wilayah jika ada
-        if ($idWilayah) {
+        // Filter berdasarkan wilayah hanya jika ada input wilayah yang valid
+        if (!empty($idWilayah)) {
             $query->where('id_kota', $idWilayah);
         }
 
@@ -51,14 +53,13 @@ class AdminLaporanPenjualanWilayahController extends Controller
         $penjualan = $query->get();
 
         $data = [
-            'laporans' => $penjualan, // Langsung kirim hasil query ke view
+            'laporans' => $penjualan,
             'kotas' => Kota::all()
         ];
 
-        // dd($data);
-
         return view('admin.penjualan_wilayah.index', $data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -314,5 +315,16 @@ class AdminLaporanPenjualanWilayahController extends Controller
     public function testCetak()
     {
         return view('admin.penjualan_wilayah.cetak');
+    }
+
+
+
+    public function exportLaporanExcel(Request $request)
+    {
+        $idWilayah = $request->wilayah ?? '';
+        $tanggalMulai = $request->tanggal_mulai ? Carbon::parse($request->tanggal_mulai) : null;
+        $tanggalSelesai = $request->tanggal_selesai ? Carbon::parse($request->tanggal_selesai) : null;
+
+        return Excel::download(new ExportLaporanWilayah($idWilayah, $tanggalMulai, $tanggalSelesai), 'laporan_wilayah.xlsx');
     }
 }

@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Hasil;
 use App\Models\Kota;
-use App\Models\LeasingMotor;
 use App\Models\Motor;
 use App\Models\Penjualan;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 
-class AdminLaporanSemuaPenjualanController extends Controller
+class AdminTagihanSudahBayarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,26 +19,34 @@ class AdminLaporanSemuaPenjualanController extends Controller
      */
     public function index()
     {
-        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
-            ->orderBy('id', 'desc')
-            ->get();
-        $kota = Kota::all();
-        $hasil = Hasil::all();
-        $motor = Motor::all();
-        $leasing = LeasingMotor::all();
-        $sales = Sales::all();
+        $penjualan = Penjualan::where('metode_pembelian', 'kredit')
+            ->whereHas('detailPembayaran', function ($query) {
+                $query->where('status', '=', 'pelunasan');
+            })
+            ->with([
+                'motor',
+                'detailPembayaran'
+            ])
+            ->withSum('detailPembayaran', 'jumlah_bayar');
+        // ->get();
 
-        return view(
-            'admin.laporan_semua.index',
-            [
-                'penjualan' => $data,
-                'sales' => $sales,
-                'kota' => $kota,
-                'hasil' => $hasil,
-                'motor' => $motor,
-                'leasing' => $leasing
-            ]
-        );
+        foreach ($penjualan as $p) {
+            $p->cicilan = $p->cicilan_yang_sesuai;
+            $p->diskon_motor = $p->diskon_motor_yang_sesuai;
+            $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
+        }
+
+        return response()->json($penjualan->toSql());
+
+        $data = [
+            'sales' => Sales::all(),
+            'kota' => Kota::all(),
+            'hasil' => Hasil::all(),
+            'motor' => Motor::all(),
+            'penjualan' => $penjualan
+        ];
+
+        return view('admin.laporan_tagihan.sudah_bayar.index', $data);
     }
 
     /**

@@ -7,14 +7,14 @@
 				<span class="dropdown-item dropdown-header">{{ $total }} Notifikasi</span>
 				<div class="dropdown-divider"></div>
 				@if ($akses->count() > 0)
-						<a href="#" class="dropdown-item">
+						<a href="#" class="dropdown-item mb-3 py-3">
 								<i class="fa fa-key" aria-hidden="true"></i> {{ $akses->count() }} meminta akses edit data DO
 								<span class="text-muted float-right text-sm">{{ $akses[0]->created_at->diffForHumans() }}</span>
 						</a>
 				@endif
-				<div class="dropdown-divider"></div>
 				@if ($refund->count() > 0)
-						<a href="#" class="dropdown-item">
+						<div class="dropdown-divider mt-3"></div>
+						<a href="#" class="dropdown-item py-3">
 								<i class="fa fa-key" aria-hidden="true"></i> {{ $refund->count() }} meminta persetujuan refund
 								<span class="text-muted float-right text-sm">{{ $refund[0]->created_at->diffForHumans() }}</span>
 						</a>

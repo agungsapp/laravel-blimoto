@@ -479,8 +479,38 @@
 														</li>
 												</ul>
 										</li>
-
 										{{-- master laporan end --}}
+
+										{{-- master tagihan --}}
+										<li class="nav-item {{ \Route::is('admin.laporan-tagihan.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.laporan-tagihan.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-print"></i>
+														<p>
+																Master Tagihan
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan-tagihan.belum-bayar.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan-tagihan.belum-bayar.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tagihan belum di bayar</p>
+																</a>
+														</li>
+												</ul>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan-tagihan.sudah-bayar.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan-tagihan.sudah-bayar.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tagihan sudah di bayar</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+
+										{{-- master tagihan end --}}
 
 
 										<li class="nav-item">
@@ -580,8 +610,21 @@
 								{{-- ceo akses --}}
 								<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
 										data-accordion="false">
+
+
+										<li class="nav-item">
+												<a href="{{ route('admin.dashboard.index') }}"
+														class="nav-link {{ \Route::is('admin.dashboard.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-tachometer-alt"></i>
+														<p>
+																Dashboard
+														</p>
+												</a>
+										</li>
+
 										{{-- master sales ceo --}}
-										<li class="nav-item {{ \Route::is('admin.sales.*') ? 'menu-open' : '' }}">
+
+										{{-- <li class="nav-item {{ \Route::is('admin.sales.*') ? 'menu-open' : '' }}">
 												<a href="#" class="nav-link {{ \Route::is('admin.sales.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
@@ -598,7 +641,7 @@
 																</a>
 														</li>
 												</ul>
-										</li>
+										</li> --}}
 
 										{{-- refund dana ceo --}}
 										<li class="nav-item {{ \Route::is('admin.refund.*') ? 'menu-open' : '' }}">
