@@ -27,8 +27,8 @@ class AdminTagihanSudahBayarController extends Controller
                 'motor',
                 'detailPembayaran'
             ])
-            ->withSum('detailPembayaran', 'jumlah_bayar');
-        // ->get();
+            ->withSum('detailPembayaran', 'jumlah_bayar')
+            ->get();
 
         foreach ($penjualan as $p) {
             $p->cicilan = $p->cicilan_yang_sesuai;
@@ -36,7 +36,7 @@ class AdminTagihanSudahBayarController extends Controller
             $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
         }
 
-        return response()->json($penjualan->toSql());
+        // return response()->json($penjualan);
 
         $data = [
             'sales' => Sales::all(),

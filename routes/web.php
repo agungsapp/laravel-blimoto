@@ -196,7 +196,7 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::resource('dashboard', DashboardController::class);
         Route::prefix('penjualan')->name('penjualan.')->group(function () {
             Route::resource('pengajuan-akses', AdminPengajuanAksesPenjualan::class);
-            Route::resource('data', AdminPenjualanController::class);
+            Route::resource('data', AdminPenjualanController::class)->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager']);
             // Route::get('data/hasil/{hasil}', [AdminPenjualanHasilController::class, 'index'])->name('data.hasil');
             Route::resource('proses', AdminPenjualanProsesConntroller::class);
             Route::resource('acc', AdminPenjualanAccConntroller::class);
@@ -224,6 +224,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::get('hak-akses-done', [AdminPengajuanAksesPenjualan::class, 'done'])->name('hak-akses.done');
             Route::post('setuju/{id}', [AdminPengajuanAksesPenjualan::class, 'setuju'])->name('setuju');
             Route::post('tolak/{id}', [AdminPengajuanAksesPenjualan::class, 'tolak'])->name('tolak');
+            Route::post('publish/{id}', [AdminPengajuanAksesPenjualan::class, 'publish'])->name('publish');
         });
 
         Route::prefix('laporan')->name('laporan.')->group(function () {

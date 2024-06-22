@@ -509,7 +509,6 @@
 														</li>
 												</ul>
 										</li>
-
 										{{-- master tagihan end --}}
 
 
@@ -685,6 +684,13 @@
 																</a>
 														</li>
 														<li class="nav-item">
+																<a href="{{ route('admin.pengajuan.hak-akses.done') }}"
+																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.done') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Selesai Edit</p>
+																</a>
+														</li>
+														<li class="nav-item">
 																<a href="{{ route('admin.pengajuan.hak-akses.disetujui') }}"
 																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.disetujui') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
@@ -698,13 +704,7 @@
 																		<p>Di Tolak</p>
 																</a>
 														</li>
-														<li class="nav-item">
-																<a href="{{ route('admin.pengajuan.hak-akses.done') }}"
-																		class="nav-link {{ \Route::is('admin.pengajuan.hak-akses.done') ? 'active' : '' }}">
-																		<i class="far fa-circle nav-icon"></i>
-																		<p>Selesai Edit</p>
-																</a>
-														</li>
+
 												</ul>
 										</li>
 
@@ -727,6 +727,39 @@
 														</li>
 												</ul>
 										</li>
+
+
+
+										{{-- master tagihan --}}
+										<li class="nav-item {{ \Route::is('admin.laporan-tagihan.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.laporan-tagihan.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-print"></i>
+														<p>
+																Master Tagihan
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan-tagihan.belum-bayar.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan-tagihan.belum-bayar.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tagihan belum di bayar</p>
+																</a>
+														</li>
+												</ul>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan-tagihan.sudah-bayar.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan-tagihan.sudah-bayar.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tagihan sudah di bayar</p>
+																</a>
+														</li>
+												</ul>
+										</li>
+										{{-- master tagihan end --}}
+
 
 										<li class="nav-item">
 												<a href="{{ route('admin.logout') }}" class="nav-link">

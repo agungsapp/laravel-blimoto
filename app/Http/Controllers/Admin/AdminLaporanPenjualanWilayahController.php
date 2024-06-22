@@ -47,11 +47,14 @@ class AdminLaporanPenjualanWilayahController extends Controller
             }
         }
 
-        $query->whereIn('status_pembayaran_dp', ['success', 'cod'])
-            ->with(['motor', 'kota']);
+        $query
+            // ->whereIn('status_pembayaran_dp', ['success', 'cod'])
+            ->with(['motor', 'kota', 'detailPembayaran' => function ($dp) {
+                $dp->orderBy('periode', 'desc')->get();
+            }]);
 
         $penjualan = $query->get();
-
+        // return response()->json($penjualan);
         $data = [
             'laporans' => $penjualan,
             'kotas' => Kota::all()
