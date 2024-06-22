@@ -223,7 +223,8 @@
 																						</div>
 																				</div>
 																				{{-- diskon dp --}}
-																				<div class="form-group col-md-6">
+																				{{-- mati sementara waktu --}}
+																				<div class="form-group d-none col-md-6">
 																						<label for="input-diskon-dp">Diskon DP</label>
 																						<input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP"
 																								id="input-diskon-dp" value="{{ old('diskon_dp') }}">
@@ -353,6 +354,7 @@
 				// utils end 
 
 				$('.select2').select2()
+				$('#motor-input').select2()
 
 				// auto fill nama BPKB
 				const autoFillBpkb = () => {

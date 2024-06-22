@@ -114,6 +114,26 @@ class AdminPengajuanAksesPenjualan extends Controller
         }
     }
 
+    public function publish(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $pengajuanAkses = AksesPenjualanModel::findOrFail($id);
+            $pengajuanAkses->status = 'publish';
+            $pengajuanAkses->save();
+
+            DB::commit();
+            flash()->addSuccess('berhasil publish kembali data.');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::info('gagal melakukan publish kembali data ! : ', ['pesan' => $th]);
+            //throw $th;
+            flash()->addError("Terjadi kesalahan pada server !");
+            return redirect()->back();
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *

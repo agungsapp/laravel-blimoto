@@ -11,11 +11,17 @@
 												@csrf
 												<div class="card-body">
 														<div class="row">
+																<div class="callout callout-info">
+																		<h5>Informasi !</h5>
+																		<p>Kosongkan semua input untuk mendapatkan seluruh data wilayah dan seluruh rentang tanggal.</p>
+																</div>
+														</div>
+														<div class="row">
 																<div class="form-group col-md-6">
 																		<label for="wilayah">Wilayah</label>
 																		<select id="wilayah" name="wilayah" aria-describedby="wilayahHelp"
 																				class="form-control select2 @error('wilayah') is-invalid @enderror" style="width: 100%;">
-																				<option value="">-- Pilih Wilayah --</option>
+																				<option value="">-- Semua Wilayah --</option>
 																				@foreach ($kotas as $kota)
 																						<option value="{{ $kota->id }}" {{ old('wilayah') == $kota->id ? 'selected' : '' }}>
 																								{{ $kota->nama }}</option>

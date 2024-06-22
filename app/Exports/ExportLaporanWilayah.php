@@ -51,7 +51,10 @@ class ExportLaporanWilayah implements FromView
             }
         }
 
-        return $query->whereIn('status_pembayaran_dp', ['success', 'cod'])
-            ->with(['motor', 'kota']);
+        return $query
+            // ->whereIn('status_pembayaran_dp', ['success', 'cod'])
+            ->with(['motor', 'kota', 'detailPembayaran' => function ($dp) {
+                $dp->orderBy('periode', 'desc')->get();
+            }]);
     }
 }
