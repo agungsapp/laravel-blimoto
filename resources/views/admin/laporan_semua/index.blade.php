@@ -30,9 +30,10 @@
 																		<th class="no-visible">STNK</th>
 																		<th>Metode Pembelian</th>
 																		<th>Status Pembayaran DP</th>
-																		<th class="no-visible">DP</th>
-																		<th class="no-visible">Diskon DP</th>
-																		<th class="no-visible">DP Bayar</th>
+																		<th class="no-visible">TDP</th>
+																		<th class="no-visible">DP Asli</th>
+																		<th class="no-visible">Angsuran</th>
+																		{{-- <th class="no-visible">Diskon DP</th> --}}
 																		<th>Leasing</th>
 																		<th>Motor</th>
 																		<th>Warna</th>
@@ -50,7 +51,7 @@
 																</tr>
 														</thead>
 														<tbody>
-																@foreach ($penjualan as $index => $p)
+															@foreach ($penjualan as $index => $p)
 																		<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																				<td>{{ $p->id }}</td>
 																				<td>{{ $p->nama_konsumen }}</td>
@@ -59,22 +60,23 @@
 																				<td>{{ $p->bpkb }}</td>
 																				<td>{{ $p->metode_pembelian }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
-																				<td>{{ $p->dp }}</td>
-																				<td>{{ $p->diskon_dp }}</td>
-																				<td>{{ $p->dp - $p->diskon_dp }}</td>
+																				<td>{{ Str::rupiah($p->dp) }}</td>
+																				<td>{{ Str::rupiah($p->dp_asli) }}</td>
+																				<td>{{ Str::rupiah($p->angsuran) }}</td>
+																				{{-- <td>{{ $p->diskon_dp }}</td> --}}
 																				<td>{{ $p->leasing->nama ?? 'CASH' }}</td>
 																				<td>{{ $p->motor->nama }}</td>
 																				<td>{{ $p->warna_motor }}</td>
 																				<td>{{ $p->hasil->hasil }}</td>
 																				<td>{{ $p->metode_pembayaran }}</td>
-																				<td>{{ $p->no_po }}</td>
+																				<td>{{ $p->no_po ?? 'belum ada' }}</td>
 																				<td>{{ $p->tenor }}</td>
-																				<td>{{ $p->jumlah }}</td>
+																				<td>{{ $p->jumlah ?? 0 }}</td>
 																				<td>{{ $p->kota->nama }}</td>
 																				<td>{{ $p->hasil->hasil }}</td>
 																				<td>{{ $p->catatan }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
-																				<td>{{ $p->tanggal_hasil }}</td>
+																				<td>{{ $p->tanggal_hasil ?? 'belum di atur' }}</td>
 																				<td class="no-export">
 																						<div>
 																								<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
@@ -100,7 +102,7 @@
 																						</div>
 																				</td>
 																		</tr>
-																@endforeach
+																@endforeach	
 														</tbody>
 												</table>
 										</div>
@@ -1050,7 +1052,6 @@
 				$('#pembelian-input').change(function() {
 						toggleLeasingInput();
 				});
-
 				let minDate, maxDate;
 				var table = $('#data-sale').DataTable({
 						dom: 'Bfrtip', // 'B' for buttons
@@ -1069,7 +1070,6 @@
 								visible: false, // Set the visibility to false for 'no-visible' class
 						}]
 				});
-
 				// Apply the filter on input change
 				$('#min, #max').on('change', function() {
 						table.draw();

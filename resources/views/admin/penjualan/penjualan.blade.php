@@ -131,7 +131,7 @@
 																						@if ($colors == null)
 																								<p class="text-danger">Tidak ada data warna motor silahkan buat terlebih dahulu !</p>
 																						@else
-																								<select id="motor-input" name="warna_motor" class="form-control select2" style="width: 100%;">
+																								<select id="warna_motor" name="warna_motor" class="form-control select2" style="width: 100%;">
 																										<option value="">-- Pilih warna motor --</option>
 																										@foreach ($colors as $c)
 																												<option value="{{ $c->nama }}" {{ old('warna_motor') == $c->nama ? 'selected' : '' }}>
@@ -203,7 +203,7 @@
 																				</div>
 																				{{-- dp --}}
 																				<div class="form-group col-md-6" id="dp_wrapper">
-																						<label id="dp_label" for="input-dp">DP <span class="text-danger">*</span></label>
+																						<label id="dp_label" for="input-dp">TDP <span class="text-danger">*</span></label>
 																						<input name="dp" type="number" min="0" class="form-control"
 																								placeholder="Masukan DP" id="input-dp" value="{{ old('dp') ?? 0 }}"
 																								aria-describedby="dpHelp">
@@ -258,6 +258,25 @@
 																								</select>
 																						@endif
 																				</div>
+
+																				{{-- dp_asli --}}
+																				<div class="form-group col-md-4">
+																						<label for="dp_asli">Dp Asli <span class="text-danger">*</span></label>
+																						<select id="dp_asli" name="dp_asli" class="form-control select2" style="width: 100%;">
+																								<option value="" selected>-- Pilih DP Asli --</option>
+																						</select>
+																						<div class="form-check metodeHide my-4" id="metodeLainnya" style="display: none;">
+																								<input type="text" class="form-control" placeholder="Masukan nama leasing"
+																										name="metode_lainnya">
+																						</div>
+																				</div>
+																				{{-- dp --}}
+																				<div class="form-group col-md-2">
+																						<label for="angsuran">Angsuran <span class="text-danger">*</span></label>
+																						<input id="angsuran" name="angsuran" type="number" min="0" class="form-control"
+																								placeholder="Masukan DP" value="{{ old('angsuran') ?? 0 }}" readonly>
+																				</div>
+
 																				{{-- metode pembayaran --}}
 																				<div class="form-group col-md-4">
 																						<label>Metode Pembayaran <span class="text-danger">*</span></label>
@@ -335,6 +354,83 @@
 
 @push('script')
 		<script>
+				// js untuk bagian logka select cicilan : 
+				$(document).ready(function() {
+
+						function formatRupiah(angka, prefix) {
+								var number_string = angka.toString().replace(/[^,\d]/g, ''),
+										split = number_string.split(','),
+										sisa = split[0].length % 3,
+										rupiah = split[0].substr(0, sisa),
+										ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+								if (ribuan) {
+										separator = sisa ? '.' : '';
+										rupiah += separator + ribuan.join('.');
+								}
+
+								rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+								return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+						}
+
+						function fetchCicilan() {
+								var id_motor = $('#motor-input').val();
+								var id_lokasi = $('#kabupaten-input').val();
+								var id_leasing = $('#leasing-input').val();
+								var tenor = $('[name="tenor"]').val();
+
+								if (id_motor && id_lokasi && id_leasing && tenor) {
+										$.ajax({
+												url: '/api/get-cicilan',
+												type: 'POST',
+												data: {
+														id_motor: id_motor,
+														id_lokasi: id_lokasi,
+														id_leasing: id_leasing,
+														tenor: tenor,
+														_token: '{{ csrf_token() }}'
+												},
+												success: function(response) {
+														$('#dp_asli').empty();
+														$('#dp_asli').append(
+																'<option value="" selected>-- Pilih DP Asli --</option>');
+
+														if (response.length > 0) {
+																$.each(response, function(index, item) {
+																		var formattedCicilan = formatRupiah(item.dp, 'Rp. ');
+																		$('#dp_asli').append('<option value="' + item.dp +
+																				'" data-dp="' + item.cicilan + '">' +
+																				formattedCicilan + '</option>');
+																});
+														} else {
+																$('#dp_asli').append('<option value="">Tidak ada data DP/cicilan</option>');
+														}
+												},
+												error: function(xhr) {
+														console.log(xhr.responseText);
+												}
+										});
+								}
+						}
+
+						// Bind change event to all relevant inputs
+						$('#motor-input, #kabupaten-input, #leasing-input, [name="tenor"]').on('change', function() {
+								fetchCicilan();
+						});
+
+						// Bind change event to dp_asli select to update angsuran input
+						$('#dp_asli').on('change', function() {
+								var selectedOption = $(this).find('option:selected');
+								var dpValue = parseInt(selectedOption.data('dp'), 10);
+								console.log("Selected DP Value: ", dpValue); // Debugging log
+								if (dpValue !== undefined) {
+										$('#angsuran').val(dpValue);
+								} else {
+										$('#angsuran').val(0);
+								}
+						});
+				});
+
 				// utils function
 				const formatRupiah = (angka) => {
 						const number_string = angka.toString().replace(/[^,\d]/g, '');

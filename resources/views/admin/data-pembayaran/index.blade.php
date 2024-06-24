@@ -17,9 +17,10 @@
 																		<th>Nama Konsumen</th>
 																		<th>Nama Sales</th>
 																		<th>Motor</th>
-																		<th>Jumlah</th>
+																		<th>Konsumen stor</th>
 																		{{-- <th>DP</th>
 																		<th>Diskon DP</th> --}}
+																		<th>TDP</th>
 																		<th>Status Pembayaran Terakhir</th>
 																		<th>Sisa Tagihan</th>
 																		<th>Leasing</th>
@@ -36,9 +37,10 @@
 																				<td>{{ $p->nama_konsumen }}</td>
 																				<td>{{ $p->sales->nama }}</td>
 																				<td>{{ $p->motor->nama }}</td>
-																				<td>{{ $p->jumlah }}</td>
+																				<td>{{ Str::rupiah($p->total_lunas) }}</td>
 																				{{-- <td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->diskon_dp }}</td> --}}
+																				<td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
 																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
 																				<td>{{ $p->leasing->nama ?? 'CASH' }}</td>

@@ -138,7 +138,7 @@
 
 
 																								<!-- modal publish start -->
-																								<button type="button" class="btn btn-info btn-block mb-2" data-toggle="modal"
+																								<button type="button" class="btn btn-info btn-blkkomiisi lancar aplikasi kkkkk mb-2" data-toggle="modal"
 																										data-target="#modalTolak{{ $pengajuan->id }}">
 																										Publish
 																								</button>

@@ -74,6 +74,8 @@ class AdminPenjualanController extends Controller
   public function store(Request $request)
   {
 
+    Log::channel('penjualan')->info("SEMUA DATA YANG DI TERIMA PENJUAALAN : ", ['data' => $request->all()]);
+
     $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
       ->where('id_leasing', $request->input('leasing'))
       ->where('tenor', $request->input('tenor'))->first();
@@ -100,6 +102,9 @@ class AdminPenjualanController extends Controller
       'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
+      'dp' => 'required',
+      'dp_asli' => 'required',
+      'angsuran' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
       'status_pembayaran' => 'required',
@@ -170,6 +175,8 @@ class AdminPenjualanController extends Controller
       } else {
         $penjualan->dp = $request->input('dp') ?? 0;
       }
+      $penjualan->dp_asli = $request->dp_asli;
+      $penjualan->angsuran = $request->angsuran;
       $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
       $penjualan->status_pembayaran_dp = $request->input('status_pembayaran');
       $penjualan->tanggal_dibuat = $tanggal_dibuat;
@@ -247,8 +254,8 @@ class AdminPenjualanController extends Controller
         $detailPembayaran->total_lunas = $motor->harga - $request->input('diskon_dp') ?? 0;
       } else {
         $isLunas = $cicilan->dp == $request->input('dp');
-        $detailPembayaran->sisa_bayar = ($cicilan->dp - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
-        $detailPembayaran->total_lunas = $cicilan->dp - $motor->diskonMotor[0]->diskon ?? 0;
+        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
+        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0;
       }
 
       // Menentukan periode

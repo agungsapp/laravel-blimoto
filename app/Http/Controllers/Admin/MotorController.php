@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
+use App\Models\CicilanMotor;
 use App\Models\Merk;
 use App\Models\Motor;
 use App\Models\MtrBestMotor;
@@ -263,6 +264,45 @@ class MotorController extends Controller
             return response()->json($getMinimal, 200);
         } catch (\Throwable $th) {
             //throw $th;
+        }
+    }
+
+    public function getCicilan(Request $request)
+    {
+
+
+
+        try {
+            $cicilan = CicilanMotor::query();
+
+            // id_motor is mandatory
+            if ($request->has('id_motor')) {
+                $cicilan->where('id_motor', $request->id_motor);
+            } else {
+                return response()->json(['error' => 'id_motor is required'], 400);
+            }
+
+            // Optional filters
+            if ($request->has('id_lokasi')) {
+                $cicilan->where('id_lokasi', $request->id_lokasi);
+            }
+
+            if ($request->has('id_leasing')) {
+                $cicilan->where('id_leasing', $request->id_leasing);
+            }
+
+            if ($request->has('tenor')) {
+                $cicilan->where('tenor', $request->tenor);
+            }
+
+            $result = $cicilan->get();
+
+            return response()->json($result);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat mengambil data cicilan.',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

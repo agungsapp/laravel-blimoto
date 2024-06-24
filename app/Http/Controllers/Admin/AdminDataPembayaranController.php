@@ -88,6 +88,7 @@ class AdminDataPembayaranController extends Controller
     // Ubah struktur data agar sisa_bayar menjadi atribut dari penjualan
     $data = $data->map(function ($penjualan) {
       $penjualan->sisa_bayar = $penjualan->detailPembayaran->first()->sisa_bayar;
+      $penjualan->total_lunas = $penjualan->detailPembayaran->first()->total_lunas;
       unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
       return $penjualan;
     });

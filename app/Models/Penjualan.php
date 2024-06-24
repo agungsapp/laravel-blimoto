@@ -20,6 +20,8 @@ class Penjualan extends Model
     'no_hp',
     'bpkb',
     'dp',
+    'dp_asli',
+    'angsuran',
     'diskon_dp',
     'status_pembayaran_dp',
     'tanggal_dibuat',

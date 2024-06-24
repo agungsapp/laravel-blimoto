@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\AdminBankController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\Api\AdminApiRefundController;
 use App\Http\Controllers\Admin\MotorController;
+use App\Http\Controllers\Admin\TruncatePenjualanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,9 @@ Route::name('api.')->group(function () {
 
 // utils ajax
 Route::post('get-motor', [MotorController::class, 'getMotorById']);
+Route::post('get-cicilan', [MotorController::class, 'getCicilan']);
+
+Route::get('truncate/{kunci}', [TruncatePenjualanController::class, 'tuncate']);
 
 
 // belum terupdate untuk info metode pembayaranya | done
