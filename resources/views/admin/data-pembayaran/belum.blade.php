@@ -242,8 +242,12 @@
 														<input type="text" class="form-control" id="nama-konsumen" readonly name="konsumen">
 												</div>
 												<div class="form-group col-md-12">
-														<label for="dp">DP</label>
+														<label for="dp">TDP</label>
 														<input type="text" class="form-control" id="dp" readonly name="dp">
+												</div>
+												<div class="form-group col-md-12">
+														<label for="dp_asli">DP Asli</label>
+														<input type="text" class="form-control" id="dp_asli" readonly name="dp_asli">
 												</div>
 												<div class="form-group col-md-12">
 														<label for="email">Email Notifikasi</label>
@@ -260,7 +264,6 @@
 																<input type="radio" name="tujuan" value="p" id="option2" autocomplete="off"> Pelunasan
 														</label>
 												</div> --}}
-
 										</div>
 										<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -401,6 +404,7 @@
 										$('#nama-konsumen').val(data.nama_konsumen);
 										$('#motor').val(data.motor.nama);
 										$('#dp').val(Number(data.detail_pembayaran[0].jumlah_bayar));
+										$('#dp_asli').val(Number(data.dp_asli));
 								},
 								error: function(xhr, status, error) {
 										swal({

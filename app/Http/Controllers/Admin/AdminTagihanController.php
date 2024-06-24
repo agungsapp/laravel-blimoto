@@ -27,8 +27,9 @@ class AdminTagihanController extends Controller
     public function index()
     {
         $penjualan = Penjualan::where('metode_pembelian', 'kredit')
-            ->whereHas('detailPembayaran', function ($query) {
-                $query->where('status', '!=', 'pelunasan');
+            ->whereHas('detailPembayaran') // Pastikan ada setidaknya satu detail pembayaran
+            ->whereDoesntHave('detailPembayaran', function ($query) {
+                $query->where('status', 'pelunasan');
             })
             ->with([
                 'motor',
@@ -37,17 +38,19 @@ class AdminTagihanController extends Controller
             ->withSum('detailPembayaran', 'jumlah_bayar')
             ->get();
 
+
         foreach ($penjualan as $p) {
             $p->cicilan = $p->cicilan_yang_sesuai;
             $p->diskon_motor = $p->diskon_motor_yang_sesuai;
             // $p->tanggal = $p->detail_pembayaran->created_at;
             // Memeriksa apakah ada detail pembayaran
             $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
+            $p->tanda_jadi = $p->detailPembayaran->first()->jumlah_bayar;
         }
-
-
-
         // return response()->json($penjualan);
+
+
+
 
         $data = [
             'sales' => Sales::all(),

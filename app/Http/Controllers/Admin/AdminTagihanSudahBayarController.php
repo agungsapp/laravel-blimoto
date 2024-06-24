@@ -34,6 +34,7 @@ class AdminTagihanSudahBayarController extends Controller
             $p->cicilan = $p->cicilan_yang_sesuai;
             $p->diskon_motor = $p->diskon_motor_yang_sesuai;
             $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
+            $p->tanda_jadi = $p->detailPembayaran->first()->jumlah_bayar;
         }
 
         // return response()->json($penjualan);

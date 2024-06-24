@@ -1,4 +1,4 @@
-<table id="data-kota-motor" class="table-bordered table-striped table">
+<table id="data-kota-motor" class="table-bordered table-responsive table-striped table">
 		<thead>
 				<tr role="row">
 						<th>NO</th>
@@ -13,8 +13,10 @@
 						<th>Metode Pembayaran</th>
 						<th>Leasing</th>
 						<th>Tenor</th>
-						<th>Tanda Jadi</th>
+						<th>TDP</th>
 						<th>Tanda Jadi/ Pelunasan</th>
+						<th>DP Asli</th>
+						<th>Angsuran</th>
 						<th>Bpkb</th>
 						<th>Nomor Handphone</th>
 						<th>Warna</th>
@@ -42,6 +44,8 @@
 								<td>
 										{{ $laporan->detailPembayaran[0]->status == 'tanda' ? 'tanda jadi' : $laporan->detailPembayaran[0]->status }}
 								</td>
+								<td>{{ $laporan->dp_asli }}</td>
+								<td>{{ $laporan->angsuran }}</td>
 								<td>{{ $laporan->bpkb }}</td>
 								<td>{{ $laporan->no_hp }}</td>
 								<td>{{ $laporan->warna_motor }}</td>

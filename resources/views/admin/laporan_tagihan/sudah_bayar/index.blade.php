@@ -53,13 +53,13 @@
 																				<td>{{ Str::rupiah($p->diskon_motor->diskon) }}</td>
 																				<td>{{ Str::rupiah((int) $p->cicilan->dp - (int) $p->diskon_motor->diskon_dealer) }}</td>
 																				<td>{{ Str::rupiah((int) $p->cicilan->dp - (int) $p->diskon_motor->diskon) }}</td>
-																				<td>{{ Str::rupiah($p->detail_pembayaran_sum_jumlah_bayar) }}</td>
+																				<td>{{ Str::rupiah($p->tanda_jadi) }}</td>
 																				<td>{{ Str::rupiah($p->cicilan->dp - $p->detail_pembayaran_sum_jumlah_bayar) }}</td>
 																				<td>
 																						{{ Str::rupiah((int) $p->diskon_motor->diskon_dealer - (int) $p->diskon_motor->diskon) }}
 																				</td>
 																				<td>
-																						{{ Str::rupiah((int) $p->diskon_motor->diskon_dealer - (int) $p->diskon_motor->diskon - $p->detail_pembayaran_sum_jumlah_bayar) }}
+																						{{ Str::rupiah((int) $p->diskon_motor->diskon_dealer - (int) $p->diskon_motor->diskon - $p->tanda_jadi) }}
 																				</td>
 
 																				<td>{{ $p->tanggal_bayar->locale('id')->isoFormat('D MMMM YYYY') ?? 'belum di bayar' }}</td>
