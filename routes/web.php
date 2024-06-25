@@ -210,6 +210,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::get('/penjualan/{id}/getDetail', [AdminPenjualanController::class, 'getDetailPembayaran'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('getDetail');
             Route::post('bayar/{id}', [AdminPenjualanController::class, 'bayar'])->name('bayar-dp');
             Route::post('bayar/tambahPelunasan/{id}', [AdminPenjualanController::class, 'tambahPelunasan'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('tambahPelunasan');
+            Route::post('bayar/pelunasanOffline/{id}', [AdminPenjualanController::class, 'pelunasanOffline'])->withoutMiddleware(['role:admin,sales,ceo,manager,area_manager'])->name('pelunasanOffline');
         });
 
         Route::prefix('color')->name('color.')->group(function () {

@@ -63,6 +63,7 @@ class AdminDiskonMotorController extends Controller
       'lokasi_motor' => 'required',
       'tenor' => 'required',
       'diskon' => 'required',
+      'diskon_dealer' => 'required',
       'diskon_promo' => 'required',
     ]);
 
@@ -87,6 +88,7 @@ class AdminDiskonMotorController extends Controller
       } else {
         $diskonMotor->fill([
           'diskon' => $request->input('diskon'),
+          'diskon_dealer' => $request->input('diskon_dealer'),
           'diskon_promo' => $request->input('diskon_promo'),
           'potongan_tenor' => $potonganTenor,
         ])->save();
@@ -142,6 +144,7 @@ class AdminDiskonMotorController extends Controller
       'tenor' => 'required',
       'potongan_tenor' => 'required',
       'diskon' => 'required',
+      'diskon_dealer' => 'required',
       'diskon_promo' => 'required',
     ]);
 
@@ -157,6 +160,7 @@ class AdminDiskonMotorController extends Controller
     $diskonMotor->tenor = $request->input('tenor');
     $diskonMotor->potongan_tenor = $request->input('potongan_tenor');
     $diskonMotor->diskon = $request->input('diskon');
+    $diskonMotor->diskon_dealer = $request->input('diskon_dealer');
     $diskonMotor->diskon_promo = $request->input('diskon_promo');
 
     $diskonMotor->save();

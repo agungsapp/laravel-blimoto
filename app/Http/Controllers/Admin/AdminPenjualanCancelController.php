@@ -10,6 +10,7 @@ use App\Models\Motor;
 use App\Models\Penjualan;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPenjualanCancelController extends Controller
 {
@@ -22,8 +23,11 @@ class AdminPenjualanCancelController extends Controller
     {
         $hasil = Hasil::where('hasil', 'cancel')->first();
         $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
-            ->where('id_hasil', $hasil->id)
-            ->orderBy('id', 'desc')
+            ->where('id_hasil', $hasil->id);
+        if (Auth::guard('sales')->check()) {
+            $data->where('id_sales', Auth::guard('sales')->id());
+        }
+        $data = $data->orderBy('id', 'desc')
             ->get();
 
         $kota = Kota::all();

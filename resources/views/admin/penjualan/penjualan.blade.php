@@ -186,21 +186,24 @@
 																						</select>
 																				</div>
 																				{{-- sales --}}
-																				<div class="form-group col-md-6">
-																						<label>Sales <span class="text-danger">*</span></label>
-																						@if ($sales == null)
-																								<p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
-																						@else
-																								<select id="sales-input-input" name="sales" class="form-control select2"
-																										style="width: 100%;">
-																										<option value="">-- Pilih sales --</option>
-																										@foreach ($sales as $s)
-																												<option value="{{ $s->id }}" {{ old('sales') == $s->id ? 'selected' : '' }}>
-																														{{ $s->nama }} | {{ $s->dealer->nama }}</option>
-																										@endforeach
-																								</select>
-																						@endif
-																				</div>
+																				@if (!Auth::guard('sales')->check())
+																						<div class="form-group col-md-6">
+																								<label>Sales <span class="text-danger">*</span></label>
+																								@if ($sales == null)
+																										<p class="text-danger">Tidak ada data sales silahkan buat terlebih dahulu !</p>
+																								@else
+																										<select id="sales-input-input" name="sales" class="form-control select2"
+																												style="width: 100%;">
+																												<option value="">-- Pilih sales --</option>
+																												@foreach ($sales as $s)
+																														<option value="{{ $s->id }}" {{ old('sales') == $s->id ? 'selected' : '' }}>
+																																{{ $s->nama }} | {{ $s->dealer->nama }}</option>
+																												@endforeach
+																										</select>
+																								@endif
+																						</div>
+																				@endif
+
 																				{{-- dp --}}
 																				<div class="form-group col-md-6" id="dp_wrapper">
 																						<label id="dp_label" for="input-dp">TDP <span class="text-danger">*</span></label>
@@ -261,9 +264,9 @@
 
 																				{{-- dp_asli --}}
 																				<div class="form-group col-md-4">
-																						<label for="dp_asli">Dp Asli <span class="text-danger">*</span></label>
+																						<label for="dp_asli">Dp Pengajuan <span class="text-danger">*</span></label>
 																						<select id="dp_asli" name="dp_asli" class="form-control select2" style="width: 100%;">
-																								<option value="" selected>-- Pilih DP Asli --</option>
+																								<option value="" selected>-- Pilih DP Pengajuan --</option>
 																						</select>
 																						<div class="form-check metodeHide my-4" id="metodeLainnya" style="display: none;">
 																								<input type="text" class="form-control" placeholder="Masukan nama leasing"
@@ -393,7 +396,7 @@
 												success: function(response) {
 														$('#dp_asli').empty();
 														$('#dp_asli').append(
-																'<option value="" selected>-- Pilih DP Asli --</option>');
+																'<option value="" selected>-- Pilih DP Pengajuan --</option>');
 
 														if (response.length > 0) {
 																$.each(response, function(index, item) {

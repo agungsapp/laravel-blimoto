@@ -21,6 +21,7 @@ class AdminLaporanSemuaPenjualanController extends Controller
     public function index()
     {
         $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+            ->where('id_hasil', '=', 4)
             ->orderBy('id', 'desc')
             ->get();
         $kota = Kota::all();
@@ -29,17 +30,19 @@ class AdminLaporanSemuaPenjualanController extends Controller
         $leasing = LeasingMotor::all();
         $sales = Sales::all();
 
-        return view(
-            'admin.laporan_semua.index',
-            [
-                'penjualan' => $data,
-                'sales' => $sales,
-                'kota' => $kota,
-                'hasil' => $hasil,
-                'motor' => $motor,
-                'leasing' => $leasing
-            ]
-        );
+        // return response()->json($data);
+
+        $data = [
+            'penjualan' => $data,
+            'sales' => $sales,
+            'kota' => $kota,
+            'hasil' => $hasil,
+            'motor' => $motor,
+            'leasing' => $leasing
+        ];
+
+
+        return view('admin.laporan_semua.index', $data);
     }
 
     /**

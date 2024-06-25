@@ -224,7 +224,7 @@
 																						<div class="form-group col-md-6">
 																								<label for="input-hasil">Jumlah</label>
 																								<input name="jumlah" type="number" class="form-control" placeholder="Masukan jumlah motor"
-																										value="{{ $p->jumlah }}">
+																										value="{{ $p->jumlah ?? 0 }}">
 																						</div>
 																				</div>
 

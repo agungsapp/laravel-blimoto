@@ -62,12 +62,18 @@
 												</div>
 
 												<div class="row">
-														<div class="form-group col-md-6">
-																<label for="diskon">Diskon</label>
+														<div class="form-group col-md-4">
+																<label for="diskon">Diskon Konsumen</label>
 																<input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror"
 																		id="diskon" placeholder="Masukan diskon" value="{{ old('diskon') }}">
 														</div>
-														<div class="form-group col-md-6">
+														<div class="form-group col-md-4">
+																<label for="diskon_dealer">Diskon Dealer</label>
+																<input name="diskon_dealer" type="text"
+																		class="form-control @error('diskon_dealer') is-invalid @enderror" id="diskon_dealer"
+																		placeholder="Masukan diskon dealer" value="{{ old('diskon_dealer') }}">
+														</div>
+														<div class="form-group col-md-4">
 																<label for="diskon_promo">Diskon Promo</label>
 																<input name="diskon_promo" type="text" class="form-control @error('diskon_promo') is-invalid @enderror"
 																		id="diskon_promo" placeholder="Masukan diskon Promo" value="{{ old('diskon_promo') }}">
@@ -155,7 +161,8 @@
 																								<div class="modal-dialog" role="document">
 																										<div class="modal-content">
 																												<div class="modal-header">
-																														<h4 class="modal-title" id="myModalLabel">Edit data diskon motor {{ $d->motor->nama }}</h4>
+																														<h4 class="modal-title" id="myModalLabel">Edit data diskon motor {{ $d->motor->nama }}
+																														</h4>
 																												</div>
 																												<form action="{{ route('admin.diskon-motor.update', $d->id) }}" method="post"
 																														enctype="multipart/form-data">

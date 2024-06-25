@@ -10,6 +10,7 @@ use App\Models\Motor;
 use App\Models\Penjualan;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPenjualanProsesConntroller extends Controller
 {
@@ -20,10 +21,16 @@ class AdminPenjualanProsesConntroller extends Controller
      */
     public function index()
     {
+
+        // dd(Auth::guard('sales')->check(), Auth::guard('sales')->id());
+
         $hasil = Hasil::where('hasil', 'proses')->first();
         $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
-            ->where('id_hasil', $hasil->id)
-            ->orderBy('id', 'desc')
+            ->where('id_hasil', $hasil->id);
+        if (Auth::guard('sales')->check()) {
+            $data->where('id_sales', Auth::guard('sales')->id());
+        }
+        $data =  $data->orderBy('id', 'desc')
             ->get();
 
         $kota = Kota::all();

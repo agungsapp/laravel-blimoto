@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -25,8 +26,20 @@ class AdminDataPembayaranController extends Controller
             $query->where('status_pembayaran', 'success');
           });
       })
+      ->withSum('detailPembayaran', 'jumlah_bayar');
+    if (Auth::guard('sales')->check()) {
+      $data->where('id_sales', Auth::guard('sales')->id());
+    }
+    $data = $data
       ->orderBy('id', 'desc')
       ->get();
+
+    $data->map(function ($penjualan) {
+      $penjualan->total_lunas = $penjualan->detail_pembayaran_sum_jumlah_bayar;
+    });
+
+    // return response()->json($data);
+
     // $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund', 'detailPembayaran')
     //   ->where('status_pembayaran_dp', '=', 'success')
     //   ->orderBy('id', 'desc')
@@ -52,8 +65,11 @@ class AdminDataPembayaranController extends Controller
         $query->select('sisa_bayar', 'id_penjualan')
           ->orderByDesc('periode') // Urutkan berdasarkan periode descending
           ->limit(1); // Ambil hanya satu hasil (periode terbaru)
-      })
-      ->orderBy('id', 'desc')
+      });
+    if (Auth::guard('sales')->check()) {
+      $data->where('id_sales', Auth::guard('sales')->id());
+    }
+    $data = $data->orderBy('id', 'desc')
       ->get();
 
 
@@ -77,19 +93,18 @@ class AdminDataPembayaranController extends Controller
           ->whereHas('pembayaran', function ($query) {
             $query->where('status_pembayaran', 'success');
           })
-          ->select('sisa_bayar', 'id_penjualan'); // Select sisa_bayar dan id_penjualan
+          ->select('sisa_bayar', 'id_penjualan');
       })
       ->whereDoesntHave('detailPembayaran', function ($query) {
         $query->where('status', 'pelunasan');
       })
       ->orderBy('id', 'desc')
       ->get();
-
     // Ubah struktur data agar sisa_bayar menjadi atribut dari penjualan
     $data = $data->map(function ($penjualan) {
       $penjualan->sisa_bayar = $penjualan->detailPembayaran->first()->sisa_bayar;
       $penjualan->total_lunas = $penjualan->detailPembayaran->first()->total_lunas;
-      unset($penjualan->detailPembayaran); // Hapus relasi detailPembayaran jika tidak diperlukan
+      unset($penjualan->detailPembayaran);
       return $penjualan;
     });
     // $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'refund', 'detailPembayaran')
