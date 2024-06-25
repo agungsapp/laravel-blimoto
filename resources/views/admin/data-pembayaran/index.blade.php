@@ -22,7 +22,9 @@
 																		<th>Diskon DP</th> --}}
 																		<th>TDP</th>
 																		<th>Status Pembayaran Terakhir</th>
-																		<th>Sisa Tagihan</th>
+																		@if (!Route::is('admin.sudah-bayar'))
+																				<th>Sisa Tagihan</th>
+																		@endif
 																		<th>Leasing</th>
 																		<th>Tanggal Dibuat</th>
 																		{{-- <th>Tanggal Hasil</th> --}}
@@ -42,7 +44,9 @@
 																				<td>{{ $p->diskon_dp }}</td> --}}
 																				<td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
-																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
+																				@if (!Route::is('admin.sudah-bayar'))
+																						<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
+																				@endif
 																				<td>{{ $p->leasing->nama ?? 'CASH' }}</td>
 																				<td>{{ $p->tanggal_dibuat }}</td>
 																				{{-- <td>{{ $p->tanggal_hasil }}</td> --}}
@@ -57,12 +61,12 @@
 																						</div>
 																						@if (\Route::is('admin.sudah-bayartj'))
 																								<div>
-																										<button type="button" class="btn btn-warning btn-block load-payment-modal mb-1"
+																										<button type="button" class="btn btn-success btn-block load-payment-modal mb-1"
 																												data-id="{{ $p->id }}"
 																												data-url="{{ route('admin.penjualan.payment-data', ['id' => $p->id]) }}"
-																												data-action-url="{{ route('admin.penjualan.tambahPelunasan', ['id' => $p->id]) }}"
+																												data-action-url="{{ route('admin.penjualan.pelunasanOffline', ['id' => $p->id]) }}"
 																												data-toggle="modal" data-target="#modalBayar">
-																												Bayar
+																												Pelunasan
 																										</button>
 																								</div>
 																						@endif
@@ -101,7 +105,7 @@
 				<div class="modal-dialog" role="document">
 						<div class="modal-content">
 								<div class="modal-header">
-										<h4 class="modal-title" id="myModalLabel">Bayar DP</h4>
+										<h4 class="modal-title" id="myModalLabel">Pelunasan sisa tagihan</h4>
 								</div>
 								<form action="" method="post">
 										@csrf
@@ -123,14 +127,14 @@
 
 														<label for="dp">DP</label>
 														<input type="number" class="form-control" id="dp" name="dp" aria-describedby="dpHelp">
-														<div id="dpHelp" class="form-text">Tagihan yang harus di lunasi konsumen <strong id="nakon"></strong>
-																adalah sebesar <strong id="takon" class="text-danger"></strong>.</div>
+														<div id="dpHelp" class="form-text">Anda ingin melakukan konfirmasi pembayaran bahwa konsumen atas nama
+																<strong id="nakon"></strong>
+																telah melakukan pembayaran sebesar <strong id="takon" class="text-danger"></strong> ?. <br> Dengan
+																menekan
+																tombol <strong>Ya</strong> maka status pembayaran konsumen ini akan dinyatakan lunas.
+														</div>
 												</div>
-												<div class="form-group col-md-12">
-														<label for="email">Email Notifikasi</label>
-														<input type="text" class="form-control" id="email" name="email"
-																placeholder="Masukan email untuk dikirimkan invoice pembayaran">
-												</div>
+
 
 
 												{{-- <label for="tujuan">Apa tujuan transaksi ini ?</label> <br>
@@ -147,7 +151,7 @@
 										</div>
 										<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary" id="pay-button">Bayar</button>
+												<button type="submit" class="btn btn-primary" id="ipay-button">Ya</button>
 										</div>
 								</form>
 						</div>
@@ -164,13 +168,9 @@
 										</div>
 										<div class="modal-body">
 												{{-- LAST DI SINI TAMBAHAIN PAGI NANTI --}}
-
-
 												<ul class="list-group list-group-flush" id="payment-list">
 														<!-- Generated list items will be inserted here -->
 												</ul>
-
-
 										</div>
 										<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

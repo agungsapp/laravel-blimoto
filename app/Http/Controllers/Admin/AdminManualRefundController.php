@@ -8,6 +8,7 @@ use App\Models\ManualTransferModel;
 use App\Models\PengajuanRefundModel;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -35,8 +36,11 @@ class AdminManualRefundController extends Controller
                                 $q2->where('status_pembayaran', 'success');
                             });
                     });
-            })
-            ->orderBy('id', 'desc')
+            });
+        if (Auth::guard('sales')->check()) {
+            $data->where('id_sales', Auth::guard('sales')->id());
+        }
+        $data = $data->orderBy('id', 'desc')
             ->get();
 
         // Mengubah struktur data jika diperlukan (misalnya, menambahkan atribut `sisa_bayar`)

@@ -13,6 +13,7 @@ class DiskonMotor extends Model
     'id_leasing',
     'id_lokasi',
     'diskon',
+    'diskon_dealer',
     'diskon_promo',
     'tenor',
     'potongan_tenor',

@@ -16,6 +16,7 @@ use App\Models\Penjualan;
 use App\Models\Sales;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -96,6 +97,10 @@ class AdminPenjualanController extends Controller
 
     // return response()->json($motor->diskonMotor[0]->diskon);
 
+    if (Auth::guard('sales')->check()) {
+      $request->merge(['sales' => Auth::guard('sales')->id()]);
+    }
+
     $validator = Validator::make($request->all(), [
       'konsumen' => 'required',
       'sales' => 'required',
@@ -110,6 +115,8 @@ class AdminPenjualanController extends Controller
       'status_pembayaran' => 'required',
       'metode_pembayaran' => 'required',
     ]);
+
+
 
 
 
@@ -504,7 +511,6 @@ class AdminPenjualanController extends Controller
       $lastDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $idPenjualan)
         ->orderBy('periode', 'desc')
         ->first();
-
       if (!$lastDetailPembayaran) {
         return response()->json(['pesan' => 'Data pembayaran sebelumnya tidak ditemukan'], 404);
       }
@@ -512,7 +518,6 @@ class AdminPenjualanController extends Controller
       // Ambil data penjualan terkait
       $penjualan = $lastDetailPembayaran->penjualan;
       $namaKonsumen = $penjualan->nama_konsumen;
-
       // validasi input pembayaran tidak melebihi sisa pembayaran seharusnya 
       $cekKelebihan = (int) $request->dp > (int) $lastDetailPembayaran->sisa_bayar;
       // return response()->json($lastDetailPembayaran->sisa_bayar);
@@ -607,6 +612,101 @@ class AdminPenjualanController extends Controller
       return response()->json(['pesan' => 'Error coba beberapa saat lagi' . $e->getMessage()], 500);
     }
   }
+
+
+
+
+  public function pelunasanOffline(Request $request, $id_penjualan)
+  {
+    // dd($request->all(), $id_penjualan);
+
+
+
+
+    // pengecekan pelunasan sebelumnya
+    $cekDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $id_penjualan)->where('status', 'pelunasan')->get()->count();
+    if ($cekDetailPembayaran > 0) {
+      flash()->addError("Data ini sudah dinyatakan lunas !");
+      return redirect()->back();
+    }
+
+    try {
+      DB::transaction(function () use ($request, $id_penjualan) {
+        $lastDetailPembayaran = DetailPembayaranModel::where('id_penjualan', $id_penjualan)
+          ->orderBy('periode', 'desc')
+          ->first();
+        if (!$lastDetailPembayaran) {
+          flash()->addError("Data pembayaran sebelumnya tidak ditemukan");
+          throw new \Exception("Data pembayaran sebelumnya tidak ditemukan");
+        }
+
+        // Ambil data penjualan terkait
+        $penjualan = $lastDetailPembayaran->penjualan;
+        $namaKonsumen = $penjualan->nama_konsumen;
+
+        // pengecekan harus DO
+        if ($penjualan->id_hasil != 4) {
+          flash()->addError("Pelunasan hanya bisa di lakukan untuk data yang sudah DO. !");
+          return redirect()->back();
+        }
+
+        // Set jumlah bayar menjadi sisa bayar terakhir
+        $jumlahBayar = $lastDetailPembayaran->sisa_bayar;
+        $sisaBayar = 0; // Karena pelunasan
+        $status = 'pelunasan';
+        $konteks = 'Pelunasan';
+
+        // Ambil kode transaksi dari penjualan
+        $kodeTransaksi = $penjualan->kode_transaksi;
+
+        // Generate kode bayar baru sesuai aturan
+        $bulanSekarang = date('m');
+        $tahunSekarang = date('Y');
+        $lastDetail = DetailPembayaranModel::where('kode_bayar', 'like', "$kodeTransaksi%")
+          ->whereMonth('created_at', $bulanSekarang)
+          ->whereYear('created_at', $tahunSekarang)
+          ->orderBy('created_at', 'desc')
+          ->first();
+        $urutan = $lastDetail ? ((int) substr(
+          $lastDetail->kode_bayar,
+          strrpos($lastDetail->kode_bayar, '-') + 1
+        )) + 1 : 1;
+        $kodeBayarBaru = "$kodeTransaksi-$urutan";
+
+        // Buat detail pembayaran baru
+        $detailPembayaran = DetailPembayaranModel::create([
+          'id_penjualan' => $id_penjualan,
+          'kode_bayar' => $kodeBayarBaru,
+          'jumlah_bayar' => $jumlahBayar,
+          'sisa_bayar' => $sisaBayar,
+          'total_lunas' => $lastDetailPembayaran->total_lunas,
+          'periode' => $lastDetailPembayaran->periode + 1,
+          'status' => $status
+        ]);
+
+        // Buat pembayaran baru
+        $pembayaran = Pembayaran::create([
+          'id_detail_pembayaran' => $detailPembayaran->id,
+          'order_id' => $kodeBayarBaru,
+          'harga' => $jumlahBayar,
+          'status_pembayaran' => 'success',
+          'metode_pembayaran' => 'offline',
+          'paid_at' => Carbon::now(),
+        ]);
+
+        flash()->addSuccess("Berhasil melakukan pelunasan untuk data konsumen $namaKonsumen!");
+      });
+
+      return redirect()->back();
+    } catch (\Throwable $th) {
+      // Menangani error
+      Log::channel('penjualan')->info('Error pelunasan : ', [$th->getMessage()]);
+      flash()->addError("Terjadi kesalahan: " . $th->getMessage());
+      return redirect()->back();
+    }
+  }
+
+
 
 
 
