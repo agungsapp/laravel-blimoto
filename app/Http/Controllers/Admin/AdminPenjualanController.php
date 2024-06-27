@@ -108,8 +108,8 @@ class AdminPenjualanController extends Controller
       'kabupaten' => 'required',
       'hasil' => 'required',
       'dp' => 'required',
-      'dp_asli' => 'required',
-      'angsuran' => 'required',
+      // 'dp_asli' => 'required',
+      // 'angsuran' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
       'status_pembayaran' => 'required',
@@ -123,7 +123,8 @@ class AdminPenjualanController extends Controller
     // dd($request->all());
 
     if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
+
+      flash()->addError("Inputkan semua data dengan benar!" .  $validator->messages());
       return redirect()->back()->withInput();
     }
 
@@ -179,12 +180,13 @@ class AdminPenjualanController extends Controller
       if ($pembelian == 'cash') {
         // return $motor->harga;
         $penjualan->dp = $motor->harga;
+        $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
       } else {
+        $penjualan->diskon_dp = $motor->diskonMotor[0]->diskon ?? 0;
         $penjualan->dp = $request->input('dp') ?? 0;
       }
       $penjualan->dp_asli = $request->dp_asli;
       $penjualan->angsuran = $request->angsuran;
-      $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
       $penjualan->status_pembayaran_dp = $request->input('status_pembayaran');
       $penjualan->tanggal_dibuat = $tanggal_dibuat;
       $penjualan->no_po = $nomorPo;

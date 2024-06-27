@@ -25,13 +25,21 @@ class AdminPenjualanProsesConntroller extends Controller
         // dd(Auth::guard('sales')->check(), Auth::guard('sales')->id());
 
         $hasil = Hasil::where('hasil', 'proses')->first();
-        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales')
+        $data = Penjualan::with('motor', 'leasing', 'hasil', 'kota', 'sales', 'detailPembayaran')
             ->where('id_hasil', $hasil->id);
         if (Auth::guard('sales')->check()) {
             $data->where('id_sales', Auth::guard('sales')->id());
         }
         $data =  $data->orderBy('id', 'desc')
             ->get();
+        // dd($data[0]->detailPembayaran);
+        $data->map(function ($d) {
+            $d->total_lunas = $d->detailPembayaran->isNotEmpty() ? $d->detailPembayaran->first()->total_lunas : 0;
+        });
+
+
+
+        // return response()->json($data);
 
         $kota = Kota::all();
         $hasil = Hasil::all();

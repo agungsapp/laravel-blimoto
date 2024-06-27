@@ -34,9 +34,9 @@
 																		<th class="no-visible">STNK</th>
 																		<th>Metode Pembelian</th>
 																		<th>Status Pembayaran DP</th>
-																		<th class="no-visible">DP</th>
-																		<th class="no-visible">Diskon DP</th>
-																		<th class="no-visible">DP Bayar</th>
+																		<th class="">DP</th>
+																		<th class="">Diskon Cash</th>
+																		<th class="">DP Bayar</th>
 																		<th>Leasing</th>
 																		<th>Motor</th>
 																		<th>Warna</th>
@@ -65,9 +65,9 @@
 																						<td>{{ $p->bpkb }}</td>
 																						<td>{{ $p->metode_pembelian }}</td>
 																						<td>{{ $p->status_pembayaran_dp }}</td>
-																						<td>{{ $p->dp }}</td>
-																						<td>{{ $p->diskon_dp }}</td>
-																						<td>{{ $p->dp - $p->diskon_dp }}</td>
+																						<td>{{ Str::rupiah($p->dp) }}</td>
+																						<td>{{ $p->diskon_dp == 0 ? 'kredit' : Str::rupiah($p->diskon_dp) }}</td>
+																						<td>{{ Str::rupiah($p->total_lunas) }}</td>
 																						<td>{{ $p->leasing->nama ?? 'cash' }}</td>
 																						<td>{{ $p->motor->nama }}</td>
 																						<td>{{ $p->warna_motor }}</td>

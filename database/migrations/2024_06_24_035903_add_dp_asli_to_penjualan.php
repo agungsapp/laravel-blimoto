@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('penjualan', function (Blueprint $table) {
-            $table->integer('dp_asli')->after('dp');
-            $table->integer('angsuran')->after('dp_asli');
+            $table->integer('dp_asli')->after('dp')->nullable();
+            $table->integer('angsuran')->after('dp_asli')->nullable();
         });
     }
 

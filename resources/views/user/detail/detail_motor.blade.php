@@ -56,6 +56,11 @@
 												<h6 class="fw-bold text-doff nama-motor">Stock</h6>
 												<p class="nama-motor" style="font-weight: bold; color: green;">Tersedia</p>
 										</div>
+										<div class="mt-2">
+												<a href="https://wa.me/6282322222023?text=Hai,%20Admin%20saya%20ingin%20informasi%20lebih%20lanjut%20mengenai%20unit%20kendaraan%20berikut.%20%0A%0AMerk%20:%20{{ $motor['merk'] }}%0AKategori%20:%20{{ $motor['type'] }}%0AType%20:%20{{ $motor['nama'] }}%0A."
+														target="_blank" class="btn btn-success w-100"><i class="fa fa-whatsapp" aria-hidden="true"></i><span
+																class="ms-2">Ajukan Sekarang</span></a>
+										</div>
 								</div>
 								<div class="product-slick">
 
