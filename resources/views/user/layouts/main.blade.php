@@ -217,6 +217,28 @@
 				isDev && console.log('Mode development aktif');
 
 
+
+				// functional untuk tap 3 detik alihkan ke halaman admin
+				$(document).ready(function() {
+						let holdTimeout;
+
+						$('.brand-logo a').on('mousedown', function(event) {
+								event.preventDefault();
+								holdTimeout = setTimeout(function() {
+										window.location.href = '/app/dashboard';
+								}, 4000);
+						});
+
+						$('.brand-logo a').on('mouseup mouseout', function() {
+								clearTimeout(holdTimeout);
+						});
+				});
+
+
+
+
+
+
 				isDev && console.log("aman running")
 				var lokasiNow = 1;
 

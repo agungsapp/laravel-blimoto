@@ -10,11 +10,11 @@
 														<h2 class="text-white">Motor</h2>
 														<ul>
 																<li>
-																		<a class="text-white" href="javascript:void(0)">home</a>
+																		<a class="text-white" href="{{ route('home.index') }}">home</a>
 																</li>
 																<li><i class="fa fa-angle-double-right text-white"></i></li>
 																<li>
-																		<a class="text-white" href="javascript:void(0)">daftar-motor</a>
+																		<a class="text-white" href="{{ route('motor.index') }}">daftar-motor</a>
 																</li>
 														</ul>
 												</div>
@@ -41,10 +41,10 @@
 						<div class="custom-container">
 								<div class="row">
 										<div class="col-sm-3 collection-filter category-page-side">
+
+
 												<!-- Filter form start -->
 												<form action="{{ url('motor') }}" method="GET" id="motorFilterForm">
-														@csrf
-
 														<!-- Brand filter start -->
 														<div class="collection-collapse-block open">
 																<h3 class="collapse-block-title mt-0">Merk Motor</h3>
@@ -54,7 +54,7 @@
 																						<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
 																								<input type="checkbox" name="id_merk[]" value="{{ $merk->id }}"
 																										class="custom-control-input form-check-input" id="merk-{{ $merk->id }}"
-																										{{ in_array($merk->id, old('id_merk', [])) ? 'checked' : '' }} />
+																										{{ in_array($merk->id, old('id_merk', request()->id_merk ?? [])) ? 'checked' : '' }} />
 																								<label class="custom-control-label form-check-label"
 																										for="merk-{{ $merk->id }}">{{ $merk->nama }}</label>
 																						</div>
@@ -73,7 +73,7 @@
 																						<div class="custom-control custom-checkbox form-check collection-filter-checkbox">
 																								<input type="checkbox" name="id_type[]" value="{{ $type->id }}"
 																										class="custom-control-input form-check-input" id="type-{{ $type->id }}"
-																										{{ in_array($type->id, old('id_type', [])) ? 'checked' : '' }} />
+																										{{ in_array($type->id, old('id_type', request()->id_type ?? [])) ? 'checked' : '' }} />
 																								<label class="custom-control-label form-check-label"
 																										for="type-{{ $type->id }}">{{ $type->nama }}</label>
 																						</div>
@@ -92,13 +92,15 @@
 																		<div class="collection-brand-filter mt-3">
 																				<div class="input-group mb-3">
 																						<span class="input-group-text">Min</span>
-																						<input type="text" class="form-control" id="display_min_price" value="{{ old('min_price') }}"
-																								placeholder="Contoh: Rp20.000.000" oninput="formatAndSetRupiah(this, 'hidden_min_price')">
+																						<input type="text" class="form-control" id="display_min_price"
+																								value="{{ old('min_price', request()->min_price) }}" placeholder="Contoh: Rp20.000.000"
+																								oninput="formatAndSetRupiah(this, 'hidden_min_price')">
 																				</div>
 																				<div class="input-group mb-3">
 																						<span class="input-group-text">Max</span>
-																						<input type="text" class="form-control" id="display_max_price" value="{{ old('max_price') }}"
-																								placeholder="Contoh: Rp25.000.000" oninput="formatAndSetRupiah(this, 'hidden_max_price')">
+																						<input type="text" class="form-control" id="display_max_price"
+																								value="{{ old('max_price', request()->max_price) }}" placeholder="Contoh: Rp25.000.000"
+																								oninput="formatAndSetRupiah(this, 'hidden_max_price')">
 																				</div>
 																		</div>
 																</div>
@@ -113,11 +115,12 @@
 																				<div class="input-group mb-3">
 																						<select name="sort" class="form-select" aria-label="Sort by">
 																								<option value="">Pilih Urutan</option>
-																								<option value="lowest_dp" {{ old('sort') == 'lowest_dp' ? 'selected' : '' }}>Harga: Rendah
-																										ke tinggi</option>
-																								<option value="highest_dp" {{ old('sort') == 'highest_dp' ? 'selected' : '' }}>Harga:
-																										Tinggi ke rendah</option>
-																								<option value="newest" {{ old('sort') == 'newest' ? 'selected' : '' }}>Motor Terbaru</option>
+																								<option value="lowest_dp" {{ old('sort', request()->sort) == 'lowest_dp' ? 'selected' : '' }}>
+																										Harga: Rendah ke tinggi</option>
+																								<option value="highest_dp" {{ old('sort', request()->sort) == 'highest_dp' ? 'selected' : '' }}>
+																										Harga: Tinggi ke rendah</option>
+																								<option value="newest" {{ old('sort', request()->sort) == 'newest' ? 'selected' : '' }}>Motor
+																										Terbaru</option>
 																						</select>
 																				</div>
 																		</div>
@@ -132,6 +135,9 @@
 														</div>
 												</form>
 												<!-- Filter form end -->
+
+
+
 										</div>
 										<div class="collection-content col">
 												<div class="page-main-content">
@@ -162,7 +168,8 @@
 																		<div class="collection-product-wrapper">
 																				<div class="product-wrapper-grid product">
 																						<div class="row">
-																								@foreach ($data as $motor)
+
+																								@forelse ($data as $motor)
 																										<div class="col-xl-3 col-md-4 col-6 col-grid-box">
 																												<div class="product-box">
 																														<div class="product-imgbox">
@@ -176,8 +183,10 @@
 																																<a tabindex="0">
 																																		<h3 class="fw-bold text-center">{{ $motor->nama }}</h3>
 																																</a>
-																																{{-- <h3 class="mt-3">Harga Spesial</h3>
-																																<h5>{{ Str::rupiah($motor->harga) }}</h5> --}}
+																																<div class="d-flex justify-content-between align-items-baseline">
+																																		<h3 class="mt-3">Harga Spesial</h3>
+																																		<h5>{{ Str::rupiah($motor->harga) }}</h5>
+																																</div>
 																																<div class="d-flex justify-content-between align-items-baseline">
 																																		<h3 class="">Dp Normal</h3>
 																																		<h5>{{ Str::rupiah($motor->dp ?? '0') }}</h5>
@@ -201,7 +210,11 @@
 																														</div>
 																												</div>
 																										</div>
-																								@endforeach
+																								@empty
+																										<div class="d-flex flex-column justify-content-center">
+																												<p class="fs-3 text-center">-- Yah, motor yang kamu cari belum ada nih ☹ --</p>
+																										</div>
+																								@endforelse
 																								<div class="mb-5 mt-5">
 																										{{ $data->links('user.layouts.partials.pagination') }}
 																								</div>
@@ -247,13 +260,13 @@
 
 						// Check if only one field is filled
 						if ((minPrice && !maxPrice) || (!minPrice && maxPrice)) {
+								event.preventDefault();
 								Swal.fire({
 										title: 'Error!',
 										text: 'Min dan Max harus diisi semua.',
 										icon: 'error',
 										confirmButtonText: 'Ok'
 								});
-								event.preventDefault();
 								return false;
 						}
 

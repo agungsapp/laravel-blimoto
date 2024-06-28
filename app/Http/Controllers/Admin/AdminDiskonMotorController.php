@@ -17,6 +17,19 @@ use Yajra\DataTables\DataTables;
 
 class AdminDiskonMotorController extends Controller
 {
+
+
+  public function data()
+  {
+    if (request()->ajax()) {
+      $diskon = DiskonMotor::with('motor', 'leasing', 'lokasi')
+        ->orderBy('id', 'desc')
+        ->get();
+      return DataTables::of($diskon)
+        ->make();
+    }
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -29,7 +42,7 @@ class AdminDiskonMotorController extends Controller
     $lokasi = Kota::select('id', 'nama')->get();
     $diskonMotor = DiskonMotor::with('motor', 'leasing', 'lokasi')
       ->orderBy('id', 'desc')
-      ->get();;
+      ->get();
 
     return view('admin.diskon-motor.index', [
       'motor' => $motor,

@@ -266,6 +266,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('dealer-motor', AdminDealerController::class);
             Route::resource('mitra', MitraKamiController::class);
             Route::resource('diskon-motor', AdminDiskonMotorController::class);
+            Route::get('diskon-motor/data', [AdminDiskonMotorController::class, 'data'])->name('diskon-motor.data');
             Route::resource('mtr-best-motor', AdminMtrBestMotorController::class);
             Route::resource('event', AdminEventController::class);
             Route::resource('company-profile', AdminCompanyProfileController::class);

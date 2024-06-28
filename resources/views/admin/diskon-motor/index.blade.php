@@ -219,11 +219,18 @@
 																																		</div>
 																																</div>
 																																<div class="row">
-																																		<div class="form-group col-md-6">
-																																				<label for="model">Diskon</label>
+																																		<div class="form-group col-md-12">
+																																				<label for="model">Diskon Konsumen</label>
 																																				<input name="diskon" type="text"
 																																						class="form-control @error('diskon') is-invalid @enderror" id="diskon"
 																																						placeholder="Masukan diskon" value="{{ $d->diskon }}">
+																																		</div>
+																																		<div class="form-group col-md-6">
+																																				<label for="model">Diskon Dealer</label>
+																																				<input name="diskon_dealer" type="text"
+																																						class="form-control @error('diskon_dealer') is-invalid @enderror"
+																																						id="diskon_dealer" placeholder="Masukan diskon dealer"
+																																						value="{{ $d->diskon_dealer }}">
 																																		</div>
 																																		<div class="form-group col-md-6">
 																																				<label for="model">Diskon Promo</label>
@@ -295,15 +302,12 @@
 @push('script')
 		<script>
 				//Initialize Select2 Elements
-				$('.select2').select2()
 				$(document).ready(function() {
+						$("#dataDiskon").DataTable();
+						$('.select2').select2()
+						// console.log("datatables ekesusi")
 
-						$("#dataDiskon").DataTable({
-								"responsive": true,
-								"lengthChange": false,
-								"autoWidth": false,
-								//"buttons": ["copy", "csv", "excel", "pdf", "print"] //, "colvis"
-						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
+						// .buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
 
 						$('.show_confirm').click(function(event) {
 								var form = $(this).closest("form");

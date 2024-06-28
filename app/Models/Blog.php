@@ -10,6 +10,7 @@ class Blog extends Model
     protected $fillable = [
         'judul',
         'cuplikan',
+        'slug',
         'deskripsi',
         'thumbnail',
         'created_at',

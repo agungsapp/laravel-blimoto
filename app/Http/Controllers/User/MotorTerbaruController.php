@@ -27,11 +27,9 @@ class MotorTerbaruController extends Controller
       $kotaId = 1;
     }
 
-    // Subquery untuk mendapatkan DP terendah per motor
     $lowestDpSubquery = CicilanMotor::selectRaw('MIN(dp) as min_dp, id_motor')
       ->groupBy('id_motor');
 
-    // Subquery untuk mendapatkan diskon promo maksimal per motor
     $diskonPromoSubquery = DiskonMotor::selectRaw('MAX(diskon_promo) as max_diskon_promo, id_motor')
       ->groupBy('id_motor');
 
@@ -56,12 +54,10 @@ class MotorTerbaruController extends Controller
         'cicilan_motor.tenor',
         'cicilan_motor.id_leasing',
         'cicilan_motor.id_lokasi',
-        'diskon_promos.max_diskon_promo as diskon_promo' // Menambahkan diskon promo ke select
+        'diskon_promos.max_diskon_promo as diskon_promo'
       )
       ->groupBy('motor.id');
 
-    // ... (filter dan sorting) ...
-    // Filter berdasarkan merk
     if ($request->filled('id_merk')) {
       $merkMotor = $request->input('id_merk');
       $query->whereHas('merk', function ($q) use ($merkMotor) {
@@ -69,8 +65,6 @@ class MotorTerbaruController extends Controller
       });
     }
 
-
-    // Filter berdasarkan jenis motor
     if ($request->filled('id_type')) {
       $jenisMotor = $request->input('id_type');
       $query->whereHas('type', function ($q) use ($jenisMotor) {
@@ -78,21 +72,14 @@ class MotorTerbaruController extends Controller
       });
     }
 
-
-    // Filter berdasarkan range DP
     if ($request->filled('min_price') && $request->filled('max_price')) {
       $minDp = $request->input('min_price');
       $maxDp = $request->input('max_price');
       $query->whereHas('cicilanMotor', function ($q) use ($minDp, $maxDp) {
         $q->whereBetween('dp', [$minDp, $maxDp]);
-        // dd($q->toSql());
-        // $q->whereBetween('dp', [3800000, 4000000]);
       });
     }
-    // dd($query->get());
 
-
-    // Apply sorting based on the parameter
     if ($request->filled('sort')) {
       switch ($request->input('sort')) {
         case 'newest':
@@ -106,13 +93,8 @@ class MotorTerbaruController extends Controller
           break;
       }
     } else {
-      // Default sorting by newest if no sort parameter is provided
       $query->orderBy('updated_at', 'desc');
     }
-
-    // return response()->json($query->get());
-    // dd($query->toSql());
-
 
     $motorData = $query->paginate(8);
 
@@ -120,7 +102,7 @@ class MotorTerbaruController extends Controller
       'data' => $motorData,
       'merks' => Merk::all(),
       'types' => Type::all(),
-    ]);
+    ])->withInput($request->input());
   }
 
 

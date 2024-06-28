@@ -227,9 +227,9 @@
 																				</div>
 																				{{-- diskon dp --}}
 																				{{-- mati sementara waktu --}}
-																				<div class="form-group d-none col-md-6">
-																						<label for="input-diskon-dp">Diskon DP</label>
-																						<input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon DP"
+																				<div class="form-group diskon_cash_wrapper col-md-6">
+																						<label for="input-diskon-dp">Diskon Cash</label>
+																						<input name="diskon_dp" type="number" class="form-control" placeholder="Masukan diskon cash"
 																								id="input-diskon-dp" value="{{ old('diskon_dp') }}">
 																				</div>
 																				{{-- tenor --}}
@@ -264,20 +264,24 @@
 
 																				{{-- dp_asli --}}
 																				<div class="form-group col-md-4">
-																						<label for="dp_asli">Dp Pengajuan <span class="text-danger">*</span></label>
-																						<select id="dp_asli" name="dp_asli" class="form-control select2" style="width: 100%;">
-																								<option value="" selected>-- Pilih DP Pengajuan --</option>
-																						</select>
-																						<div class="form-check metodeHide my-4" id="metodeLainnya" style="display: none;">
-																								<input type="text" class="form-control" placeholder="Masukan nama leasing"
-																										name="metode_lainnya">
+																						<div class="hanya_kredit_wrapper">
+																								<label for="dp_asli">Dp Pengajuan <span class="text-danger">*</span></label>
+																								<select id="dp_asli" name="dp_asli" class="form-control select2" style="width: 100%;">
+																										<option value="" selected>-- Pilih DP Pengajuan --</option>
+																								</select>
+																								<div class="form-check metodeHide my-4" id="metodeLainnya" style="display: none;">
+																										<input type="text" class="form-control" placeholder="Masukan nama leasing"
+																												name="metode_lainnya">
+																								</div>
 																						</div>
 																				</div>
 																				{{-- dp --}}
 																				<div class="form-group col-md-2">
-																						<label for="angsuran">Angsuran <span class="text-danger">*</span></label>
-																						<input id="angsuran" name="angsuran" type="number" min="0" class="form-control"
-																								placeholder="Masukan DP" value="{{ old('angsuran') ?? 0 }}" readonly>
+																						<div class="hanya_kredit_wrapper">
+																								<label for="angsuran">Angsuran <span class="text-danger">*</span></label>
+																								<input id="angsuran" name="angsuran" type="number" min="0" class="form-control"
+																										placeholder="Masukan DP" value="{{ old('angsuran') ?? 0 }}" readonly>
+																						</div>
 																				</div>
 
 																				{{-- metode pembayaran --}}
@@ -355,86 +359,14 @@
 
 @endsection
 
+
+
+
+
+
 @push('script')
 		<script>
-				// js untuk bagian logka select cicilan : 
-				$(document).ready(function() {
-
-						function formatRupiah(angka, prefix) {
-								var number_string = angka.toString().replace(/[^,\d]/g, ''),
-										split = number_string.split(','),
-										sisa = split[0].length % 3,
-										rupiah = split[0].substr(0, sisa),
-										ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-								if (ribuan) {
-										separator = sisa ? '.' : '';
-										rupiah += separator + ribuan.join('.');
-								}
-
-								rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-								return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-						}
-
-						function fetchCicilan() {
-								var id_motor = $('#motor-input').val();
-								var id_lokasi = $('#kabupaten-input').val();
-								var id_leasing = $('#leasing-input').val();
-								var tenor = $('[name="tenor"]').val();
-
-								if (id_motor && id_lokasi && id_leasing && tenor) {
-										$.ajax({
-												url: '/api/get-cicilan',
-												type: 'POST',
-												data: {
-														id_motor: id_motor,
-														id_lokasi: id_lokasi,
-														id_leasing: id_leasing,
-														tenor: tenor,
-														_token: '{{ csrf_token() }}'
-												},
-												success: function(response) {
-														$('#dp_asli').empty();
-														$('#dp_asli').append(
-																'<option value="" selected>-- Pilih DP Pengajuan --</option>');
-
-														if (response.length > 0) {
-																$.each(response, function(index, item) {
-																		var formattedCicilan = formatRupiah(item.dp, 'Rp. ');
-																		$('#dp_asli').append('<option value="' + item.dp +
-																				'" data-dp="' + item.cicilan + '">' +
-																				formattedCicilan + '</option>');
-																});
-														} else {
-																$('#dp_asli').append('<option value="">Tidak ada data DP/cicilan</option>');
-														}
-												},
-												error: function(xhr) {
-														console.log(xhr.responseText);
-												}
-										});
-								}
-						}
-
-						// Bind change event to all relevant inputs
-						$('#motor-input, #kabupaten-input, #leasing-input, [name="tenor"]').on('change', function() {
-								fetchCicilan();
-						});
-
-						// Bind change event to dp_asli select to update angsuran input
-						$('#dp_asli').on('change', function() {
-								var selectedOption = $(this).find('option:selected');
-								var dpValue = parseInt(selectedOption.data('dp'), 10);
-								console.log("Selected DP Value: ", dpValue); // Debugging log
-								if (dpValue !== undefined) {
-										$('#angsuran').val(dpValue);
-								} else {
-										$('#angsuran').val(0);
-								}
-						});
-				});
-
-				// utils function
+				// Utility function
 				const formatRupiah = (angka) => {
 						const number_string = angka.toString().replace(/[^,\d]/g, '');
 						const split = number_string.split(',');
@@ -450,86 +382,151 @@
 						rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
 						return 'Rp ' + rupiah;
 				}
-				// utils end 
 
-				$('.select2').select2()
-				$('#motor-input').select2()
+				const fetchCicilan = () => {
+						const id_motor = $('#motor-input').val();
+						const id_lokasi = $('#kabupaten-input').val();
+						const id_leasing = $('#leasing-input').val();
+						const tenor = $('[name="tenor"]').val();
 
-				// auto fill nama BPKB
-				const autoFillBpkb = () => {
-						$('#bpkb').val($('#nama_konsumen').val())
+						if (id_motor && id_lokasi && id_leasing && tenor) {
+								$.ajax({
+										url: '/api/get-cicilan',
+										type: 'POST',
+										data: {
+												id_motor: id_motor,
+												id_lokasi: id_lokasi,
+												id_leasing: id_leasing,
+												tenor: tenor,
+												_token: '{{ csrf_token() }}'
+										},
+										success: (response) => {
+												$('#dp_asli').empty().append(
+														'<option value="" selected>-- Pilih DP Pengajuan --</option>'
+												);
+
+												if (response.length > 0) {
+														response.forEach(item => {
+																$('#dp_asli').append('<option value="' + item.dp + '" data-dp="' + item.cicilan + '">' +
+																		formatRupiah(item.dp, 'Rp. ') + '</option>');
+														});
+												} else {
+														$('#dp_asli').append('<option value="">Tidak ada data DP/cicilan</option>');
+												}
+										},
+										error: (xhr) => {
+												console.log(xhr.responseText);
+										}
+								});
+						}
 				}
-				$('#nama_konsumen').on('keyup', function() {
-						autoFillBpkb()
-				})
 
-				// limit input NIK
-				$('#nik').on('input', function() {
-						if ($(this).val().length > 16) {
-								$(this).val($(this).val().slice(0, 16));
-						}
-				});
-				// limit input nomor hp
-				$('#input-nomor-hp').on('input', function() {
-						if ($(this).val().length > 14) {
-								$(this).val($(this).val().slice(0, 16));
-						}
-				});
-
-				// logic onchange metode pembayaran
 				const displayDPTenor = (metode) => {
 						const tenor = $('#tenor_wrapper');
 						const leasingWrapper = $('#leasing_wrapper');
 						const tjWrapper = $('#tj_wrapper');
 						const dpWrapper = $('#dp_wrapper');
-						// const dp = $('#dp_wrapper');
-						const dpLabel = $('#dp_label')
-						if (metode == 'cash') {
-								// remove
-								tjWrapper.removeClass('d-none')
-								// add
-								dpWrapper.addClass('d-none')
+						const hanyaKreditWrapper = $('.hanya_kredit_wrapper');
+						const diskonCashWrapper = $('.diskon_cash_wrapper'); // Element diskon cash
+
+						// Elements to be disabled
+						const elementsToDisable = $(
+								'#dp_wrapper input, #tenor_wrapper select, #leasing_wrapper select, .hanya_kredit_wrapper select, .hanya_kredit_wrapper input, #tj_wrapper input'
+						);
+
+						if (metode === 'cash') {
+								// Show diskon cash
+								diskonCashWrapper.removeClass('d-none');
+								diskonCashWrapper.find('input').attr('disabled', false);
+
+								// Hide kredit related fields
+								dpWrapper.addClass('d-none');
 								tenor.addClass('d-none');
 								leasingWrapper.addClass('d-none');
-						} else {
-								// remove
+								hanyaKreditWrapper.addClass('d-none');
+
+								// Show tanda jadi
+								tjWrapper.removeClass('d-none');
+
+								// Disable kredit elements
+								elementsToDisable.attr('disabled', true);
+								$('#tj_wrapper input').attr('disabled', false);
+						} else if (metode === 'kredit') {
+								// Hide diskon cash and reset its value
+								diskonCashWrapper.addClass('d-none');
+								diskonCashWrapper.find('input').val('').attr('disabled', true);
+
+								// Show kredit related fields
 								dpWrapper.removeClass('d-none');
 								tenor.removeClass('d-none');
 								leasingWrapper.removeClass('d-none');
-								// add
+								hanyaKreditWrapper.removeClass('d-none');
+
+								// Hide tanda jadi
 								tjWrapper.addClass('d-none');
+
+								// Enable kredit elements
+								elementsToDisable.attr('disabled', false);
+								$('#tj_wrapper input').attr('disabled', true);
+						} else {
+								elementsToDisable.attr('disabled', true);
 						}
 				};
-				$('#pembelian-input').on('change', function() {
-						console.log($(this).val());
-						displayDPTenor($(this).val());
-				});
 
+				$(document).ready(function() {
+						['#motor-input', '#kabupaten-input', '#leasing-input', '[name="tenor"]'].forEach(selector => {
+								$(selector).on('change', fetchCicilan);
+						});
 
+						$('#dp_asli').on('change', function() {
+								const dpValue = parseInt($(this).find('option:selected').data('dp'), 10);
+								$('#angsuran').val(dpValue || 0);
+						});
 
-				// logic onchange pemberitahuan dp minimal motor
-				$('#motor-input').on('change', function() {
-						console.log($(this).val())
-						const motorId = $(this).val();
-						$.ajax({
-								url: '/api/get-motor',
-								method: 'POST',
-								data: {
-										id: motorId
-								},
-								success: function(data) {
-										console.log(data);
-										$('.helper_info_minimal_dp').removeClass('d-none');
-										$('.nama_motor_help').text(data.nama);
-										$('.minimal_motor_help').text(formatRupiah(data.minimal_dp));
-								},
-								error: function(error) {
-										const errorData = JSON.parse(error.responseText);
-										alert(errorData.message);
-										console.error('Terjadi kesalahan:', error);
-										// ... (tangani kesalahan)
+						$('#nama_konsumen').on('keyup', function() {
+								$('#bpkb').val($('#nama_konsumen').val());
+						});
+
+						$('#nik').on('input', function() {
+								if ($(this).val().length > 16) {
+										$(this).val($(this).val().slice(0, 16));
 								}
 						});
+
+						$('#input-nomor-hp').on('input', function() {
+								if ($(this).val().length > 14) {
+										$(this).val($(this).val().slice(0, 14));
+								}
+						});
+
+						$('#pembelian-input').on('change', function() {
+								const selectedMethod = $(this).val();
+								displayDPTenor(selectedMethod);
+						});
+
+						$('#motor-input').on('change', function() {
+								const motorId = $(this).val();
+								$.ajax({
+										url: '/api/get-motor',
+										method: 'POST',
+										data: {
+												id: motorId,
+												_token: '{{ csrf_token() }}'
+										},
+										success: (data) => {
+												$('.helper_info_minimal_dp').removeClass('d-none');
+												$('.nama_motor_help').text(data.nama);
+												$('.minimal_motor_help').text(formatRupiah(data.minimal_dp));
+										},
+										error: (error) => {
+												const errorData = JSON.parse(error.responseText);
+												alert(errorData.message);
+												console.error('Terjadi kesalahan:', error);
+										}
+								});
+						});
+
+						$('.select2').select2();
 				});
 		</script>
 @endpush
