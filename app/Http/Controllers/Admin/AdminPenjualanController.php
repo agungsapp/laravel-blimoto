@@ -107,7 +107,7 @@ class AdminPenjualanController extends Controller
       'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
-      'dp' => 'required',
+      // 'dp' => 'required',
       // 'dp_asli' => 'required',
       // 'angsuran' => 'required',
       'motor' => 'required',
@@ -115,10 +115,6 @@ class AdminPenjualanController extends Controller
       'status_pembayaran' => 'required',
       'metode_pembayaran' => 'required',
     ]);
-
-
-
-
 
     // dd($request->all());
 
@@ -179,7 +175,7 @@ class AdminPenjualanController extends Controller
 
       if ($pembelian == 'cash') {
         // return $motor->harga;
-        $penjualan->dp = $motor->harga;
+        $penjualan->dp = $request->tj;
         $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
       } else {
         $penjualan->diskon_dp = $motor->diskonMotor[0]->diskon ?? 0;
@@ -258,7 +254,7 @@ class AdminPenjualanController extends Controller
 
 
       if ($pembelian == 'cash') {
-        $isLunas = $motor->harga == $request->input('tj');
+        $isLunas = ($motor->harga - $request->diskon_dp) == $request->tj;
         $detailPembayaran->sisa_bayar = ($motor->harga - $request->input('diskon_dp') ?? 0) - $request->input('tj');
         $detailPembayaran->total_lunas = $motor->harga - $request->input('diskon_dp') ?? 0;
       } else {

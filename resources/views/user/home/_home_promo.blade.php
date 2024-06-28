@@ -70,7 +70,7 @@
 																				<!-- custom card produk box for loop end -->
 																		</div>
 																</div>
-																<!-- content tab 2 best dp -->
+																<!-- content tab 2 best dp termurah -->
 																<div id="tab-2" class="tab-content">
 																		<div class="product-slide-5 product-m no-arrow">
 																				<!-- custom card produk box for loop -->
@@ -94,15 +94,15 @@
 																												</a>
 																												<div class="mt-2">
 																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">DP Normal </p>
+																																<p class="text-doff text-start">DP Normal </p>
 																																<del class="text-basic">{{ Str::rupiah($item2->dp ?? '0') }}</del>
 																														</div>
 																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">Diskon </p>
+																																<p class="text-doff text-start">Diskon </p>
 																																<p class="text-basic fw-bold">{{ Str::rupiah($item2->diskon_promo ?? '0') }}</p>
 																														</div>
 																														<div class="d-flex justify-content-between">
-																																<p class="text-doff">DP Bayar </p>
+																																<p class="text-doff text-start">DP Bayar </p>
 																																<p class="text-basic fw-bold">{{ Str::rupiah($item2->dp - $item2->diskon_promo) }}
 																																</p>
 																														</div>

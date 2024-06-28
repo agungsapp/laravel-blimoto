@@ -36,7 +36,7 @@
 																		<th>Status Pembayaran DP</th>
 																		<th class="">DP</th>
 																		<th class="">Diskon Cash</th>
-																		<th class="">DP Bayar</th>
+																		<th class="">Konsumen Setor</th>
 																		<th>Leasing</th>
 																		<th>Motor</th>
 																		<th>Warna</th>
