@@ -206,14 +206,12 @@
 		<script src="{{ asset('assets') }}/js/script.js"></script>
 		<script src="{{ asset('assets') }}/js/modal.js"></script>
 
-
 		<!-- select 2 js  -->
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		<script src="{{ asset('assets') }}/js/custom/custom.js"></script>
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
 		<script src="{{ asset('assets') }}/owl/owl.carousel.min.js"></script>
 
 
