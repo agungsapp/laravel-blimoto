@@ -63,14 +63,12 @@
 										</div>
 								</div>
 								<div class="product-slick">
-
 										@foreach ($data['motor']['detail_motor'] as $dm)
 												<div>
 														<img src="/assets/images/detail-motor/{{ $dm['gambar'] }}" alt="{{ $dm['gambar'] }}"
 																class="img-fluid image_zoom_cls-0">
 												</div>
 										@endforeach
-
 								</div>
 								<div class="row">
 										<div class="col-12 p-0">
@@ -92,7 +90,6 @@
 						</div>
 						<div class="col-12 col-md-8 col-lg-8 col-xl-9 mt-lg-0">
 								<div class="owl-carousel-leasing d-flex align-items-center row mt-3 overflow-hidden">
-
 										@foreach ($data['cicilan_motor'] as $a)
 												<div class="item card overflow-hidden" style=" 
 														margin-left: 10px;">

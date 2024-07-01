@@ -11,6 +11,13 @@
 		<meta name="keywords" content="Blimoto" />
 		<meta name="author" content="Blimoto" />
 		<meta name="google-site-verification" content="k1ziQJbp0ogvxEck-5eDye2pedBi5-8CHPUkvjdfN94" />
+
+		{{-- clear cache start --}}
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		{{-- clear cache end --}}
+
 		<link rel="icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
 		<link rel="shortcut icon" href="{{ asset('assets') }}/images/favicon/favicon.webp" type="image/x-icon" />
 		<!--Google font-->
