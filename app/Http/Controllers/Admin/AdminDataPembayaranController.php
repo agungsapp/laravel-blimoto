@@ -33,7 +33,6 @@ class AdminDataPembayaranController extends Controller
     $data = $data
       ->orderBy('id', 'desc')
       ->get();
-
     $data->map(function ($penjualan) {
       $penjualan->total_lunas = $penjualan->detail_pembayaran_sum_jumlah_bayar;
     });

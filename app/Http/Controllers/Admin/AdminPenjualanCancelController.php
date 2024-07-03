@@ -30,6 +30,10 @@ class AdminPenjualanCancelController extends Controller
         $data = $data->orderBy('id', 'desc')
             ->get();
 
+        $data->map(function ($d) {
+            $d->total_lunas = $d->detailPembayaran->isNotEmpty() ? $d->detailPembayaran->first()->total_lunas : 0;
+        });
+
         $kota = Kota::all();
         $hasil = Hasil::all();
         $motor = Motor::all();

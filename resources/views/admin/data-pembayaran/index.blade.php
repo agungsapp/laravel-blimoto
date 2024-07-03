@@ -17,6 +17,7 @@
 																		<th>Nama Konsumen</th>
 																		<th>Nama Sales</th>
 																		<th>Motor</th>
+																		<th>Hasil</th>
 																		<th>Konsumen stor</th>
 																		{{-- <th>DP</th>
 																		<th>Diskon DP</th> --}}
@@ -39,6 +40,7 @@
 																				<td>{{ $p->nama_konsumen }}</td>
 																				<td>{{ $p->sales->nama }}</td>
 																				<td>{{ $p->motor->nama }}</td>
+																				<td>{{ $p->hasil->hasil }}</td>
 																				<td>{{ Str::rupiah($p->total_lunas) }}</td>
 																				{{-- <td>{{ Str::rupiah($p->dp) }}</td>
 																				<td>{{ $p->diskon_dp }}</td> --}}

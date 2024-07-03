@@ -36,11 +36,7 @@ class AdminPenjualanProsesConntroller extends Controller
         $data->map(function ($d) {
             $d->total_lunas = $d->detailPembayaran->isNotEmpty() ? $d->detailPembayaran->first()->total_lunas : 0;
         });
-
-
-
         // return response()->json($data);
-
         $kota = Kota::all();
         $hasil = Hasil::all();
         $motor = Motor::all();

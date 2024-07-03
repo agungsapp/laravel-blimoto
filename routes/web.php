@@ -353,43 +353,4 @@ Route::get('/clearAll', function () {
 });
 
 
-
-
-
-
-// done repo pindah
-
-// 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭
-// 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭   KITAB PETUNJUK :  😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭
-// 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭
-
-// MASIH STAK DI BAGIAN PEMBAYARAN > BELUM BAYAR
-// PENYESUAIAN RELASI PEMBAYARAN KE DETAIL PEMBAYARAN
-// AGAR DAPAT MELAKUKAN SINKRON DATA MIDTRANS
-// CALON DI MODIFIKASI :
-// - WEB HOOK
-// - RELASI PEMBAYARNA KE DETAIL PEMBAYARAN , SEBELUMNYA KE PENJAUALAN
-
-// PLAN : 
-// - BESOK UBAH RELASI,
-// - UBAH PARAMS DARI AJAX AGAR MEMBAWA ID DETAIL PEMBAYARAN BUKAN ID PENJUALAN. PIKIRKAN BESOK.
-
-
-// KAMIS
-// MASALAH MEKANISME PEMBAYARAN MIDTRANS SUDAH DONE. 
-// YANG TERSISA HANYA MASALAH KREDIT BELUM DI TES
-// KEMUDIAN PIKIRKAN BAGAIMANA MEKANISME UNTUK PEMBAYARAN KEDUA
-// JANHGAN LUPA TAMBAHKAN VALIDASI UNTUK MINMAL DP 
-// KEMUDIAN VERIFIKASI JUGA JIKA ADA PENAMBAHAN TANDA JADI MAKA CEK LAGI APAKAH  PEMBAYARAN SEBELUMNYA MASIH PENDING JIKA YA MAKA EROR , 
-// PEMBAYARAN SEBELUMNYA HARUS LUNAS TERLEBIH DAHULU  .
-
-// PR HALAMAN DATA PEMBAYARAN ERROR DI SEBABKAN RELASI BARU 
-
-
-
-
-
-
-// 24 mei 2024 jumat sore, : 
-// next : 
-// lanjutan membuat pengajuan , kemarin baru sampai membuat modal dan memunculkan data id motor pada form untuk di store ke tabel akses penjualan
+// LAST SAMPAI DI EDIT PINDAH HALAMAN .

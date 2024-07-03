@@ -261,9 +261,25 @@
 
 										{{-- master penjualan --}}
 										<li
-												class="nav-item {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.penjualan.data.*') ||
+												\Route::is('admin.penjualan.hasil.*') ||
+												\Route::is('admin.penjualan.proses.*') ||
+												\Route::is('admin.penjualan.acc.*') ||
+												\Route::is('admin.penjualan.riject.*') ||
+												\Route::is('admin.penjualan.do.*') ||
+												\Route::is('admin.penjualan.cancel.*')
+												    ? 'menu-open'
+												    : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.penjualan.data.*') ||
+														\Route::is('admin.penjualan.hasil.*') ||
+														\Route::is('admin.penjualan.proses.*') ||
+														\Route::is('admin.penjualan.acc.*') ||
+														\Route::is('admin.penjualan.riject.*') ||
+														\Route::is('admin.penjualan.do.*') ||
+														\Route::is('admin.penjualan.cancel.*')
+														    ? 'active'
+														    : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
 																Master Penjualan
@@ -777,9 +793,25 @@
 										data-accordion="false">
 										{{-- master penjualan --}}
 										<li
-												class="nav-item {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') || \Route::is('admin.penjualan.cancel.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.penjualan.data.*') ||
+												\Route::is('admin.penjualan.hasil.*') ||
+												\Route::is('admin.penjualan.proses.*') ||
+												\Route::is('admin.penjualan.acc.*') ||
+												\Route::is('admin.penjualan.riject.*') ||
+												\Route::is('admin.penjualan.do.*') ||
+												\Route::is('admin.penjualan.cancel.*')
+												    ? 'menu-open'
+												    : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.penjualan.data.*') || \Route::is('admin.penjualan.hasil.*') || \Route::is('admin.penjualan.proses.*') || \Route::is('admin.penjualan.acc.*') || \Route::is('admin.penjualan.riject.*') || \Route::is('admin.penjualan.do.*') || \Route::is('admin.penjualan.cancel.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.penjualan.data.*') ||
+														\Route::is('admin.penjualan.hasil.*') ||
+														\Route::is('admin.penjualan.proses.*') ||
+														\Route::is('admin.penjualan.acc.*') ||
+														\Route::is('admin.penjualan.riject.*') ||
+														\Route::is('admin.penjualan.do.*') ||
+														\Route::is('admin.penjualan.cancel.*')
+														    ? 'active'
+														    : '' }}">
 														<i class="nav-icon fas fa-users"></i>
 														<p>
 																Master Penjualan
@@ -835,9 +867,9 @@
 
 										{{-- master pembayaran sales --}}
 										<li
-												class="nav-item {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') || \Route::is('admin.sudah-bayartj') ? 'menu-open' : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.sudah-bayar') || \Route::is('admin.belum-bayar') || \Route::is('admin.sudah-bayartj') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-archive"></i>
 														<p>
 																Data Pembayaran
@@ -850,6 +882,13 @@
 																		class="nav-link {{ \Route::is('admin.belum-bayar') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Belum Bayar</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.sudah-bayartj') }}"
+																		class="nav-link {{ \Route::is('admin.sudah-bayartj') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Sudah Bayar Tanda Jadi</p>
 																</a>
 														</li>
 														<li class="nav-item">

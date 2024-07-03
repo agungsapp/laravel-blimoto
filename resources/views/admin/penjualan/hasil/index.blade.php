@@ -123,7 +123,7 @@
 
 																										@if (Auth::guard('admin')->check() || $p->is_cetak == 0)
 																												@if (!Route::is('admin.penjualan.do.index') || (Auth::guard('admin')->check() || $p->is_edit == true))
-																														<button type="button" class="btn btn-warning w-100 load-update-modal mb-1"
+																														{{-- <button type="button" class="btn btn-warning w-100 load-update-modal mb-1"
 																																data-id="{{ $p->id }}"
 																																data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}"
 																																data-toggle="modal" data-target="#modalEdit"
@@ -132,14 +132,24 @@
 																																    ? 'disabled'
 																																    : '' }}>
 																																Edit
-																														</button>
+																														</button> --}}
+
+																														<a href="{{ route('admin.penjualan.data.edit', $p->id) }}"
+																																{{ Route::is('admin.penjualan.do.index') &&
+																																(!$isAdmin && ($p->status_pembayaran_dp == 'refunded' || $p->is_edit == false))
+																																    ? 'disabled'
+																																    : '' }}
+																																class="btn btn-block btn-warning mb-1">Edit</a>
 																												@endif
-																												<form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
-																														@csrf
-																														@method('DELETE')
-																														<button type="submit" class="btn btn-danger show_confirm w-100"
-																																{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>Delete</button>
-																												</form>
+
+																												@if (Route::is('admin.penjualan.proses.*'))
+																														<form action="{{ route('admin.penjualan.data.destroy', $p->id) }}" method="post">
+																																@csrf
+																																@method('DELETE')
+																																<button type="submit" class="btn btn-danger show_confirm w-100"
+																																		{{ $p->status_pembayaran_dp == 'refunded' ? 'disabled' : '' }}>Delete</button>
+																														</form>
+																												@endif
 																										@endif
 
 																								</div>
@@ -381,9 +391,8 @@
 																										placeholder="Warna motor (Tidak wajib)">
 																						</div>
 																						<div class="form-group col-md-6">
-																								<label for="input-hasil">Nomor PO</label>
-																								<input name="nomor_po" type="text" class="form-control"
-																										placeholder="Kosongkan jika PO belum turun">
+																								<label for="input-hasil">Nomor PO <span class="text-danger mr-2">*</span>(wajib)</label>
+																								<input name="nomor_po" type="text" class="form-control" placeholder="nomor PO wajib">
 																						</div>
 																				</div>
 
