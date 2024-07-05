@@ -18,7 +18,7 @@
 																		<th>Nama Sales</th>
 																		<th>Motor</th>
 																		<th>Jumlah</th>
-																		<th>DP</th>
+																		<th>TDP</th>
 																		<th>Diskon DP</th>
 																		<th>Sisa Tagihan</th>
 																		<th>Status Pembayaran</th>
@@ -37,7 +37,7 @@
 																				<td>{{ $p->motor->nama }}</td>
 																				<td>{{ $p->jumlah }}</td>
 																				<td>{{ Str::rupiah($p->dp) }}</td>
-																				<td>{{ Str::rupiah($p->diskon_dp) }}</td>
+																				<td>{{ $p->diskon_dp == 0 ? 'kredit' : Str::rupiah($p->diskon_dp) }}</td>
 																				<td>{{ Str::rupiah($p->sisa_bayar) }}</td>
 																				<td>{{ $p->status_pembayaran_dp }}</td>
 																				<td>{{ $p->leasing->nama ?? 'Cash' }}</td>
@@ -232,7 +232,6 @@
 										<input type="hidden" name="kode_bayar" id="kode_bayar">
 										<input type="hidden" name="id_detail_pembayaran" id="id_detail_pembayaran">
 										<div class="modal-body">
-
 												<div class="form-group col-md-12">
 														<label for="nama-sales">Nama Sales</label>
 														<input type="text" class="form-control" id="nama-sales" readonly>
@@ -246,7 +245,7 @@
 														<input type="text" class="form-control" id="dp" readonly name="dp">
 												</div>
 												<div class="form-group col-md-12">
-														<label for="dp_asli">DP Asli</label>
+														<label for="dp_asli">DP Pengajuan</label>
 														<input type="text" class="form-control" id="dp_asli" readonly name="dp_asli">
 												</div>
 												<div class="form-group col-md-12">

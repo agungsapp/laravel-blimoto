@@ -105,7 +105,7 @@
 								</div>
 						</div>
 
-						
+
 						<!-- Modal update -->
 						<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdateLabel"
 								aria-hidden="true">

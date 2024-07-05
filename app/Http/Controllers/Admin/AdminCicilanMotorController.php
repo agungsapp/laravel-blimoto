@@ -34,6 +34,7 @@ class AdminCicilanMotorController extends Controller
     return view('admin.cicilan.index', $data);
   }
 
+
   /**
    * Show the form for creating a new resource.
    *

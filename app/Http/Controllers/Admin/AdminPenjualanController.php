@@ -72,6 +72,8 @@ class AdminPenjualanController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+
+
   public function store(Request $request)
   {
 
@@ -141,6 +143,8 @@ class AdminPenjualanController extends Controller
 
 
     $motor = Motor::find($request->input('motor'));
+
+
 
     if ($pembelian == 'cash') {
       // Pembayaran kredit: Validasi DP
@@ -254,10 +258,17 @@ class AdminPenjualanController extends Controller
 
 
       if ($pembelian == 'cash') {
+        // cash
         $isLunas = ($motor->harga - $request->diskon_dp) == $request->tj;
         $detailPembayaran->sisa_bayar = ($motor->harga - $request->input('diskon_dp') ?? 0) - $request->input('tj');
         $detailPembayaran->total_lunas = $motor->harga - $request->input('diskon_dp') ?? 0;
+
+        // return response()->json([
+        //   'motor' => $motor,
+        //   'diskon_dp' => $request->input('diskon_dp'),
+        // ]);
       } else {
+        // kredit
         $isLunas = $cicilan->dp == $request->input('dp');
         $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
         $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0;
@@ -294,13 +305,14 @@ class AdminPenjualanController extends Controller
     } catch (\Throwable $th) {
       Log::channel('penjualan')->info('Store Input Penjualan Error ! : ', ['pesan' => $th]);
       DB::rollBack();
-      // throw $th;
+      throw $th;
       flash()->addError("Gagal membuat data pastikan sudah benar!");
 
 
       return redirect()->back();
     }
   }
+
 
   /**
    * Display the specified resource.
@@ -321,7 +333,32 @@ class AdminPenjualanController extends Controller
    */
   public function edit($id)
   {
-    //
+    // dd($id);
+
+    $kota = Kota::all();
+    $hasil = Hasil::all();
+    $motor = Motor::all();
+    $leasing = LeasingMotor::all();
+    $sales = Sales::all();
+    $colors = ColorModel::all();
+    $tenorOptions = CicilanMotor::distinct('tenor')->pluck('tenor');
+
+    $penjualan = Penjualan::find($id);
+    // dd($penjualan);
+
+    $data = [
+      'kota' => $kota,
+      'hasil' => $hasil,
+      'motor' => $motor,
+      'leasing' => $leasing,
+      'sales' => $sales,
+      'colors' => $colors,
+      'tenors' => $tenorOptions,
+      'judulHalaman' => "edit data penjualan",
+      'penjualan' => $penjualan,
+    ];
+
+    return view('admin.penjualan.edit', $data);
   }
 
   /**
@@ -349,125 +386,233 @@ class AdminPenjualanController extends Controller
 
 
 
-
-
   public function update(Request $request, $id)
   {
-    $validator = Validator::make($request->all(), [
+    // Validasi input
+    // Kondisi untuk validasi dinamis
+    $rules = [
       'konsumen' => 'required',
-      'sales' => 'required',
       'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
       'jumlah' => 'required',
-      'dp' => 'required',
-      'tanggal_dibuat' => 'required',
-      'status_pembayaran_dp' => 'required',
-    ]);
+      'status_pembayaran' => 'required',
+    ];
+
+    // Kondisi untuk menentukan apakah nomor_po required atau tidak
+
+
+    $messages = [
+      'konsumen.required' => 'nama konsumen tidak boleh kosong !',
+      'metode_pembelian.required' => 'metode pembelian tidak boleh kosong !',
+      'kabupaten.required' => 'kabupaten tidak boleh kosong !',
+      'hasil.required' => 'hasil tidak boleh kosong !',
+      'motor.required' => 'motor tidak boleh kosong !',
+      'jumlah.required' => 'jumlah tidak boleh kosong !',
+      'nomor_po.required' => 'nomor po tidak boleh kosong !',
+      'status_pembayaran.required' => 'status pembayaran tidak boleh kosong !',
+    ];
+    // Kondisi untuk menentukan apakah nomor_po required atau tidak
+    if ($request->input('hasil') != 3) {
+      $rules['nomor_po'] = 'required';
+      $messages['nomor_po.required'] = 'nomor po tidak boleh kosong !';
+    }
+    if ($request->metode_pembelian === 'cash') {
+    } else {
+      $rules['dp_asli'] = 'required';
+      $messages['dp_asli.required'] = 'dp pengajuan harus dipilih !';
+    }
+    if (Auth::guard('sales')->check()) {
+      $rules['sales'] = 'required';
+      $messages['sales.required'] = 'data sales tidak boleh kosong !';
+    }
+
+    // Validasi input
+    $validator = Validator::make($request->all(), $rules, $messages);
 
     if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
+      $errors = $validator->errors();
+      $errorMessage = "Inputkan semua data dengan benar!<br>Kesalahan:<br>" . implode("<br>", $errors->all());
+
+      flash()->addError($errorMessage);
+      return redirect()->back()->withInput();
+    }
+
+
+    // Temukan data penjualan
+    DB::beginTransaction();
+    try {
+      $penjualan = Penjualan::findOrFail($id);
+
+      // Update pengajuan akses penjualan jika ada
+      $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->where('status', 'setuju')->first();
+      if (!empty($pengajuanAkses)) {
+        $pengajuanAkses->status = 'done';
+        $pengajuanAkses->save();
+      }
+
+      // Kirim notifikasi WhatsApp jika hasil adalah '8'
+      if ($request->input('hasil') == 8) {
+        try {
+          $nomor = $this->formatNomorTelepon($penjualan->no_hp);
+          $message = "Halo " . ucwords(strtolower($penjualan->nama_konsumen)) . ",\n\n" .
+            "Kami ingin mengonfirmasi pembatalan pesanan Anda dengan detail sebagai berikut:\n\n" .
+            "Nomor Transaksi: $penjualan->kode_transaksi\n" .
+            "Nama Konsumen: " . ucwords(strtolower($penjualan->nama_konsumen)) . "\n" .
+            "NIK: $penjualan->nik\n" .
+            "Motor: {$penjualan->motor?->nama}\n\n" .
+            "Jika Anda setuju dengan pembatalan ini, Anda dapat mengabaikan pesan ini.\n" .
+            "Jika Anda tidak merasa melakukan pembatalan ini atau ada kesalahan, mohon balas dengan 'TIDAK' atau hubungi layanan pelanggan kami untuk klarifikasi lebih lanjut.\n\n" .
+            "Terima kasih atas perhatian Anda.";
+
+          $curl = curl_init();
+          curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+              'target' => $nomor,
+              'message' => $message,
+              'countryCode' => '62', //optional
+            ),
+            CURLOPT_HTTPHEADER => array(
+              'Authorization: P-9!+K5R7WAVcKBygaKY'
+            ),
+          ));
+          $response = curl_exec($curl);
+          curl_close($curl);
+        } catch (\Throwable $th) {
+          Log::info('Notifikasi Wa FAIL', ['error' => $th]);
+        }
+      }
+
+      // Parsing tanggal_hasil
+      $tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;
+
+      // Logika Pembelian
+      $pembelian = $request->input('metode_pembelian');
+      $warna_motor = $request->input('warna_motor') ?? null;
+      $tenor = $pembelian === 'cash' ? 0 : $request->tenor;
+      $catatan = $request->catatan ?? '-';
+      $nomorPo = $request->nomor_po ?? null;
+
+      $motor = Motor::with(['cicilanMotor' => function ($motor) use ($request) {
+        $motor->where('id_motor', $request->motor)
+          ->where('id_leasing', $request->leasing)
+          ->where('tenor', $request->tenor)
+          ->first();
+      }, 'diskonMotor' => function ($diskon) use ($request) {
+        $diskon->where('id_leasing', $request->leasing)
+          ->where('tenor', $request->tenor)
+          ->first();
+      }])->find($request->motor);
+
+      if ($pembelian === 'cash') {
+        if ($request->tj < $motor->minimal_dp) {
+          flash()->addError("Tanda Jadi minimal untuk motor {$motor->nama} adalah {$motor->minimal_dp} !");
+          return redirect()->back()->withInput();
+        }
+      } else {
+        if ($request->dp < $motor->minimal_dp) {
+          flash()->addError("DP minimal untuk motor {$motor->nama} adalah {$motor->minimal_dp} !");
+          return redirect()->back()->withInput();
+        }
+      }
+
+      // Update penjualan
+      $penjualan->update([
+        'nama_konsumen' => $request->input('konsumen'),
+        'tenor' => $tenor,
+        'metode_pembelian' => $pembelian,
+        'metode_pembayaran' => $request->input('metode_pembayaran'),
+        'id_sales' => $request->input('sales'),
+        'jumlah' => $request->input('jumlah'),
+        'catatan' => $catatan,
+        'tanggal_hasil' => $tanggal_hasil,
+        'status_pembayaran_dp' => $request->input('status_pembayaran'),
+        'dp' => $pembelian === 'cash' ? $request->tj : $request->dp,
+        'diskon_dp' => $motor->diskonMotor[0]->diskon ?? 0,
+        'id_lising' => $pembelian === 'cash' ? null : $request->leasing,
+        'id_motor' => $request->input('motor'),
+        'id_kota' => $request->input('kabupaten'),
+        'id_hasil' => $request->input('hasil'),
+        'no_po' => $nomorPo,
+        'bpkb' => $request->bpkb ?? null,
+        'no_hp' => $request->no_hp ?? null,
+        'warna_motor' => $warna_motor,
+        'is_edit' => 0,
+      ]);
+
+      // Update atau buat detail pembayaran
+      $detailPembayaran = DetailPembayaranModel::where('id_penjualan', $penjualan->id)->first();
+      if (!$detailPembayaran) {
+        $detailPembayaran = new DetailPembayaranModel();
+        $detailPembayaran->id_penjualan = $penjualan->id;
+      }
+
+      if ($request->input('hasil') == 4) {
+        $sudahBayar = Pembayaran::where('id_detail_pembayaran', $detailPembayaran->id)
+          ->where('status_pembayaran', 'success')
+          ->first();
+        if (!$sudahBayar) {
+          flash()->addError("Konsumen ini belum bayar tanda jadi, Tidak bisa DO !");
+          return redirect()->back()->withInput();
+        }
+      }
+      // Lanjutkan dengan kode berikutnya di sini
+
+      if ($pembelian === 'cash') {
+        $isLunas = ($motor->harga - $request->diskon_dp) == $request->tj;
+        $detailPembayaran->jumlah_bayar = $request->input('tj');
+        $detailPembayaran->sisa_bayar = ($motor->harga - $request->input('diskon_dp') ?? 0) - $request->input('tj');
+        $detailPembayaran->total_lunas = $motor->harga - $request->input('diskon_dp') ?? 0;
+      } else {
+        $cicilan = CicilanMotor::where('id_motor', $request->input('motor'))
+          ->where('id_lokasi', $request->input('kabupaten'))
+          ->where('id_leasing', $request->input('leasing'))
+          ->where('tenor', $request->input('tenor'))->first();
+
+        if (empty($cicilan)) {
+          flash()->addError("Data cicilan tidak ditemukan !");
+          return redirect()->back()->withInput();
+        }
+
+        $isLunas = $cicilan->dp == $request->input('dp');
+        $detailPembayaran->jumlah_bayar = $request->input('dp');
+        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
+        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0;
+      }
+
+      $detailPembayaran->status = $isLunas ? 'pelunasan' : 'tanda';
+      $detailPembayaran->save();
+
+      DB::commit();
+      // Redirect back with success message
+      flash()->addSuccess("Berhasil merubah data!");
+      try {
+        $hasil_id = $request->input('hasil');
+        $getHasilName =  Hasil::find($hasil_id);
+        return redirect()->to(route("admin.penjualan." . strtolower($getHasilName->hasil) . ".index"));
+      } catch (\Throwable $th) {
+        return redirect()->back();
+      }
+    } catch (\Throwable $th) {
+      //throw $th;
+      Log::info(['ERROR UPDATE DATA PENJUALAN : ' => $th]);
+      DB::rollback();
+
+      flash()->addError("Terjadi kesalahan padar server !");
       return redirect()->back();
     }
-
-
-    $penjualan = Penjualan::findOrFail($id);
-
-    $pengajuanAkses = AksesPenjualanModel::where('id_penjualan', $id)->where('status', 'setuju')->first();
-    if (!empty($pengajuanAkses)) {
-      # code...
-      $pengajuanAkses->status = 'done';
-      $pengajuanAkses->save();
-    }
-
-
-    // send wa notif cancel via fonnte
-    if ($request->input('hasil') == 8) {
-      // return $request->input('hasil');
-      try {
-        $nomor = $this->formatNomorTelepon($penjualan->no_hp);
-        // pesan
-        $message = "Halo " . ucwords(strtolower($penjualan->nama_konsumen)) . ",\n\n" .
-          "Kami ingin mengonfirmasi pembatalan pesanan Anda dengan detail sebagai berikut:\n\n" .
-          "Nomor Transaksi: $penjualan->kode_transaksi\n" .
-          "Nama Konsumen: " . ucwords(strtolower($penjualan->nama_konsumen)) . "\n" .
-          "NIK: $penjualan->nik\n" .
-          "Motor: {$penjualan->motor?->nama}\n\n" .
-          "Jika Anda setuju dengan pembatalan ini, Anda dapat mengabaikan pesan ini.\n" .
-          "Jika Anda tidak merasa melakukan pembatalan ini atau ada kesalahan, mohon balas dengan 'TIDAK' atau hubungi layanan pelanggan kami untuk klarifikasi lebih lanjut.\n\n" .
-          "Terima kasih atas perhatian Anda.";
-
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://api.fonnte.com/send',
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'POST',
-          CURLOPT_POSTFIELDS => array(
-            'target' => $nomor,
-            'message' => $message,
-            'countryCode' => '62', //optional
-          ),
-          CURLOPT_HTTPHEADER => array(
-            'Authorization: P-9!+K5R7WAVcKBygaKY'
-            // 'Authorization: p#hR2Qj5B8EX8ERrx5YV'
-          ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        echo $response;
-      } catch (\Throwable $th) {
-        //throw $th;
-        Log::info('Notifikasi Wa FAIL', $th);
-      }
-    }
-
-
-
-    $tanggal_dibuat = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_dibuat'))->format('Y-m-d');
-    $tanggal_hasil = $request->input('tanggal_hasil') ? \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('tanggal_hasil'))->format('Y-m-d') : null;
-    $pembelian = $request->input('metode_pembelian');
-    $tenor = $pembelian === 'cash' ? 0 : $request->tenor;
-    $catatan = $request->catatan ?? '-';
-    $leasing = $pembelian === 'cash' ? null : $request->leasing;
-    $nomorPo = $request->nomor_po ?? null;
-    $warna = $request->warna_motor ?? null;
-    $bpkb = $request->bpkb ?? null;
-    $no_hp = $request->no_hp ?? null;
-
-    $penjualan->nama_konsumen = $request->input('konsumen');
-    $penjualan->tenor = $tenor;
-    $penjualan->metode_pembelian = $pembelian;
-    $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
-    $penjualan->id_sales = $request->input('sales');
-    $penjualan->jumlah = $request->input('jumlah');
-    $penjualan->catatan = $catatan;
-    $penjualan->tanggal_dibuat = $tanggal_dibuat;
-    $penjualan->tanggal_hasil = $tanggal_hasil;
-    $penjualan->status_pembayaran_dp = $request->input('status_pembayaran_dp');
-    $penjualan->dp = $request->input('dp');
-    $penjualan->diskon_dp = $request->input('diskon_dp');
-    $penjualan->id_lising = $leasing;
-    $penjualan->id_motor = $request->input('motor');
-    $penjualan->id_kota = $request->input('kabupaten');
-    $penjualan->id_hasil = $request->input('hasil');
-    $penjualan->no_po = $nomorPo;
-    $penjualan->bpkb = $bpkb;
-    $penjualan->no_hp = $no_hp;
-    $penjualan->warna_motor = $warna;
-    $penjualan->is_edit = 0;
-
-    $penjualan->save();
-
-    // Redirect back with a success message
-    flash()->addSuccess("Berhasil merubah data!");
-    return redirect()->back();
   }
+
+
 
   /**
    * Remove the specified resource from storage.
