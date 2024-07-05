@@ -392,7 +392,6 @@ class AdminPenjualanController extends Controller
     // Kondisi untuk validasi dinamis
     $rules = [
       'konsumen' => 'required',
-      'sales' => 'required',
       'metode_pembelian' => 'required',
       'kabupaten' => 'required',
       'hasil' => 'required',
@@ -406,7 +405,6 @@ class AdminPenjualanController extends Controller
 
     $messages = [
       'konsumen.required' => 'nama konsumen tidak boleh kosong !',
-      'sales.required' => 'data sales tidak boleh kosong !',
       'metode_pembelian.required' => 'metode pembelian tidak boleh kosong !',
       'kabupaten.required' => 'kabupaten tidak boleh kosong !',
       'hasil.required' => 'hasil tidak boleh kosong !',
@@ -424,6 +422,10 @@ class AdminPenjualanController extends Controller
     } else {
       $rules['dp_asli'] = 'required';
       $messages['dp_asli.required'] = 'dp pengajuan harus dipilih !';
+    }
+    if (Auth::guard('sales')->check()) {
+      $rules['sales'] = 'required';
+      $messages['sales.required'] = 'data sales tidak boleh kosong !';
     }
 
     // Validasi input

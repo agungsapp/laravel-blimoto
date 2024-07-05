@@ -13,23 +13,49 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class AdminDiskonMotorController extends Controller
 {
 
 
-  public function data()
+  public function dataTable(Request $request)
   {
     if (request()->ajax()) {
-      $diskon = DiskonMotor::with('motor', 'leasing', 'lokasi')
+      $diskon = DiskonMotor::with(['motor', 'leasing', 'lokasi'])
         ->orderBy('id', 'desc')
         ->get();
+
+      $diskon->map(function ($d) {
+        $d->diskon = Str::rupiah($d->diskon);
+        $d->diskon_dealer = Str::rupiah($d->diskon_dealer);
+        $d->diskon_promo = Str::rupiah($d->diskon_promo);
+      });
+
+
       return DataTables::of($diskon)
-        ->make();
+        // ->addColumn('action', function ($row) {
+        //   $editUrl = route('admin.diskon-motor.edit', ['diskon' => $row->id]);
+        //   $deleteUrl = route('admin.diskon-motor.destroy', ['diskon' => $row->id]);
+
+        //   return '<div class="d-flex justify-content-between">
+        //                     <a href="' . $editUrl . '" class="btn btn-warning">Edit</a>
+        //                     <form action="' . $deleteUrl . '" method="post">
+        //                         ' . csrf_field() . '
+        //                         ' . method_field('DELETE') . '
+        //                         <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+        //                     </form>
+        //                 </div>';
+        // })
+        // ->rawColumns(['action'])
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($data) {
+          return view('admin.diskon-motor.tombol')->with('data', $data);
+        })
+        ->make(true);
     }
   }
-
   /**
    * Display a listing of the resource.
    *
@@ -138,7 +164,12 @@ class AdminDiskonMotorController extends Controller
    */
   public function edit($id)
   {
-    //
+    try {
+      $diskon = DiskonMotor::findOrFail($id);
+      return response()->json($diskon, 200);
+    } catch (\Exception $e) {
+      return response()->json(['message' => 'error saat mengambil data id tidak ditemukan'], 401);
+    }
   }
 
   /**
@@ -192,11 +223,9 @@ class AdminDiskonMotorController extends Controller
     try {
       $diskonMotor = DiskonMotor::findOrFail($id);
       $diskonMotor->delete();
-      flash()->addSuccess("Berhasil menghapus diskon motor!");
-      return redirect()->back();
+      return response()->json(['message' => 'berhasil'], 200);
     } catch (\Throwable $th) {
-      flash()->addError("Diskon tidak bisa dihapus karena data digunakan oleh data lain!");
-      return redirect()->back();
+      return response()->json(['message' => 'error'], 400);
     }
   }
 }

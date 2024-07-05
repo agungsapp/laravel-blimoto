@@ -930,6 +930,36 @@
 												</ul>
 										</li>
 
+										{{-- master laporan sales --}}
+										<li class="nav-item {{ \Route::is('admin.laporan.*') ? 'menu-open' : '' }}">
+												<a href="#" class="nav-link {{ \Route::is('admin.laporan.*') ? 'active' : '' }}">
+														<i class="nav-icon fas fa-print"></i>
+														<p>
+																Master Laporan
+																<i class="right fas fa-angle-left"></i>
+														</p>
+												</a>
+												<ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan.penjualan-semua.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan.penjualan-semua.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Semua Penjualan</p>
+																</a>
+														</li>
+												</ul>
+												{{-- <ul class="nav nav-treeview">
+														<li class="nav-item">
+																<a href="{{ route('admin.laporan.penjualan-wilayah.index') }}"
+																		class="nav-link {{ \Route::is('admin.laporan.penjualan-wilayah.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Penjualan Wilayah</p>
+																</a>
+														</li>
+												</ul> --}}
+										</li>
+										{{-- master laporan end --}}
+
 										<li class="nav-item">
 												<a href="{{ route('admin.sales-settings.index') }}"
 														class="nav-link {{ \Route::is('admin.sales-settings.*') ? 'active' : '' }}">

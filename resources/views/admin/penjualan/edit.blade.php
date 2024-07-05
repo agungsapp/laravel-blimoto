@@ -337,8 +337,6 @@
 
 
 
-
-
 @push('script')
 		<script>
 				// Utility function
@@ -383,7 +381,10 @@
 																elem.append('<option value="' + item.dp + '" data-dp="' + item.cicilan + '">' + formatRupiah(
 																		item.dp, 'Rp. ') + '</option>');
 														});
-														elem.val(penjualan.dp_asli).trigger('change');
+														// If back from validation error
+														if ('{{ old('dp_asli') }}') {
+																elem.val('{{ old('dp_asli') }}').trigger('change');
+														}
 														assignDpAsliAndAngsuran();
 												} else {
 														elem.append('<option value="">Tidak ada data DP/cicilan</option>');
@@ -485,6 +486,11 @@
 						}
 				}
 
+				// This function checks if there are validation errors
+				const hasValidationErrors = () => {
+						return {{ $errors->any() ? 'true' : 'false' }};
+				}
+
 				// Hardcoded 'penjualan' variable taken from server-side
 				const penjualan = @json($penjualan);
 
@@ -542,6 +548,11 @@
 										}
 								});
 						});
+
+						// Fetch cicilan data if there are validation errors
+						if (hasValidationErrors()) {
+								fetchCicilan();
+						}
 				});
 		</script>
 @endpush

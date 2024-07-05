@@ -133,161 +133,8 @@
 																		<th width="120px">Action</th>
 																</tr>
 														</thead>
-														<tbody>
-																@foreach ($diskon_motor as $d)
-																		<tr>
-																				<td>{{ $loop->iteration }}</td>
-																				<td>{{ $d->motor->nama }}</td>
-																				<td>{{ $d->leasing->nama }}</td>
-																				<td>{{ $d->lokasi->nama }}</td>
-																				<td>{{ Str::rupiah($d->diskon) }}</td>
-																				<td>{{ Str::rupiah($d->diskon_dealer) }}</td>
-																				<td>{{ Str::rupiah($d->diskon_promo) }}</td>
-																				<td>{{ $d->tenor }}</td>
-																				<td>{{ $d->potongan_tenor }}</td>
-																				<td>
-																						<div class="d-flex justify-content-between">
-																								<button data-toggle="modal" data-target="#modalEdit{{ $d->id }}"
-																										class="btn btn-warning">Edit</button>
-																								<form action="{{ route('admin.diskon-motor.destroy', $d->id) }}" method="post">
-																										@csrf
-																										@method('DELETE')
-																										<button type="submit" class="btn btn-danger show_confirm">Delete</button>
-																								</form>
-																						</div>
-																						<!-- modal update diskon motor start -->
-																						<div class="modal fade" id="modalEdit{{ $d->id }}" role="dialog"
-																								aria-labelledby="myModalLabel">
-																								<div class="modal-dialog" role="document">
-																										<div class="modal-content">
-																												<div class="modal-header">
-																														<h4 class="modal-title" id="myModalLabel">Edit data diskon motor {{ $d->motor->nama }}
-																														</h4>
-																												</div>
-																												<form action="{{ route('admin.diskon-motor.update', $d->id) }}" method="post"
-																														enctype="multipart/form-data">
-																														@csrf
-																														@method('PUT')
-																														<div class="card-body">
-																																<div class="row">
-																																		<div class="form-group col-md-6">
-																																				<label>Nama Motor</label>
-																																				@if ($motor == null)
-																																						<p class="text-danger">Tidak ada data motor silahkan buat terlebih dahulu !</p>
-																																				@else
-																																						<select id="nama_motor_update" name="nama_motor"
-																																								class="form-control select2 @error('nama_motor') is-invalid @enderror"
-																																								style="width: 100%;">
-																																								<option value="" selected>-- Pilih nama motor --</option>
-																																								@foreach ($motor as $m)
-																																										<option value="{{ $m->id }}"
-																																												@if ($m->id == $d->motor->id) selected @endif>{{ $m->nama }}
-																																										</option>
-																																								@endforeach
-																																						</select>
-																																				@endif
-																																		</div>
-																																		<div class="form-group col-md-6">
-																																				<label>Leasing</label>
-																																				@if ($leasing == null)
-																																						<p class="text-danger">Tidak ada data leasing silahkan buat terlebih dahulu !</p>
-																																				@else
-																																						<select id="leasing_motor" name="leasing_motor"
-																																								class="form-control @error('leasing_motor') is-invalid @enderror select2"
-																																								style="width: 100%;">
-																																								<option value="" selected>-- Pilih tipe leasing --</option>
-																																								@foreach ($leasing as $l)
-																																										<option value="{{ $l->id }}"
-																																												@if ($l->id == $d->leasing->id) selected @endif>{{ $l->nama }}
-																																										</option>
-																																								@endforeach
-																																						</select>
-																																				@endif
-																																		</div>
-																																</div>
-																																<div class="row">
-																																		<div class="form-group col-md-12">
-																																				<label>Lokasi</label>
-																																				<select id="tambah-lokasi-motor" name="lokasi_motor"
-																																						class="form-control @error('lokasi-motor') is-invalid @enderror select2"
-																																						style="width: 100%;">
-																																						@foreach ($lokasi as $l)
-																																								<option value="{{ $l->id }}"
-																																										@if ($l->id == $d->lokasi->id) selected @endif>{{ $l->nama }}</option>
-																																						@endforeach
-																																				</select>
-																																		</div>
-																																</div>
-																																<div class="row">
-																																		<div class="form-group col-md-12">
-																																				<label for="model">Diskon Konsumen</label>
-																																				<input name="diskon" type="text"
-																																						class="form-control @error('diskon') is-invalid @enderror" id="diskon"
-																																						placeholder="Masukan diskon" value="{{ $d->diskon }}">
-																																		</div>
-																																		<div class="form-group col-md-6">
-																																				<label for="model">Diskon Dealer</label>
-																																				<input name="diskon_dealer" type="text"
-																																						class="form-control @error('diskon_dealer') is-invalid @enderror"
-																																						id="diskon_dealer" placeholder="Masukan diskon dealer"
-																																						value="{{ $d->diskon_dealer }}">
-																																		</div>
-																																		<div class="form-group col-md-6">
-																																				<label for="model">Diskon Promo</label>
-																																				<input name="diskon_promo" type="text"
-																																						class="form-control @error('diskon_promo') is-invalid @enderror"
-																																						id="diskon_promo" placeholder="Masukan diskon Promo"
-																																						value="{{ $d->diskon_promo }}">
-																																		</div>
-																																</div>
-																																<div class="row">
-																																		<div class="form-group col-md-6">
-																																				<label>Tenor</label>
-																																				<select id="update-tenor-motor" name="tenor"
-																																						class="form-control @error('lokasi-motor') is-invalid @enderror select2"
-																																						style="width: 100%;">
-																																						<option value="11" {{ $d->tenor == 11 ? 'selected' : '' }}>11</option>
-																																						<option value="17" {{ $d->tenor == 17 ? 'selected' : '' }}>17</option>
-																																						<option value="23" {{ $d->tenor == 23 ? 'selected' : '' }}>23</option>
-																																						<option value="29" {{ $d->tenor == 29 ? 'selected' : '' }}>29</option>
-																																						<option value="35" {{ $d->tenor == 35 ? 'selected' : '' }}>35</option>
-																																				</select>
-																																		</div>
-																																		<div class="form-group col-md-6">
-																																				<label for="model">Potongan Tenor</label>
-																																				<input name="potongan_tenor" type="text"
-																																						class="form-control @error('potongan_tenor') is-invalid @enderror"
-																																						id="potongan_tenor" placeholder="Masukan potongan tenor"
-																																						value="{{ $d->potongan_tenor }}">
-																																		</div>
-																																</div>
-																														</div>
-																														<div class="modal-footer">
-																																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																																<button type="submit" class="btn btn-primary">Save changes</button>
-																														</div>
-																												</form>
-																										</div>
-																								</div>
-																						</div>
-																						<!-- modal update diskon motor end -->
-																				</td>
-																		</tr>
-																@endforeach
-														</tbody>
-														<tfoot>
-																<tr>
-																		<th>Nomor</th>
-																		<th>Nama Motor</th>
-																		<th>Leasing</th>
-																		<th>Lokasi</th>
-																		<th>Diskon</th>
-																		<th>Diskon Promo</th>
-																		<th>Tenor</th>
-																		<th>Potongan Tenor</th>
-																		<th width="120px">Action</th>
-																</tr>
-														</tfoot>
+														{{-- @include('admin.diskon-motor.tbody') --}}
+
 												</table>
 										</div>
 								</div>
@@ -296,6 +143,122 @@
 				</div>
 		</div>
 
+		{{-- modal edit --}}
+		<section>
+				<div class="modal" id="modalEdit" tabindex="-1">
+						<div class="modal-dialog">
+								<div class="modal-content">
+										<div class="modal-header">
+												<h5 class="modal-title">Edit data diskon motor</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+												</button>
+										</div>
+										<form action="" method="post">
+												@csrf
+												@method('PUT')
+												<div class="modal-body">
+														<div class="row">
+																<div class="form-group col-md-12">
+																		<label>Nama Motor</label>
+																		@if ($motor == null)
+																				<p class="text-danger">Tidak ada data motor, silakan buat terlebih dahulu!</p>
+																		@else
+																				<select id="edit-nama-motor" name="nama_motor"
+																						class="form-control select2 @error('nama_motor') is-invalid @enderror" style="width: 100%;">
+																						<option value="">-- Pilih nama motor --</option>
+																						@foreach ($motor as $m)
+																								<option value="{{ $m->id }}" {{ old('nama_motor') == $m->id ? 'selected' : '' }}>
+																										{{ $m->nama }}</option>
+																						@endforeach
+																				</select>
+																		@endif
+																</div>
+																<div class="form-group col-md-12">
+																		<label>Leasing</label>
+																		@if ($leasing == null)
+																				<p class="text-danger">Tidak ada data leasing, silakan buat terlebih dahulu!</p>
+																		@else
+																				<select id="edit-leasing-motor" name="leasing_motor"
+																						class="form-control @error('leasing_motor') is-invalid @enderror select2" style="width: 100%;">
+																						<option value="">-- Pilih leasing --</option>
+																						@foreach ($leasing as $l)
+																								<option value="{{ $l->id }}" {{ old('leasing_motor') == $l->id ? 'selected' : '' }}>
+																										{{ $l->nama }}</option>
+																						@endforeach
+																				</select>
+																		@endif
+																</div>
+																<div class="form-group col-md-12">
+																		<label>Lokasi</label>
+																		@if ($lokasi == null)
+																				<p class="text-danger">Tidak ada data lokasi, silakan buat terlebih dahulu!</p>
+																		@else
+																				<select id="edit-lokasi-motor" name="lokasi_motor"
+																						class="form-control @error('lokasi_motor') is-invalid @enderror select2" style="width: 100%;">
+																						<option value="">-- Pilih lokasi --</option>
+																						@foreach ($lokasi as $l)
+																								<option value="{{ $l->id }}" {{ old('lokasi_motor') == $l->id ? 'selected' : '' }}>
+																										{{ $l->nama }}</option>
+																						@endforeach
+																				</select>
+																		@endif
+																</div>
+														</div>
+
+														<div class="row">
+																<div class="form-group col-md-12">
+																		<label for="diskon">Diskon Konsumen</label>
+																		<input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror"
+																				id="diskon" placeholder="Masukan diskon" value="{{ old('diskon') }}">
+																</div>
+																<div class="form-group col-md-12">
+																		<label for="diskon_dealer">Diskon Dealer</label>
+																		<input name="diskon_dealer" type="text"
+																				class="form-control @error('diskon_dealer') is-invalid @enderror" id="diskon_dealer"
+																				placeholder="Masukan diskon dealer" value="{{ old('diskon_dealer') }}">
+																</div>
+																<div class="form-group col-md-12">
+																		<label for="diskon_promo">Diskon Promo</label>
+																		<input name="diskon_promo" type="text"
+																				class="form-control @error('diskon_promo') is-invalid @enderror" id="diskon_promo"
+																				placeholder="Masukan diskon Promo" value="{{ old('diskon_promo') }}">
+																</div>
+														</div>
+
+														<div class="row">
+																<div class="form-group col-md-12">
+																		<label>Tenor</label>
+																		<select id="edit-tenor-motor" name="tenor"
+																				class="form-control @error('tenor') is-invalid @enderror select2" style="width: 100%;">
+																				<option value="">-- Pilih tenor --</option>
+																				@foreach (['11', '17', '23', '29', '35'] as $tenor)
+																						<option value="{{ $tenor }}" {{ old('tenor') == $tenor ? 'selected' : '' }}>
+																								{{ $tenor }}</option>
+																				@endforeach
+																		</select>
+																</div>
+																<div class="form-group col-md-12">
+																		<label for="potongan_tenor">Potongan Tenor</label>
+																		<input name="potongan_tenor" type="text"
+																				class="form-control @error('potongan_tenor') is-invalid @enderror" id="potongan_tenor"
+																				placeholder="Masukan potongan tenor (Kosongkan jika tidak ada)"
+																				value="{{ old('potongan_tenor') }}">
+																</div>
+														</div>
+												</div>
+												<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button type="submit" class="btn btn-warning">Update</button>
+												</div>
+										</form>
+
+								</div>
+						</div>
+				</div>
+		</section>
+
+
 @endsection
 
 
@@ -303,7 +266,83 @@
 		<script>
 				//Initialize Select2 Elements
 				$(document).ready(function() {
-						$("#dataDiskon").DataTable();
+						$("#dataDiskon").DataTable({
+								processing: true,
+								serverside: true,
+								ajax: {
+										url: "{{ route('serverSideDiskonMotor') }}",
+										type: "GET",
+										dataSrc: function(json) {
+												// Sesuaikan data source berdasarkan struktur JSON Anda
+												return json.data;
+										}
+								},
+								columns: [{
+												data: 'DT_RowIndex',
+												name: 'DT_RowIndex',
+												orderable: false,
+												searchable: false,
+										},
+										{
+												data: 'motor.nama',
+												name: 'Motor',
+												title: 'Nama Motor'
+										}, // Nama Motor
+										{
+												data: 'leasing.nama',
+												name: 'Leasing',
+												title: 'Leasing'
+										}, // Leasing
+										{
+												data: 'lokasi.nama',
+												name: 'Lokasi',
+												title: 'Lokasi'
+										}, // Lokasi
+										{
+												data: 'diskon',
+												name: 'Diskon Konsumen',
+												title: 'Diskon Konsumen'
+										}, // Diskon Konsumen
+										{
+												data: 'diskon_dealer',
+												name: 'Diskon Dealer',
+												title: 'Diskon Dealer'
+										}, // Diskon Dealer
+										{
+												data: 'diskon_promo',
+												name: 'Diskon Promo',
+												title: 'Diskon Promo'
+										}, // Diskon Promo
+										{
+												data: 'tenor',
+												name: 'Tenor',
+												title: 'Tenor'
+										}, // Tenor
+										{
+												data: 'potongan_tenor',
+												name: 'Potongan Tenor',
+												title: 'Potongan Tenor'
+										}, // Potongan Tenor
+										{
+												data: 'aksi',
+												name: 'Action',
+												title: 'Action',
+										} // Action buttons
+								],
+								columnDefs: [{
+												targets: 0,
+												searchable: false,
+												orderable: false,
+												className: 'dt-body-center'
+										},
+										{
+												targets: -1,
+												searchable: false,
+												orderable: false,
+												className: 'dt-body-center'
+										}
+								]
+						});
 						$('.select2').select2()
 						// console.log("datatables ekesusi")
 
@@ -326,6 +365,76 @@
 												}
 										});
 						})
+
+
+						$('body').on('click', '.btn_edit', function(e) {
+								e.preventDefault();
+								let getUrl = $(this).data('get');
+								let actionUrl = $(this).data('action');
+								// load data
+								$.ajax({
+										url: getUrl,
+										type: 'GET',
+										success: function(data) {
+												console.log(data);
+												// Mengisi data ke dalam field dalam modalEdit
+												$('#modalEdit form').attr('action', actionUrl)
+												$('#modalEdit #edit-nama-motor').val(data.id_motor).trigger('change');
+												$('#modalEdit #edit-leasing-motor').val(data.id_leasing).trigger('change');
+												$('#modalEdit #edit-lokasi-motor').val(data.id_lokasi).trigger('change');
+												$('#modalEdit #diskon').val(data.diskon);
+												$('#modalEdit #diskon_dealer').val(data.diskon_dealer);
+												$('#modalEdit #diskon_promo').val(data.diskon_promo);
+												$('#modalEdit #edit-tenor-motor').val(data.tenor).trigger('change');
+												$('#modalEdit #potongan_tenor').val(data.potongan_tenor);
+
+												// Menampilkan modal
+												$('#modalEdit').modal('show');
+										}
+								});
+						});
+
+						// delete
+						// delete
+						$('body').on('click', '.btn_delete', function(e) {
+								e.preventDefault();
+								const url = $(this).data('url');
+
+								// Konfirmasi menggunakan SweetAlert
+								Swal.fire({
+										title: 'Hapus ?',
+										text: "Anda yakin akan menghapus data diskon!",
+										icon: 'warning',
+										showCancelButton: true,
+										confirmButtonColor: '#3085d6',
+										cancelButtonColor: '#d33',
+										confirmButtonText: 'Yakin!'
+								}).then((result) => {
+										if (result.isConfirmed) {
+												$.ajax({
+														url: url,
+														type: 'DELETE',
+														success: function(data) {
+																Swal.fire(
+																		'Deleted!',
+																		'Data berhasil di hapus.',
+																		'success'
+																);
+																// You can add code here to remove the deleted item from the DOM if needed
+														},
+														error: function(xhr, status, error) {
+																Swal.fire(
+																		'Error!',
+																		'Terjadi kesalahan pada server saat mencoba hapus data.',
+																		'error'
+																);
+														}
+												});
+										}
+								});
+						});
+
+						// end document ready
 				})
 		</script>
 @endpush
