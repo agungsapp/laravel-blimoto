@@ -8,6 +8,7 @@ use App\Models\CicilanMotor;
 use App\Models\Kota;
 use App\Models\LeasingMotor;
 use App\Models\Motor;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -30,6 +31,8 @@ class AdminCicilanMotorController extends Controller
         ->distinct('tenor')
         ->get()
     ];
+
+    // dd($data);
 
     return view('admin.cicilan.index', $data);
   }
@@ -194,6 +197,9 @@ class AdminCicilanMotorController extends Controller
     }
   }
 
+
+
+
   public function importCsv(Request $request)
   {
     $validator = Validator::make($request->all(), [
@@ -205,24 +211,60 @@ class AdminCicilanMotorController extends Controller
       return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
-      fgetcsv($handle);
+    $duplicateRows = [];
 
-      while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-        DB::table('cicilan_motor')->insert([
-          'dp' => $data[0],
-          'tenor' => $data[1],
-          'cicilan' => $data[2],
-          'id_leasing' => $data[3],
-          'id_lokasi' => $data[4],
-          'id_motor' => $data[5],
-        ]);
+    try {
+      DB::beginTransaction();
+
+      if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
+        fgetcsv($handle); // Skip header row
+
+        $currentRow = 1;
+
+        while (($data = fgetcsv($handle, 0, ',')) !== false) {
+          $existingRecord = DB::table('cicilan_motor')
+            ->where('id_lokasi', $data[4])
+            ->where('id_leasing', $data[3])
+            ->where('id_motor', $data[5])
+            ->exists();
+
+          if ($existingRecord) {
+            $duplicateRows[] = $currentRow;
+          } else {
+            DB::table('cicilan_motor')->insert([
+              'dp' => $data[0],
+              'tenor' => $data[1],
+              'cicilan' => $data[2],
+              'id_leasing' => $data[3],
+              'id_lokasi' => $data[4],
+              'id_motor' => $data[5],
+            ]);
+          }
+
+          $currentRow++;
+        }
+        fclose($handle);
+
+        if (!empty($duplicateRows)) {
+          throw new Exception("Duplikasi data ditemukan. Harap hapus data yang sudah ada terlebih dahulu");
+        } else {
+          flash()->addSuccess("Data csv berhasil diimport");
+        }
+      } else {
+        throw new Exception("Gagal membuka file CSV.");
       }
-      fclose($handle);
+
+      DB::commit();
+    } catch (Exception $e) {
+      DB::rollBack();
+      flash()->addError($e->getMessage());
+      return redirect()->back()->withInput()->with('duplicateRows', $duplicateRows);
     }
-    flash()->addSuccess("Data csv berhasil diimport");
+
     return redirect()->back();
   }
+
+
 
   public function updateCsv(Request $request)
   {
@@ -292,25 +334,42 @@ class AdminCicilanMotorController extends Controller
 
   public function deleteCicilan(Request $request)
   {
-    $validator = Validator::make($request->all(), [
-      'motor' => 'required',
-      'tenor' => 'required',
-      'leasing' => 'required',
-      'lokasi' => 'required'
-    ]);
+    // $validator = Validator::make($request->all(), [
+    //   'motor' => 'required_with:lokasi',
+    //   'leasing' => 'required_with:lokasi,motor',
+    //   'tenor' => 'required_with:motor,leasing,lokasi',
+    // ]);
 
-    if ($validator->fails()) {
-      flash()->addError("Inputkan semua data dengan benar!");
-      return redirect()->back()->withErrors($validator)->withInput();
-    }
+    // if ($validator->fails()) {
+    //   flash()->addError("Inputkan semua data dengan benar!");
+    //   return redirect()->back()->withErrors($validator)->withInput();
+    // }
 
     $idMotor = $request->input('motor');
     $idLeasing = $request->input('leasing');
     $tenor = $request->input('tenor');
     $idKota = $request->input('lokasi');
 
-    $deletedRows = CicilanMotor::deleteData($idMotor, $idLeasing, $tenor, $idKota);
+    // Now, proceed with deleting the data based on the given inputs
+    $query = CicilanMotor::query();
 
+    if ($idMotor) {
+      $query->where('id_motor', $idMotor);
+    }
+
+    if ($idLeasing) {
+      $query->where('id_leasing', $idLeasing);
+    }
+
+    if ($tenor) {
+      $query->where('tenor', $tenor);
+    }
+
+    if ($idKota) {
+      $query->where('id_kota', $idKota);
+    }
+
+    $deletedRows = $query->delete();
 
     if ($deletedRows > 0) {
       flash()->addSuccess("Berhasil hapus data");
@@ -321,6 +380,7 @@ class AdminCicilanMotorController extends Controller
     return redirect()->back();
   }
 
+
   public function dataTable(Request $request)
   {
     $motor = $request->input('motor');
@@ -328,20 +388,45 @@ class AdminCicilanMotorController extends Controller
     $lokasi = $request->input('lokasi');
     $tenor = $request->input('tenor');
 
-    $cicilan = CicilanMotor::getCicilanTable($motor, $leasing, $lokasi, $tenor);
-    return DataTables::of($cicilan)
+    $query = CicilanMotor::with(['motor', 'leasingMotor', 'kota'])
+      ->when($leasing, function ($query) use ($leasing) {
+        $query->where('id_leasing', $leasing);
+      })
+      ->when($lokasi, function ($query) use ($lokasi) {
+        $query->where('id_lokasi', $lokasi);
+      })
+      ->when($tenor, function ($query) use ($tenor) {
+        $query->where('tenor', $tenor);
+      });
+
+    return DataTables::of($query)
       ->addColumn('action', function ($row) {
-        $editUrl = route('admin.cicilan.edit', ['cicilan' => $row->id]);
-        $deleteUrl = route('admin.cicilan.destroy', ['cicilan' => $row->id]);
+        $editUrl = route('admin.cicilan.edit', $row->id);
+        $deleteUrl = route('admin.cicilan.destroy', $row->id);
 
         return '<div class="d-flex justify-content-between">
-                    <a href="' . $editUrl . '" class="btn btn-warning">Edit</a>
-                    <form action="' . $deleteUrl . '" method="post">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-danger show_confirm">Delete</button>
-                    </form>
-                </div>';
+                        <a href="' . $editUrl . '" class="btn btn-warning">Edit</a>
+                        <form action="' . $deleteUrl . '" method="post">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+                        </form>
+                    </div>';
+      })
+      ->filter(function ($query) use ($request) {
+        if ($search = $request->get('search')['value']) {
+          $query->where(function ($query) use ($search) {
+            $query->whereHas('motor', function ($query) use ($search) {
+              $query->where('nama', 'LIKE', "%$search%");
+            })
+              ->orWhereHas('leasingMotor', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%");
+              })
+              ->orWhereHas('kota', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%");
+              });
+          });
+        }
       })
       ->rawColumns(['action'])
       ->make(true);

@@ -24,27 +24,54 @@ class MotorController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            // Using subquery to gather the best motors
             $motors = DB::table('motor')
                 ->join('merk', 'motor.id_merk', '=', 'merk.id')
                 ->join('type', 'motor.id_type', '=', 'type.id')
                 ->leftJoin('mtr_motor_best', 'motor.id', '=', 'mtr_motor_best.id_motor')
                 ->leftJoin('best_motor', 'best_motor.id', '=', 'mtr_motor_best.id_best_motor')
-                ->select('motor.id', 'motor.stock', 'motor.nama', 'merk.nama as merk_nama', 'type.nama as type_nama', 'motor.harga', 'best_motor.nama as best_motor_name', 'mtr_motor_best.id_best_motor')
+                ->select(
+                    'motor.id',
+                    'motor.stock',
+                    'motor.nama',
+                    'merk.nama as merk_nama',
+                    'type.nama as type_nama',
+                    'motor.harga',
+                    // Using JSON_OBJECT to create JSON representation
+                    DB::raw('JSON_ARRAYAGG(best_motor.nama) as best_motor_names')
+                )
+                ->groupBy(
+                    'motor.id',
+                    'motor.stock',
+                    'motor.nama',
+                    'merk.nama',
+                    'type.nama',
+                    'motor.harga'
+                )
                 ->get();
 
             return DataTables::of($motors)
                 ->addColumn('action', function ($motor) {
                     return '<div class="d-flex justify-content-between">
-                                <a href="' . route('admin.motor.edit', ['motor' => $motor->id, 'id_best_motor' => $motor->id_best_motor]) . '" class="btn btn-warning">Edit</a>
-                                <form action="' . route('admin.motor.destroy', $motor->id) . '" method="post">
-                                    ' . csrf_field() . '
-                                    ' . method_field('DELETE') . '
-                                    <input type="hidden" name="id_best_motor" value="' . (isset($motor->mtr_motor_best) ? $motor->mtr_motor_best->id_best_motor : '') . '">
-                                    <button type="submit" class="btn btn-danger show_confirm">Delete</button>
-                                </form>
-                            </div>';
+                            <a href="' . route('admin.motor.edit', ['motor' => $motor->id, 'id_best_motor' => request()->get('id_best_motor')]) . '" class="btn btn-warning">Edit</a>
+                            <form action="' . route('admin.motor.destroy', $motor->id) . '" method="post">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit" class="btn btn-danger show_confirm">Delete</button>
+                            </form>
+                        </div>';
                 })
-                ->rawColumns(['action'])
+                ->addColumn('best_motor', function ($motor) {
+                    $bestMotors = json_decode($motor->best_motor_names);
+                    $bestMotorList = '<ul>';
+                    $warnaBadge = ['success', 'primary', 'secondary', 'danger', 'warning', 'info', 'dark'];
+                    foreach ($bestMotors as $index => $bestMotor) {
+                        $bestMotorList .= '<li> <span class="badge badge-' . $warnaBadge[$index] . '">' . $bestMotor  . '</span></li>';
+                    }
+                    $bestMotorList .= '</ul>';
+                    return $bestMotorList;
+                })
+                ->rawColumns(['action', 'best_motor'])
                 ->make(true);
         }
 
@@ -58,6 +85,7 @@ class MotorController extends Controller
         ]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,7 +93,13 @@ class MotorController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'merk_motor' => Merk::all(),
+            'tipe_motor' => Type::all(),
+            'kategori_best_motor' => BestMotor::all(),
+        ];
+
+        return view('admin.motor.create', $data);
     }
 
     /**
@@ -78,7 +112,6 @@ class MotorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'harga' => 'required',
             'deskripsi-motor' => 'required',
             'fitur-motor' => 'required',
             'bonus-motor' => 'required',
@@ -97,7 +130,6 @@ class MotorController extends Controller
         try {
             $motor = Motor::create([
                 'nama' => $request->input('nama'),
-                'harga' => $request->input('harga'),
                 'deskripsi' => $request->input('deskripsi-motor'),
                 'fitur_utama' => $request->input('fitur-motor'),
                 'bonus' => $request->input('bonus-motor'),
@@ -165,7 +197,6 @@ class MotorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'harga' => 'required',
             'deskripsi_motor' => 'required',
             'fitur_motor' => 'required',
             'bonus_motor' => 'required',
@@ -185,7 +216,6 @@ class MotorController extends Controller
             $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
 
             $motor->nama = $request->nama;
-            $motor->harga = $request->harga;
             $motor->deskripsi = $request->deskripsi_motor;
             $motor->fitur_utama = $request->fitur_motor;
             $motor->bonus = $request->bonus_motor;

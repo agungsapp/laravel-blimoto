@@ -1,0 +1,10 @@
+STRUKTUR DATABASE :
+
+-   perubahan database motor ijinkan nullable untuk harga / ubah default 0
+
+SOURCE CODE :
+
+-   perubahan code index load datatables di motor index . untuk melakukan query dengan benar .
+-   perubahan code index data cicilan untuk performance data server side dan filter , untuk meningkatkan keterbacaan
+-   perubahan import untuk mencegah duplikasi data cicilan
+-   penghapusan required dalam validasi delete dan menyesuaikan delete dengen kriteria yang ada.
