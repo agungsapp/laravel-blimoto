@@ -22,40 +22,58 @@ class AdminDiskonMotorController extends Controller
 
   public function dataTable(Request $request)
   {
-    if (request()->ajax()) {
-      $diskon = DiskonMotor::with(['motor', 'leasing', 'lokasi'])
-        ->orderBy('id', 'desc')
-        ->get();
+    if ($request->ajax()) {
 
+      // Ambil parameter filter dari request
+      $filterKota = $request->input('kota');
+      $filterTenor = $request->input('tenor');
+
+      // Mulai query
+      $diskonQuery = DiskonMotor::with(['motor', 'leasing', 'lokasi'])
+        ->orderBy('id', 'desc');
+
+      // Terapkan filter jika tersedia
+      if (!empty($filterKota)) {
+        $diskonQuery->whereHas('lokasi', function ($query) use ($filterKota) {
+          $query->where('nama', $filterKota);
+        });
+      }
+
+      if (!empty($filterTenor)) {
+        $diskonQuery->where('tenor', $filterTenor);
+      }
+
+      // Dapatkan hasil query
+      $diskon = $diskonQuery->get();
+
+      // Ubah format
       $diskon->map(function ($d) {
         $d->diskon = Str::rupiah($d->diskon);
         $d->diskon_dealer = Str::rupiah($d->diskon_dealer);
         $d->diskon_promo = Str::rupiah($d->diskon_promo);
       });
 
-
+      // Kirim data ke DataTables
       return DataTables::of($diskon)
-        // ->addColumn('action', function ($row) {
-        //   $editUrl = route('admin.diskon-motor.edit', ['diskon' => $row->id]);
-        //   $deleteUrl = route('admin.diskon-motor.destroy', ['diskon' => $row->id]);
-
-        //   return '<div class="d-flex justify-content-between">
-        //                     <a href="' . $editUrl . '" class="btn btn-warning">Edit</a>
-        //                     <form action="' . $deleteUrl . '" method="post">
-        //                         ' . csrf_field() . '
-        //                         ' . method_field('DELETE') . '
-        //                         <button type="submit" class="btn btn-danger show_confirm">Delete</button>
-        //                     </form>
-        //                 </div>';
-        // })
-        // ->rawColumns(['action'])
+        ->filter(function ($instance) use ($request) {
+          if (!empty($request->get('search')['value'])) {
+            $search = $request->get('search')['value'];
+            $instance->collection = $instance->collection->filter(function ($row) use ($search) {
+              return (strpos(Str::lower($row['motor']['nama']), Str::lower($search)) !== false)
+                || (strpos(Str::lower($row['leasing']['nama']), Str::lower($search)) !== false)
+                || (strpos(Str::lower($row['lokasi']['nama']), Str::lower($search)) !== false);
+            });
+          }
+        })
         ->addIndexColumn()
         ->addColumn('aksi', function ($data) {
-          return view('admin.diskon-motor.tombol')->with('data', $data);
+          return view('admin.diskon-motor.tombol', compact('data'));
         })
         ->make(true);
     }
   }
+
+
   /**
    * Display a listing of the resource.
    *

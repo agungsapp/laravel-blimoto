@@ -171,11 +171,19 @@
 														</p>
 												</a>
 												<ul class="nav nav-treeview">
+														{{-- tambah data motor --}}
 														<li class="nav-item">
-																<a href="{{ route('admin.motor.index') }}"
-																		class="nav-link {{ \Route::is('admin.motor.*') ? 'active' : '' }}">
+																<a href="{{ route('admin.motor.create') }}"
+																		class="nav-link {{ \Route::is('admin.motor.create') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Tambah Motor</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.motor.index') }}"
+																		class="nav-link {{ \Route::is('admin.motor.*') && !\Route::is('admin.motor.create') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Data Motor</p>
 																</a>
 														</li>
 														<li class="nav-item">

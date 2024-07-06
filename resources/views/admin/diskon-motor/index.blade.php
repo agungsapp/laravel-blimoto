@@ -117,6 +117,29 @@
 										</div>
 								</div>
 								<div class="card-body">
+
+										{{-- Filters --}}
+										<div class="row mb-3">
+												<div class="col-md-4">
+														<select id="filterKota" class="form-control select2" style="width: 100%;">
+																<option value="">-- Pilih Kota --</option>
+																@foreach ($lokasi as $l)
+																		<option value="{{ $l->nama }}">{{ $l->nama }}</option>
+																@endforeach
+														</select>
+												</div>
+												<div class="col-md-4">
+														<select id="filterTenor" class="form-control select2" style="width: 100%;">
+																<option value="">-- Pilih Tenor --</option>
+																@foreach (['11', '17', '23', '29', '35'] as $tenor)
+																		<option value="{{ $tenor }}">{{ $tenor }}</option>
+																@endforeach
+														</select>
+												</div>
+												<div class="col-md-4">
+														<button id="resetFilters" class="btn btn-secondary">Reset Filters</button>
+												</div>
+										</div>
 										<div class="table-responsive">
 												<table id="dataDiskon" class="table-bordered table-striped table">
 														<thead>
@@ -266,68 +289,68 @@
 		<script>
 				//Initialize Select2 Elements
 				$(document).ready(function() {
-						$("#dataDiskon").DataTable({
+						// Initialize DataTable
+						var table = $("#dataDiskon").DataTable({
 								processing: true,
-								serverside: true,
+								serverSide: true,
 								ajax: {
 										url: "{{ route('serverSideDiskonMotor') }}",
-										type: "GET",
-										dataSrc: function(json) {
-												// Sesuaikan data source berdasarkan struktur JSON Anda
-												return json.data;
-										}
+										data: function(d) {
+												d.kota = $('#filterKota').val();
+												d.tenor = $('#filterTenor').val();
+										},
 								},
 								columns: [{
 												data: 'DT_RowIndex',
 												name: 'DT_RowIndex',
 												orderable: false,
-												searchable: false,
+												searchable: false
 										},
 										{
 												data: 'motor.nama',
 												name: 'Motor',
 												title: 'Nama Motor'
-										}, // Nama Motor
+										},
 										{
 												data: 'leasing.nama',
 												name: 'Leasing',
 												title: 'Leasing'
-										}, // Leasing
+										},
 										{
 												data: 'lokasi.nama',
 												name: 'Lokasi',
 												title: 'Lokasi'
-										}, // Lokasi
+										},
 										{
 												data: 'diskon',
 												name: 'Diskon Konsumen',
 												title: 'Diskon Konsumen'
-										}, // Diskon Konsumen
+										},
 										{
 												data: 'diskon_dealer',
 												name: 'Diskon Dealer',
 												title: 'Diskon Dealer'
-										}, // Diskon Dealer
+										},
 										{
 												data: 'diskon_promo',
 												name: 'Diskon Promo',
 												title: 'Diskon Promo'
-										}, // Diskon Promo
+										},
 										{
 												data: 'tenor',
 												name: 'Tenor',
 												title: 'Tenor'
-										}, // Tenor
+										},
 										{
 												data: 'potongan_tenor',
 												name: 'Potongan Tenor',
 												title: 'Potongan Tenor'
-										}, // Potongan Tenor
+										},
 										{
 												data: 'aksi',
 												name: 'Action',
-												title: 'Action',
-										} // Action buttons
+												title: 'Action'
+										},
 								],
 								columnDefs: [{
 												targets: 0,
@@ -341,8 +364,20 @@
 												orderable: false,
 												className: 'dt-body-center'
 										}
-								]
+								],
 						});
+
+						// Event handler for filters
+						$('#filterKota, #filterTenor').on('change', function() {
+								table.draw();
+						});
+
+						// Reset filter button
+						$('#resetFilters').on('click', function() {
+								$('#filterKota, #filterTenor').val(null).trigger('change');
+								table.draw();
+						});
+
 						$('.select2').select2()
 						// console.log("datatables ekesusi")
 
