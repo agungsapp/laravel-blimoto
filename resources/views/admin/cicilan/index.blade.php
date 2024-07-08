@@ -322,15 +322,15 @@
 										},
 										{
 												data: 'motor.nama',
-												name: 'motor_name'
+												name: 'motor.nama'
 										},
 										{
 												data: 'leasing_motor.nama',
-												name: 'leasing_name'
+												name: 'leasing_motor.nama'
 										},
 										{
 												data: 'kota.nama',
-												name: 'kota_name'
+												name: 'kota.nama'
 										},
 										{
 												data: 'dp',
