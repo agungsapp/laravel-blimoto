@@ -11,6 +11,7 @@ use App\Models\Motor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
@@ -211,66 +212,74 @@ class AdminCicilanMotorController extends Controller
       return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    $duplicateRows = [];
-
     try {
-      DB::beginTransaction();
+      $distinctData = [];
+      $originalData = [];
 
       if (($handle = fopen($request->file('file')->getRealPath(), 'r')) !== false) {
         fgetcsv($handle); // Skip header row
-
-        $currentRow = 1;
-
         while (($data = fgetcsv($handle, 0, ',')) !== false) {
-          // $existingRecord = DB::table('cicilan_motor')
-          //   ->where('id_motor', $data[5])
-          //   ->where('id_lokasi', $data[4])
-          //   ->where('id_leasing', $data[3])
-          //   // ->where('dp', $data[0])
-          //   ->exists();
-          // $existingRecord = CicilanMotor::where('id_motor', 3)
-          //   ->where('id_lokasi', 1)
-          //   ->where('id_leasing', 1)
-          //   ->get();
-
-          // dd($existingRecord);
-          $existingRecord = false;
-
-          if ($existingRecord) {
-            $duplicateRows[] = $currentRow;
-          } else {
-
-            DB::table('cicilan_motor')->insert([
-              'dp' => $data[0],
-              'tenor' => $data[1],
-              'cicilan' => $data[2],
+          // Create a unique key based on indices 3, 4, and 5
+          $key = $data[3] . '-' . $data[4] . '-' . $data[5];
+          if (!array_key_exists($key, $distinctData)) {
+            // Store distinct values and the original data for later use
+            $distinctData[$key] = [
               'id_leasing' => $data[3],
               'id_lokasi' => $data[4],
-              'id_motor' => $data[5],
-            ]);
+              'id_motor' => $data[5]
+            ];
           }
-
-          $currentRow++;
+          $originalData[] = $data;
         }
         fclose($handle);
-
-        if (!empty($duplicateRows)) {
-          throw new Exception("Duplikasi data ditemukan. Harap hapus data yang sudah ada terlebih dahulu");
-        } else {
-          flash()->addSuccess("Data csv berhasil diimport");
-        }
-      } else {
-        throw new Exception("Gagal membuka file CSV.");
       }
 
-      DB::commit();
-    } catch (Exception $e) {
-      DB::rollBack();
-      flash()->addError($e->getMessage());
-      return redirect()->back()->withInput()->with('duplicateRows', $duplicateRows);
-    }
+      $foundDuplicate = false;
 
-    return redirect()->back();
+      // Check for duplicates in the database
+      foreach ($distinctData as $disdat) {
+        $cekCicilan = CicilanMotor::where('id_leasing', $disdat['id_leasing'])
+          ->where('id_lokasi', $disdat['id_lokasi'])
+          ->where('id_motor', $disdat['id_motor'])
+          ->exists();
+
+        if ($cekCicilan) {
+          $foundDuplicate = true;
+          break;
+        }
+      }
+
+      if ($foundDuplicate) {
+        Log::info("data ditemukan dan masuk ke blok hapus data !");
+        // Hapus data duplikat dari database sebelum melakukan insert
+        foreach ($distinctData as $disdat) {
+          CicilanMotor::where('id_leasing', $disdat['id_leasing'])
+            ->where('id_lokasi', $disdat['id_lokasi'])
+            ->where('id_motor', $disdat['id_motor'])
+            ->delete();
+          Log::info(["pesan" => "data ini sudah di hapus  !", "data" => $disdat]);
+        }
+      }
+
+      // Insert all data from the CSV after purification
+      foreach ($originalData as $data) {
+        CicilanMotor::create([
+          'dp' => $data[0],
+          'tenor' => $data[1],
+          'cicilan' => $data[2],
+          'id_leasing' => $data[3],
+          'id_lokasi' => $data[4],
+          'id_motor' => $data[5],
+          // Jika ada kolom lain yang perlu anda masukkan, tambahkan juga di sini
+        ]);
+      }
+      Log::info('data sukses di import !');
+      flash()->addSuccess("Data cicilan motor berhasil di import !");
+    } catch (\Throwable $th) {
+      flash()->addError("Terjadi kesalahan saat menyimpan data ! error : " . $th->getMessage());
+    } finally {
+      return redirect()->back();
+    }
   }
 
 

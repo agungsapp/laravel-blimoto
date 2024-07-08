@@ -147,19 +147,7 @@
 																</div>
 														</div>
 
-														<div class="form-group">
-																<label>Pilih Lokasi</label>
-																@if ($lokasi == null)
-																		<p>Tidak ada data silahkan buat terlebih dahulu !</p>
-																@else
-																		<select name="lokasi" class="form-control select2">
-																				<option value="" selected>-- Pilih lokasi --</option>
-																				@foreach ($lokasi as $l)
-																						<option value="{{ $l->id }}">{{ $l->nama }}</option>
-																				@endforeach
-																		</select>
-																@endif
-														</div>
+
 														<div class="form-group">
 																<label>Pilih Motor</label>
 																@if ($motor == null)
@@ -169,6 +157,20 @@
 																				<option value="" selected>-- Pilih motor --</option>
 																				@foreach ($motor as $m)
 																						<option value="{{ $m->id }}">{{ $m->nama }}</option>
+																				@endforeach
+																		</select>
+																@endif
+														</div>
+
+														<div class="form-group">
+																<label>Pilih Lokasi</label>
+																@if ($lokasi == null)
+																		<p>Tidak ada data silahkan buat terlebih dahulu !</p>
+																@else
+																		<select name="lokasi" class="form-control select2">
+																				<option value="" selected>-- Pilih lokasi --</option>
+																				@foreach ($lokasi as $l)
+																						<option value="{{ $l->id }}">{{ $l->nama }}</option>
 																				@endforeach
 																		</select>
 																@endif
@@ -254,9 +256,9 @@
 												<thead>
 														<tr>
 																<th>ID</th>
-																<th>Motor Name</th>
-																<th>Leasing Name</th>
-																<th>Kota Name</th>
+																<th>Nama Motor</th>
+																<th>Nama Leasing</th>
+																<th>Nama Kota</th>
 																<th>DP</th>
 																<th>Tenor</th>
 																<th>Cicilan</th>

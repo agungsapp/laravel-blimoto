@@ -38,6 +38,7 @@ Route::post('get-motor', [MotorController::class, 'getMotorById']);
 Route::post('get-cicilan', [MotorController::class, 'getCicilan']);
 
 Route::get('truncate/{kunci}', [TruncatePenjualanController::class, 'tuncate']);
+Route::post('testing', [TruncatePenjualanController::class, 'test']);
 
 
 // belum terupdate untuk info metode pembayaranya | done
