@@ -1109,20 +1109,29 @@ class AdminPenjualanController extends Controller
   public function testing($id)
   {
     // Generate kode bayar baru sesuai aturan
-    $bulanSekarang = date('m');
-    $tahunSekarang = date('Y');
-    $lastDetail = DetailPembayaranModel::where('kode_bayar', 'like', "$id%")
-      ->whereMonth('created_at', $bulanSekarang)
-      ->whereYear('created_at', $tahunSekarang)
-      ->orderBy('created_at', 'desc')
-      ->first();
-    $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
-    $kodeBayarBaru = "$id-$urutan";
+    // $bulanSekarang = date('m');
+    // $tahunSekarang = date('Y');
+    // $lastDetail = DetailPembayaranModel::where('kode_bayar', 'like', "$id%")
+    //   ->whereMonth('created_at', $bulanSekarang)
+    //   ->whereYear('created_at', $tahunSekarang)
+    //   ->orderBy('created_at', 'desc')
+    //   ->first();
+    // $urutan = $lastDetail ? ((int) substr($lastDetail->kode_bayar, strrpos($lastDetail->kode_bayar, '-') + 1)) + 1 : 1;
+    // $kodeBayarBaru = "$id-$urutan";
 
 
 
 
-    // dd($data->toSql());
-    return response()->json($kodeBayarBaru);
+    // // dd($data->toSql());
+    // return response()->json($kodeBayarBaru);
+
+
+
+    $existingRecord = CicilanMotor::where('id_motor', 3)
+      ->where('id_lokasi', 1)
+      ->where('id_leasing', 1)
+      ->where('tenor', 11);
+
+    dd($existingRecord->toSql());
   }
 }

@@ -222,15 +222,24 @@ class AdminCicilanMotorController extends Controller
         $currentRow = 1;
 
         while (($data = fgetcsv($handle, 0, ',')) !== false) {
-          $existingRecord = DB::table('cicilan_motor')
-            ->where('id_lokasi', $data[4])
-            ->where('id_leasing', $data[3])
-            ->where('id_motor', $data[5])
-            ->exists();
+          // $existingRecord = DB::table('cicilan_motor')
+          //   ->where('id_motor', $data[5])
+          //   ->where('id_lokasi', $data[4])
+          //   ->where('id_leasing', $data[3])
+          //   // ->where('dp', $data[0])
+          //   ->exists();
+          // $existingRecord = CicilanMotor::where('id_motor', 3)
+          //   ->where('id_lokasi', 1)
+          //   ->where('id_leasing', 1)
+          //   ->get();
+
+          // dd($existingRecord);
+          $existingRecord = false;
 
           if ($existingRecord) {
             $duplicateRows[] = $currentRow;
           } else {
+
             DB::table('cicilan_motor')->insert([
               'dp' => $data[0],
               'tenor' => $data[1],
@@ -350,26 +359,34 @@ class AdminCicilanMotorController extends Controller
     $tenor = $request->input('tenor');
     $idKota = $request->input('lokasi');
 
-    // Now, proceed with deleting the data based on the given inputs
-    $query = CicilanMotor::query();
+    try {
+      // Now, proceed with deleting the data based on the given inputs
+      $query = CicilanMotor::query();
 
-    if ($idMotor) {
-      $query->where('id_motor', $idMotor);
+      if ($idMotor) {
+        $query->where('id_motor', $idMotor);
+      }
+
+      if ($idLeasing) {
+        $query->where('id_leasing', $idLeasing);
+      }
+
+      if ($tenor) {
+        $query->where('tenor', $tenor);
+      }
+
+      if ($idKota) {
+        $query->where('id_lokasi', $idKota);
+      }
+
+      $deletedRows = $query->delete();
+      flash()->addSuccess("Berhasil hapus data");
+    } catch (\Throwable $th) {
+      //throw $th;
+      flash()->addError("Gagal hapus data" . $th->getMessage());
+    } finally {
+      return redirect()->back();
     }
-
-    if ($idLeasing) {
-      $query->where('id_leasing', $idLeasing);
-    }
-
-    if ($tenor) {
-      $query->where('tenor', $tenor);
-    }
-
-    if ($idKota) {
-      $query->where('id_kota', $idKota);
-    }
-
-    $deletedRows = $query->delete();
 
     if ($deletedRows > 0) {
       flash()->addSuccess("Berhasil hapus data");
@@ -383,6 +400,7 @@ class AdminCicilanMotorController extends Controller
 
   public function dataTable(Request $request)
   {
+    // dd($request->all());
     $motor = $request->input('motor');
     $leasing = $request->input('leasing');
     $lokasi = $request->input('lokasi');
