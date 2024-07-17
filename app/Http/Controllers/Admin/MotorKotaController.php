@@ -7,7 +7,10 @@ use App\Models\Kota;
 use App\Models\Motor;
 use App\Models\MotorKota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class MotorKotaController extends Controller
 {
@@ -16,6 +19,58 @@ class MotorKotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function dataTable(Request $request)
+    {
+        // Ambil parameter filter dari request
+        $filterKota = $request->input('kota');
+        $filterTenor = $request->input('motor');
+
+        // Mulai query
+        $motorKotaQuery = MotorKota::with(['motor', 'kota'])
+            ->orderBy('id', 'desc');
+
+        // Terapkan filter jika tersedia
+        if (!empty($filterKota)) {
+            $motorKotaQuery->whereHas('lokasi', function ($query) use ($filterKota) {
+                $query->where('nama', $filterKota);
+            });
+        }
+
+        if (!empty($filterTenor)) {
+            $motorKotaQuery->where('motor', $filterTenor);
+        }
+
+        // Dapatkan hasil query
+        $motorKota = $motorKotaQuery->get();
+
+        // Ubah format
+        $motorKota->map(function ($d) {
+            $d->lokasi = $d->kota->nama;
+            $d->harga_otr = Str::rupiah($d->harga_otr);
+            $d->diskon_cash = Str::rupiah($d->diskon_cash);
+        });
+
+        // Kirim data ke DataTables
+        return DataTables::of($motorKota)
+            ->filter(function ($instance) use ($request) {
+                if (!empty($request->get('search')['value'])) {
+                    $search = $request->get('search')['value'];
+                    $instance->collection = $instance->collection->filter(function ($row) use ($search) {
+                        Log::info($row);
+                        return (strpos(Str::lower($row['motor']['nama']), Str::lower($search)) !== false)
+                            || (strpos(Str::lower($row['kota']['nama']), Str::lower($search)) !== false);
+                    });
+                }
+            })
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($data) {
+                return view('admin.motor-kota.tombol', compact('data'));
+            })
+            ->make(true);
+    }
+
+
     public function index()
     {
         $motorKotaData = MotorKota::join('kota', 'motor_kota.id_kota', '=', 'kota.id')
@@ -57,6 +112,7 @@ class MotorKotaController extends Controller
             'kota' => 'required',
             'motor' => 'required',
             'harga' => 'required',
+            'diskon_cash' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -69,6 +125,7 @@ class MotorKotaController extends Controller
                 'id_kota' => $request->input('kota'),
                 'id_motor' => $request->input('motor'),
                 'harga_otr' => $request->input('harga'),
+                'diskon_cash' => $request->input('diskon_cash'),
             ])->first();
 
             if ($existingRecord) {
@@ -79,6 +136,8 @@ class MotorKotaController extends Controller
             MotorKota::firstOrCreate([
                 'id_kota' => $request->input('kota'),
                 'id_motor' => $request->input('motor'),
+                'harga' => $request->input('harga'),
+                'diskon_cash' => $request->input('diskon_cash'),
             ]);
 
             flash()->addSuccess("Motor berhasil ditambahkan ke kota");
@@ -108,7 +167,12 @@ class MotorKotaController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $motorKota = MotorKota::findOrFail($id);
+            return response()->json($motorKota, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'error saat mengambil data id tidak ditemukan'], 401);
+        }
     }
 
     /**
@@ -124,6 +188,7 @@ class MotorKotaController extends Controller
             'kota' => 'required',
             'motor' => 'required',
             'harga' => 'required',
+            'diskon_cash' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -136,6 +201,7 @@ class MotorKotaController extends Controller
             $motorKota->id_kota = $request->input('kota');
             $motorKota->id_motor = $request->input('motor');
             $motorKota->harga_otr = $request->input('harga');
+            $motorKota->diskon_cash = $request->input('diskon_cash');
             $motorKota->save();
             flash()->addSuccess("Berhasil merubah data!");
             return redirect()->back();
@@ -226,11 +292,9 @@ class MotorKotaController extends Controller
         try {
             $motorKota = MotorKota::findOrFail($id);
             $motorKota->delete();
-            flash()->addSuccess("Berhasil menghapus data!");
-            return redirect()->back();
+            return response()->json(['message' => 'berhasil'], 200);
         } catch (\Throwable $th) {
-            flash()->addError("$motorKota->name tidak bisa dihapus karena data digunakan oleh data lain!");
-            return redirect()->back();
+            return response()->json(['message' => 'error'], 400);
         }
     }
 }

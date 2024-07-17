@@ -13,10 +13,12 @@ use App\Models\Merk;
 use App\Models\Mitra;
 use App\Models\Motor;
 use App\Models\MotorKota;
+use App\Models\MtrBestMotor;
 use App\Models\Type;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -39,11 +41,15 @@ class HomeController extends Controller
             'hooks' => Hook::where('status', 1)
                 ->orderBy('order', 'asc')->get(),
             'mitras' => Mitra::all(),
+            'tenors' => CicilanMotor::distinct('tenor')->pluck('tenor')
         ];
 
         // dd(Session::get('lokasiUser'));
 
-        // dd($data['best3'][0]);
+        // dd($data['best2'][2]);
+
+        // return response()->json($this->getDpTermurahPartDua(3));
+
         // dd($data['best3'][0]->motorKota[0]->harga_otr);
 
         // dd($data['hooks']);
@@ -318,6 +324,8 @@ class HomeController extends Controller
         $maxTenorSubquery = CicilanMotor::selectRaw('MAX(tenor) as max_tenor, id_motor')
             ->groupBy('id_motor');
 
+
+
         // Query utama untuk mendapatkan motor bersama dengan tenor maksimal dan DP terendah
         $motors = Motor::with(['motorKota' => function ($query) use ($kotaId) {
             $query->where('id_kota', $kotaId);
@@ -336,6 +344,8 @@ class HomeController extends Controller
             ->groupBy('motor.id')
             ->orderBy('cicilan_motor.dp', 'asc')
             ->get();
+
+        Log::info(["data" => $motors]);
 
         // Menambahkan informasi gambar dan diskon ke setiap motor
         foreach ($motors as $motor) {
@@ -364,5 +374,32 @@ class HomeController extends Controller
         }
 
         return $motors;
+    }
+
+
+
+
+    private function getDpTermurahPartDua($bestMotorId)
+    {
+        // Ambil id_motor dari MtrBestMotor berdasarkan id_best_motor
+        $motorbestArray = MtrBestMotor::where('id_best_motor', $bestMotorId)
+            ->pluck('id_motor')
+            ->toArray();
+
+        if (empty($motorbestArray)) {
+            return [];
+        }
+
+        // Query untuk mendapatkan setiap id_motor dengan DP terendah
+        $motorsWithMinDp = CicilanMotor::whereIn('id_motor', $motorbestArray)
+            ->select('id_motor', 'dp', 'cicilan', 'tenor', 'id_leasing', 'id_lokasi')
+            ->orderBy('id_motor')
+            ->orderBy('dp')
+            ->get()
+            ->unique('id_motor')
+            ->values();
+
+        // Mengembalikan data dengan DP terendah untuk setiap id_motor
+        return $motorsWithMinDp;
     }
 }

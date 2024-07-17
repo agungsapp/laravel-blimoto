@@ -7,6 +7,7 @@ use App\Models\BestMotor;
 use App\Models\CicilanMotor;
 use App\Models\Merk;
 use App\Models\Motor;
+use App\Models\MotorKota;
 use App\Models\MtrBestMotor;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -119,7 +120,7 @@ class MotorController extends Controller
             'tipe-motor' => 'required',
         ]);
 
-        $kategori_best_motor = $request->input('kategori-best-motor') ?? 1;
+        $kategori_best_motor = $request->input('kategori-best-motor') ?? []; // Ganti default value ke array kosong
         $stock = $request->input('stock-motor') ?? 1;
 
         if ($validator->fails()) {
@@ -138,19 +139,23 @@ class MotorController extends Controller
                 'stock' => $stock,
             ]);
 
-            MtrBestMotor::create([
-                'id_motor' => $motor->id,
-                'id_best_motor' => $kategori_best_motor,
-            ]);
+            // Simpan data Kategori Best Motor
+            foreach ($kategori_best_motor as $kategori) {
+                MtrBestMotor::create([
+                    'id_motor' => $motor->id,
+                    'id_best_motor' => $kategori,
+                ]);
+            }
 
             flash()->addSuccess("Motor $motor->nama berhasil dibuat");
             return redirect()->back();
         } catch (\Throwable $th) {
             throw $th;
-            flash()->addError("Gagal membuat data pastikan sudah benar!");
+            flash()->addError("Gagal membuat data, pastikan sudah benar!");
             return redirect()->back();
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -171,18 +176,21 @@ class MotorController extends Controller
      */
     public function edit($id)
     {
-        $motor = Motor::where('motor.id', $id)->get();
+        $bestMotor = MtrBestMotor::where('id_motor', $id)->pluck('id_best_motor')->toArray();
+        $motor = Motor::with(['mtrBestMotor'])->where('motor.id', $id)->get();
         $merk_motor = Merk::all();
         $tipe_motor = Type::all();
         $kategori_best_motor = BestMotor::all();
         $id_best_motor = intval(request('id_best_motor'));
+
+        // return response()->json($bestMotor);
 
         return view('admin.motor.edit', [
             'motor' => $motor,
             'merk_motor' => $merk_motor,
             'tipe_motor' => $tipe_motor,
             'kategori_best_motor' => $kategori_best_motor,
-            'id_best_motor' => $id_best_motor,
+            'id_best_motor' => $bestMotor,
         ]);
     }
 
@@ -209,12 +217,11 @@ class MotorController extends Controller
             return redirect()->back();
         }
 
-        $kategori_best_motor = $request->input('kategori-best-motor') ?? 1;
         $stock = $request->input('stock-motor') ?? 1;
         try {
             $motor = Motor::findOrFail($id);
-            $kategoriBestMotor = MtrBestMotor::where('id_motor', $id)->firstOrFail();
 
+            // Simpan data Motor
             $motor->nama = $request->nama;
             $motor->deskripsi = $request->deskripsi_motor;
             $motor->fitur_utama = $request->fitur_motor;
@@ -222,14 +229,23 @@ class MotorController extends Controller
             $motor->id_merk = $request->merk_motor;
             $motor->id_type = $request->tipe_motor;
             $motor->stock = $stock;
-            $kategoriBestMotor->id_best_motor = $kategori_best_motor;
-
             $motor->save();
-            $kategoriBestMotor->save();
+
+            // Simpan data Kategori Best Motor
+            $kategori_best_motor = $request->input('kategori-best-motor') ?? [];
+            $motor->mtrBestMotor()->delete(); // Hapus semua relasi sebelum menambah yang baru
+            foreach ($kategori_best_motor as $kategori) {
+                MtrBestMotor::create([
+                    'id_motor' => $id,
+                    'id_best_motor' => $kategori
+                ]);
+            }
+
             flash()->addSuccess("Berhasil merubah motor!");
             return redirect()->to(route('admin.motor.index'));
         } catch (\Exception $e) {
-            flash()->addSuccess("Gagal merubah data silahkan cek kembali inputan!");
+            throw $e;
+            flash()->addSuccess("Gagal merubah data, silahkan cek kembali inputan!");
             return redirect()->back();
         }
     }
@@ -334,5 +350,31 @@ class MotorController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function getDiskonCash(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'motor' => 'required',
+            'kabupaten' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                ['error' => "data yang di kirimkan tidak ditemukan !"],
+                401
+            );
+        }
+
+        $diskonCash = MotorKota::where('id_kota', $request->kabupaten)
+            ->where('id_motor', $request->motor)->get();
+
+        return response()->json(
+            [
+                'message' => 'data berhasil ditemukan !',
+                'diskon' => $diskonCash
+            ],
+            200
+        );
     }
 }
