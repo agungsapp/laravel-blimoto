@@ -164,6 +164,7 @@ Route::get('/cari-cicilan', [CicilanMotorController::class, 'searchAndRecommend'
 Route::get('/get-harga/{id}', [MotorController::class, 'getHarga']);
 Route::get('/get-single-motor/{id}', [BandingkanController::class, 'getSingleMotor']);
 // datatables
+Route::get('/serverSideMotorKota', [MotorKotaController::class, 'dataTable'])->name('serverSideMotorKota');
 Route::get('/serverSideDiskonMotor', [AdminDiskonMotorController::class, 'dataTable'])->name('serverSideDiskonMotor');
 Route::get('/serverSideCicilanMotor', [AdminCicilanMotorController::class, 'dataTable'])->name('serverSideCicilanMotor');
 Route::get('/serverSideDetailMotor', [DetailMotorController::class, 'serverSideDataTable'])->name('serverSideDetailMotor');

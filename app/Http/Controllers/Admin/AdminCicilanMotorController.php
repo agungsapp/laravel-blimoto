@@ -424,6 +424,9 @@ class AdminCicilanMotorController extends Controller
       })
       ->when($tenor, function ($query) use ($tenor) {
         $query->where('tenor', $tenor);
+      })
+      ->when($motor, function ($query) use ($motor) {
+        $query->where('id_motor', $motor);
       });
 
     return DataTables::of($query)

@@ -36,6 +36,7 @@ Route::name('api.')->group(function () {
 // utils ajax
 Route::post('get-motor', [MotorController::class, 'getMotorById']);
 Route::post('get-cicilan', [MotorController::class, 'getCicilan']);
+Route::post('get-diskon-cash', [MotorController::class, 'getDiskonCash'])->name('api.getDiskonCash');
 
 Route::get('truncate/{kunci}', [TruncatePenjualanController::class, 'tuncate']);
 Route::post('testing', [TruncatePenjualanController::class, 'test']);

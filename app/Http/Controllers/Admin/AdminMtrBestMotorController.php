@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
+use App\Models\Motor;
 use App\Models\MtrBestMotor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,20 +19,24 @@ class AdminMtrBestMotorController extends Controller
    */
   public function index(Request $request)
   {
-    $mtrKategori = DB::table('best_motor')
-      ->get();
-    $motor = DB::table('motor')
-      ->get();
 
-    $mtrKategoriMotor = MtrBestMotor::with('motor', 'bestMotor')
+    $motorKategoriMotor = MtrBestMotor::with(['motor', 'bestMotor'])
       ->orderBy('id', 'desc')
       ->get();
 
+    $kategori = BestMotor::all();
+    $motor = Motor::all();
+
+    // dd($motorKategoriMotor[0]->motor->nama);
+    // $motorKategoriMotor->map(function ($motor) {
+    //   $motor->motorNama = $motor->motor->nama;
+    // });
+
 
     return view('admin.mtr-best-motor.index', [
-      'mtrKategori' => $mtrKategori,
+      'mtrKategori' => $kategori,
       'motor' => $motor,
-      'mtrKategoriMotor' => $mtrKategoriMotor,
+      'mtrKategoriMotor' => $motorKategoriMotor,
     ]);
   }
 

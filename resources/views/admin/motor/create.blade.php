@@ -66,18 +66,21 @@
 
 														<div class="form-group col-md-6">
 																<label>Kategori Best Motor</label>
-																<p>*Optional tidak wajib dipilih silahkan pilih no best</p>
+																<p>*Optional tidak wajib dipilih, silahkan pilih no best</p>
 																@if ($kategori_best_motor == null)
-																		<p>Tidak ada data best kategori motor silahkan buat terlebih dahulu !</p>
+																		<p>Tidak ada data best kategori motor, silahkan buat terlebih dahulu!</p>
 																@else
-																		<select name="kategori-best-motor" class="form-control">
-																				<option value="" selected>-- Pilih kategori best motor --</option>
+																		<select name="kategori-best-motor[]" class="js-example-basic-multiple form-control" multiple="multiple">
+																				<option value="">-- Pilih kategori best motor --</option>
 																				@foreach ($kategori_best_motor as $merk)
-																						<option value="{{ $merk->id }}">{{ $merk->nama }}</option>
+																						<option value="{{ $merk->id }}">
+																								{{ $merk->nama }}
+																						</option>
 																				@endforeach
 																		</select>
 																@endif
 														</div>
+
 												</div>
 
 												<div class="row">
@@ -117,6 +120,11 @@
 
 @push('script')
 		<script>
+				$(document).ready(function() {
+						$('.js-example-basic-multiple').select2();
+				});
+
+
 				$(document).ready(function() {
 						// Summernote
 						$('#deskripsi-motor').summernote({
