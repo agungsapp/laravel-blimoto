@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dealer;
 use App\Models\Kota;
 use App\Models\Sales;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class AdminSalesController extends Controller
   {
     $data = Sales::orderBy('id', 'desc')->get();
     return view('admin.sales.index', [
-      'sales' => $data
+      'sales' => $data,
+      'dealers' => Dealer::all(),
     ]);
   }
 
@@ -46,6 +48,7 @@ class AdminSalesController extends Controller
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'kode' => 'required',
+      'dealer' => 'required',
       'username' => 'required',
       'password' => 'required',
     ], [
@@ -74,6 +77,7 @@ class AdminSalesController extends Controller
       $sales = Sales::create([
         'nama' => $request->input('nama'),
         'nip' => $request->input('kode'),
+        'id_dealer' => $request->input('dealer'),
         'username' => $request->input('username'),
         'password' => Hash::make($request->input('password')),
       ]);
@@ -120,6 +124,7 @@ class AdminSalesController extends Controller
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'kode' => 'required',
+      'dealer' => 'required',
       'username' => 'required',
       'password_old' => 'required',
     ]);
@@ -136,6 +141,7 @@ class AdminSalesController extends Controller
     $sales->nama = $request->nama;
     $sales->username = $request->username;
     $sales->nip = $request->kode;
+    $sales->id_dealer = $request->dealer;
     $sales->password = $request->filled('password') ? Hash::make($request->input('password')) : $request->input('password_old');
     $sales->save();
 

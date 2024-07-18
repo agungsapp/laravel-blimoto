@@ -32,6 +32,18 @@
 																		<label for="input-password">Password</label>
 																		<input name="password" type="password" class="form-control" placeholder="Masukan password">
 																</div>
+																<div class="form-group col-6">
+																		<label for="dealer">Dealer</label>
+
+																		<select id="dealer" class="form-control" name="dealer">
+																				<option>-- pilih dealer --</option>
+																				@forelse ($dealers as $dealer)
+																						<option value="{{ $dealer->id }}">{{ $dealer->nama }}</option>
+																				@empty
+																						<option value="">data dealer masih kosong</option>
+																				@endforelse
+																		</select>
+																</div>
 														</div>
 												</div>
 												<div class="card-footer">
@@ -72,7 +84,7 @@
 																				<tr role="row" class="{{ $index % 2 == 0 ? 'even' : 'odd' }}">
 																						<td>{{ $loop->iteration }}</td>
 																						<td>{{ $sale->nama }}</td>
-																						<td>{{ $sale->dealer->nama }}</td>
+																						<td>{{ $sale->dealer->nama ?? 'kosong' }}</td>
 																						<td>{{ $sale->username }}</td>
 																						<td>{{ $sale->status_online ? 'Online' : 'Offline' }}</td>
 																						<td>{{ $sale->nip }}</td>
@@ -123,6 +135,20 @@
 																																								<input name="username" type="text" class="form-control" id="input-username"
 																																										placeholder="Masukan username sales)" value="{{ $sale->username }}">
 																																						</div>
+
+																																						<div class="form-group">
+																																								<label for="dealer">Dealer</label>
+
+																																								<select id="dealer" class="form-control" name="dealer">
+																																										<option>-- pilih dealer --</option>
+																																										@forelse ($dealers as $dealer)
+																																												<option value="{{ $dealer->id }}">{{ $dealer->nama }}</option>
+																																										@empty
+																																												<option value="">data dealer masih kosong</option>
+																																										@endforelse
+																																								</select>
+																																						</div>
+
 																																						<div class="form-group">
 																																								<label for="input-password">Password</label>
 																																								<input name="password" type="text" class="form-control"
