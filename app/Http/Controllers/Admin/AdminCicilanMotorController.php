@@ -412,7 +412,7 @@ class AdminCicilanMotorController extends Controller
     // dd($request->all());
     $motor = $request->input('motor');
     $leasing = $request->input('leasing');
-    $lokasi = $request->input('lokasi');
+    $lokasi = $request->input('kota');
     $tenor = $request->input('tenor');
 
     $query = CicilanMotor::with(['motor', 'leasingMotor', 'kota'])

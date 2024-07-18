@@ -182,7 +182,7 @@ class AdminPenjualanController extends Controller
         $penjualan->dp = $request->tj;
         $penjualan->diskon_dp = $request->input('diskon_dp') ?? 0;
       } else {
-        $penjualan->diskon_dp = $motor->diskonMotor[0]->diskon ?? 0;
+        $penjualan->diskon_dp = $motor->diskonMotor[0]->diskon_promo ?? 0;
         $penjualan->dp = $request->input('dp') ?? 0;
       }
       $penjualan->dp_asli = $request->dp_asli;
@@ -270,8 +270,8 @@ class AdminPenjualanController extends Controller
       } else {
         // kredit
         $isLunas = $cicilan->dp == $request->input('dp');
-        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
-        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0;
+        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0) - $request->input('dp');
+        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0;
       }
 
       // Menentukan periode
@@ -537,7 +537,7 @@ class AdminPenjualanController extends Controller
         'tanggal_hasil' => $tanggal_hasil,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
         'dp' => $pembelian === 'cash' ? $request->tj : $request->dp,
-        'diskon_dp' => $motor->diskonMotor[0]->diskon ?? 0,
+        'diskon_dp' => $motor->diskonMotor[0]->diskon_promo ?? 0,
         'id_lising' => $pembelian === 'cash' ? null : $request->leasing,
         'id_motor' => $request->input('motor'),
         'id_kota' => $request->input('kabupaten'),
@@ -585,8 +585,8 @@ class AdminPenjualanController extends Controller
 
         $isLunas = $cicilan->dp == $request->input('dp');
         $detailPembayaran->jumlah_bayar = $request->input('dp');
-        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0) - $request->input('dp');
-        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon ?? 0;
+        $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0) - $request->input('dp');
+        $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0;
       }
 
       $detailPembayaran->status = $isLunas ? 'pelunasan' : 'tanda';

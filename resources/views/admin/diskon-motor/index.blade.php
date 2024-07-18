@@ -63,7 +63,7 @@
 
 												<div class="row">
 														<div class="form-group col-md-4">
-																<label for="diskon">Diskon Konsumen</label>
+																<label for="diskon">Diskon Coret</label>
 																<input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror"
 																		id="diskon" placeholder="Masukan diskon" value="{{ old('diskon') }}">
 														</div>
@@ -324,7 +324,7 @@
 										{
 												data: 'diskon',
 												name: 'Diskon Konsumen',
-												title: 'Diskon Konsumen'
+												title: 'Diskon Coret'
 										},
 										{
 												data: 'diskon_dealer',
