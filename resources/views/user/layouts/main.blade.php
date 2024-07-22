@@ -136,6 +136,9 @@
 
 		@yield('content')
 
+		@include('user.layouts.partials._modal_lokasi')
+		{{-- <x-modal-lokasi></x-modal-lokasi> --}}
+
 		@include('user.layouts.partials.footer')
 
 		<!-- video modal start -->

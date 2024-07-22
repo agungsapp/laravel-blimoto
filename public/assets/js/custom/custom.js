@@ -485,3 +485,235 @@ $(document).ready(function () {
   });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =============>>> MODAL TIRUAN OTO COM START <<<====================================
+
+
+$(document).ready(function () {
+  $('#modalDaftarLokasi').hide(); // Sembunyikan modal saat halaman dimuat
+
+  $('.trigerModalLokasi').click(function (event) {
+    // alert("click di trigger...")
+    event.preventDefault(); // Cegah perilaku default tautan <a> (mengikuti URL)
+    $('#modalDaftarLokasi').show(); // Tampilkan modal
+    $('body').addClass('no-scroll'); // Tambahkan kelas no-scroll ke body
+
+    // Jika ingin input pencarian langsung aktif saat modal terbuka:
+    $('.form-control').focus();
+
+    // Fetch data dari API dan perbarui konten modal
+    fetchLokasi();
+  });
+
+  // Pencarian real-time
+  $('.form-control').on('input', function () {
+    var value = $(this).val().toLowerCase();
+    $("#select-lokasi-user li").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+  // Tutup modal ketika overlay diklik
+  $('#modalDaftarLokasi').click(function (event) {
+    if ($(event.target).is('#modalDaftarLokasi')) {
+      $('#modalDaftarLokasi').hide();
+      $('body').removeClass('no-scroll'); // Hapus kelas no-scroll dari body
+    }
+  });
+
+  $('#containerModalLokasi').click(function (event) {
+    if ($(event.target).is('#containerModalLokasi')) {
+      $('#modalDaftarLokasi').hide();
+      $('body').removeClass('no-scroll'); // Hapus kelas no-scroll dari body
+    }
+  });
+
+  // Delegasi event untuk menangkap klik pada elemen <a> dalam #select-lokasi-user
+  $(document).on('click', '#select-lokasi-user a', function (event) {
+    event.preventDefault();
+    var id = $(this).data('id');
+    var location = $(this).text();
+    sessionStorage.setItem('lokasiUser', id);
+    $('#lokasiTextShow').text(location); // Perbarui teks lokasi yang ditampilkan
+    $('#modalDaftarLokasi').hide(); // Sembunyikan modal setelah lokasi dipilih
+    $('body').removeClass('no-scroll'); // Hapus kelas no-scroll dari body
+
+    updateLokasi(id); // Panggil fungsi updateLokasi dengan id baru
+    isDev && console.log(`Berhasil ubah id lokasi ke ${id}`);
+  });
+
+  // Set nilai lokasi ke dalam input field dan teks menu saat halaman dimuat
+  setLokasiToInput();
+  setTeksMenuLokasi();
+  updateLokasi(sessionStorage.getItem('lokasiUser'));
+
+  // Fungsi untuk fetch data dari API dan perbarui konten modal
+  function fetchLokasi() {
+    $.ajax({
+      url: 'http://localhost:8000/api/semua-kota',
+      method: 'GET',
+      success: function (response) {
+        var lokasiList = response.lokasi;
+        var lokasiHtml = '';
+        lokasiList.forEach(function (lokasi) {
+          lokasiHtml += '<li><a href="#" data-id="' + lokasi.id + '">' + lokasi.nama + '</a></li>';
+        });
+        $('#select-lokasi-user').html(lokasiHtml);
+      },
+      error: function (error) {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
+
+  function setLokasiToInput() {
+    // Mendapatkan nilai dari session
+    var lokasiId = sessionStorage.getItem('lokasiUser');
+
+    var inputElement = document.getElementById('lokasi-user-pencarian');
+    if (inputElement) {
+      inputElement.value = lokasiId;
+    }
+    window.idLokasi = lokasiId;
+    isDev && console.log(`input elemen search id lokasi berhasil di ubah ${lokasiId}`);
+    $('input[name="id_lokasi"]').val(lokasiId);
+  }
+
+  function setTeksMenuLokasi() {
+    // Mendapatkan nilai dari session
+    var lokasiId = sessionStorage.getItem('lokasiUser');
+
+    // Mendapatkan elemen link berdasarkan id lokasi
+    var linkElement = document.querySelector('.select-lokasi-user li a[data-id="' + lokasiId + '"]');
+
+    // Jika link tidak ditemukan, ambil data dari API
+    if (!linkElement) {
+      fetchLokasiFromAPI(lokasiId);
+    } else {
+      updateLocationText(linkElement.textContent);
+    }
+  }
+
+  function updateLocationText(lokasiText) {
+    // Men-set teks tersebut ke dalam elemen menu
+    var selectElement = document.querySelector('.lokasiTextShow');
+    if (selectElement) {
+      selectElement.textContent = lokasiText;
+    }
+    var stickyNav = document.getElementById('lokasiTextShow2');
+    if (stickyNav) {
+      stickyNav.textContent = lokasiText;
+    }
+  }
+
+  function fetchLokasiFromAPI(lokasiId) {
+    $.ajax({
+      url: 'http://localhost:8000/api/semua-kota',
+      method: 'GET',
+      success: function (response) {
+        var lokasiList = response.lokasi;
+        var found = lokasiList.find(function (lokasi) {
+          return lokasi.id == lokasiId;
+        });
+        if (found) {
+          updateLocationText(found.nama);
+        } else {
+          console.error('Lokasi dengan ID ' + lokasiId + ' tidak ditemukan dalam data API');
+        }
+      },
+      error: function (error) {
+        console.error('Error fetching data:', error);
+      }
+    });
+  }
+
+  // ROMBAK START
+  // request ke server untuk melakukan update session lokasi user 
+  function updateLokasi(lokasiUser) {
+    $.ajax({
+      type: 'POST',
+      url: '/updateLokasi',
+      data: {
+        lokasiUser: lokasiUser,
+        _token: '{{ csrf_token() }}'
+      },
+      success: function (response) {
+        console.log('Data berhasil dikirim ke server');
+      },
+      error: function (xhr, status, error) {
+        console.error('Terjadi kesalahan:', error);
+      }
+    });
+  }
+  // ROMBAK END
+
+  // manipulasi navigasi
+  $('#lokasi-ambang').hide();
+
+  $(window).scroll(function () {
+    var currentPosition = $(window).scrollTop();
+    var triggerElementPosition = $('#stickyheader').offset().top;
+
+    if (currentPosition >= triggerElementPosition) {
+      $('#lokasi-ambang').show();
+    } else {
+      $('#lokasi-ambang').hide();
+    }
+  });
+
+  watchTextChanges();
+
+  // Attach a click event listener to the section with class 'video-banner'
+  $('.video-banner').on('click', function (event) {
+    // Prevent the default action and stop event propagation
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Trigger the click event of the anchor tag with class 'video-btn'
+    $(this).find('.video-btn').trigger('click');
+  });
+
+  $('.sosiyal li').click(function (e) {
+    // Mencegah aksi default jika targetnya bukan <a>
+    if (!$(e.target).is('a')) {
+      e.preventDefault();
+      $(this).find('a')[0].click();
+    }
+  });
+
+  function watchTextChanges() {
+    var previousText = $('#lokasiTextShow').text();
+    // Set interval untuk memeriksa perubahan setiap detik
+    setInterval(function () {
+      // Periksa apakah teks telah berubah
+      var currentText = $('#lokasiTextShow').text();
+      if (currentText !== previousText) {
+        // Jika teks berubah, lakukan reload halaman
+        location.reload();
+      }
+    }, 1000); // Interval dapat disesuaikan sesuai kebutuhan
+  }
+
+  $('#kategoriPencarian').on('invalid', function () {
+    this.setCustomValidity('Silakan pilih kategori dahulu untuk melanjutkan.');
+  }).on('change', function () {
+    this.setCustomValidity('');
+  });
+});
