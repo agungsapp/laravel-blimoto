@@ -210,10 +210,12 @@ class DetailMotorControllerUser extends Controller
 
 
     $kotaId = Session::get('lokasiUser');
+
     // Set default value of $kotaId to 1 if it's empty
     if (empty($kotaId)) {
       $kotaId = $lokasiId ?? 1;
     }
+    // dd($kotaId);
 
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([

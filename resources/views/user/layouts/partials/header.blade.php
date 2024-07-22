@@ -57,7 +57,7 @@
 																class="sm pixelstrap sm-horizontal align-items-center justify-content-center d-flex">
 
 																<li>
-																		<a class="dark-menu-item">
+																		<a class="dark-menu-item trigerModalLokasi">
 																				<i class="fa fa-map-marker"></i>
 																				<span id="lokasiTextShow" class="lokasiTextShow ms-2">Lokasi</span>
 																		</a>
@@ -73,11 +73,11 @@
 																						<li><a href="#" data-id="{{ $lkr->id }}">{{ $lkr->nama }}</a></li>
 																				@endforeach --}}
 
-																				<li><a href="#" data-id="1">Jakarta Selatan</a></li>
+																				{{-- <li><a href="#" data-id="1">Jakarta Selatan</a></li>
 																				<li><a href="#" data-id="2">Bogor</a></li>
 																				<li><a href="#" data-id="3">Depok</a></li>
 																				<li><a href="#" data-id="4">Tangerang</a></li>
-																				<li><a href="#" data-id="5">Bekasi</a></li>
+																				<li><a href="#" data-id="5">Bekasi</a></li> --}}
 																				{{-- update fetch get-kota untuk mendapatkan lokasi hanya yang ada saja. --}}
 																		</ul>
 																</li>
@@ -287,11 +287,12 @@
 																										</button></a>
 																						</li>
 																						<li class="login-btn-nav">
-																								<a href="{{ route('register') }}"><button type="button"
-																												class="btn btn-block btn-outline-dark"
+																								<a href="{{ route('register') }}">
+																										<button type="button" class="btn btn-block btn-outline-dark"
 																												style="padding-left: 2.5rem; padding-right: 2.5rem">
 																												Daftar
-																										</button></a>
+																										</button>
+																								</a>
 																						</li>
 																				@endif
 																		</ul>
