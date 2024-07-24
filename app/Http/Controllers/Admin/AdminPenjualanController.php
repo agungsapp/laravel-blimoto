@@ -42,6 +42,9 @@ class AdminPenjualanController extends Controller
     $tenorOptions = CicilanMotor::distinct('tenor')->pluck('tenor');
 
 
+
+    // dd($sales);
+
     return view('admin.penjualan.penjualan', [
       // 'penjualan' => $data,
       'kota' => $kota,

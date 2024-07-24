@@ -105,6 +105,14 @@ Route::get('/admin/login', function () {
     return redirect()->to(route('admin.'));
 });
 
+
+Route::get(
+    'error',
+    fn () =>
+    view('admin.error')
+);
+
+
 // user Login
 Route::get('/login', [UserLoginController::class, 'index'])->name('login');
 Route::post('/request-otp', [UserLoginController::class, 'requestOTP'])->name('requestOTP');

@@ -191,6 +191,8 @@
 						}).buttons().container().appendTo('#dataMotor_wrapper .col-md-6:eq(0)');
 				});
 				$(document).ready(function() {
+
+						$('#dealer').select2();
 						$('.show_confirm').click(function(event) {
 								var form = $(this).closest("form");
 								var name = $(this).data("name");

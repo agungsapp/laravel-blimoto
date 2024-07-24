@@ -244,14 +244,14 @@
 																				</li>
 																				{{-- lokasi navbar kedua  --}}
 																				<li id="lokasi-ambang">
-																						<a class="dark-menu-item">
+																						<a class="dark-menu-item trigerModalLokasi">
 																								<i class="fa fa-map-marker"></i>
 																								<span id="lokasiTextShow2" class="lokasiTextShow ms-2">Lokasi</span>
 																						</a>
 																						<ul id="select-lokasi-user2" class="select-lokasi-user">
 																								<li><a href="#" data-id="1">Jakarta Selatan</a></li>
-																								<li><a href="#" data-id="2">Depok</a></li>
-																								<li><a href="#" data-id="3">Bogor</a></li>
+																								<li><a href="#" data-id="2">Bogor</a></li>
+																								<li><a href="#" data-id="3">Depok</a></li>
 																								<li><a href="#" data-id="4">Tanggerang</a></li>
 																								<li><a href="#" data-id="5">Bekasi</a></li>
 																						</ul>
