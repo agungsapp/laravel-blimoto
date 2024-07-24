@@ -47,4 +47,23 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Throwable $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            if ($exception->getStatusCode() == 500) {
+                // Tampilkan halaman 500 kustom
+                return response()->view('errors.500', [], 500);
+            }
+        }
+
+        // Default behavior untuk exception lainnya
+        return parent::render($request, $exception);
+    }
 }

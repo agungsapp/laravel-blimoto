@@ -550,6 +550,7 @@ $(document).ready(function () {
     event.preventDefault();
     var id = $(this).data('id');
     var location = $(this).text();
+    console.log(`lokasinya dari sesion js adalah ${location}`);
     sessionStorage.setItem('lokasiUser', id);
     $('#lokasiTextShow').text(location); // Perbarui teks lokasi yang ditampilkan
     $('#modalDaftarLokasi').hide(); // Sembunyikan modal setelah lokasi dipilih
@@ -567,7 +568,7 @@ $(document).ready(function () {
   // Fungsi untuk fetch data dari API dan perbarui konten modal
   function fetchLokasi() {
     $.ajax({
-      url: 'http://localhost:8000/api/semua-kota',
+      url: '/api/semua-kota',
       method: 'GET',
       success: function (response) {
         var lokasiList = response.lokasi;
@@ -608,10 +609,12 @@ $(document).ready(function () {
       fetchLokasiFromAPI(lokasiId);
     } else {
       updateLocationText(linkElement.textContent);
+      console.log(`debuging satu ${linkElement.textContent} setTeksMenuLokasi`)
     }
   }
 
   function updateLocationText(lokasiText) {
+    console.log(`isi lokasi text ${lokasiText}`)
     // Men-set teks tersebut ke dalam elemen menu
     var selectElement = document.querySelector('.lokasiTextShow');
     if (selectElement) {
@@ -621,11 +624,12 @@ $(document).ready(function () {
     if (stickyNav) {
       stickyNav.textContent = lokasiText;
     }
+    console.log('Location text updated to:', lokasiText); // Debug log
   }
 
   function fetchLokasiFromAPI(lokasiId) {
     $.ajax({
-      url: 'http://localhost:8000/api/semua-kota',
+      url: '/api/semua-kota',
       method: 'GET',
       success: function (response) {
         var lokasiList = response.lokasi;
@@ -634,6 +638,7 @@ $(document).ready(function () {
         });
         if (found) {
           updateLocationText(found.nama);
+          console.log(`debuging tiga : ${found.nama} fetchLokasiFromAPI`)
         } else {
           console.error('Lokasi dengan ID ' + lokasiId + ' tidak ditemukan dalam data API');
         }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
+
 class DetailMotorControllerUser extends Controller
 {
   /**
@@ -204,18 +205,23 @@ class DetailMotorControllerUser extends Controller
   public function getDetailMotor(Request $request)
   {
     $motorId = $request->input('id_motor');
-    // $lokasiId = 1;
-    $lokasiId = $request->input('id_lokasi');
+    $urlLokasiId = $request->input('id_lokasi');
     $pembayaran = $request->input('pembayaran');
 
+    $sessionLokasiId = Session::get('lokasiUser');
 
-    $kotaId = Session::get('lokasiUser');
-
-    // Set default value of $kotaId to 1 if it's empty
-    if (empty($kotaId)) {
-      $kotaId = $lokasiId ?? 1;
+    // Perbarui nilai lokasiId dari session jika ada
+    if (!empty($sessionLokasiId) && $urlLokasiId != $sessionLokasiId) {
+      return redirect()->route('detail-motor', [
+        'id_motor' => $motorId,
+        'id_lokasi' => $sessionLokasiId,
+        'pembayaran' => $pembayaran,
+        '_token' => $request->input('_token')
+      ]);
     }
-    // dd($kotaId);
+
+    // Jika session tidak memiliki nilai lokasiId, default ke 1 jika $urlLokasiId juga kosong
+    $lokasiId = $sessionLokasiId ?? ($urlLokasiId ?? 1);
 
     $motor = Motor::select('id', 'id_merk', 'id_type', 'nama', 'harga')
       ->with([
@@ -228,8 +234,8 @@ class DetailMotorControllerUser extends Controller
         'detailMotor' => function ($query) {
           $query->select('id_motor', 'warna', 'gambar');
         },
-        'motorKota' => function ($query) use ($kotaId) {
-          $query->where('id_kota', $kotaId);
+        'motorKota' => function ($query) use ($lokasiId) {
+          $query->where('id_kota', $lokasiId);
         }
       ])
       ->where('stock', 1)
@@ -256,6 +262,13 @@ class DetailMotorControllerUser extends Controller
       ->groupBy('id_leasing')
       ->orderBy('id_leasing', 'ASC')
       ->get();
+
+    // Check if cicilan_motor is empty
+    if ($cicilan_motor->isEmpty()) {
+      flash()->addError("Data cicilan tidak tersedia untuk lokasi ini. !");
+      return abort(500);
+      // return redirect()->back();
+    }
 
     $data = array(
       'motor' => array(
@@ -359,7 +372,7 @@ class DetailMotorControllerUser extends Controller
 
     $recommendationCicilan = CicilanMotor::select('id', 'dp', 'tenor', 'cicilan', 'id_leasing', 'id_motor')
       ->with([
-        'motor' => function ($query) use ($kotaId) {
+        'motor' => function ($query) use ($lokasiId) {
           $query->select('id', 'id_merk', 'id_type', 'nama', 'harga')
             ->where('stock', 1);
           $query->with([
@@ -372,8 +385,8 @@ class DetailMotorControllerUser extends Controller
             'type' => function ($query) {
               $query->select('id', 'nama');
             },
-            'motorKota' => function ($query) use ($kotaId) {
-              $query->where('id_kota', $kotaId);
+            'motorKota' => function ($query) use ($lokasiId) {
+              $query->where('id_kota', $lokasiId);
             }
             // ===========================================================================================================
             // ======================= LAST DI SINI BAGAIMANA INI MENGAMBIL  HARGA OTR DI MOTOR KOTA  ====================

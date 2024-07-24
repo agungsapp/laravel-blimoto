@@ -32,6 +32,7 @@
         "maatwebsite/excel": "^3.1",
         "midtrans/midtrans-php": "^2.5",
         "php-flasher/flasher-laravel": "^1.15",
+        "realrashid/sweet-alert": "^7.2",
         "yajra/laravel-datatables": "^9.0"
     },
     "require-dev": {

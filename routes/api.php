@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\Api\AdminApiRefundController;
 use App\Http\Controllers\Admin\MotorController;
 use App\Http\Controllers\Admin\TruncatePenjualanController;
+use App\Http\Controllers\Api\ApiUtilityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Row;
@@ -47,3 +48,5 @@ Route::post('testing', [TruncatePenjualanController::class, 'test']);
 // besok : proses refund di controller proses , sesuaikan logicnya , baru bikin metrod aja tadi ,
 
 // belum clear, pengajuan manualnya 
+
+Route::get('getLokasi', [ApiUtilityController::class, 'getLokasi'])->name('api.getLokasi');

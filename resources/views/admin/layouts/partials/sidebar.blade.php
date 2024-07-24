@@ -131,7 +131,7 @@
 
 
 										{{-- master color --}}
-										<li class="nav-item {{ \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
+										{{-- <li class="nav-item {{ \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
 												<a href="#" class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-podcast"></i>
 														<p>
@@ -147,23 +147,16 @@
 																		<p>Tambah Data Warna</p>
 																</a>
 														</li>
-														{{-- <li class="nav-item">
-																<a href="{{ route('admin.kota-motor.index') }}"
-																		class="nav-link {{ \Route::is('admin.kota-motor.*') ? 'active' : '' }}">
-																		<i class="far fa-circle nav-icon"></i>
-																		<p>Tambah Warna Motor</p>
-																</a>
-														</li> --}}
-												</ul>
-										</li>
+																</ul>
+										</li> --}}
 
 
 
 										{{-- master motor --}}
 										<li
-												class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-motorcycle"></i>
 														<p>
 																Master Motor
@@ -219,6 +212,13 @@
 																		class="nav-link {{ \Route::is('admin.merk-motor.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
 																		<p>Data Merk Motor</p>
+																</a>
+														</li>
+														<li class="nav-item">
+																<a href="{{ route('admin.color.color.index') }}"
+																		class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>Tambah Data Warna</p>
 																</a>
 														</li>
 														<li class="nav-item">
