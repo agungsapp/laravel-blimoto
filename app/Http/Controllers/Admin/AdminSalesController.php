@@ -45,6 +45,8 @@ class AdminSalesController extends Controller
    */
   public function store(Request $request)
   {
+
+
     $validator = Validator::make($request->all(), [
       'nama' => 'required',
       'kode' => 'required',
@@ -52,13 +54,14 @@ class AdminSalesController extends Controller
       'username' => 'required',
       'password' => 'required',
     ], [
-      'username.unique' => 'The username has already been taken.',
+      'username.unique' => 'username sudah ada !!!.',
     ]);
 
     if ($validator->fails()) {
       flash()->addError($validator->errors()->first());
       return redirect()->back()->withInput();
     }
+    // dd($request->all());
 
     $usernameLower = strtolower($request->input('username'));
     $nipLower = strtolower($request->input('kode'));
