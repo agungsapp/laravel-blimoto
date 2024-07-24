@@ -35,8 +35,8 @@
 																<div class="form-group col-6">
 																		<label for="dealer">Dealer</label>
 
-																		<select id="dealer" class="form-control" name="dealer">
-																				<option>-- pilih dealer --</option>
+																		<select id="dealer" class="form-control" name="dealer" required>
+																				<option value="">-- pilih dealer --</option>
 																				@forelse ($dealers as $dealer)
 																						<option value="{{ $dealer->id }}">{{ $dealer->nama }}</option>
 																				@empty
