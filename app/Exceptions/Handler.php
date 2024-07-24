@@ -57,9 +57,26 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            // Tangani error 500 dan tampilkan halaman kustom
             if ($exception->getStatusCode() == 500) {
-                // Tampilkan halaman 500 kustom
-                return response()->view('errors.500', [], 500);
+                if ($request->is('app*')) {
+                    // Halaman 500 default untuk admin (awalan /app)
+                    return parent::render($request, $exception);
+                } else {
+                    // Halaman 500 kustom untuk user
+                    return response()->view('errors.500-user', [], 500);
+                }
+            }
+
+            // Tangani error 404 dan tampilkan halaman kustom berdasarkan URL
+            if ($exception->getStatusCode() == 404) {
+                if ($request->is('app*')) {
+                    // Halaman 404 default untuk admin (awalan /app)
+                    return parent::render($request, $exception);
+                } else {
+                    // Halaman 404 kustom untuk user
+                    return response()->view('errors.404-user', [], 404);
+                }
             }
         }
 
