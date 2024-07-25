@@ -406,6 +406,7 @@ class AdminPenjualanController extends Controller
     // Kondisi untuk menentukan apakah nomor_po required atau tidak
 
 
+    // dd($request->all());
     $messages = [
       'konsumen.required' => 'nama konsumen tidak boleh kosong !',
       'metode_pembelian.required' => 'metode pembelian tidak boleh kosong !',
@@ -439,7 +440,7 @@ class AdminPenjualanController extends Controller
       $errorMessage = "Inputkan semua data dengan benar!<br>Kesalahan:<br>" . implode("<br>", $errors->all());
 
       flash()->addError($errorMessage);
-      return redirect()->back()->withInput();
+      return redirect()->to(route('admin.penjualan.data.edit', $id))->withInput();
     }
 
 
@@ -538,6 +539,8 @@ class AdminPenjualanController extends Controller
         'jumlah' => $request->input('jumlah'),
         'catatan' => $catatan,
         'tanggal_hasil' => $tanggal_hasil,
+        'dp_asli' => $request->dp_asli,
+        'angsuran' => $request->angsuran,
         'status_pembayaran_dp' => $request->input('status_pembayaran'),
         'dp' => $pembelian === 'cash' ? $request->tj : $request->dp,
         'diskon_dp' => $motor->diskonMotor[0]->diskon_promo ?? 0,
@@ -590,6 +593,7 @@ class AdminPenjualanController extends Controller
         $detailPembayaran->jumlah_bayar = $request->input('dp');
         $detailPembayaran->sisa_bayar = ($request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0) - $request->input('dp');
         $detailPembayaran->total_lunas = $request->dp_asli - $motor->diskonMotor[0]->diskon_promo ?? 0;
+        Log::channel('penjualan')->info("DEBUG DATA PENJUALAN ", ['dp_asli' => $request->dp_asli, 'diskon_promo' => $motor->diskonMotor[0]->diskon_promo]);
       }
 
       $detailPembayaran->status = $isLunas ? 'pelunasan' : 'tanda';

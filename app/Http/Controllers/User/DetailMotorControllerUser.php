@@ -232,7 +232,7 @@ class DetailMotorControllerUser extends Controller
           $query->select('id', 'nama');
         },
         'detailMotor' => function ($query) {
-          $query->select('id_motor', 'warna', 'gambar');
+          $query->select('id_motor', 'id_color', 'gambar');
         },
         'motorKota' => function ($query) use ($lokasiId) {
           $query->where('id_kota', $lokasiId);
@@ -377,7 +377,7 @@ class DetailMotorControllerUser extends Controller
             ->where('stock', 1);
           $query->with([
             'detailmotor' => function ($query) {
-              $query->select('id', 'id_motor', 'warna', 'gambar');
+              $query->select('id', 'id_motor', 'id_color', 'gambar');
             },
             'merk' => function ($query) {
               $query->select('id', 'nama');

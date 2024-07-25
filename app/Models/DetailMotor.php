@@ -9,7 +9,7 @@ class DetailMotor extends Model
 {
     protected $table = 'detail_motor';
     protected $fillable = [
-        'warna',
+        'id_color',
         'gambar',
         'id_motor',
     ];
@@ -17,5 +17,10 @@ class DetailMotor extends Model
     public function motor()
     {
         return $this->belongsTo(Motor::class, 'id_motor', 'id');
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(ColorModel::class, 'id_color', 'id');
     }
 }
