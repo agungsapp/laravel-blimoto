@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('id_motor')
                 ->references('id')
                 ->on('motor');
+                
             $table->timestamps();
         });
     }

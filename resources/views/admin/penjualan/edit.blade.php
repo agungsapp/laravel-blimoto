@@ -156,7 +156,7 @@
 																												@foreach ($sales as $s)
 																														<option value="{{ $s->id }}"
 																																{{ old('sales') ?? $penjualan->id_sales == $s->id ? 'selected' : '' }}>
-																																{{ $s->nama }} | {{ $s->dealer->nama }}</option>
+																																{{ $s->nama ?? 'invalid' }} | {{ $s->dealer?->nama ?? 'invalid' }}</option>
 																												@endforeach
 																										</select>
 																								@endif
@@ -356,6 +356,8 @@
 						return 'Rp ' + rupiah;
 				}
 
+
+
 				const fetchCicilan = () => {
 						const id_motor = $('#motor-input').val();
 						const id_lokasi = $('#kabupaten-input').val();
@@ -381,9 +383,10 @@
 																elem.append('<option value="' + item.dp + '" data-dp="' + item.cicilan + '">' + formatRupiah(
 																		item.dp, 'Rp. ') + '</option>');
 														});
-														// If back from validation error
-														if ('{{ old('dp_asli') }}') {
-																elem.val('{{ old('dp_asli') }}').trigger('change');
+
+														// Set initial value for dp_asli after options are populated
+														if ('{{ old('dp_asli', $penjualan->dp_asli) }}') {
+																elem.val('{{ old('dp_asli', $penjualan->dp_asli) }}').trigger('change');
 														}
 														assignDpAsliAndAngsuran();
 												} else {
@@ -396,6 +399,9 @@
 								});
 						}
 				}
+
+
+
 
 				const displayDPTenor = (metode) => {
 						const tenor = $('#tenor_wrapper');
@@ -494,12 +500,19 @@
 				// Hardcoded 'penjualan' variable taken from server-side
 				const penjualan = @json($penjualan);
 
+
+
 				$(document).ready(function() {
 						// Initialize Select2
 						$('.select2').select2();
 
 						// Assign initial values from penjualan data
 						assignInitialValues();
+
+						// Fetch cicilan data if it's edit mode or if there are validation errors
+						if (penjualan.metode_pembelian === 'kredit') {
+								fetchCicilan();
+						}
 
 						// Event listeners for dynamic loading
 						$('#motor-input, #kabupaten-input, #leasing-input, [name="tenor"]').on('change', fetchCicilan);

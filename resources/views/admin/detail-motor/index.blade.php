@@ -14,6 +14,8 @@
 										@method('POST')
 										<div class="card-body">
 												<div class="row">
+
+
 														<div class="form-group col-md-6">
 																<label>Nama Motor</label>
 																@if ($dataMotor == null)
@@ -32,24 +34,38 @@
 																		<div class="alert alert-danger">{{ $message }}</div>
 																@enderror
 														</div>
+
 														<div class="form-group col-md-6">
-																<label for="warna-motor">Warna</label>
-																<input name="warna-motor" type="text" class="form-control @error('warna-motor') is-invalid @enderror"
-																		id="warna-motor" placeholder="Masukan warna motor" value="{{ old('warna-motor') }}">
+																<label>Warna Motor</label>
+																@if ($colors == null)
+																		<p class="text-danger">Tidak ada data warna motor silahkan buat terlebih dahulu !</p>
+																@else
+																		<select id="warna-motor" name="warna-motor"
+																				class="form-control select2 @error('warna-motor') is-invalid @enderror" style="width: 100%;">
+																				<option value="" selected>-- Pilih Warna --</option>
+																				@foreach ($colors as $color)
+																						<option value="{{ $color->id }}" {{ old('warna-motor') == $color->id ? 'selected' : '' }}>
+																								{{ $color->nama }}</option>
+																				@endforeach
+																		</select>
+																@endif
 																@error('warna-motor')
 																		<div class="alert alert-danger">{{ $message }}</div>
 																@enderror
 														</div>
+
 												</div>
 												<div class="row">
+
 														<div class="form-group col-md-5">
 																<label for="exampleInputFile">Pilih Gambar</label>
-																<input type="file" id="exampleInputFile" class="" name="gambar-motor">
+																<input type="file" id="exampleInputFile" class="form-control" name="gambar-motor">
 																<p class="help-block">Silahkan pilih gambar motor</p>
 																@error('gambar-motor')
 																		<div class="alert alert-danger">{{ $message }}</div>
 																@enderror
 														</div>
+
 												</div>
 										</div>
 										<div class="card-footer">
@@ -85,7 +101,7 @@
 																		<tr>
 																				<td>{{ $loop->iteration }}</td>
 																				<td>{{ $motor->motor->nama }}</td>
-																				<td>{{ $motor->warna }}</td>
+																				<td>{{ $motor->color->nama }}</td>
 																				<td>{{ $motor->gambar }}</td>
 																				<td>
 																						<div class="d-flex justify-content-between">
@@ -113,12 +129,31 @@
 																														@csrf
 																														@method('PUT')
 																														<div class="card-body">
+
+
+
+
 																																<div class="form-group">
-																																		<label for="warna-motor">Warna</label>
-																																		<input name="warna-motor" value="{{ $motor->warna }}" type="text"
-																																				class="form-control @error('warna-motor') is-invalid @enderror" id="warna-motor"
-																																				placeholder="Masukan warna motor">
+																																		<label>Warna Motor</label>
+																																		@if ($colors == null)
+																																				<p class="text-danger">Tidak ada data warna motor silahkan buat terlebih dahulu !</p>
+																																		@else
+																																				<select id="warna-motor" name="warna-motor"
+																																						class="form-control select2 @error('warna-motor') is-invalid @enderror"
+																																						style="width: 100%;">
+																																						<option value="" selected>-- Pilih Warna --</option>
+																																						@foreach ($colors as $color)
+																																								<option value="{{ $color->id }}"
+																																										{{ $motor->id_color == $color->id ? 'selected' : '' }}>
+																																										{{ $color->nama }}</option>
+																																						@endforeach
+																																				</select>
+																																		@endif
+																																		@error('warna-motor')
+																																				<div class="alert alert-danger">{{ $message }}</div>
+																																		@enderror
 																																</div>
+
 																																<div class="form-group">
 																																		<label for="exampleInputFile">Pilih Gambar</label>
 																																		<input type="file" id="exampleInputFile" class="" name="gambar-motor">
@@ -128,6 +163,8 @@
 																																		@enderror
 																																</div>
 																														</div>
+
+
 																														<div class="modal-footer">
 																																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 																																<button type="submit" class="btn btn-primary">Save changes</button>

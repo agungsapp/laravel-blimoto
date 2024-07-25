@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BestMotor;
+use App\Models\ColorModel;
 use App\Models\DetailMotor;
 use App\Models\Merk;
 use App\Models\Motor;
@@ -24,9 +25,11 @@ class DetailMotorController extends Controller
     {
         $motors = DetailMotor::orderBy('id', 'desc')->get();
         $dataMotor = Motor::all();
+        $colors = ColorModel::all();
         return view('admin.detail-motor.index', [
             'motors' => $motors,
-            'dataMotor' => $dataMotor
+            'dataMotor' => $dataMotor,
+            'colors' => $colors
         ]);
     }
 
@@ -78,7 +81,7 @@ class DetailMotorController extends Controller
             }
 
             $motor = DetailMotor::create([
-                'warna' => $request->input('warna-motor'),
+                'id_color' => $request->input('warna-motor'),
                 'gambar' => $gambarName,
                 'id_motor' => $request->input('model'),
             ]);
@@ -175,7 +178,7 @@ class DetailMotorController extends Controller
 
             // Update data lainnya
             $motor->update([
-                'warna' => $request->input('warna-motor'),
+                'id_color' => $request->input('warna-motor'),
             ]);
 
             flash()->addSuccess("Motor $motor->nama berhasil diperbarui");
