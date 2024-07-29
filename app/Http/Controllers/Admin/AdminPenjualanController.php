@@ -121,6 +121,18 @@ class AdminPenjualanController extends Controller
       'metode_pembayaran' => 'required',
     ]);
 
+
+    // START PENGECEKAN PO WAJIB SAAT STATUS HASIL DO
+    $hasil = Hasil::find($request->hasil);
+    if (strtolower($hasil->hasil) == 'do') {
+      $validator->addRules([
+        'nomor_po' => 'required',
+      ]);
+    }
+    // END PENGECEKAN PO WAJIB SAAT STATUS HASIL DO
+
+
+
     // dd($request->all());
 
     if ($validator->fails()) {
@@ -147,20 +159,21 @@ class AdminPenjualanController extends Controller
 
     $motor = Motor::find($request->input('motor'));
 
-
-
-    if ($pembelian == 'cash') {
-      // Pembayaran kredit: Validasi DP
-      if ($cekDp && $cekDp < $motor->minimal_dp) {
-        flash()->addError("DP minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
+    if ($pembelian === 'cash') {
+      if ($request->tj < $motor->minimal_dp) {
+        flash()->addError("Tanda Jadi minimal untuk motor {$motor->nama} adalah {$motor->minimal_dp} !");
         return redirect()->back()->withInput();
       }
     } else {
-      if ($cekTj && $cekTj < $motor->minimal_dp) {
-        flash()->addError("Tanda Jadi minimal untuk motor $motor->nama adalah $motor->minimal_dp !");
+      if ($request->dp < $motor->minimal_dp) {
+        flash()->addError("DP minimal untuk motor {$motor->nama} adalah {$motor->minimal_dp} !");
         return redirect()->back()->withInput();
       }
     }
+
+
+
+
 
 
     DB::beginTransaction();

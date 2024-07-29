@@ -484,7 +484,7 @@
 																<i class="right fas fa-angle-left"></i>
 														</p>
 												</a>
-												<ul class="nav nav-treeview">
+												{{-- <ul class="nav nav-treeview">
 														<li class="nav-item">
 																<a href="{{ route('admin.laporan.penjualan-semua.index') }}"
 																		class="nav-link {{ \Route::is('admin.laporan.penjualan-semua.*') ? 'active' : '' }}">
@@ -492,13 +492,13 @@
 																		<p>Semua Penjualan</p>
 																</a>
 														</li>
-												</ul>
+												</ul> --}}
 												<ul class="nav nav-treeview">
 														<li class="nav-item">
 																<a href="{{ route('admin.laporan.penjualan-wilayah.index') }}"
 																		class="nav-link {{ \Route::is('admin.laporan.penjualan-wilayah.*') ? 'active' : '' }}">
 																		<i class="far fa-circle nav-icon"></i>
-																		<p>Penjualan Wilayah</p>
+																		<p>Semua Penjualan</p>
 																</a>
 														</li>
 												</ul>

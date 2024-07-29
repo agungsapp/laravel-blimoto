@@ -185,8 +185,6 @@ Route::prefix('app')->name('admin.')->group(function () {
     Route::post('login', [LoginAdminController::class, 'procesLogin'])->name('login');
     Route::get('logout', [LogoutAdminController::class, 'logout'])->name('logout');
 
-
-
     // artisan area
     Route::prefix('artisan')->name('artisan.')->group(function () {
         Route::get('index', [AdminArtisanController::class, 'index'])->name('index');
@@ -198,9 +196,6 @@ Route::prefix('app')->name('admin.')->group(function () {
         Route::get('all', [AdminArtisanController::class, 'all'])->name('all');
     });
     // artisan area
-
-
-
 
     Route::middleware(['role:admin,sales,ceo,manager,area_manager'])->group(function () {
         Route::resource('dashboard', DashboardController::class);

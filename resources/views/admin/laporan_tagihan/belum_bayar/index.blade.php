@@ -55,8 +55,9 @@
 																				<td>{{ Str::rupiah((int) $p->cicilan->dp - (int) $p->diskon_motor->diskon) }}</td>
 																				{{-- Sudah Bayar Tanda Jadi --}}
 																				<td>{{ Str::rupiah($p->tanda_jadi) }}</td>
-
-																				<td>{{ Str::rupiah($p->cicilan->dp - $p->detail_pembayaran_sum_jumlah_bayar) }}</td>
+																				{{-- <th>Belum di bayar ke dealer</th> --}}
+																				<td>{{ Str::rupiah((int) $p->cicilan->dp - (int) $p->diskon_motor->diskon - $p->tanda_jadi) }}</td>
+																				{{-- <td>{{ Str::rupiah($p->cicilan->dp - $p->detail_pembayaran_sum_jumlah_bayar) }}</td> --}}
 																				<td>
 																						{{ Str::rupiah((int) $p->diskon_motor->diskon_dealer - (int) $p->diskon_motor->diskon) }}
 																				</td>
@@ -70,6 +71,14 @@
 																@endforelse
 
 														</tbody>
+														<tfoot>
+																<tr>
+																		<td colspan="9">Total belum bayar ke dealer</td>
+																		<td colspan="4">
+																				<strong>{{ Str::rupiah($totalBelumBayarKeDealer) }}</strong>
+																		</td>
+																</tr>
+														</tfoot>
 												</table>
 										</div>
 								</div>
