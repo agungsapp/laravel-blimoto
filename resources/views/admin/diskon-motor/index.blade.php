@@ -231,7 +231,7 @@
 
 														<div class="row">
 																<div class="form-group col-md-12">
-																		<label for="diskon">Diskon Konsumen</label>
+																		<label for="diskon">Diskon Coret</label>
 																		<input name="diskon" type="text" class="form-control @error('diskon') is-invalid @enderror"
 																				id="diskon" placeholder="Masukan diskon" value="{{ old('diskon') }}">
 																</div>

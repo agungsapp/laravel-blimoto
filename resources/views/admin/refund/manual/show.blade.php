@@ -20,7 +20,7 @@
 										<form action="{{ route('admin.refund.manual-refund.store') }}" method="post">
 												@csrf
 												<div class="card-body">
-														<input type="text" name="idp" value="{{ $pembayaran->id }}">
+														<input type="hidden" name="idp" value="{{ $pembayaran->id }}">
 														<div class="row">
 																<div class="form-group col-md-10">
 																		<label for="input-hasil">Nama Lengkap Konsumen</label>

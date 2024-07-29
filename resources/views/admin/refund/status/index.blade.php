@@ -77,7 +77,8 @@
 																								@elseif($refund->status_pengajuan == 'ditolak')
 																										<button class="btn btn-danger btn-block" disabled>Di tolak</button>
 																								@else
-																										@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung) && is_null($refund->manual))
+																										@if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung))
+																												{{-- @if (in_array($refund->pembayaran->metode_pembayaran, $metodeDidukung) && is_null($refund->manual)) --}}
 																												<button type="button"
 																														class="btn btn-block {{ in_array($refund->status_pengajuan, ['menunggu', 'ditolak', 'completed']) ? 'btn-secondary' : 'btn-success' }} mb-2"
 																														data-toggle="modal" data-target="#modalAutoRefund{{ $refund->id }}"

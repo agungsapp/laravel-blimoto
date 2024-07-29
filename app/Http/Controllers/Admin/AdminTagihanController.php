@@ -31,37 +31,41 @@ class AdminTagihanController extends Controller
             ->whereDoesntHave('detailPembayaran', function ($query) {
                 $query->where('status', 'pelunasan');
             })
+            ->whereHas('hasil', function ($query) {
+                $query->where('hasil', 'DO');
+            })
             ->with([
                 'motor',
-                'detailPembayaran'
+                'detailPembayaran',
+                'hasil'
             ])
             ->withSum('detailPembayaran', 'jumlah_bayar')
             ->get();
 
+        $totalBelumBayarKeDealer = 0;
 
         foreach ($penjualan as $p) {
             $p->cicilan = $p->cicilan_yang_sesuai;
             $p->diskon_motor = $p->diskon_motor_yang_sesuai;
-            // $p->tanggal = $p->detail_pembayaran->created_at;
-            // Memeriksa apakah ada detail pembayaran
             $p->tanggal_bayar = $p->detailPembayaran->first()->created_at;
             $p->tanda_jadi = $p->detailPembayaran->first()->jumlah_bayar;
+
+            $belumBayarKeDealer = (int) $p->cicilan->dp - (int) $p->diskon_motor->diskon - $p->tanda_jadi;
+            $totalBelumBayarKeDealer += $belumBayarKeDealer;
         }
-        // return response()->json($penjualan);
-
-
-
 
         $data = [
             'sales' => Sales::all(),
             'kota' => Kota::all(),
             'hasil' => Hasil::all(),
             'motor' => Motor::all(),
-            'penjualan' => $penjualan // Tambahkan data penjualan yang sudah difilter
+            'penjualan' => $penjualan,
+            'totalBelumBayarKeDealer' => $totalBelumBayarKeDealer
         ];
 
         return view('admin.laporan_tagihan.belum_bayar.index', $data);
     }
+
 
     /**
      * Show the form for creating a new resource.

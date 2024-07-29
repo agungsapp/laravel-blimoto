@@ -17,7 +17,7 @@ class AdminStatusRefund extends Controller
             'refunds' => PengajuanRefundModel::all(),
         ];
 
-        // dd($data['refunds'][2]->manual);
+        // dd($data['refunds'][0]->manual);
         // dd($data['refunds'][2]->manual);
 
         return view('admin.refund.status.index', $data);

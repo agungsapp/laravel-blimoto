@@ -77,14 +77,14 @@
 																								@endif
 																						@endif --}}
 
-																						<div>
+																						{{-- <div>
 																								<button type="button" class="btn btn-secondary w-100 load-detail-modal mb-1"
 																										data-id="{{ $p->id }}"
 																										data-url="{{ route('admin.penjualan.getPenjualan', ['id' => $p->id]) }}" data-toggle="modal"
 																										data-target="#modalDetail">
 																										Detail
 																								</button>
-																						</div>
+																						</div> --}}
 																				</td>
 																		</tr>
 																@endforeach
