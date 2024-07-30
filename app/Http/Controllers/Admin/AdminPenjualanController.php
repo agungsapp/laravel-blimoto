@@ -132,7 +132,6 @@ class AdminPenjualanController extends Controller
     // END PENGECEKAN PO WAJIB SAAT STATUS HASIL DO
 
 
-
     // dd($request->all());
 
     if ($validator->fails()) {

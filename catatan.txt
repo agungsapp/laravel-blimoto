@@ -1,0 +1,7 @@
+jalankan migration manual di vps mulai dari 
+
+
+PERTIMBANGKAN PERUBAHAN DATA MATANG MATANG. 
+
+- alter detail motor
+- add id color penjualan

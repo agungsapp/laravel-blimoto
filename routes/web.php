@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\AdminTagihanController;
 use App\Http\Controllers\Admin\AdminTagihanSudahBayarController;
 use App\Http\Controllers\Admin\AdminTypeSlikController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminWarnaMotorController;
 use App\Http\Controllers\Admin\Auth\LoginAdminController;
 use App\Http\Controllers\Admin\Auth\LogoutAdminController;
 use App\Http\Controllers\Admin\BestMotorController;
@@ -176,7 +177,7 @@ Route::get('/serverSideMotorKota', [MotorKotaController::class, 'dataTable'])->n
 Route::get('/serverSideDiskonMotor', [AdminDiskonMotorController::class, 'dataTable'])->name('serverSideDiskonMotor');
 Route::get('/serverSideCicilanMotor', [AdminCicilanMotorController::class, 'dataTable'])->name('serverSideCicilanMotor');
 Route::get('/serverSideDetailMotor', [DetailMotorController::class, 'serverSideDataTable'])->name('serverSideDetailMotor');
-
+// end datatables
 Route::resource('/cari-diskon', CariDiskonController::class);
 
 // admin area
@@ -264,6 +265,7 @@ Route::prefix('app')->name('admin.')->group(function () {
             Route::resource('kota', KotaController::class);
             Route::resource('hook', HookController::class);
             Route::resource('detail-motor', DetailMotorController::class);
+            Route::resource('warna-motor', AdminWarnaMotorController::class);
             Route::resource('brosur-motor', BrosurMotorController::class);
             Route::resource('kota-motor', MotorKotaController::class);
             Route::resource('blog', BlogController::class);
