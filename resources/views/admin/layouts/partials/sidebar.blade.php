@@ -154,9 +154,9 @@
 
 										{{-- master motor --}}
 										<li
-												class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
+												class="nav-item {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.warna-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
 												<a href="#"
-														class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'active' : '' }}">
+														class="nav-link {{ \Route::is('admin.motor.*') || \Route::is('admin.detail-motor.*') || \Route::is('admin.warna-motor.*') || \Route::is('admin.best-motor.*') || \Route::is('admin.mtr-best-motor.*') || \Route::is('admin.type-motor.*') || \Route::is('admin.merk-motor.*') || \Route::is('admin.diskon-motor.*') || \Route::is('admin.brosur-motor.*') || \Route::is('admin.color.color.*') ? 'active' : '' }}">
 														<i class="nav-icon fas fa-motorcycle"></i>
 														<p>
 																Master Motor
@@ -186,6 +186,42 @@
 																		<p>Tambah Detail Motor</p>
 																</a>
 														</li>
+
+														{{-- colapse data warana --}}
+														<li
+																class="nav-item {{ \Route::is('admin.sales.*') || \Route::is('admin.warna-motor.*') || \Route::is('admin.color.color.*') ? 'menu-open' : '' }}">
+																<a href="#"
+																		class="nav-link {{ \Route::is('admin.sales.*') || \Route::is('admin.warna-motor.*') || \Route::is('admin.color.color.*') ? 'active' : '' }}">
+																		<i class="far fa-circle nav-icon"></i>
+																		<p>
+																				Data Warna
+																				<i class="right fas fa-angle-left"></i>
+																		</p>
+																</a>
+																<ul class="nav nav-treeview">
+																		{{-- tambah data warna --}}
+																		<li class="nav-item">
+																				<a href="{{ route('admin.color.color.index') }}"
+																						class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
+																						<i class="far fa-circle nav-icon"></i>
+																						<p>Tambah Data Warna</p>
+																				</a>
+																		</li>
+																		{{-- tambah warna motor --}}
+																		<li class="nav-item">
+																				<a href="{{ route('admin.warna-motor.index') }}"
+																						class="nav-link {{ \Route::is('admin.warna-motor.*') ? 'active' : '' }}">
+																						<i class="far fa-circle nav-icon"></i>
+																						<p>Tambah Warna Motor</p>
+																				</a>
+																		</li>
+
+
+																</ul>
+														</li>
+														{{-- end collapse data warna --}}
+
+
 														<li class="nav-item">
 																<a href="{{ route('admin.best-motor.index') }}"
 																		class="nav-link {{ \Route::is('admin.best-motor.*') ? 'active' : '' }}">
@@ -214,13 +250,7 @@
 																		<p>Data Merk Motor</p>
 																</a>
 														</li>
-														<li class="nav-item">
-																<a href="{{ route('admin.color.color.index') }}"
-																		class="nav-link {{ \Route::is('admin.color.color.*') ? 'active' : '' }}">
-																		<i class="far fa-circle nav-icon"></i>
-																		<p>Tambah Data Warna</p>
-																</a>
-														</li>
+
 														<li class="nav-item">
 																<a href="{{ route('admin.diskon-motor.index') }}"
 																		class="nav-link {{ \Route::is('admin.diskon-motor.*') ? 'active' : '' }}">
