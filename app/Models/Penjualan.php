@@ -16,7 +16,7 @@ class Penjualan extends Model
     'tenor',
     'metode_pembelian',
     'metode_pembayaran',
-    'warna_motor',
+    'id_color',
     'no_hp',
     'bpkb',
     'dp',
@@ -88,6 +88,12 @@ class Penjualan extends Model
   {
     return $this->belongsTo(AksesPenjualanModel::class, 'id', 'id_penjualan')
       ->where('status', $status); // Tambahkan kondisi where di sini
+  }
+
+
+  public function color()
+  {
+    return $this->belongsTo(ColorModel::class, 'id_color', 'id');
   }
 
 

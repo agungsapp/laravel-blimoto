@@ -50,3 +50,4 @@ Route::post('testing', [TruncatePenjualanController::class, 'test']);
 // belum clear, pengajuan manualnya 
 
 Route::get('getLokasi', [ApiUtilityController::class, 'getLokasi'])->name('api.getLokasi');
+Route::get('getWarnaMotor/{id}', [ApiUtilityController::class, 'getWarnaMotor'])->name('api.getWarnaMotor');

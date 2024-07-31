@@ -70,7 +70,7 @@
 																						<td>{{ Str::rupiah($p->total_lunas) }}</td>
 																						<td>{{ $p->leasing->nama ?? 'cash' }}</td>
 																						<td>{{ $p->motor->nama }}</td>
-																						<td>{{ $p->warna_motor }}</td>
+																						<td>{{ $p->color->nama }}</td>
 																						<td>{{ $p->hasil->hasil }}</td>
 																						<td>{{ $p->metode_pembayaran }}</td>
 																						<td>{{ $p->no_po }}</td>
