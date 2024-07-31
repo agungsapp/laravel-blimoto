@@ -116,6 +116,7 @@ class AdminPenjualanController extends Controller
       // 'dp_asli' => 'required',
       // 'angsuran' => 'required',
       'motor' => 'required',
+      'warna_motor' => 'required',
       'jumlah' => 'required',
       'status_pembayaran' => 'required',
       'metode_pembayaran' => 'required',
@@ -188,7 +189,7 @@ class AdminPenjualanController extends Controller
       $penjualan->tenor = $tenor;
       $penjualan->metode_pembelian = $pembelian;
       $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
-      $penjualan->warna_motor = $warna_motor;
+      $penjualan->id_color = $warna_motor;
       $penjualan->no_hp = $request->input('no_hp') ?? null;
       $penjualan->bpkb = $request->input('bpkb') ?? null;
 
@@ -411,6 +412,7 @@ class AdminPenjualanController extends Controller
       'kabupaten' => 'required',
       'hasil' => 'required',
       'motor' => 'required',
+      'warna_motor' => 'required',
       'jumlah' => 'required',
       'status_pembayaran' => 'required',
     ];
@@ -563,7 +565,7 @@ class AdminPenjualanController extends Controller
         'no_po' => $nomorPo,
         'bpkb' => $request->bpkb ?? null,
         'no_hp' => $request->no_hp ?? null,
-        'warna_motor' => $warna_motor,
+        'id_color' => $warna_motor,
         'is_edit' => 0,
       ]);
 

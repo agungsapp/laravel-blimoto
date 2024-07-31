@@ -133,8 +133,8 @@
 																						@else
 																								<select id="warna_motor" name="warna_motor" class="form-control select2" style="width: 100%;">
 																										<option value="">-- Pilih warna motor --</option>
-																												<option value="">
-																														</option>
+																										<option value="">
+																										</option>
 																								</select>
 																						@endif
 																				</div>
@@ -207,7 +207,7 @@
 																						<label id="dp_label" for="input-dp">TDP <span class="text-danger">*</span></label>
 																						<input name="dp" type="number" min="0" class="form-control"
 																								placeholder="Masukan DP" id="input-dp" value="{{ old('dp') ?? 0 }}"
-																								aria-describedby="dpHelp">
+																								aria-describedby="dpHelp" value="100000">
 																						<div id="dpHelp" class="d-none helper_info_minimal_dp text-info form-text">Dp minimal untuk
 																								motor <span class="nama_motor_help"></span> adalah <span class="minimal_motor_help"></span>.
 																						</div>
@@ -216,8 +216,8 @@
 																				<div class="form-group col-md-6 d-none" id="tj_wrapper">
 																						<label id="tj_label" for="input-dp">Tanda Jadi <span class="text-danger">*</span></label>
 																						<input name="tj" type="number" min="0" class="form-control"
-																								placeholder="Masukan tanda jadi " id="input-dp" value="{{ old('tj') }}"
-																								aria-describedby="tjHelp">
+																								placeholder="Masukan tanda jadi" id="input-dp" value="{{ old('tj') }}"
+																								aria-describedby="tjHelp" value="100000">
 																						<div id="tjHelp" class="d-none helper_info_minimal_dp text-info form-text">Tanda jadi minimal
 																								untuk motor <span class="nama_motor_help"></span> adalah <span
 																										class="minimal_motor_help"></span>
@@ -471,6 +471,26 @@
 						}
 				};
 
+				const fetchWarnaMotor = async (id_motor) => {
+						try {
+								const response = await fetch(`http://localhost:8000/api/getWarnaMotor/${id_motor}`);
+								const data = await response.json();
+								const warnaMotorSelect = $('#warna_motor');
+								warnaMotorSelect.empty().append('<option value="" selected>-- Pilih Warna Motor --</option>');
+
+								if (data.data.length > 0) {
+										const options = data.data.map(item => `<option value="${item.color.id}">${item.color.nama}</option>`);
+										warnaMotorSelect.append(options.join(''));
+								} else {
+										warnaMotorSelect.append('<option value="">Tidak ada data warna motor</option>');
+								}
+						} catch (error) {
+								console.error('Terjadi kesalahan:', error);
+						}
+				};
+
+				
+
 				$(document).ready(function() {
 						['#motor-input', '#kabupaten-input', '#leasing-input', '[name="tenor"]'].forEach(selector => {
 								$(selector).on('change', fetchCicilan);
@@ -504,6 +524,8 @@
 
 						$('#motor-input').on('change', function() {
 								const motorId = $(this).val();
+								fetchWarnaMotor(motorId);
+
 								$.ajax({
 										url: '/api/get-motor',
 										method: 'POST',

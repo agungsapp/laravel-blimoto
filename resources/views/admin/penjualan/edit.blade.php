@@ -85,11 +85,8 @@
 																						@else
 																								<select id="warna_motor" name="warna_motor" class="form-control select2" style="width: 100%;">
 																										<option value="">-- Pilih warna motor --</option>
-																										@foreach ($colors as $c)
-																												<option value="{{ $c->nama }}"
-																														{{ old('warna_motor') ?? $penjualan->warna_motor == $c->nama ? 'selected' : '' }}>
-																														{{ $c->nama }}</option>
-																										@endforeach
+																										<option value="">
+																										</option>
 																								</select>
 																						@endif
 																				</div>
@@ -358,6 +355,10 @@
 
 
 
+
+
+
+
 				const fetchCicilan = () => {
 						const id_motor = $('#motor-input').val();
 						const id_lokasi = $('#kabupaten-input').val();
@@ -399,9 +400,6 @@
 								});
 						}
 				}
-
-
-
 
 				const displayDPTenor = (metode) => {
 						const tenor = $('#tenor_wrapper');
@@ -540,27 +538,81 @@
 								displayDPTenor(selectedMethod);
 						});
 
-						$('#motor-input').on('change', function() {
-								const motorId = $(this).val();
-								$.ajax({
-										url: '/api/get-motor',
-										method: 'POST',
-										data: {
-												id: motorId,
-												_token: '{{ csrf_token() }}'
+
+
+
+						function fetchWarnaMotor(motorId) {
+								return $.ajax({
+										url: `/api/getWarnaMotor/${motorId}`,
+										method: 'GET',
+										success: (response) => {
+												console.log('Data warna motor:', response); // Tambahkan log untuk melihat respons
+
+												let warnaMotorSelect = $('#warna_motor');
+												warnaMotorSelect.empty();
+
+												if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+														warnaMotorSelect.append('<option value="">-- Pilih warna motor --</option>');
+														response.data.forEach((warna) => {
+																let isSelected = warna.color.id == penjualan.id_color ? 'selected' : '';
+																warnaMotorSelect.append(
+																		`<option value="${warna.color.id}" ${isSelected}>${warna.color.nama}</option>`);
+														});
+												} else {
+														warnaMotorSelect.append('<option value="">-- Data warna tidak tersedia --</option>');
+														console.error('Data warna tidak tersedia:', response.message);
+												}
 										},
-										success: (data) => {
-												$('.helper_info_minimal_dp').removeClass('d-none');
-												$('.nama_motor_help').text(data.nama);
-												$('.minimal_motor_help').text(formatRupiah(data.minimal_dp));
-										},
-										error: (error) => {
-												const errorData = JSON.parse(error.responseText);
-												alert(errorData.message);
-												console.error('Terjadi kesalahan:', error);
+										error: (xhr) => {
+												console.error('Terjadi kesalahan dalam mengambil data warna motor:', xhr.responseText);
+												let warnaMotorSelect = $('#warna_motor');
+												warnaMotorSelect.empty();
+												warnaMotorSelect.append('<option value="">-- Data warna tidak tersedia --</option>');
 										}
 								});
+						}
+
+
+						// Mengambil data warna motor saat halaman pertama kali di-load
+						const initialMotorId = $('#motor-input').val();
+						if (initialMotorId) {
+								fetchWarnaMotor(initialMotorId);
+						}
+
+						// Mengambil data warna motor saat motor diubah
+						$('#motor-input').on('change', function() {
+								const motorId = $(this).val();
+								if (motorId) {
+										fetchWarnaMotor(motorId).then(() => {
+												$.ajax({
+														url: `/api/getMotor/${motorId}`,
+														method: 'GET',
+														success: (data) => {
+																$('.helper_info_minimal_dp').removeClass('d-none');
+																$('.nama_motor_help').text(data.nama);
+																$('.minimal_motor_help').text(formatRupiah(data.minimal_dp));
+														},
+														error: (error) => {
+																try {
+																		const errorData = JSON.parse(error.responseText);
+																		alert(errorData.message);
+																		console.error('Terjadi kesalahan:', errorData.message);
+																} catch (e) {
+																		console.error('Terjadi kesalahan dalam memparsing respons error:', e);
+																		console.error('Respons error:', error.responseText);
+																}
+														}
+												});
+										}).catch(error => {
+												console.error('Terjadi kesalahan dalam fetchWarnaMotor:', error);
+										});
+								}
 						});
+
+						return true; // Ensure the message channel remains open
+
+
+
 
 						// Fetch cicilan data if there are validation errors
 						if (hasValidationErrors()) {
